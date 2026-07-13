@@ -1,0 +1,190 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = "Spiffy Shepherd", description = "Landing page" } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div id="page-loader" class="page-loader">
+      <div class="spinner"></div>
+    </div>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --color-primary: #6366f1;
+    --color-secondary: #ec4899;
+    --color-surface: #ffffff;
+    --color-bg: #f8fafc;
+    --color-text: #1f2937;
+    --color-text-muted: #6b7280;
+    --max-width: 1200px;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.6;
+  }
+  section { padding: 5rem 1rem; }
+  .container { max-width: var(--max-width); margin: 0 auto; }
+
+  .page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .page-loader.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .page-loader .spinner {
+    width: 44px;
+    height: 44px;
+    border: 4px solid #dbeafe;
+    border-top-color: #2563eb;
+    border-radius: 999px;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in-view {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* --- utilidades de animación --- */
+  .hover-lift {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.15);
+  }
+
+  .hover-pop {
+    transition: transform 0.2s ease;
+  }
+  .hover-pop:hover {
+    transform: scale(1.06);
+  }
+
+  .icon-bounce {
+    transition: transform 0.25s ease;
+  }
+  .icon-bounce:hover {
+    animation: bounce-icon 0.6s ease;
+  }
+  @keyframes bounce-icon {
+    0%, 100% { transform: translateY(0) scale(1); }
+    30% { transform: translateY(-6px) scale(1.08); }
+    60% { transform: translateY(0) scale(0.98); }
+  }
+
+  .pulse-ring {
+    position: relative;
+  }
+  .pulse-ring::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.45);
+    animation: pulse-ring 2.2s ease-out infinite;
+    pointer-events: none;
+  }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.45); }
+    80% { box-shadow: 0 0 0 16px rgba(37, 99, 235, 0); }
+    100% { box-shadow: 0 0 0 16px rgba(37, 99, 235, 0); }
+  }
+  .pulse-ring.whatsapp::after {
+    box-shadow: 0 0 0 0 rgba(37, 197, 94, 0.45);
+  }
+  @keyframes pulse-ring-wa {
+    0% { box-shadow: 0 0 0 0 rgba(37, 197, 94, 0.45); }
+    80% { box-shadow: 0 0 0 16px rgba(37, 197, 94, 0); }
+    100% { box-shadow: 0 0 0 16px rgba(37, 197, 94, 0); }
+  }
+  .pulse-ring.whatsapp::after { animation-name: pulse-ring-wa; }
+
+  .float-anim {
+    animation: float-anim 4s ease-in-out infinite;
+  }
+  @keyframes float-anim {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hover-lift, .hover-pop, .icon-bounce, .pulse-ring::after, .float-anim {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  const loader = document.getElementById("page-loader");
+
+  document.addEventListener("click", (e) => {
+    const link = (e.target as HTMLElement).closest("a");
+    if (!link) return;
+    const href = link.getAttribute("href");
+    if (!href || href.startsWith("#") || href.startsWith("http") || link.target === "_blank") return;
+    loader?.classList.add("active");
+  });
+
+  window.addEventListener("pageshow", () => {
+    loader?.classList.remove("active");
+  });
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+  );
+
+  document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+</script>

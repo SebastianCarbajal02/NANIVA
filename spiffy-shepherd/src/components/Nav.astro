@@ -1,0 +1,163 @@
+---
+const links = [
+  { label: "Inicio", href: "/" },
+  { label: "Servicios", href: "/servicios" },
+  { label: "Planes", href: "/planes" },
+  { label: "Contáctanos", href: "/contacto" },
+];
+---
+<header class="nav">
+  <div class="nav-inner">
+    <nav class="links" id="navLinks">
+      {links.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+</header>
+
+<style>
+  .nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background: transparent;
+  }
+  .nav-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1rem 1.5rem;
+  }
+  .links {
+    display: flex;
+    gap: 5rem;
+    flex: 1;
+    justify-content: center;
+  }
+  .links a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  .links a:hover {
+    color: #1e3a8a;
+    text-decoration: underline;
+    text-decoration-color: #1e3a8a;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 3px;
+  }
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    cursor: pointer;
+    margin-left: auto;
+    position: relative;
+    z-index: 2;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #0f172a;
+    margin: 0 auto;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-toggle.open span:nth-child(2) { opacity: 0; }
+  .menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .menu-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    z-index: 0;
+  }
+  .menu-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (max-width: 768px) {
+    .menu-toggle { display: flex; }
+    .links {
+      display: flex;
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: min(80vw, 320px);
+      flex-direction: column;
+      gap: 0;
+      background: white;
+      box-shadow: -10px 0 40px rgba(15,23,42,0.25);
+      transform: translateX(100%);
+      transition: transform 0.35s ease;
+      padding-top: 6rem;
+      justify-content: flex-start;
+      z-index: 1;
+    }
+    .links.open {
+      transform: translateX(0);
+    }
+    .links a {
+      margin-top: 0;
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 1.1rem;
+    }
+    .links a:last-child { border-bottom: none; }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById("menuToggle");
+  const links = document.getElementById("navLinks");
+  const backdrop = document.getElementById("menuBackdrop");
+
+  function closeMenu() {
+    links?.classList.remove("open");
+    toggle?.classList.remove("open");
+    backdrop?.classList.remove("open");
+    toggle?.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = links?.classList.toggle("open");
+    toggle.classList.toggle("open");
+    backdrop?.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  });
+
+  backdrop?.addEventListener("click", closeMenu);
+  links?.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMenu));
+</script>

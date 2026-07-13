@@ -1,0 +1,482 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import Footer from '../components/Footer.astro';
+import banner from '../assets/image/banner-planes.webp';
+import logo from '../assets/image/logo.webp';
+
+const planFeatures = [
+  { icon: "🏷️", title: "Planes flexibles", desc: "para cada necesidad" },
+  { icon: "📈", title: "Impulsa", desc: "tu crecimiento" },
+  { icon: "🛡️", title: "Seguridad y", desc: "confianza" },
+  { icon: "👥", title: "Soporte", desc: "especializado" },
+];
+
+const plans = [
+  {
+    id: "basico",
+    name: "Básico",
+    color: "#2563eb",
+    bg: "linear-gradient(135deg, #eaf1ff, #f5f9ff)",
+    monthly: 49,
+    yearly: 39,
+    popular: false,
+    items: ["Facturas SUNAT ilimitadas", "Catálogo de hasta 100 productos", "1 Usuario", "Soporte por email"],
+  },
+  {
+    id: "pro",
+    name: "Pro",
+    color: "#16a34a",
+    bg: "linear-gradient(135deg, #e8fbee, #f4fdf7)",
+    monthly: 99,
+    yearly: 79,
+    popular: true,
+    items: ["Facturación ilimitada", "Catálogo Digital con WhatsApp", "Tienda Virtual", "Códigos QR", "3 Usuarios", "Soporte prioritario"],
+  },
+  {
+    id: "empresarial",
+    name: "Empresarial",
+    color: "#9333ea",
+    bg: "linear-gradient(135deg, #f3e8ff, #f9f4ff)",
+    monthly: 199,
+    yearly: 159,
+    popular: false,
+    items: ["Todo lo del plan Pro", "Sistema POS para Restaurantes", "Control de Mesas y Delivery", "Inventario en tiempo real", "Usuarios ilimitados", "Soporte 24/7 dedicado"],
+  },
+];
+
+const compareRows = [
+  { label: "Usuarios", basico: "1 Usuario", pro: "3 Usuarios", empresarial: "Usuarios ilimitados" },
+  { label: "Facturación Electrónica", basico: "yes", pro: "yes", empresarial: "yes" },
+  { label: "Catálogo Digital", basico: "no", pro: "yes", empresarial: "yes" },
+  { label: "Pedidos por WhatsApp", basico: "no", pro: "yes", empresarial: "yes" },
+  { label: "Sistema POS Táctil", basico: "no", pro: "no", empresarial: "yes" },
+  { label: "Gestión de Delivery", basico: "no", pro: "Básico", empresarial: "Avanzado" },
+  { label: "Reportes Avanzados", basico: "no", pro: "yes", empresarial: "yes" },
+  { label: "Soporte 24/7", basico: "Email", pro: "Prioritario", empresarial: "Dedicado" },
+];
+
+function renderCell(value: string) {
+  if (value === "yes") return "Sí ✅";
+  if (value === "no") return "No ❌";
+  return value;
+}
+---
+<BaseLayout title="Planes - NANIVA" description="Elige el plan NANIVA ideal para tu negocio: Básico, Pro o Empresarial. Facturación electrónica, catálogo digital y sistema POS.">
+  <Nav />
+  <section class="banner" style={`background-image: url('${banner.src}');`}>
+    <div class="content reveal">
+      <img src={logo.src} alt="Naniva" class="logo" />
+      <h1>Descubre nuestros<br /><span class="highlight">PLANES</span></h1>
+      <p>La solución perfecta para<br />hacer <span class="p-highlight">crecer tu negocio</span></p>
+      <div class="plan-features">
+        {planFeatures.map((f) => (
+          <div class="plan-feature">
+            <span class="plan-feature-icon icon-bounce">{f.icon}</span>
+            <span class="plan-feature-label">{f.title}<br />{f.desc}</span>
+          </div>
+        ))}
+      </div>
+      <div class="banner-note">
+        <span class="note-icon">⭐</span>
+        <span>Elige el plan ideal y lleva tu negocio<br /><strong>al siguiente nivel ↗</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing">
+    <div class="container">
+      <div class="toggle" id="billingToggle">
+        <button class="toggle-btn active" data-period="monthly">Mensual</button>
+        <button class="toggle-btn" data-period="yearly">Anual</button>
+      </div>
+
+      <div class="plans-grid">
+        {plans.map((p, i) => (
+          <div class="plan-card reveal hover-lift" style={`background:${p.bg}; border-color:${p.color}; transition-delay:${i * 0.1}s`}>
+            {p.popular && <div class="badge pulse-ring" style={`background:${p.color}`}>Más Popular</div>}
+            <h3>{p.name}</h3>
+            <div class="price">
+              <span class="currency">S/</span>
+              <span class="amount" data-monthly={p.monthly} data-yearly={p.yearly}>{p.monthly}</span>
+              <span class="period">/mes</span>
+            </div>
+            <ul>
+              {p.items.map((item) => (
+                <li><span class="check" style={`color:${p.color}`}>✓</span>{item}</li>
+              ))}
+            </ul>
+            <a href="#contacto" class="choose-btn hover-pop" style={`background:${p.color}`}>Elegir Plan</a>
+          </div>
+        ))}
+      </div>
+
+      <div class="compare reveal">
+        <h3>Compara todas las características en detalle</h3>
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>Características</th>
+                <th>Básico</th>
+                <th>Pro</th>
+                <th>Empresarial</th>
+              </tr>
+            </thead>
+            <tbody>
+              {compareRows.map((row) => (
+                <tr>
+                  <td class="feature-name">{row.label}</td>
+                  <td>{renderCell(row.basico)}</td>
+                  <td>{renderCell(row.pro)}</td>
+                  <td>{renderCell(row.empresarial)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="super-pack reveal">
+        <div class="pack-info">
+          <div class="pack-title-row">
+            <span class="pack-icon">💎</span>
+            <span class="pack-title">Súper Pack</span>
+            <span class="pack-tag">Más vendido</span>
+          </div>
+          <div class="pack-desc">Facturación Electrónica + Catálogo Digital</div>
+          <p>La combinación perfecta para hacer crecer tu negocio.</p>
+        </div>
+        <div class="pack-combo">
+          <div class="pack-item pack-item-blue">📋<br />Facturación<br />Electrónica</div>
+          <span class="plus">+</span>
+          <div class="pack-item pack-item-green">📇<br />Catálogo<br />Digital</div>
+        </div>
+        <div class="pack-price">
+          <span class="equals">=</span>
+          <div>
+            <div class="pack-price-label">Desde</div>
+            <div class="pack-price-amount">S/<strong>89</strong>/mes</div>
+          </div>
+          <a href="#contacto" class="pack-btn hover-pop">Lo quiero</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner />
+  <Footer />
+</BaseLayout>
+
+<style>
+  .banner {
+    position: relative;
+    min-height: 98vh;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 8rem 1.5rem 2rem 4rem;
+  }
+  .content {
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1rem;
+  }
+  .logo {
+    height: 92px;
+    width: auto;
+    object-fit: contain;
+    transform: translateY(-4rem);
+  }
+  .content h1 {
+    font-size: clamp(2.5rem, 3.2vw, 2.5rem);
+    font-weight: 798;
+    line-height: 1.15;
+    color: #0f172a;
+    transform: translateY(-0.75rem);
+  }
+  .content .highlight {
+    color: #007bff;
+  }
+  .content p {
+    font-size: 1.3rem;
+    font-weight: 650;
+    color: #334155;
+  }
+  .p-highlight {
+    color: #2563eb;
+  }
+  .plan-features {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  .plan-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    width: 76px;
+    text-align: center;
+  }
+  .plan-feature-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(15,23,42,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+  }
+  .plan-feature-label {
+    font-size: 0.72rem;
+    font-weight: 640;
+    color: #0f172a;
+    line-height: 1.3;
+  }
+  .banner-note {
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(219, 234, 254, 0.9);
+    padding: 0.75rem 1.25rem;
+    border-radius: 14px;
+    font-size: 0.85rem;
+    color: #1e3a8a;
+  }
+  .note-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: #2563eb;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+  }
+  .banner-note strong { color: #2563eb; }
+  @media (max-width: 900px) {
+    .banner { padding-left: 1.5rem; }
+  }
+  @media (max-width: 768px) {
+    .banner {
+      background-position: 70% center;
+      min-height: auto;
+      padding: 6.5rem 1rem 2rem;
+    }
+    .content {
+      max-width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+    }
+    .logo { transform: translateY(-1rem); height: 64px; }
+    .content h1 { transform: none; font-size: clamp(1.8rem, 7vw, 2.5rem); }
+    .content p { font-size: 1rem; }
+    .plan-features { justify-content: center; gap: 0.75rem; }
+    .plan-feature { width: 64px; }
+    .plan-feature-icon { width: 56px; height: 56px; font-size: 1.5rem; }
+    .banner-note { flex-wrap: wrap; }
+  }
+
+  .pricing { background: #f8fafc; padding: 4rem 0; }
+  .toggle {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    background: white;
+    border-radius: 999px;
+    padding: 0.35rem;
+    width: max-content;
+    margin: 0 auto 3rem;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.08);
+  }
+  .toggle-btn {
+    border: none;
+    background: transparent;
+    padding: 0.6rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #64748b;
+    cursor: pointer;
+  }
+  .toggle-btn.active {
+    background: #2563eb;
+    color: white;
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  @media (max-width: 900px) {
+    .plans-grid { grid-template-columns: 1fr; }
+  }
+  .plan-card {
+    position: relative;
+    border: 2px solid;
+    border-radius: 18px;
+    padding: 2rem 1.75rem;
+    text-align: center;
+  }
+  .badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
+  }
+  .plan-card h3 { font-size: 1.3rem; color: #0f172a; margin-bottom: 0.75rem; }
+  .price { margin-bottom: 1.5rem; }
+  .currency { font-size: 1.2rem; font-weight: 700; color: #0f172a; }
+  .amount { font-size: 2.5rem; font-weight: 800; color: #0f172a; }
+  .period { color: #64748b; font-size: 0.9rem; }
+  .plan-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+  .plan-card li { display: flex; align-items: center; gap: 0.5rem; color: #334155; font-size: 0.95rem; }
+  .check { font-weight: 700; flex-shrink: 0; }
+  .choose-btn {
+    display: block;
+    color: white;
+    padding: 0.85rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .compare { margin-bottom: 4rem; }
+  .compare h3 { text-align: center; font-size: 1.3rem; color: #0f172a; margin-bottom: 1.75rem; }
+  .compare-table-wrap {
+    overflow-x: auto;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.06);
+  }
+  .compare-table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  .compare-table th, .compare-table td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+  }
+  .compare-table th { color: #0f172a; font-weight: 700; }
+  .compare-table tbody tr:last-child td { border-bottom: none; }
+  .feature-name { font-weight: 600; color: #1e293b; }
+  .compare-table td:not(.feature-name) { color: #475569; }
+
+  .super-pack {
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    padding: 2rem calc((100vw - 100%) / 2 + 2rem);
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    color: white;
+  }
+  .pack-info { flex: 1.2; min-width: 240px; }
+  .pack-title-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+  .pack-icon { font-size: 1.2rem; }
+  .pack-title { font-weight: 700; font-size: 1.1rem; }
+  .pack-tag {
+    background: #f59e0b;
+    color: #1e293b;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+  }
+  .pack-desc { font-weight: 600; margin-bottom: 0.4rem; }
+  .pack-info p { color: #cbd5e1; font-size: 0.9rem; }
+  .pack-combo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    justify-content: center;
+    min-width: 260px;
+  }
+  .pack-item {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .pack-item-blue { box-shadow: 0 0 0 2px #2563eb inset; }
+  .pack-item-green { box-shadow: 0 0 0 2px #16a34a inset; }
+  .plus, .equals { font-size: 1.4rem; font-weight: 700; color: #94a3b8; }
+  .pack-price {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pack-price-label { font-size: 0.75rem; color: #cbd5e1; }
+  .pack-price-amount { font-size: 1.3rem; font-weight: 800; }
+  .pack-btn {
+    background: #f59e0b;
+    color: #1e293b;
+    font-weight: 700;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 600px) {
+    .super-pack { padding: 1.5rem 1rem; }
+    .plans-grid { margin-bottom: 3rem; }
+    .plan-card { padding: 1.75rem 1.25rem; }
+    .compare-table th, .compare-table td { padding: 0.85rem 1rem; font-size: 0.85rem; }
+    .pack-combo, .pack-price { width: 100%; justify-content: center; }
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll("#billingToggle .toggle-btn");
+  const amounts = document.querySelectorAll(".amount");
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      buttons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const period = btn.getAttribute("data-period");
+      amounts.forEach((el) => {
+        const value = period === "yearly" ? el.getAttribute("data-yearly") : el.getAttribute("data-monthly");
+        el.textContent = value;
+      });
+    });
+  });
+</script>

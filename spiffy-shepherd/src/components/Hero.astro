@@ -1,0 +1,200 @@
+---
+import banner from '../assets/image/banner.webp';
+import logo from '../assets/image/logo.webp';
+import iconFactura from '../assets/image/Icon-factura.webp';
+import iconCatalogo from '../assets/image/Icon-catalgoo.webp';
+import iconRestaurante from '../assets/image/Icon-restaurante.webp';
+import iconSoftware from '../assets/image/Icon-software.webp';
+import iconSunat from '../assets/image/sunat-Photoroom.webp';
+import iconVisa from '../assets/image/Visa-Logo.webp';
+import iconMastercard from '../assets/image/mastecard.webp';
+import iconYape from '../assets/image/YAPE.webp';
+
+export interface Props {
+  title?: string;
+  highlight?: string;
+  subtitle?: string;
+}
+const {
+  title = "Lleva tu negocio al siguiente",
+  highlight = "NIVEL",
+  subtitle = "Soluciones inteligentes ideales para tu negocio",
+} = Astro.props;
+
+const features = [
+  { icon: iconFactura, label: "Facturación" },
+  { icon: iconCatalogo, label: "Catálogo Digital" },
+  { icon: iconRestaurante, label: "Restaurante" },
+  { icon: iconSoftware, label: "Software a la medida" },
+];
+
+const partners = [
+  { label: "SUNAT", icon: iconSunat },
+  { label: "Yape", icon: iconYape },
+  { label: "VISA", icon: iconVisa },
+  { label: "Mastercard", icon: iconMastercard },
+  { label: "WhatsApp", isWhatsapp: true },
+];
+---
+<section class="hero" style={`background-image: url('${banner.src}');`}>
+  <div class="content reveal">
+    <img src={logo.src} alt="Naniva" class="logo" />
+    <h1>{title}<br /><span class="highlight">{highlight}</span></h1>
+    <p>Soluciones inteligentes ideales<br />para tu negocio</p>
+    <div class="features">
+      {features.map((f) => (
+        <div class="feature">
+          <span class="feature-icon"><img src={f.icon.src} alt={f.label} /></span>
+          <span class="feature-label">{f.label}</span>
+        </div>
+      ))}
+    </div>
+    <div class="partners">
+      <span class="partners-label">Compatibles con:</span>
+      {partners.map((p) => (
+        p.icon ? (
+          <img src={p.icon.src} alt={p.label} class={`partner-icon ${p.label === "SUNAT" ? "partner-icon-lg" : ""}`} />
+        ) : p.isWhatsapp ? (
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="#25D366" class="partner-icon" aria-label={p.label}>
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.92 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2m0 1.67a8.2 8.2 0 0 1 5.83 2.42 8.19 8.19 0 0 1 2.41 5.82c0 4.55-3.7 8.25-8.25 8.25a8.25 8.25 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.55 3.7-8.24 8.26-8.24m-4.53 4.7c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.03 0 1.2.87 2.35.99 2.51.12.16 1.7 2.7 4.19 3.7 2.07.82 2.49.66 2.94.62.45-.04 1.45-.6 1.65-1.17.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.46-.28-.24-.12-1.45-.72-1.67-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47z"/>
+          </svg>
+        ) : (
+          <span class="partner">{p.label}</span>
+        )
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 8rem 1.5rem 2rem 4rem;
+  }
+  .content {
+    max-width: 460px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1rem;
+    margin-right: auto;
+  }
+  .logo {
+    height: 92px;
+    width: auto;
+    object-fit: contain;
+    transform: translateY(-4rem);
+  }
+  h1 {
+    font-size: clamp(2.5rem, 3.2vw, 2.25rem);
+    font-weight: 798;
+    line-height: 1.15;
+    color: #0f172a;
+    transform: translateY(-0.75rem);
+  }
+  .highlight {
+  color: #007bff; /* Pon aquí el azul que prefieras */
+  text-decoration: underline;
+}
+  p {
+    font-size: 1.4rem;
+    font-weight: 650;
+    color: #334155;
+  }
+  .features {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    
+  }
+  .feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    width: 76px;
+    text-align: center;
+  }
+  .feature-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .feature-icon img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+  .feature-label {
+    font-size: 0.80rem;
+    font-weight: 640;
+    color: #0f172a;
+  }
+  .partners {
+    margin-top: 1.9rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    font-size: 0.90rem;
+    width: max-content;
+    max-width: 480px;
+  }
+  .partners-label {
+    font-weight: 600;
+    color: #64748b;
+  }
+  .partner {
+    color: #334155;
+    font-weight: 600;
+  }
+  .partner-icon {
+    height: 34px;
+    width: auto;
+    object-fit: contain;
+  }
+  .partner-icon-lg {
+    height: 64px;
+  }
+  @media (max-width: 900px) {
+    .hero { padding-left: 1.5rem; }
+  }
+  @media (max-width: 768px) {
+    .hero {
+      background-position: 70% center;
+      padding: 6.5rem 1rem 2rem;
+      min-height: auto;
+    }
+    .content {
+      max-width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+    }
+    .logo { transform: translateY(-1rem); height: 64px; }
+    h1 { transform: none; font-size: clamp(1.8rem, 7vw, 2.25rem); }
+    p { font-size: 1.05rem; }
+    .features { gap: 1rem; justify-content: center; }
+    .feature { width: 64px; }
+    .feature-icon { width: 48px; height: 48px; }
+    .feature-icon img { width: 56px; height: 56px; }
+    .partners { width: 100%; max-width: 100%; justify-content: center; }
+  }
+  @media (max-width: 400px) {
+    .features { gap: 0.6rem; }
+    .feature { width: 56px; }
+  }
+</style>

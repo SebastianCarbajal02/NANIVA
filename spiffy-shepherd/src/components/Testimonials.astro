@@ -1,0 +1,347 @@
+---
+const reviews = [
+  {
+    quote: "Antes perdíamos mucho tiempo facturando, ahora con ValeApp lo hacemos en segundos y tenemos todo bajo control.",
+    name: "Carlos M.",
+    role: "Minimarket Express",
+    initials: "CM",
+  },
+  {
+    quote: "Nuestro catálogo digital ha aumentado nuestras ventas por WhatsApp en más de 60%.",
+    name: "Marie G.",
+    role: "Boutique Fashion",
+    initials: "MG",
+  },
+  {
+    quote: "El sistema para restaurantes es increíble, las comandas llegan rápido a cocina y el servicio es más eficiente.",
+    name: "Juan P.",
+    role: "La Parrilla Restaurante",
+    initials: "JP",
+  },
+  {
+    quote: "La implementación a medida se adaptó exactamente a lo que necesitábamos, el soporte siempre está pendiente.",
+    name: "Lucía R.",
+    role: "Distribuidora LR",
+    initials: "LR",
+  },
+  {
+    quote: "Pasamos de anotar pedidos en cuaderno a tener todo digitalizado. El cambio fue enorme para el negocio.",
+    name: "Pedro S.",
+    role: "Ferretería Central",
+    initials: "PS",
+  },
+  {
+    quote: "Los reportes en tiempo real nos ayudan a tomar decisiones rápidas. Ya no perdemos tiempo armando planillas.",
+    name: "Andrea V.",
+    role: "Farmacia San José",
+    initials: "AV",
+  },
+];
+
+const tutorials = [
+  { title: "Facturación", duration: "04:35", color: "#1e3a8a" },
+  { title: "Catálogo por WhatsApp", duration: "06:12", color: "#16a34a" },
+  { title: "Reportes", duration: "07:48", color: "#c2410c" },
+  { title: "App móvil", duration: "05:21", color: "#7e22ce" },
+];
+---
+<section class="testimonials">
+  <div class="container">
+    <div class="video-banner reveal">
+      <div class="video-copy">
+        <h2>Conoce cómo <span class="brand">Naniva</span> puede transformar tu negocio</h2>
+        <p>Mira nuestro video y descubre todas las funcionalidades que tenemos para ti.</p>
+        <a href="#video" class="btn-video hover-pop">▶ Ver Video</a>
+      </div>
+      <div class="video-mockup">Imagen referencial</div>
+    </div>
+
+    <h3 class="section-title reveal">Lo que dicen nuestros clientes</h3>
+    <div class="reviews">
+      <button class="arrow prev" aria-label="Anterior">‹</button>
+      <div class="reviews-track" id="reviewsTrack">
+        {reviews.map((r, i) => (
+          <article class="review-card reveal hover-lift" style={`transition-delay:${i * 0.1}s`}>
+            <div class="stars">★★★★★</div>
+            <p class="quote">"{r.quote}"</p>
+            <div class="author">
+              <div class="avatar">{r.initials}</div>
+              <div>
+                <div class="author-name">{r.name}</div>
+                <div class="author-role">{r.role}</div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+      <button class="arrow next" aria-label="Siguiente">›</button>
+    </div>
+    <div class="dots" id="reviewDots"></div>
+
+    <div class="tutorials-header reveal">
+      <div class="tutorials-title">
+        <span class="video-icon">▤</span>
+        <div>
+          <h3>Aprende a usar el sistema</h3>
+          <p>Mira nuestros videos tutoriales y saca el máximo provecho a todas las funcionalidades.</p>
+        </div>
+      </div>
+      <a href="#tutoriales" class="ver-todos">Ver todos los videos →</a>
+    </div>
+    <div class="tutorials-grid">
+      {tutorials.map((t, i) => (
+        <div class="tutorial-card reveal hover-lift" style={`background:${t.color}; transition-delay:${i * 0.1}s`}>
+          <span class="play">▶</span>
+          <span class="duration">{t.duration}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials { background: #f8fafc; }
+  .video-banner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: linear-gradient(135deg, #eef2f7, #e9edf3);
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+  .video-copy { flex: 1; min-width: 260px; }
+  .video-copy h2 { font-size: clamp(1.4rem, 2.6vw, 1.8rem); line-height: 1.25; color: #0f172a; margin-bottom: 0.75rem; }
+  .brand { color: #2563eb; }
+  .video-copy p { color: var(--color-text-muted); margin-bottom: 1.25rem; }
+  .btn-video {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #2563eb;
+    color: white;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .video-mockup {
+    flex: 1.2;
+    min-width: 280px;
+    height: 200px;
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-size: 0.9rem;
+  }
+  .section-title { text-align: center; font-size: 1.4rem; margin-bottom: 2rem; }
+  .reviews { display: flex; align-items: center; gap: 1rem; }
+  .arrow {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: #334155;
+  }
+  .reviews-track {
+    flex: 1;
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    cursor: grab;
+    scrollbar-width: none;
+  }
+  .reviews-track::-webkit-scrollbar { display: none; }
+  .reviews-track.dragging { scroll-behavior: auto; cursor: grabbing; }
+  .review-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    scroll-snap-align: start;
+    flex: 0 0 calc((100% - 3rem) / 3);
+    min-width: 260px;
+  }
+  @media (max-width: 900px) {
+    .review-card { flex: 0 0 85%; }
+  }
+  .stars { color: #f59e0b; margin-bottom: 0.75rem; letter-spacing: 0.1em; }
+  .quote { color: #334155; font-size: 0.9rem; margin-bottom: 1.25rem; line-height: 1.6; }
+  .author { display: flex; align-items: center; gap: 0.75rem; }
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: #dbeafe;
+    color: #1e3a8a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .author-name { font-weight: 700; font-size: 0.9rem; color: #0f172a; }
+  .author-role { font-size: 0.8rem; color: var(--color-text-muted); }
+  .dots { display: flex; justify-content: center; gap: 0.5rem; margin: 1.5rem 0 4rem; }
+  .dot { width: 8px; height: 8px; border-radius: 999px; background: #cbd5e1; }
+  .dot.active { background: #2563eb; width: 20px; border-radius: 999px; }
+  .tutorials-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .tutorials-title { display: flex; gap: 0.75rem; align-items: flex-start; }
+  .video-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #dbeafe;
+    color: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .tutorials-title h3 { font-size: 1.15rem; margin-bottom: 0.25rem; }
+  .tutorials-title p { font-size: 0.85rem; color: var(--color-text-muted); }
+  .ver-todos { color: #2563eb; text-decoration: none; font-weight: 600; font-size: 0.9rem; white-space: nowrap; }
+  .tutorials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+    padding-bottom: 4rem;
+  }
+  .tutorial-card {
+    position: relative;
+    height: 130px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .play {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.25);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+  .duration {
+    position: absolute;
+    bottom: 0.6rem;
+    right: 0.6rem;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .video-banner { padding: 1.5rem; gap: 1.25rem; }
+    .video-mockup { min-width: 100%; height: 160px; }
+    .reviews { gap: 0.5rem; }
+    .arrow { width: 30px; height: 30px; font-size: 1rem; }
+    .review-card { min-width: 220px; padding: 1.25rem; }
+    .tutorials-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<script>
+  const track = document.getElementById("reviewsTrack");
+  const dotsContainer = document.getElementById("reviewDots");
+  const prevBtn = document.querySelector(".arrow.prev");
+  const nextBtn = document.querySelector(".arrow.next");
+
+  if (track && dotsContainer) {
+    const cardGap = 24;
+
+    function cardStep() {
+      const card = track.querySelector(".review-card");
+      return card ? card.getBoundingClientRect().width + cardGap : track.clientWidth;
+    }
+
+    function maxScroll() {
+      return track.scrollWidth - track.clientWidth;
+    }
+
+    function pageCount() {
+      const steps = Math.round(maxScroll() / cardStep());
+      return Math.max(1, steps + 1);
+    }
+
+    function buildDots() {
+      dotsContainer.innerHTML = "";
+      const total = pageCount();
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement("span");
+        dot.className = i === 0 ? "dot active" : "dot";
+        dot.dataset.index = String(i);
+        dot.addEventListener("click", () => {
+          track.scrollTo({ left: i * cardStep(), behavior: "smooth" });
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function updateDots() {
+      const dots = dotsContainer.querySelectorAll(".dot");
+      const clamped = Math.min(track.scrollLeft, maxScroll());
+      const i = Math.round(clamped / cardStep());
+      dots.forEach((d, idx) => d.classList.toggle("active", idx === i));
+    }
+
+    buildDots();
+    window.addEventListener("resize", buildDots);
+
+    prevBtn?.addEventListener("click", () => {
+      track.scrollBy({ left: -cardStep(), behavior: "smooth" });
+    });
+    nextBtn?.addEventListener("click", () => {
+      track.scrollBy({ left: cardStep(), behavior: "smooth" });
+    });
+
+    track.addEventListener("scroll", () => {
+      window.requestAnimationFrame(updateDots);
+    });
+
+    let isDown = false;
+    let startX = 0;
+    let scrollStart = 0;
+
+    track.addEventListener("pointerdown", (e) => {
+      isDown = true;
+      track.classList.add("dragging");
+      startX = e.pageX;
+      scrollStart = track.scrollLeft;
+    });
+    window.addEventListener("pointerup", () => {
+      isDown = false;
+      track.classList.remove("dragging");
+      updateDots();
+    });
+    window.addEventListener("pointermove", (e) => {
+      if (!isDown) return;
+      track.scrollLeft = scrollStart - (e.pageX - startX);
+    });
+  }
+</script>

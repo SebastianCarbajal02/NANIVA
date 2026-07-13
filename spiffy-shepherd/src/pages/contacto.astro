@@ -1,0 +1,298 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import banner from '../assets/image/banner-contactos.webp';
+import logo from '../assets/image/logo.webp';
+
+const contactInfo = [
+  { icon: "📞", title: "Teléfono", value: "+51 937 654 321" },
+  { icon: "✉️", title: "Email", value: "hola@naniva.com" },
+  { icon: "🕒", title: "Horario", value: "Lun - Vie 9:00 am - 6:00 pm" },
+  { icon: "📍", title: "Dirección", value: "Av. Larco 1234, Miraflores, Lima, Perú" },
+];
+
+const bannerFeatures = [
+  { icon: "🎧", title: "Atención personalizada", desc: "Asesoría 1 a 1 con nuestros expertos." },
+  { icon: "⚡", title: "Respuesta rápida", desc: "Te respondemos en menos de 5 minutos." },
+  { icon: "🛡️", title: "Soluciones a medida", desc: "Implementamos la mejor solución para tu negocio." },
+  { icon: "📊", title: "Acompañamiento total", desc: "Desde la implementación hasta el crecimiento." },
+];
+---
+<BaseLayout title="Contáctanos - NANIVA" description="Ponte en contacto con NANIVA. Estamos listos para ayudarte a digitalizar tu negocio.">
+  <Nav />
+  <section class="banner" style={`background-image: url('${banner.src}');`}>
+    <div class="content reveal">
+      <img src={logo.src} alt="Naniva" class="logo" />
+      <h1>Contáctanos y<br /><span class="highlight">Digitaliza</span> tu Negocio</h1>
+      <p class="banner-subtitle">Nuestro equipo de expertos está listo para responder todas tus dudas y ayudar a implementar la mejor solución para tu empresa.</p>
+      <div class="banner-actions">
+        <a href="https://wa.me/51999999999" target="_blank" rel="noopener noreferrer" class="btn-primary hover-pop pulse-ring whatsapp">💬 Escríbenos Ahora</a>
+        <a href="#info" class="btn-outline hover-pop">📅 Ver Horarios</a>
+      </div>
+      <div class="banner-features">
+        {bannerFeatures.map((f) => (
+          <div class="banner-feature">
+            <span class="banner-feature-icon icon-bounce">{f.icon}</span>
+            <h4>{f.title}</h4>
+            <p class="feature-desc">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <form class="contact-form reveal">
+          <h2>Envíanos un mensaje</h2>
+          <p class="form-sub">Completa el formulario y te responderemos a la brevedad.</p>
+          <div class="field">
+            <label for="name">Nombre completo</label>
+            <input id="name" name="name" type="text" placeholder="Tu nombre" required />
+          </div>
+          <div class="field">
+            <label for="email">Correo electrónico</label>
+            <input id="email" name="email" type="email" placeholder="tu@email.com" required />
+          </div>
+          <div class="field">
+            <label for="phone">Teléfono</label>
+            <input id="phone" name="phone" type="tel" placeholder="+51 999 999 999" />
+          </div>
+          <div class="field">
+            <label for="message">Mensaje</label>
+            <textarea id="message" name="message" rows="4" placeholder="Cuéntanos sobre tu negocio..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn hover-pop">Enviar mensaje</button>
+        </form>
+
+        <div class="contact-info" id="info">
+          {contactInfo.map((c, i) => (
+            <div class="info-card reveal hover-lift" style={`transition-delay:${i * 0.1}s`}>
+              <span class="info-icon">{c.icon}</span>
+              <div>
+                <h3>{c.title}</h3>
+                <p>{c.value}</p>
+              </div>
+            </div>
+          ))}
+          <a href="https://wa.me/51999999999" target="_blank" rel="noopener noreferrer" class="whatsapp-card reveal hover-lift pulse-ring whatsapp">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#25D366" aria-hidden="true">
+              <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.92 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2m0 1.67a8.2 8.2 0 0 1 5.83 2.42 8.19 8.19 0 0 1 2.41 5.82c0 4.55-3.7 8.25-8.25 8.25a8.25 8.25 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.55 3.7-8.24 8.26-8.24m-4.53 4.7c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.03 0 1.2.87 2.35.99 2.51.12.16 1.7 2.7 4.19 3.7 2.07.82 2.49.66 2.94.62.45-.04 1.45-.6 1.65-1.17.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.46-.28-.24-.12-1.45-.72-1.67-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47z"/>
+            </svg>
+            <div>
+              <h3>Escríbenos por WhatsApp</h3>
+              <p>Respuesta inmediata</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .banner {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 8rem 1.5rem 2rem 4rem;
+  }
+  .content {
+    max-width: 540px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 0.65rem;
+  }
+  .banner-actions {
+    width: 100%;
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    transform: translateY(-2rem);
+  }
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  .btn-outline {
+    background: white;
+    color: #2563eb;
+    border: 1px solid #2563eb;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  .banner-features {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+  }
+  .banner-feature {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+  .banner-feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    box-shadow: 0 4px 10px rgba(15,23,42,0.1);
+  }
+  .banner-feature h4 {
+    font-size: 0.65rem;
+    color: #0f172a;
+    line-height: 1.25;
+  }
+  .banner-feature p.feature-desc {
+    font-size: 0.62rem;
+    color: #64748b;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  .logo {
+    height: 92px;
+    width: auto;
+    object-fit: contain;
+    transform: translateY(-7rem);
+  }
+  h1 {
+    font-size: clamp(3rem, 3.5vw, 4rem);
+    font-weight: 798;
+    line-height: 1.15;
+    color: #0f172a;
+    transform: translateY(-5rem);
+  }
+  .highlight { color: #007bff; }
+  .banner-subtitle {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #475569;
+    transform: translateY(-3.5rem);
+  }
+  @media (max-width: 900px) {
+    .banner { padding-left: 1.5rem; }
+  }
+  @media (max-width: 768px) {
+    .banner {
+      background-position: 70% center;
+      height: auto;
+      min-height: 100vh;
+      overflow: visible;
+      padding: 6.5rem 1rem 2rem;
+    }
+    .content {
+      max-width: 100%;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      gap: 1rem;
+    }
+    .logo { transform: none; height: 60px; }
+    h1 { transform: none; font-size: clamp(1.8rem, 7vw, 2.4rem); }
+    .banner-subtitle { transform: none; font-size: 0.9rem; }
+    .banner-actions { transform: none; }
+    .btn-primary, .btn-outline { flex: 1 1 auto; justify-content: center; text-align: center; }
+    .banner-features { flex-wrap: wrap; }
+    .banner-feature { flex: 1 1 calc(50% - 0.5rem); }
+    .banner-feature h4 { white-space: normal; }
+  }
+
+  .contact-section { background: #f8fafc; }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    
+  }
+  @media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+  .contact-form {
+    background: white;
+    border-radius: 18px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.06);
+    
+  }
+  .contact-form h2 { font-size: 1.4rem; color: #0f172a; margin-bottom: 0.4rem; }
+  .form-sub { color: #64748b; font-size: 0.9rem; margin-bottom: 1.75rem; }
+  .field { margin-bottom: 1.25rem; }
+  .field label { display: block; font-size: 0.85rem; font-weight: 600; color: #334155; margin-bottom: 0.4rem; }
+  .field input, .field textarea {
+    width: 100%;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: #0f172a;
+    resize: vertical;
+  }
+  .field input:focus, .field textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+  }
+  .submit-btn {
+    width: 100%;
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.9rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+  .info-card, .whatsapp-card {
+    background: white;
+    border-radius: 14px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.06);
+  }
+  .info-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .info-card h3, .whatsapp-card h3 { font-size: 0.95rem; color: #0f172a; margin-bottom: 0.2rem; }
+  .info-card p, .whatsapp-card p { font-size: 0.85rem; color: #64748b; }
+  .whatsapp-card {
+    text-decoration: none;
+    border: 1px solid #d1fae5;
+  }
+
+  @media (max-width: 600px) {
+    .contact-form { padding: 1.5rem; }
+  }
+</style>

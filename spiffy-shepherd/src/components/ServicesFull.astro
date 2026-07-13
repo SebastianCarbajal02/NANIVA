@@ -1,0 +1,210 @@
+---
+import iconFactura from '../assets/image/factura.webp';
+import iconCatalogo from '../assets/image/icon-plan-catalogo.webp';
+import iconRestaurante from '../assets/image/icon-plan-restaurante.webp';
+import iconSoftware from '../assets/image/icon-plan-software.webp';
+import imgFacturacion from '../assets/image/img-services1.webp';
+import imgCatalogo from '../assets/image/img-services2.webp';
+import imgRestaurante from '../assets/image/img-services3.webp';
+import imgMedida from '../assets/image/img-services4.webp';
+
+const services = [
+  {
+    icon: iconFactura,
+    iconBg: "#2563eb",
+    bg: "linear-gradient(135deg, #dbeaff, #eef4ff)",
+    accent: "#2563eb",
+    title: "Sistema de Facturación Electrónica",
+    desc: "Emite facturas, boletas y notas de crédito electrónicas de forma segura y 100% válida ante SUNAT. Ahorra tiempo en tu contabilidad con nuestro sistema en la nube.",
+    items: ["Facturas y Boletas SUNAT", "Guías de Remisión", "Cotizaciones automáticas", "Reportes financieros en tiempo real"],
+    mockImg: imgFacturacion,
+  },
+  {
+    icon: iconCatalogo,
+    iconBg: "#16a34a",
+    bg: "linear-gradient(135deg, #d7f5df, #eefdf1)",
+    accent: "#16a34a",
+    title: "Catálogo Digital con WhatsApp",
+    desc: "Crea tu tienda virtual y muestra tus productos a través de un enlace de WhatsApp. Recibe pedidos 24/7 sin necesidad de una página web compleja.",
+    items: ["Catálogo interactivo", "Pedidos por WhatsApp", "Códigos QR para compartir", "Fotos ilimitadas de productos"],
+    mockImg: imgCatalogo,
+  },
+  {
+    icon: iconRestaurante,
+    iconBg: "#9333ea",
+    bg: "linear-gradient(135deg, #ece3fb, #f6f1fe)",
+    accent: "#9333ea",
+    title: "Sistema POS para Restaurantes",
+    desc: "Gestiona tu restaurante de forma eficiente. Controla mesas, toma órdenes desde la cocina y entrega a delivery desde una sola plataforma.",
+    items: ["Punto de Venta (POS)", "Gestión de mesas", "Delivery y comandas", "Inventario de insumos"],
+    mockImg: imgRestaurante,
+  },
+  {
+    icon: iconSoftware,
+    iconBg: "#f59e0b",
+    bg: "linear-gradient(135deg, #fdecc8, #fff6e5)",
+    accent: "#f59e0b",
+    title: "Implementación a Medida para tu Negocio",
+    desc: "Desarrollamos soluciones personalizadas que se adaptan exactamente a las necesidades de tu empresa. Integramos, automatizamos y hacemos crecer tu negocio.",
+    items: ["Desarrollo personalizado", "Integraciones con terceros", "Automatización de procesos", "Soporte y mantenimiento continuo"],
+    mockImg: imgMedida,
+  },
+];
+
+const whyChoose = [
+  { icon: "👆", title: "Fácil e intuitivo", desc: "Diseñado para que cualquiera pueda usarlo sin complicaciones." },
+  { icon: "☁️", title: "100% en la nube", desc: "Accede desde cualquier lugar, en cualquier momento y dispositivo." },
+  { icon: "🛡️", title: "Seguro y confiable", desc: "Tu información siempre protegida con encriptación de nivel empresarial." },
+  { icon: "🔄", title: "Actualizaciones constantes", desc: "Mejoras continuas sin costo adicional para tu negocio." },
+  { icon: "🎧", title: "Soporte 24/7", desc: "Estamos siempre disponibles para ayudarte cuando lo necesites." },
+  { icon: "💰", title: "Precios accesibles", desc: "Planes diseñados para emprendedores y empresas." },
+];
+---
+<section id="servicios" class="services-full">
+  <div class="container">
+    <h2 class="section-heading reveal">Nuestros Servicios</h2>
+
+    {services.map((s, i) => (
+      <div class="service-row reveal hover-lift">
+        <img src={s.mockImg.src} alt={s.title} class="row-bg-img" />
+        <div class="row-text">
+          <div class="row-header">
+            <div class="row-icon icon-bounce" style={`background:${s.iconBg}`}>
+              <img src={s.icon.src} alt={s.title} />
+            </div>
+            <h3>{s.title}</h3>
+          </div>
+          <p>{s.desc}</p>
+          <ul>
+            {s.items.map((item) => (
+              <li><span class="check" style={`color:${s.accent}`}>✓</span>{item}</li>
+            ))}
+          </ul>
+          <a href="/#planes" class="row-btn hover-pop" style={`background:${s.accent}`}>🔍 Ver Planes →</a>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="why-section">
+    <div class="container">
+      <h3>¿Por qué elegir <strong class="brand">NANIVA</strong>?</h3>
+      <p class="why-sub">Más de 1,500 negocios ya confían en nosotros para llevar el control de su negocio.</p>
+      <div class="why-grid">
+        {whyChoose.map((w, i) => (
+          <div class="why-card reveal hover-lift" style={`transition-delay:${i * 0.08}s`}>
+            <div class="why-icon">{w.icon}</div>
+            <h4>{w.title}</h4>
+            <p>{w.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-full { background: white; }
+  .section-heading {
+    text-align: center;
+    color: #2563eb;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+  }
+  .service-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    min-height: 550px;
+    overflow: hidden;
+  }
+  .row-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0
+  }
+  .row-text {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    min-width: 280px;
+    max-width: 520px;
+  }
+  .row-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .row-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .row-icon img { width: 42px; height: 42px; object-fit: contain; filter: brightness(0) invert(1); }
+  .row-text h3 { font-size: 1.9rem; color: #0f172a; line-height: 1.2; }
+  .row-text p { color: #475569; margin-bottom: 1.25rem; line-height: 1.6; max-width: 480px; }
+  .row-text ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+  .row-text li { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: #1e293b; }
+  .check { font-weight: 700; }
+  .row-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .why-section { background: #f8fafc; padding: 4rem 0; margin-top: 2rem; }
+  .why-section h3 { text-align: center; font-size: 1.5rem; color: #0f172a; margin-bottom: 0.5rem; }
+  .brand { color: #2563eb; }
+  .why-sub { text-align: center; color: #64748b; margin-bottom: 2.5rem; }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.25rem;
+  }
+  .why-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+  }
+  .why-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+  .why-card h4 { font-size: 0.95rem; margin-bottom: 0.4rem; color: #0f172a; }
+  .why-card p { font-size: 0.8rem; color: #64748b; line-height: 1.4; }
+
+  @media (max-width: 900px) {
+    .service-row { min-height: 480px; }
+  }
+  @media (max-width: 700px) {
+    .service-row { padding: 1.5rem; min-height: 420px; border-radius: 14px; }
+    .row-text { max-width: 100%; }
+    .row-text h3 { font-size: 1.4rem; }
+    .row-icon { width: 56px; height: 56px; border-radius: 12px; }
+    .row-icon img { width: 32px; height: 32px; }
+    .row-header { gap: 0.75rem; margin-bottom: 0.75rem; }
+    .row-text p { font-size: 0.9rem; margin-bottom: 1rem; }
+    .row-text li { font-size: 0.9rem; }
+    .row-btn { padding: 0.65rem 1.25rem; font-size: 0.9rem; }
+  }
+  @media (max-width: 480px) {
+    .service-row { min-height: 380px; padding: 1.25rem; }
+    .row-text h3 { font-size: 1.2rem; }
+  }
+</style>
