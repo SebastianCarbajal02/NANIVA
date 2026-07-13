@@ -1,5 +1,6 @@
 ---
 import dashboardImg from '../assets/image/Dashboard.webp';
+import dashboardZoom1Img from '../assets/image/img-zoom-1.png';
 
 const bullets = [
   "Dashboard intuitivo",
@@ -22,7 +23,10 @@ const clients = [
 <section class="showcase">
   <div class="container">
     <div class="panel reveal">
-      <div class="mockup"><img src={dashboardImg.src} alt="Dashboard NANIVA" /></div>
+      <button type="button" class="mockup" id="dashboard-zoom-trigger" aria-label="Ampliar imagen del dashboard">
+        <img src={dashboardImg.src} alt="Dashboard NANIVA" class="img-default" />
+        <img src={dashboardZoom1Img.src} alt="Dashboard NANIVA detalle" class="img-zoom-1" />
+      </button>
       <div class="info">
         <h2>Todo tu negocio<br />bajo control</h2>
         <p>Visualiza tus ventas, productos, clientes y más en un solo lugar. Información clara para tomar mejores decisiones.</p>
@@ -50,6 +54,27 @@ const clients = [
   </div>
 </section>
 
+<script>
+  const trigger = document.getElementById('dashboard-zoom-trigger');
+  trigger?.addEventListener('click', () => {
+    trigger.classList.toggle('zoomed');
+  });
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (trigger && !reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => trigger.classList.add('reveal-zoom'), 300);
+          setTimeout(() => trigger.classList.remove('reveal-zoom'), 2500);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    io.observe(trigger);
+  }
+</script>
+
 <style>
   .showcase { background: white; padding-top: 1.5rem; }
   .showcase .container { max-width: 1500px; }
@@ -63,6 +88,7 @@ const clients = [
     flex-wrap: wrap;
   }
   .mockup {
+    position: relative;
     flex: 3.4;
     min-width: 760px;
     aspect-ratio: 2917 / 1334;
@@ -73,16 +99,63 @@ const clients = [
     justify-content: center;
     box-shadow: 0 14px 40px rgba(15, 23, 42, 0.1);
     overflow: hidden;
+    border: none;
+    padding: 0;
+    transition: box-shadow 0.25s ease;
+  }
+  .mockup:hover {
+    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.16);
+  }
+  .mockup.zoomed {
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.28);
   }
   .mockup img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+  .img-default,
+  .img-zoom,
+  .img-zoom-1 {
+    position: absolute;
+    opacity: 1;
+    transition: opacity 0.35s ease, transform 0.35s ease, filter 0.8s ease;
+  }
+  .img-default {
     animation: float 4s ease-in-out infinite;
+  }
+  .img-zoom {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+  .mockup.zoomed .img-default {
+    opacity: 0;
+  }
+  .mockup.zoomed .img-zoom {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .img-zoom-1 {
+    opacity: 0;
+    transform-origin: top left;
+    transform: scale(0.15) translate(-40%, -60%);
+    z-index: 2;
+    transition: opacity 1.1s ease, transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .mockup.reveal-zoom .img-default {
+    filter: blur(6px);
+  }
+  .mockup.reveal-zoom .img-zoom-1 {
+    opacity: 1;
+    transform: scale(0.6) translate(0, 0);
   }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-14px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mockup { transition: none; }
+    .mockup img { animation: none; }
   }
   .info { flex: 1; min-width: 320px; }
   .info h2 {
