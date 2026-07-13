@@ -172,7 +172,8 @@ function renderCell(value: string) {
 <style>
   .banner {
     position: relative;
-    min-height: 98vh;
+    min-height: 100vh;
+    overflow-x: hidden;
     display: flex;
     align-items: center;
     background-size: cover;
@@ -181,25 +182,25 @@ function renderCell(value: string) {
     padding: 8rem 1.5rem 2rem 4rem;
   }
   .content {
-    max-width: 480px;
+    max-width: 540px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
-    gap: 1rem;
+    gap: 0.65rem;
   }
   .logo {
     height: 92px;
     width: auto;
     object-fit: contain;
-    transform: translateY(-4rem);
+   transform: translateY(-4rem);
   }
   .content h1 {
-    font-size: clamp(2.5rem, 3.2vw, 2.5rem);
+    font-size: clamp(3.3rem, 3.5vw, 3rem);
     font-weight: 798;
     line-height: 1.15;
     color: #0f172a;
-    transform: translateY(-0.75rem);
+    transform: translateY(-2rem);;
   }
   .content .highlight {
     color: #007bff;
@@ -392,14 +393,15 @@ function renderCell(value: string) {
 
   .super-pack {
     background: linear-gradient(135deg, #0f172a, #1e3a8a);
-    padding: 2rem calc((100vw - 100%) / 2 + 2rem);
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
+    padding: 2rem 2rem;
+    width: calc(100% + 4rem);
+    margin-left: -2rem;
     display: flex;
     align-items: center;
     gap: 2rem;
     flex-wrap: wrap;
     color: white;
+    overflow-x: hidden;
   }
   .pack-info { flex: 1.2; min-width: 240px; }
   .pack-title-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }

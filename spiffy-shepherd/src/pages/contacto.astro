@@ -6,10 +6,10 @@ import banner from '../assets/image/banner-contactos.webp';
 import logo from '../assets/image/logo.webp';
 
 const contactInfo = [
-  { icon: "📞", title: "Teléfono", value: "+51 937 654 321" },
-  { icon: "✉️", title: "Email", value: "hola@naniva.com" },
+  { icon: "📞", title: "Teléfono", value: "+51 908 644 190" },
+  { icon: "✉️", title: "Email", value: "nanivatechnologies@gmail.com" },
   { icon: "🕒", title: "Horario", value: "Lun - Vie 9:00 am - 6:00 pm" },
-  { icon: "📍", title: "Dirección", value: "Av. Larco 1234, Miraflores, Lima, Perú" },
+  { icon: "📍", title: "Dirección", value: "Calle Manrique de Luna 168, San Miguel, Lima, Perú" },
 ];
 
 const bannerFeatures = [
@@ -27,7 +27,7 @@ const bannerFeatures = [
       <h1>Contáctanos y<br /><span class="highlight">Digitaliza</span> tu Negocio</h1>
       <p class="banner-subtitle">Nuestro equipo de expertos está listo para responder todas tus dudas y ayudar a implementar la mejor solución para tu empresa.</p>
       <div class="banner-actions">
-        <a href="https://wa.me/51999999999" target="_blank" rel="noopener noreferrer" class="btn-primary hover-pop pulse-ring whatsapp">💬 Escríbenos Ahora</a>
+        <a href="https://wa.me/51908644190" target="_blank" rel="noopener noreferrer" class="btn-primary hover-pop pulse-ring whatsapp">💬 Escríbenos Ahora</a>
         <a href="#info" class="btn-outline hover-pop">📅 Ver Horarios</a>
       </div>
       <div class="banner-features">
@@ -45,7 +45,7 @@ const bannerFeatures = [
   <section class="contact-section">
     <div class="container">
       <div class="contact-grid">
-        <form class="contact-form reveal">
+        <form class="contact-form reveal" action="/api/contact" method="POST">
           <h2>Envíanos un mensaje</h2>
           <p class="form-sub">Completa el formulario y te responderemos a la brevedad.</p>
           <div class="field">
