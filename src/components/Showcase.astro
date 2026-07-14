@@ -1,6 +1,8 @@
 ---
 import dashboardImg from '../assets/image/Dashboard.webp';
 import dashboardZoom1Img from '../assets/image/img-zoom-1.png';
+import dashboardZoom2Img from '../assets/image/img-zoom-2.png';
+import dashboardZoom3Img from '../assets/image/img-zoom-3.png';
 
 const bullets = [
   "Dashboard intuitivo",
@@ -26,6 +28,8 @@ const clients = [
       <button type="button" class="mockup" id="dashboard-zoom-trigger" aria-label="Ampliar imagen del dashboard">
         <img src={dashboardImg.src} alt="Dashboard NANIVA" class="img-default" />
         <img src={dashboardZoom1Img.src} alt="Dashboard NANIVA detalle" class="img-zoom-1" />
+        <img src={dashboardZoom2Img.src} alt="Dashboard NANIVA detalle 2" class="img-zoom-2" />
+        <img src={dashboardZoom3Img.src} alt="Dashboard NANIVA detalle 3" class="img-zoom-3" />
       </button>
       <div class="info">
         <h2>Todo tu negocio<br />bajo control</h2>
@@ -67,6 +71,10 @@ const clients = [
         if (entry.isIntersecting) {
           setTimeout(() => trigger.classList.add('reveal-zoom'), 300);
           setTimeout(() => trigger.classList.remove('reveal-zoom'), 2500);
+          setTimeout(() => trigger.classList.add('reveal-zoom-2'), 3600);
+          setTimeout(() => trigger.classList.remove('reveal-zoom-2'), 5800);
+          setTimeout(() => trigger.classList.add('reveal-zoom-3'), 6900);
+          setTimeout(() => trigger.classList.remove('reveal-zoom-3'), 9100);
           io.unobserve(entry.target);
         }
       });
@@ -116,7 +124,9 @@ const clients = [
   }
   .img-default,
   .img-zoom,
-  .img-zoom-1 {
+  .img-zoom-1,
+  .img-zoom-2,
+  .img-zoom-3 {
     position: absolute;
     opacity: 1;
     transition: opacity 0.35s ease, transform 0.35s ease, filter 0.8s ease;
@@ -142,10 +152,34 @@ const clients = [
     z-index: 2;
     transition: opacity 1.1s ease, transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
-  .mockup.reveal-zoom .img-default {
+  .img-zoom-2 {
+    opacity: 0;
+    transform-origin: top left;
+    transform: scale(0.15) translate(20%, -20%);
+    z-index: 2;
+    transition: opacity 1.1s ease, transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .img-zoom-3 {
+    opacity: 0;
+    transform-origin: bottom right;
+    transform: scale(0.15) translate(30%, 60%);
+    z-index: 2;
+    transition: opacity 1.1s ease, transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .mockup.reveal-zoom .img-default,
+  .mockup.reveal-zoom-2 .img-default,
+  .mockup.reveal-zoom-3 .img-default {
     filter: blur(6px);
   }
   .mockup.reveal-zoom .img-zoom-1 {
+    opacity: 1;
+    transform: scale(0.6) translate(0, 0);
+  }
+  .mockup.reveal-zoom-2 .img-zoom-2 {
+    opacity: 1;
+    transform: scale(0.6) translate(12%, 12%);
+  }
+  .mockup.reveal-zoom-3 .img-zoom-3 {
     opacity: 1;
     transform: scale(0.6) translate(0, 0);
   }
