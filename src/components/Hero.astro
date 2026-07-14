@@ -1,31 +1,24 @@
 ---
 import banner from '../assets/image/banner.webp';
 import logo from '../assets/image/logo.webp';
-import iconFactura from '../assets/image/Icon-factura.webp';
-import iconCatalogo from '../assets/image/Icon-catalgoo.webp';
-import iconRestaurante from '../assets/image/Icon-restaurante.webp';
-import iconSoftware from '../assets/image/Icon-software.webp';
+import iconPos from '../assets/image/icono-iniicio-punto_venta.png';
+import iconEcommerce from '../assets/image/icono-inicio-ecomerce.png';
+import iconReportes from '../assets/image/iconos-inicio-reporte.png';
+import iconFacturacion from '../assets/image/facturacion-eletronica.png';
+import iconEmpresarial from '../assets/image/icono-empresarial.png';
+import iconErp from '../assets/image/icono-erp.png';
 import iconSunat from '../assets/image/sunat-Photoroom.webp';
 import iconVisa from '../assets/image/Visa-Logo.webp';
 import iconMastercard from '../assets/image/mastecard.webp';
 import iconYape from '../assets/image/YAPE.webp';
 
-export interface Props {
-  title?: string;
-  highlight?: string;
-  subtitle?: string;
-}
-const {
-  title = "Lleva tu negocio al siguiente",
-  highlight = "NIVEL",
-  subtitle = "Soluciones inteligentes ideales para tu negocio",
-} = Astro.props;
-
 const features = [
-  { icon: iconFactura, label: "Facturación" },
-  { icon: iconCatalogo, label: "Catálogo Digital" },
-  { icon: iconRestaurante, label: "Restaurante" },
-  { icon: iconSoftware, label: "Software a la medida" },
+  { icon: iconPos, label: "Punto de Venta (POS)" },
+  { icon: iconEcommerce, label: "Ecommerce" },
+  { icon: iconReportes, label: "Reportes Inteligentes" },
+  { icon: iconFacturacion, label: "Facturación Electrónica" },
+  { icon: iconEmpresarial, label: "IA Empresarial" },
+  { icon: iconErp, label: "ERP" },
 ];
 
 const partners = [
@@ -38,29 +31,24 @@ const partners = [
 ---
 <section class="hero" style={`background-image: url('${banner.src}');`}>
   <div class="content reveal">
-    <img src={logo.src} alt="Naniva" class="logo" />
-    <h1>{title}<br /><span class="highlight">{highlight}</span></h1>
-    <p>Soluciones inteligentes ideales<br />para tu negocio</p>
+    <span class="tag">PLATAFORMA TODO EN UNO</span>
+    <h1>La plataforma<br /><span class="highlight">inteligente</span><br />para hacer crecer<br />tu empresa.</h1>
+    <p>Administra ventas, inventario, facturación electrónica, ecommerce e inteligencia artificial <span class="p-highlight">desde una sola plataforma</span>.</p>
+    <div class="hero-actions">
+      <a href="#demo" class="btn-primary hover-pop">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+        Solicitar demostración
+      </a>
+      <a href="#demo" class="btn-outline hover-pop">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m10 8 6 4-6 4V8Z" fill="currentColor" stroke="none" /></svg>
+        Ver cómo funciona
+      </a>
+    </div>
     <div class="features">
       {features.map((f) => (
         <div class="feature">
           <span class="feature-icon"><img src={f.icon.src} alt={f.label} /></span>
-          <span class="feature-label">{f.label}</span>
         </div>
-      ))}
-    </div>
-    <div class="partners">
-      <span class="partners-label">Compatibles con:</span>
-      {partners.map((p) => (
-        p.icon ? (
-          <img src={p.icon.src} alt={p.label} class={`partner-icon ${p.label === "SUNAT" ? "partner-icon-lg" : ""}`} />
-        ) : p.isWhatsapp ? (
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="#25D366" class="partner-icon" aria-label={p.label}>
-            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.92 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2m0 1.67a8.2 8.2 0 0 1 5.83 2.42 8.19 8.19 0 0 1 2.41 5.82c0 4.55-3.7 8.25-8.25 8.25a8.25 8.25 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.55 3.7-8.24 8.26-8.24m-4.53 4.7c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.03 0 1.2.87 2.35.99 2.51.12.16 1.7 2.7 4.19 3.7 2.07.82 2.49.66 2.94.62.45-.04 1.45-.6 1.65-1.17.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.46-.28-.24-.12-1.45-.72-1.67-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47z"/>
-          </svg>
-        ) : (
-          <span class="partner">{p.label}</span>
-        )
       ))}
     </div>
   </div>
@@ -69,16 +57,16 @@ const partners = [
 <style>
   .hero {
     position: relative;
-    min-height: 75vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
-    background-size: cover;
+    background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
     padding: 8rem 1.5rem 2rem 4rem;
   }
   .content {
-    max-width: 460px;
+    max-width: 580px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -92,53 +80,97 @@ const partners = [
     object-fit: contain;
     transform: translateY(-4rem);
   }
+  .tag {
+    display: inline-block;
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    transform: translateY(-0.5rem);
+  }
   h1 {
     font-size: clamp(2.5rem, 3.2vw, 2.25rem);
     font-weight: 798;
     line-height: 1.15;
     color: #0f172a;
-    transform: translateY(-0.75rem);
+    transform: translateY(-0.5rem);
   }
   .highlight {
-  color: #007bff; /* Pon aquí el azul que prefieras */
-  text-decoration: underline;
-}
+    color: #2563eb;
+  }
   p {
-    font-size: 1.4rem;
-    font-weight: 650;
-    color: #334155;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #475569;
+    line-height: 1.85;
+    max-width: 560px;
+  }
+  .p-highlight {
+    color: #2563eb;
+    font-weight: 600;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+  }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    color: #0f172a;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.85rem 1.5rem;
+    border: 1.5px solid #2563eb;
+    border-radius: 999px;
+    text-decoration: none;
   }
   .features {
     display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-    
+    gap: 0.6rem;
+    flex-wrap: nowrap;
+    position: relative;
+    top: 1.5rem;
   }
   .feature {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.3rem;
     width: 76px;
     text-align: center;
   }
   .feature-icon {
-    width: 64px;
-    height: 64px;
+    width: 76px;
+    height: 76px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .feature-icon img {
-    width: 80px;
-    height: 80px;
+    width: 88px;
+    height: 88px;
     object-fit: contain;
-  }
-  .feature-label {
-    font-size: 0.80rem;
-    font-weight: 640;
-    color: #0f172a;
+    mix-blend-mode: multiply;
   }
   .partners {
     margin-top: 1.9rem;
@@ -187,7 +219,7 @@ const partners = [
     .logo { transform: translateY(-1rem); height: 64px; }
     h1 { transform: none; font-size: clamp(1.8rem, 7vw, 2.25rem); }
     p { font-size: 1.05rem; }
-    .features { gap: 1rem; justify-content: center; }
+    .features { gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .feature { width: 64px; }
     .feature-icon { width: 48px; height: 48px; }
     .feature-icon img { width: 56px; height: 56px; }
