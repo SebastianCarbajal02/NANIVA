@@ -5,6 +5,9 @@ import CtaBanner from '../components/CtaBanner.astro';
 import Footer from '../components/Footer.astro';
 import banner from '../assets/image/banner-planes.webp';
 import logo from '../assets/image/logo.webp';
+import iconFacturacion from '../assets/image/icono-plan.facturacion.png';
+import iconCatalogo from '../assets/image/icon-plan-catalogo-2.png';
+import iconRestaurante from '../assets/image/icono-plan-restaurante.png';
 
 const planFeatures = [
   { icon: "🏷️", title: "Planes flexibles", desc: "para cada necesidad" },
@@ -13,55 +16,104 @@ const planFeatures = [
   { icon: "👥", title: "Soporte", desc: "especializado" },
 ];
 
-const plans = [
+const products = [
   {
-    id: "basico",
-    name: "Básico",
+    id: "facturacion",
+    name: "Sistema de Facturación",
+    icon: iconFacturacion,
     color: "#2563eb",
     bg: "linear-gradient(135deg, #eaf1ff, #f5f9ff)",
-    monthly: 49,
-    yearly: 39,
-    popular: false,
-    items: ["Facturas SUNAT ilimitadas", "Catálogo de hasta 100 productos", "1 Usuario", "Soporte por email"],
+    items: ["Boletas y Facturas SUNAT", "Guías de Remisión", "Cotizaciones", "Reportes y estadísticas"],
   },
   {
-    id: "pro",
-    name: "Pro",
+    id: "catalogo",
+    name: "Catálogo Digital",
+    icon: iconCatalogo,
     color: "#16a34a",
     bg: "linear-gradient(135deg, #e8fbee, #f4fdf7)",
-    monthly: 99,
-    yearly: 79,
-    popular: true,
-    items: ["Facturación ilimitada", "Catálogo Digital con WhatsApp", "Tienda Virtual", "Códigos QR", "3 Usuarios", "Soporte prioritario"],
+    items: ["Catálogo interactivo", "Pedidos por WhatsApp", "Fotos ilimitadas", "Códigos QR"],
   },
   {
-    id: "empresarial",
-    name: "Empresarial",
+    id: "restaurante",
+    name: "Sistema de Restaurantes",
+    icon: iconRestaurante,
     color: "#9333ea",
     bg: "linear-gradient(135deg, #f3e8ff, #f9f4ff)",
-    monthly: 199,
-    yearly: 159,
-    popular: false,
-    items: ["Todo lo del plan Pro", "Sistema POS para Restaurantes", "Control de Mesas y Delivery", "Inventario en tiempo real", "Usuarios ilimitados", "Soporte 24/7 dedicado"],
+    items: ["Punto de Venta (POS)", "Gestión de mesas", "Delivery", "Cocina y comandas"],
   },
 ];
 
-const compareRows = [
-  { label: "Usuarios", basico: "1 Usuario", pro: "3 Usuarios", empresarial: "Usuarios ilimitados" },
-  { label: "Facturación Electrónica", basico: "yes", pro: "yes", empresarial: "yes" },
-  { label: "Catálogo Digital", basico: "no", pro: "yes", empresarial: "yes" },
-  { label: "Pedidos por WhatsApp", basico: "no", pro: "yes", empresarial: "yes" },
-  { label: "Sistema POS Táctil", basico: "no", pro: "no", empresarial: "yes" },
-  { label: "Gestión de Delivery", basico: "no", pro: "Básico", empresarial: "Avanzado" },
-  { label: "Reportes Avanzados", basico: "no", pro: "yes", empresarial: "yes" },
-  { label: "Soporte 24/7", basico: "Email", pro: "Prioritario", empresarial: "Dedicado" },
-];
-
-function renderCell(value: string) {
-  if (value === "yes") return "Sí ✅";
-  if (value === "no") return "No ❌";
-  return value;
-}
+const planGroups = {
+  facturacion: {
+    label: "Sistema de Facturación",
+    plans: [
+      {
+        id: "facturacion-unico",
+        name: "Facturación",
+        color: "#2563eb",
+        bg: "linear-gradient(135deg, #eaf1ff, #f5f9ff)",
+        price: 79,
+        popular: false,
+        items: ["Facturas SUNAT ilimitadas", "Guías de Remisión", "Cotizaciones", "Reportes y estadísticas", "1 Usuario", "Soporte por email"],
+      },
+    ],
+  },
+  catalogo: {
+    label: "Catálogo Digital",
+    plans: [
+      {
+        id: "emprendedor",
+        name: "Emprendedor",
+        color: "#16a34a",
+        bg: "linear-gradient(135deg, #e8fbee, #f4fdf7)",
+        price: 49.90,
+        popular: false,
+        items: ["Catálogo digital integrado al sistema", "Creación de catálogos PDF", "Portada y fondo personalizados", "Enlace para compartir por WhatsApp", "Lista de catálogos guardados", "Soporte", "100 Productos (3 x imagen)"],
+      },
+      {
+        id: "negocio",
+        name: "Negocio",
+        color: "#2563eb",
+        bg: "linear-gradient(135deg, #eaf1ff, #f5f9ff)",
+        price: 79,
+        popular: true,
+        items: ["Catálogo digital integrado al sistema", "Creación de catálogos PDF", "Portada y fondo personalizados", "Banners", "Carga masiva de imágenes", "Enlace para compartir por WhatsApp (cotizaciones enlace pdf)", "Lista de catálogos guardados", "Edición básica de catálogos", "Soporte", "200 Productos (3 x imagen)", "Envío masivos por WhatsApp"],
+      },
+      {
+        id: "star",
+        name: "Star",
+        color: "#9333ea",
+        bg: "linear-gradient(135deg, #f3e8ff, #f9f4ff)",
+        price: 149,
+        popular: false,
+        items: ["Catálogo digital integrado al sistema", "Creación de catálogos PDF", "Portada y fondo personalizados", "Edición masiva de productos, categorías, precios y marcas", "Cambio de tema / colores / Banners", "Más plantillas o estilos de catálogo", "Envío masivo por WhatsApp (cotizaciones enlace pdf)", "Carga masiva de imágenes", "Soporte premium", "Hasta 1500 Productos (3 img x producto)"],
+      },
+    ],
+  },
+  restaurante: {
+    label: "Sistema de Restaurantes",
+    plans: [
+      {
+        id: "emprendedor-gastronomico",
+        name: "Emprendedor Gastronómico",
+        color: "#9333ea",
+        bg: "linear-gradient(135deg, #f3e8ff, #f9f4ff)",
+        price: 59,
+        popular: false,
+        items: ["Vende hasta 500 (Comprobantes electrónicos)", "Nota de Ventas", "Boletas", "Control de Stock", "Tomador de Pedidos", "Impresión de Comandas", "Impresión de Pre-Cuentas", "3 Usuarios", "Registro de Ventas Detallado", "Búsqueda RUC/DNI (interconectado con SUNAT/RENIEC)", "Soporte Premium llamada y WhatsApp"],
+      },
+      {
+        id: "empresarial-gastronomico",
+        name: "Empresarial Gastronómico",
+        color: "#2563eb",
+        bg: "linear-gradient(135deg, #eaf1ff, #f5f9ff)",
+        price: 118,
+        popular: true,
+        items: ["Vende sin límites", "Facturación electrónica", "Nota de Ventas", "Boletas", "Gestión de Inventario", "Tomador de Pedidos", "Impresión de Comandas", "Impresión de Pre-Cuentas", "Usuarios ilimitados", "Modificadores de Complementos", "Registro de Ventas Detallado", "Búsqueda RUC/DNI (interconectado con SUNAT/RENIEC)", "Soporte Premium llamada y WhatsApp"],
+      },
+    ],
+  },
+};
 ---
 <BaseLayout title="Planes - NANIVA" description="Elige el plan NANIVA ideal para tu negocio: Básico, Pro o Empresarial. Facturación electrónica, catálogo digital y sistema POS.">
   <Nav />
@@ -85,83 +137,54 @@ function renderCell(value: string) {
     </div>
   </section>
 
-  <section class="pricing">
+  <section class="pricing products-section">
     <div class="container">
-      <div class="toggle" id="billingToggle">
-        <button class="toggle-btn active" data-period="monthly">Mensual</button>
-        <button class="toggle-btn" data-period="yearly">Anual</button>
-      </div>
-
-      <div class="plans-grid">
-        {plans.map((p, i) => (
-          <div class="plan-card reveal hover-lift" style={`background:${p.bg}; border-color:${p.color}; transition-delay:${i * 0.1}s`}>
-            {p.popular && <div class="badge pulse-ring" style={`background:${p.color}`}>Más Popular</div>}
-            <h3>{p.name}</h3>
-            <div class="price">
-              <span class="currency">S/</span>
-              <span class="amount" data-monthly={p.monthly} data-yearly={p.yearly}>{p.monthly}</span>
-              <span class="period">/mes</span>
-            </div>
+      <h2 class="section-title">Nuestros Productos</h2>
+      <p class="section-subtitle">Elige la solución que necesita tu negocio.</p>
+      <div class="plans-grid products-grid">
+        {products.map((prod, i) => (
+          <div class="plan-card product-card reveal hover-lift" style={`background:${prod.bg}; border-color:${prod.color}; transition-delay:${i * 0.1}s`}>
+            <img src={prod.icon.src} alt={prod.name} class="product-icon icon-bounce" />
+            <h3>{prod.name}</h3>
             <ul>
-              {p.items.map((item) => (
-                <li><span class="check" style={`color:${p.color}`}>✓</span>{item}</li>
+              {prod.items.map((item) => (
+                <li><span class="check" style={`color:${prod.color}`}>✓</span>{item}</li>
               ))}
             </ul>
-            <a href="#contacto" class="choose-btn hover-pop" style={`background:${p.color}`}>Elegir Plan</a>
+            <a href="#planes" class="choose-btn hover-pop plan-tab-trigger" data-target={prod.id} style={`background:${prod.color}`}>Ver más</a>
           </div>
         ))}
       </div>
+    </div>
+  </section>
 
-      <div class="compare reveal">
-        <h3>Compara todas las características en detalle</h3>
-        <div class="compare-table-wrap">
-          <table class="compare-table">
-            <thead>
-              <tr>
-                <th>Características</th>
-                <th>Básico</th>
-                <th>Pro</th>
-                <th>Empresarial</th>
-              </tr>
-            </thead>
-            <tbody>
-              {compareRows.map((row) => (
-                <tr>
-                  <td class="feature-name">{row.label}</td>
-                  <td>{renderCell(row.basico)}</td>
-                  <td>{renderCell(row.pro)}</td>
-                  <td>{renderCell(row.empresarial)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <section class="pricing" id="planes">
+    <div class="container">
+      <h2 class="section-title plan-group-title">{planGroups.facturacion.label}</h2>
 
-      <div class="super-pack reveal">
-        <div class="pack-info">
-          <div class="pack-title-row">
-            <span class="pack-icon">💎</span>
-            <span class="pack-title">Súper Pack</span>
-            <span class="pack-tag">Más vendido</span>
+      {Object.entries(planGroups).map(([groupId, group]) => (
+        <div class="plan-group" data-group={groupId} style={groupId === "facturacion" ? "" : "display:none"}>
+          <div class={`plans-grid plans-grid-${group.plans.length}`}>
+            {group.plans.map((p, i) => (
+              <div class="plan-card reveal hover-lift" style={`background:${p.bg}; border-color:${p.color}; transition-delay:${i * 0.1}s`}>
+                {p.popular && <div class="badge pulse-ring" style={`background:${p.color}`}>Más Popular</div>}
+                <h3>{p.name}</h3>
+                <div class="price">
+                  <span class="currency">S/</span>
+                  <span class="amount">{p.price}</span>
+                  <span class="period">/mes</span>
+                </div>
+                <ul>
+                  {p.items.map((item) => (
+                    <li><span class="check" style={`color:${p.color}`}>✓</span>{item}</li>
+                  ))}
+                </ul>
+                <a href="#contacto" class="choose-btn hover-pop" style={`background:${p.color}`}>Elegir Plan</a>
+              </div>
+            ))}
           </div>
-          <div class="pack-desc">Facturación Electrónica + Catálogo Digital</div>
-          <p>La combinación perfecta para hacer crecer tu negocio.</p>
         </div>
-        <div class="pack-combo">
-          <div class="pack-item pack-item-blue">📋<br />Facturación<br />Electrónica</div>
-          <span class="plus">+</span>
-          <div class="pack-item pack-item-green">📇<br />Catálogo<br />Digital</div>
-        </div>
-        <div class="pack-price">
-          <span class="equals">=</span>
-          <div>
-            <div class="pack-price-label">Desde</div>
-            <div class="pack-price-amount">S/<strong>89</strong>/mes</div>
-          </div>
-          <a href="#contacto" class="pack-btn hover-pop">Lo quiero</a>
-        </div>
-      </div>
+      ))}
     </div>
   </section>
 
@@ -293,38 +316,26 @@ function renderCell(value: string) {
   }
 
   .pricing { background: #f8fafc; padding: 4rem 0; }
-  .toggle {
-    display: flex;
-    justify-content: center;
-    gap: 0.25rem;
-    background: white;
-    border-radius: 999px;
-    padding: 0.35rem;
-    width: max-content;
-    margin: 0 auto 3rem;
-    box-shadow: 0 4px 14px rgba(15,23,42,0.08);
+  .products-section { padding-bottom: 1rem; }
+  .section-title { text-align: center; font-size: clamp(1.5rem, 3vw, 2rem); color: #0f172a; margin-bottom: 0.5rem; }
+  .section-subtitle { text-align: center; color: var(--color-text-muted); margin-bottom: 2.5rem; }
+  .product-card ul { margin-bottom: 1.5rem; }
+  .product-icon {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin: 0 auto 1rem;
+    display: block;
   }
-  .toggle-btn {
-    border: none;
-    background: transparent;
-    padding: 0.6rem 1.5rem;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: #64748b;
-    cursor: pointer;
-  }
-  .toggle-btn.active {
-    background: #2563eb;
-    color: white;
-  }
-
+  .plan-group-title { margin-bottom: 2.5rem; }
   .plans-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;
   }
+  .plans-grid-1 { grid-template-columns: minmax(280px, 420px); justify-content: center; }
+  .plans-grid-2 { grid-template-columns: repeat(2, minmax(260px, 420px)); justify-content: center; }
   @media (max-width: 900px) {
     .plans-grid { grid-template-columns: 1fr; }
   }
@@ -370,115 +381,30 @@ function renderCell(value: string) {
     font-weight: 700;
   }
 
-  .compare { margin-bottom: 4rem; }
-  .compare h3 { text-align: center; font-size: 1.3rem; color: #0f172a; margin-bottom: 1.75rem; }
-  .compare-table-wrap {
-    overflow-x: auto;
-    background: white;
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(15,23,42,0.06);
-  }
-  .compare-table { width: 100%; border-collapse: collapse; min-width: 560px; }
-  .compare-table th, .compare-table td {
-    padding: 1rem 1.5rem;
-    text-align: left;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #e2e8f0;
-    white-space: nowrap;
-  }
-  .compare-table th { color: #0f172a; font-weight: 700; }
-  .compare-table tbody tr:last-child td { border-bottom: none; }
-  .feature-name { font-weight: 600; color: #1e293b; }
-  .compare-table td:not(.feature-name) { color: #475569; }
-
-  .super-pack {
-    background: linear-gradient(135deg, #0f172a, #1e3a8a);
-    padding: 2rem 2rem;
-    width: calc(100% + 4rem);
-    margin-left: -2rem;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    color: white;
-    overflow-x: hidden;
-  }
-  .pack-info { flex: 1.2; min-width: 240px; }
-  .pack-title-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
-  .pack-icon { font-size: 1.2rem; }
-  .pack-title { font-weight: 700; font-size: 1.1rem; }
-  .pack-tag {
-    background: #f59e0b;
-    color: #1e293b;
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 0.2rem 0.6rem;
-    border-radius: 999px;
-  }
-  .pack-desc { font-weight: 600; margin-bottom: 0.4rem; }
-  .pack-info p { color: #cbd5e1; font-size: 0.9rem; }
-  .pack-combo {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex: 1;
-    justify-content: center;
-    min-width: 260px;
-  }
-  .pack-item {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 12px;
-    padding: 0.75rem 1rem;
-    text-align: center;
-    font-size: 0.75rem;
-    font-weight: 600;
-    line-height: 1.4;
-  }
-  .pack-item-blue { box-shadow: 0 0 0 2px #2563eb inset; }
-  .pack-item-green { box-shadow: 0 0 0 2px #16a34a inset; }
-  .plus, .equals { font-size: 1.4rem; font-weight: 700; color: #94a3b8; }
-  .pack-price {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .pack-price-label { font-size: 0.75rem; color: #cbd5e1; }
-  .pack-price-amount { font-size: 1.3rem; font-weight: 800; }
-  .pack-btn {
-    background: #f59e0b;
-    color: #1e293b;
-    font-weight: 700;
-    padding: 0.7rem 1.4rem;
-    border-radius: 999px;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
   @media (max-width: 600px) {
-    .super-pack { padding: 1.5rem 1rem; }
     .plans-grid { margin-bottom: 3rem; }
     .plan-card { padding: 1.75rem 1.25rem; }
-    .compare-table th, .compare-table td { padding: 0.85rem 1rem; font-size: 0.85rem; }
-    .pack-combo, .pack-price { width: 100%; justify-content: center; }
   }
 </style>
 
 <script>
-  const buttons = document.querySelectorAll("#billingToggle .toggle-btn");
-  const amounts = document.querySelectorAll(".amount");
+  const titleEl = document.querySelector('.plan-group-title');
+  const groups = document.querySelectorAll<HTMLElement>('.plan-group');
+  const triggers = document.querySelectorAll<HTMLElement>('.plan-tab-trigger');
+  const labels: Record<string, string> = {
+    facturacion: 'Sistema de Facturación',
+    catalogo: 'Catálogo Digital',
+    restaurante: 'Sistema de Restaurantes',
+  };
 
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      buttons.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      const period = btn.getAttribute("data-period");
-      amounts.forEach((el) => {
-        const value = period === "yearly" ? el.getAttribute("data-yearly") : el.getAttribute("data-monthly");
-        el.textContent = value;
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const target = trigger.getAttribute('data-target');
+      if (!target) return;
+      groups.forEach((g) => {
+        g.style.display = g.getAttribute('data-group') === target ? '' : 'none';
       });
+      if (titleEl && labels[target]) titleEl.textContent = labels[target];
     });
   });
 </script>
