@@ -33,7 +33,7 @@ const partners = [
   <div class="content reveal">
     <span class="tag">PLATAFORMA TODO EN UNO</span>
     <h1>La plataforma<br /><span class="highlight">inteligente</span><br />para hacer crecer<br />tu empresa.</h1>
-    <p>Administra ventas, inventario, facturación electrónica, ecommerce e inteligencia artificial <span class="p-highlight">desde una sola plataforma</span>.</p>
+    <p>Administra ventas, inventario, facturación electrónica,<br />ecommerce e inteligencia artificial <span class="p-highlight">desde una sola plataforma</span>.</p>
     <div class="hero-actions">
       <a href="#demo" class="btn-primary hover-pop">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
@@ -63,7 +63,7 @@ const partners = [
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    padding: 8rem 1.5rem 2rem 4rem;
+    padding: 8rem 1.5rem 2rem 2rem;
   }
   .content {
     max-width: 580px;
@@ -93,6 +93,7 @@ const partners = [
     padding: 0.45rem 1rem;
     border-radius: 999px;
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+    transform: translateY(-1rem);
   }
   .tag::before {
     content: "";
@@ -102,24 +103,26 @@ const partners = [
     background: #2563eb;
   }
   h1 {
-    font-size: clamp(2.5rem, 3.2vw, 2.25rem);
+    font-size: clamp(3rem, 3.4vw, 2.3rem);
     font-weight: 798;
     line-height: 1.15;
     color: #0f172a;
+     transform: translateY(-1rem);
   }
   .highlight {
     color: #2563eb;
   }
   p {
-    font-size: 1.05rem;
-    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 730;
     color: #475569;
     line-height: 1.85;
     max-width: 560px;
+     transform: translateY(-1rem);
   }
   .p-highlight {
     color: #2563eb;
-    font-weight: 600;
+    font-weight: 800;
   }
   .hero-actions {
     display: flex;
@@ -139,6 +142,7 @@ const partners = [
     padding: 0.85rem 1.5rem;
     border-radius: 999px;
     text-decoration: none;
+     transform: translateY(-1rem);
   }
   .btn-outline {
     display: inline-flex;
@@ -152,13 +156,14 @@ const partners = [
     border: 1.5px solid #2563eb;
     border-radius: 999px;
     text-decoration: none;
+     transform: translateY(-1rem);
   }
   .features {
     display: flex;
     gap: 0.6rem;
     flex-wrap: nowrap;
     position: relative;
-    top: 1.5rem;
+    top: 0.5rem;
   }
   .feature {
     display: flex;
@@ -180,6 +185,7 @@ const partners = [
     height: 88px;
     object-fit: contain;
     mix-blend-mode: multiply;
+    
   }
   .partners {
     margin-top: 1.9rem;
@@ -193,6 +199,7 @@ const partners = [
     font-size: 0.90rem;
     width: max-content;
     max-width: 480px;
+    
   }
   .partners-label {
     font-weight: 600;
