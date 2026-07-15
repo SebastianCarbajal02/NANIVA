@@ -76,26 +76,6 @@ const tutorials = [
       </div>
       <button class="arrow next" aria-label="Siguiente">›</button>
     </div>
-    <div class="dots" id="reviewDots"></div>
-
-    <div class="tutorials-header reveal">
-      <div class="tutorials-title">
-        <span class="video-icon">▤</span>
-        <div>
-          <h3>Aprende a usar el sistema</h3>
-          <p>Mira nuestros videos tutoriales y saca el máximo provecho a todas las funcionalidades.</p>
-        </div>
-      </div>
-      <a href="#tutoriales" class="ver-todos">Ver todos los videos →</a>
-    </div>
-    <div class="tutorials-grid">
-      {tutorials.map((t, i) => (
-        <div class="tutorial-card reveal hover-lift" style={`background:${t.color}; transition-delay:${i * 0.1}s`}>
-          <span class="play">▶</span>
-          <span class="duration">{t.duration}</span>
-        </div>
-      ))}
-    </div>
   </div>
 </section>
 
