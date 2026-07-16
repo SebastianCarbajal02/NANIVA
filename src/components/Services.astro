@@ -56,7 +56,22 @@ const whyChoose = [
   { icon: "⚙️", title: "Soporte personalizado", desc: "Te acompañamos en cada paso de tu crecimiento." },
 ];
 ---
+
 <section id="servicios" class="services">
+  <div class="why-choose">
+    <div class="container">
+      <h3>¿Por qué elegir <strong>Naniva</strong>?</h3>
+      <div class="why-grid">
+        {whyChoose.map((w, i) => (
+          <div class="why-item reveal" style={`transition-delay:${i * 0.08}s`}>
+            <div class="why-icon icon-bounce">{w.icon}</div>
+            <h4>{w.title}</h4>
+            <p>{w.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
   <div class="container">
     <div class="tag">NUESTRAS SOLUCIONES</div>
     <h2>Todo lo que tu negocio necesita en un solo lugar</h2>
@@ -98,20 +113,7 @@ const whyChoose = [
     </div>
   </div>
 
-  <div class="why-choose">
-    <div class="container">
-      <h3>¿Por qué elegir <strong>Naniva</strong>?</h3>
-      <div class="why-grid">
-        {whyChoose.map((w, i) => (
-          <div class="why-item reveal" style={`transition-delay:${i * 0.08}s`}>
-            <div class="why-icon icon-bounce">{w.icon}</div>
-            <h4>{w.title}</h4>
-            <p>{w.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
+  
 </section>
 
 <style>

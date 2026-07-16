@@ -3,7 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import Footer from '../components/Footer.astro';
-import banner from '../assets/image/banner-planes.webp';
+import banner from '../assets/image/banner-plan-03.png';
+import bannerPersona from '../assets/image/banner-plan-persona-03.png';
 import logo from '../assets/image/logo.webp';
 import iconFacturacion from '../assets/image/icono-plan.facturacion.png';
 import iconCatalogo from '../assets/image/icon-plan-catalogo-2.png';
@@ -119,7 +120,7 @@ const planGroups = {
   <Nav />
   <section class="banner" style={`background-image: url('${banner.src}');`}>
     <div class="content reveal">
-      <img src={logo.src} alt="Naniva" class="logo" />
+      <div class="logo-spacer" aria-hidden="true"></div>
       <h1>Descubre nuestros<br /><span class="highlight">PLANES</span></h1>
       <p>La solución perfecta para<br />hacer <span class="p-highlight">crecer tu negocio</span></p>
       <div class="plan-features">
@@ -135,6 +136,7 @@ const planGroups = {
         <span>Elige el plan ideal y lleva tu negocio<br /><strong>al siguiente nivel ↗</strong></span>
       </div>
     </div>
+    <img src={bannerPersona.src} alt="" class="banner-persona" aria-hidden="true" />
   </section>
 
   <section class="pricing products-section">
@@ -195,17 +197,30 @@ const planGroups = {
 <style>
   .banner {
     position: relative;
-    min-height: 100vh;
+    min-height: 30vh;
     overflow-x: hidden;
     display: flex;
     align-items: center;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 8rem 1.5rem 2rem 4rem;
+    padding: 6.5rem 1.5rem 1.5rem 4rem;
+  }
+  .banner-persona {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 91vh;
+    width: auto;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
+    transform: translateY(-2rem);
   }
   .content {
     max-width: 540px;
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -217,6 +232,10 @@ const planGroups = {
     width: auto;
     object-fit: contain;
    transform: translateY(-4rem);
+  }
+  .logo-spacer {
+    height: 4rem;
+    width: 1px;
   }
   .content h1 {
     font-size: clamp(3.3rem, 3.5vw, 3rem);
@@ -295,6 +314,7 @@ const planGroups = {
     .banner { padding-left: 1.5rem; }
   }
   @media (max-width: 768px) {
+    .banner-persona { display: none; }
     .banner {
       background-position: 70% center;
       min-height: auto;

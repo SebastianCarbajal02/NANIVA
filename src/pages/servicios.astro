@@ -20,7 +20,6 @@ const stats = [
   <Nav />
   <section class="banner" style={`background-image: url('${banner2.src}');`}>
     <div class="content reveal">
-      <img src={logo.src} alt="Naniva" class="logo" />
       <h1>Impulsa tu negocio<br />con nuestas<br /><span class="highlight">Soluciones</span></h1>
       <p>Te asesoramos para que tengas el mejor<br />sistema que se adecue para tu NEGOCIO.</p>
       <div class="stats">
@@ -51,21 +50,18 @@ const stats = [
     background-size: cover;
     background-position: center 10%;
     background-repeat: no-repeat;
-    padding: 8rem 1.5rem 2rem 4rem;
+    padding: 8rem 8rem 2rem 4rem;
+      
+
   }
   .content {
     max-width: 540px;
+    padding-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
-    gap: 1rem;
-  }
-  .logo {
-    height: 92px;
-    width: auto;
-    object-fit: contain;
-    transform: translateY(-6rem);
+    gap: 1.5rem;
   }
   h1 {
     font-size: clamp(2.5rem, 3.5vw, 3rem);
