@@ -3,34 +3,11 @@ import dashboardImg from '../assets/image/Dashboard.webp';
 import dashboardZoom1Img from '../assets/image/img-zoom-1.png';
 import dashboardZoom2Img from '../assets/image/img-zoom-2.png';
 import dashboardZoom3Img from '../assets/image/img-zoom-3.png';
-import iconPersona from '../assets/image/icono-inicio-persona.png';
-import iconSegundo from '../assets/image/icono-inicio-segundo.png';
-import iconTercera from '../assets/image/icono-inicio-tercera.png';
-import iconCuarto from '../assets/image/icono-inicio-cuarto.png';
-
 const bullets = [
   "Dashboard intuitivo",
   "Módulos integrados",
   "Información actualizada",
   "Fácil de usar",
-];
-
-const clients = [
-  { name: "MINIMARKET", sub: "Express" },
-  { name: "LA PARRILLA", sub: "" },
-  { name: "FERRETERÍA", sub: "El Constructor" },
-  { name: "BOUTIQUE", sub: "Fashion Store" },
-  { name: "FARMACIA", sub: "Salud y Vida" },
-  { name: "DISTRIBUIDORA", sub: "Los Amigos" },
-  { name: "LA BODEGA", sub: "Desde TRIG" },
-  { name: "IMPORTADORA", sub: "Global Peru" },
-];
-
-const trustStats = [
-  { icon: iconPersona, value: "+250", label: "Empresas activas" },
-  { icon: iconSegundo, value: "+1.2M", label: "Ventas procesadas" },
-  { icon: iconTercera, value: "+2.8M", label: "Facturas emitidas" },
-  { icon: iconCuarto, value: "99.9%", label: "Disponibilidad" },
 ];
 ---
 <section class="showcase">
@@ -51,30 +28,6 @@ const trustStats = [
           ))}
         </ul>
         <a href="#demo" class="cta hover-pop">▶ Ver Demo del Sistema →</a>
-      </div>
-    </div>
-
-    <div class="clients reveal">
-      <h3>Empresas que confían en <span class="brand">NANIVA</span></h3>
-      <p class="clients-sub">Más de 1,500 negocios en todo el Perú ya digitalizaron su gestión con nosotros.</p>
-      <div class="clients-grid">
-        {clients.map((c) => (
-          <div class="client">
-            <span class="client-name">{c.name}</span>
-            {c.sub && <span class="client-sub">{c.sub}</span>}
-          </div>
-        ))}
-      </div>
-      <div class="trust-stats">
-        {trustStats.map((s) => (
-          <div class="trust-stat">
-            <img src={s.icon.src} alt="" class="trust-icon" />
-            <div>
-              <span class="trust-value">{s.value}</span>
-              <span class="trust-label">{s.label}</span>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   </div>
@@ -265,79 +218,8 @@ const trustStats = [
     font-weight: 600;
     font-size: 1.1rem;
   }
-  .clients {
-    text-align: center;
-    margin-top: 4rem;
-    padding-bottom: 4rem;
-  }
-  .clients h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
-  .brand { color: #2563eb; }
-  .clients-sub { color: var(--color-text-muted); margin-bottom: 2.5rem; }
-  .clients-grid {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 1rem;
-  }
-  .client { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
-  .client-name {
-    font-weight: 700;
-    font-size: 0.8rem;
-    color: #0f172a;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  @media (max-width: 900px) {
-    .clients-grid { grid-template-columns: repeat(4, 1fr); }
-  }
-  @media (max-width: 500px) {
-    .clients-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  .client-sub { font-size: 0.75rem; color: var(--color-text-muted); }
-
-  .trust-stats {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e2e8f0;
-  }
-  .trust-stat {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 0.85rem 1rem;
-  }
-  .trust-icon {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-    flex-shrink: 0;
-  }
-  .trust-value {
-    display: block;
-    font-weight: 800;
-    font-size: 1.1rem;
-    color: #0f172a;
-  }
-  .trust-label {
-    display: block;
-    font-size: 0.78rem;
-    color: var(--color-text-muted);
-    white-space: nowrap;
-  }
-
   @media (max-width: 900px) {
     .mockup { min-width: 100%; flex-basis: 100%; }
-  }
-  @media (max-width: 700px) {
-    .trust-stats { flex-wrap: wrap; }
-    .trust-stat { flex: 1 1 calc(50% - 0.5rem); }
   }
   @media (max-width: 600px) {
     .panel { padding: 1rem; gap: 1.25rem; }
@@ -345,6 +227,5 @@ const trustStats = [
     .info p { font-size: 0.95rem; }
     .info li { font-size: 0.9rem; }
     .cta { width: 100%; justify-content: center; font-size: 0.95rem; padding: 0.85rem 1.5rem; }
-    .clients-grid { gap: 0.75rem; }
   }
 </style>

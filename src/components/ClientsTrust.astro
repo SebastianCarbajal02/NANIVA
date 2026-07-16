@@ -1,0 +1,247 @@
+---
+import zurielColor from '../assets/image/zuriel-color.png';
+import zurielMono from '../assets/image/zuriel-negro.png';
+import elohimColor from '../assets/image/elohim-color.png';
+import elohimMono from '../assets/image/elohim-negro.png';
+import wilsonColor from '../assets/image/wilson-color.png';
+import wilsonMono from '../assets/image/wilson-negro.png';
+import jfColor from '../assets/image/jf-color.png';
+import jfMono from '../assets/image/jf-negro.png';
+import taburColor from '../assets/image/tabur-color.png';
+import taburMono from '../assets/image/tabur-negro.png';
+import alaluColor from '../assets/image/alalu-color.png';
+import alaluMono from '../assets/image/alalu-negro.png';
+import eltreeColor from '../assets/image/eltree-color.png';
+import eltreeMono from '../assets/image/eltree-negro.png';
+import geeokpointColor from '../assets/image/geeokpoint-color.png';
+import geeokpointMono from '../assets/image/geeokpoint-negro.png';
+import petstoreColor from '../assets/image/petstore-color.png';
+import petstoreMono from '../assets/image/petstore-negro.png';
+import toyColor from '../assets/image/toy-color.png';
+import toyMono from '../assets/image/toy-negro.png';
+
+const slides = [
+  [
+    { name: "Zuriel", logo: { color: zurielColor, mono: zurielMono } },
+    { name: "Elohim", logo: { color: elohimColor, mono: elohimMono } },
+    { name: "Wilson", logo: { color: wilsonColor, mono: wilsonMono } },
+    { name: "JF", logo: { color: jfColor, mono: jfMono } },
+    { name: "Tabur", logo: { color: taburColor, mono: taburMono } },
+  ],
+  [
+    { name: "Alalu", logo: { color: alaluColor, mono: alaluMono } },
+    { name: "El Tree", logo: { color: eltreeColor, mono: eltreeMono } },
+    { name: "Geeokpoint", logo: { color: geeokpointColor, mono: geeokpointMono } },
+    { name: "Petstore", logo: { color: petstoreColor, mono: petstoreMono } },
+    { name: "Toy", logo: { color: toyColor, mono: toyMono } },
+  ],
+];
+---
+<section class="clients-trust">
+  <div class="container">
+    <div class="clients reveal">
+      <span class="badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3Z"/></svg>
+        CONFIANZA QUE IMPULSA
+      </span>
+      <h3>Empresas que ya crecen con <span class="brand">Naniva</span></h3>
+      <p class="clients-sub">Más de 250 empresas ya administran su negocio<br />con nuestra plataforma.</p>
+
+      <div class="carousel">
+        <button type="button" class="arrow prev" id="clients-prev" aria-label="Anterior">←</button>
+        <div class="track-viewport">
+          <div class="track" id="clients-track">
+            {slides.map((slide) => (
+              <div class="slide">
+                {slide.map((c) => (
+                  <div class="logo-item logo-item--image">
+                    <img src={c.logo.mono.src} alt={c.name} class="logo-img logo-img--mono" />
+                    <img src={c.logo.color.src} alt="" class="logo-img logo-img--color" />
+                  </div>
+                ))}
+                <div class="more-item">y muchas empresas más confían en <span class="brand">Naniva</span></div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <button type="button" class="arrow next" id="clients-next" aria-label="Siguiente">→</button>
+      </div>
+
+      <div class="dots" id="clients-dots">
+        {slides.map((_, i) => (
+          <button type="button" class="dot" data-index={i} aria-label={`Ir a la diapositiva ${i + 1}`}></button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById('clients-track');
+  const dotsWrap = document.getElementById('clients-dots');
+  const prevBtn = document.getElementById('clients-prev');
+  const nextBtn = document.getElementById('clients-next');
+  if (track && dotsWrap && prevBtn && nextBtn) {
+    const dots = Array.from(dotsWrap.querySelectorAll<HTMLButtonElement>('.dot'));
+    const total = dots.length;
+    let active = 0;
+
+    function render() {
+      if (!track) return;
+      track.style.transform = `translateX(-${active * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === active));
+    }
+
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { active = i; render(); }));
+    prevBtn.addEventListener('click', () => { active = (active - 1 + total) % total; render(); });
+    nextBtn.addEventListener('click', () => { active = (active + 1) % total; render(); });
+
+    render();
+  }
+</script>
+
+<style>
+  .clients-trust { background: white; padding-top: 1.5rem; }
+  .clients-trust .container { max-width: 1500px; }
+  .clients {
+    text-align: center;
+    padding-bottom: 2rem;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #eef4ff;
+    color: #2563eb;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.02em;
+    padding: 0.20rem 1cap;
+    border-radius: 999px;
+    margin-bottom: 0.5rem;
+  }
+  .clients h3 {
+    font-size: clamp(3.2rem, 3.4vw, 2.4rem);
+    font-weight: 750;
+    margin-bottom: 0.75rem;
+    color: #0f172a;
+  }
+  .brand { color: #2563eb; }
+  .clients-sub {
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+    font-size: 1.3rem;
+    font-weight: 630;
+    text-align: center;
+  }
+
+  .carousel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06);
+    padding: 2rem 1rem;
+  }
+  .arrow {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #334155;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .arrow:hover { background: #eef4ff; border-color: #2563eb; }
+
+  .track-viewport { flex: 1; overflow: hidden; }
+  .track {
+    display: flex;
+    transition: transform 0.4s ease;
+  }
+  .slide {
+    flex: 0 0 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    align-items: center;
+    gap: 1rem;
+  }
+  .logo-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    justify-content: center;
+  }
+  .logo-icon { flex-shrink: 0; }
+  .logo-item--image {
+    position: relative;
+    height: 85px;
+    width: 100%;
+  }
+  .logo-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.3s ease;
+  }
+  .logo-img--mono { opacity: 1; }
+  .logo-img--color { opacity: 0; }
+  .logo-item--image:hover .logo-img--mono { opacity: 0; }
+  .logo-item--image:hover .logo-img--color { opacity: 1; }
+  .logo-text { display: flex; flex-direction: column; text-align: left; min-width: 0; }
+  .logo-name {
+    font-weight: 800;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .logo-sub {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+  .more-item {
+    text-align: left;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    border: none;
+    background: #cbd5e1;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .dot.active { background: #2563eb; transform: scale(1.2); }
+
+  @media (max-width: 900px) {
+    .slide { grid-template-columns: repeat(2, 1fr); }
+    .more-item { grid-column: span 2; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .slide { grid-template-columns: 1fr; }
+    .more-item { grid-column: span 1; }
+    .carousel { padding: 1.5rem 0.5rem; gap: 0.5rem; }
+    .arrow { width: 34px; height: 34px; font-size: 1rem; }
+  }
+</style>

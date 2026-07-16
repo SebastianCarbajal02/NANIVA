@@ -1,12 +1,15 @@
 ---
-import iconFactura from '../assets/image/factura.webp';
-import iconCatalogo from '../assets/image/icon-plan-catalogo.webp';
-import iconRestaurante from '../assets/image/icon-plan-restaurante.webp';
-import iconSoftware from '../assets/image/icon-plan-software.webp';
+import iconFactura from '../assets/image/Icon-factura.webp';
+import iconCatalogo from '../assets/image/icon-plan-catalogo-2.png';
+import iconRestaurante from '../assets/image/Icon-restaurante.webp';
+import iconSoftware from '../assets/image/Icon-software.webp';
 import bgFacturacion from '../assets/image/pla-facturacion.webp';
 import bgCatalogo from '../assets/image/plan-catalogo.webp';
 import bgRestaurante from '../assets/image/plan-restaurante.webp';
 import bgSoftware from '../assets/image/plan-software.webp';
+import iconEcommerce from '../assets/image/icono-inicio-ecomerce.png';
+import iconErp from '../assets/image/icono-erp.png';
+import dashboardImg from '../assets/image/Dashboard.webp';
 
 const services = [
   {
@@ -40,10 +43,58 @@ const services = [
     icon: iconSoftware,
     bg: bgSoftware,
     iconBg: "#2563eb",
+    title: "Inteligencia Artificial",
+    desc: "Desarrollamos e implementamos soluciones personalizadas que se adaptan exactamente a tus necesidades.",
+    items: ["Análisis personalizado", "Desarrollo a la medida", "Integración con|sistemas existentes", "Capacitación y soporte|continuo"],
+    accent: "#2563eb",
+  },
+  {
+    icon: iconSoftware,
+    bg: bgSoftware,
+    iconBg: "#2563eb",
     title: "Implementación a Medida para tu Negocio",
     desc: "Desarrollamos e implementamos soluciones personalizadas que se adaptan exactamente a tus necesidades.",
     items: ["Análisis personalizado", "Desarrollo a la medida", "Integración con|sistemas existentes", "Capacitación y soporte|continuo"],
     accent: "#2563eb",
+  },
+  {
+    icon: iconEcommerce,
+    iconBg: "#16a34a",
+    badge: { icon: "🚀", text: "PARA CRECER", bg: "#dcfce7", color: "#16a34a" },
+    eyebrow: "ECOMMERCE",
+    eyebrowColor: "#16a34a",
+    headerStyle: "stacked",
+    title: "Naniva Ecommerce",
+    desc: "Vende online conectado a tu ERP.",
+    items: ["Tienda online personalizada", "Pasarelas de pago", "Sincronizado con tu inventario"],
+    accent: "#16a34a",
+    cta: "Ver Ecommerce →",
+    mockup: "ecommerce",
+  },
+  {
+    icon: iconErp,
+    iconBg: "#2563eb",
+    badge: { icon: "⭐", text: "MÁS ELEGIDO", bg: "#dbeafe", color: "#2563eb" },
+    eyebrow: "ERP EMPRESARIAL",
+    eyebrowColor: "#2563eb",
+    headerStyle: "stacked",
+    title: "ERP Naniva",
+    desc: "Controla toda tu empresa desde un solo lugar.",
+    items: ["Ventas e Inventario", "Compras", "Clientes", "Reportes en tiempo real"],
+    accent: "#2563eb",
+    cta: "Ver ERP →",
+    mockup: "erp",
+    bg: dashboardImg,
+  },
+  {
+    iconSvg: "link",
+    iconBg: "#2563eb",
+    title: "Integraciones Naniva",
+    desc: "Conecta tus herramientas y automatiza tu negocio.",
+    items: ["WhatsApp Business", "Pasarelas de pago", "Courier y envíos", "+50 integraciones"],
+    accent: "#2563eb",
+    cta: "Ver Integraciones →",
+    mockup: "none",
   },
 ];
 
@@ -58,6 +109,90 @@ const whyChoose = [
 ---
 
 <section id="servicios" class="services">
+    
+  <div class="container">
+    <div class="tag">NUESTRAS SOLUCIONES</div>
+    <h2>Todo lo que tu negocio necesita en un solo lugar</h2>
+    <p class="subtitle">Soluciones diseñadas para impulsar tu crecimiento y simplificar tu gestión diaria.</p>
+
+    <div class="grid">
+      {services.map((s, i) => (
+        <article class={s.badge ? "card reveal hover-lift has-badge" : "card reveal hover-lift"} style={`transition-delay:${i * 0.1}s`}>
+          {s.badge && (
+            <span class="card-badge" style={`background:${s.badge.bg}; color:${s.badge.color}`}>
+              {s.badge.icon} {s.badge.text}
+            </span>
+          )}
+          <div class={s.headerStyle === "stacked" ? "card-header stacked" : (i % 4 === 3 ? "card-header wrap" : "card-header")}>
+            {s.iconSvg === "link" ? (
+              <div class="icon icon-bounce" style={`background:${s.iconBg}`}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2M15 7h2a5 5 0 1 1 0 10h-2M8 12h8"/></svg>
+              </div>
+            ) : (
+              <div class="icon-badge icon-bounce">
+                <img src={s.icon!.src} alt={s.title} />
+              </div>
+            )}
+            {s.eyebrow && <span class="eyebrow" style={`color:${s.eyebrowColor}`}>{s.eyebrow}</span>}
+            <h3>{s.title}</h3>
+          </div>
+          <p class="desc">{s.desc}</p>
+          <div class="body">
+            <ul class={i % 4 === 3 ? "wrap" : ""}>
+              {s.items.map((item) => (
+                <li>
+                  <span class="check" style={`color:${s.accent}`}>✓</span>
+                  <span>{item.split("|").map((line, idx, arr) => (
+                    idx < arr.length - 1 ? <><span style="white-space:nowrap">{line}</span><br /></> : <span style="white-space:nowrap">{line}</span>
+                  ))}</span>
+                </li>
+              ))}
+            </ul>
+            {s.mockup === "ecommerce" && (
+              <div class="mockup mockup-ecommerce">
+                <div class="mockup-head"><span>🛒</span> Tu tienda online</div>
+                <div class="mockup-product">
+                  <div class="mockup-product-thumb">👟</div>
+                  <div class="mockup-product-info">
+                    <span class="mockup-product-name">Zapatilla Urbana</span>
+                    <span class="mockup-product-price">S/ 159.00</span>
+                  </div>
+                </div>
+                <button type="button" class="mockup-add-btn">Agregar al carrito</button>
+                <div class="mockup-categories">
+                  <span>Categorías</span>
+                  <div class="mockup-cat-icons"><span>🎧</span><span>🎒</span><span>⌚</span></div>
+                </div>
+              </div>
+            )}
+            {s.mockup === "erp" && (
+              <div class="mockup mockup-erp">
+                <div class="mockup-laptop">
+                  <img src={s.bg!.src} alt="" class="mockup-laptop-screen" />
+                </div>
+                <div class="mockup-phone">
+                  <span class="mockup-phone-label">Resumen</span>
+                  <span class="mockup-phone-stat">S/ 69,450</span>
+                  <span class="mockup-phone-sub">1,320 Productos</span>
+                </div>
+              </div>
+            )}
+            {(!s.mockup || s.mockup === "side-img") && (
+              <img src={s.bg!.src} alt="" class="side-img" style={
+                i % 4 === 0 ? "margin-top: 1rem;margin-left: 4rem" :
+                i % 4 === 1 ? "width: 260px; margin-left: 5rem;" :
+                i % 4 === 2 ? "margin-left: 6rem;" :
+                i % 4 === 3 ? "width: 220px; margin-left: 6rem; margin-top: -1.5rem;" : ""
+              } />
+            )}
+          </div>
+          <a href="#planes" class="ver-planes hover-pop" style={`color:${s.accent}; border-color:${s.accent}`}>
+            {s.cta ?? "Ver Planes →"}
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
   <div class="why-choose">
     <div class="container">
       <h3>¿Por qué elegir <strong>Naniva</strong>?</h3>
@@ -70,46 +205,6 @@ const whyChoose = [
           </div>
         ))}
       </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="tag">NUESTRAS SOLUCIONES</div>
-    <h2>Todo lo que tu negocio necesita en un solo lugar</h2>
-    <p class="subtitle">Soluciones diseñadas para impulsar tu crecimiento y simplificar tu gestión diaria.</p>
-
-    <div class="grid">
-      {services.map((s, i) => (
-        <article class="card reveal hover-lift" style={`transition-delay:${i * 0.1}s`}>
-          <div class={i === 3 ? "card-header wrap" : "card-header"}>
-            <div class="icon icon-bounce" style={`background:${s.iconBg}`}>
-              <img src={s.icon.src} alt={s.title} />
-            </div>
-            <h3>{s.title}</h3>
-          </div>
-          <p class="desc">{s.desc}</p>
-          <div class="body">
-            <ul class={i === 3 ? "wrap" : ""}>
-              {s.items.map((item) => (
-                <li>
-                  <span class="check" style={`color:${s.accent}`}>✓</span>
-                  <span>{item.split("|").map((line, idx, arr) => (
-                    idx < arr.length - 1 ? <><span style="white-space:nowrap">{line}</span><br /></> : <span style="white-space:nowrap">{line}</span>
-                  ))}</span>
-                </li>
-              ))}
-            </ul>
-            <img src={s.bg.src} alt="" class="side-img" style={
-              i === 0 ? "margin-top: 1rem;margin-left: 4rem" :
-              i === 1 ? "width: 260px; margin-left: 5rem;" :
-              i === 2 ? "margin-left: 6rem;" :
-              i === 3 ? "width: 220px; margin-left: 6rem; margin-top: -1.5rem;" : ""
-            } />
-          </div>
-          <a href="#planes" class="ver-planes hover-pop" style={`color:${s.accent}; border-color:${s.accent}`}>
-            Ver Planes →
-          </a>
-        </article>
-      ))}
     </div>
   </div>
 
@@ -175,6 +270,37 @@ const whyChoose = [
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    position: relative;
+  }
+  .card.has-badge { padding-top: 1.25rem; }
+  .card-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .card-header.stacked {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+  .card-header.stacked h3 {
+    white-space: normal;
+    font-size: 1.15rem;
+    font-weight: 800;
+  }
+  .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
   .body {
     display: flex;
@@ -225,6 +351,19 @@ const whyChoose = [
     object-fit: contain;
     filter: brightness(0) invert(1);
   }
+  .icon-badge {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
   h3 { font-size: 0.95rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
   .desc { color: var(--color-text-muted); font-size: 0.8rem; margin-bottom: 1rem; }
   ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
@@ -266,6 +405,92 @@ const whyChoose = [
     text-decoration: none;
     width: fit-content;
   }
+  .mockup {
+    flex: 1;
+    min-width: 0;
+    align-self: center;
+  }
+  .mockup-ecommerce {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .mockup-head {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #334155;
+  }
+  .mockup-product {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.5rem;
+  }
+  .mockup-product-thumb {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    border-radius: 8px;
+    font-size: 1.2rem;
+  }
+  .mockup-product-info { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+  .mockup-product-name { font-size: 0.72rem; font-weight: 600; color: #0f172a; }
+  .mockup-product-price { font-size: 0.72rem; font-weight: 700; color: #16a34a; }
+  .mockup-add-btn {
+    background: #16a34a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: default;
+  }
+  .mockup-categories { display: flex; flex-direction: column; gap: 0.4rem; }
+  .mockup-categories > span { font-size: 0.65rem; color: var(--color-text-muted); font-weight: 600; }
+  .mockup-cat-icons { display: flex; gap: 0.5rem; font-size: 1.1rem; }
+  .mockup-erp { position: relative; padding-top: 0.5rem; }
+  .mockup-laptop {
+    background: #0f172a;
+    border-radius: 10px;
+    padding: 4px;
+  }
+  .mockup-laptop-screen {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    display: block;
+  }
+  .mockup-phone {
+    position: absolute;
+    bottom: -0.75rem;
+    right: -0.5rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+    padding: 0.5rem 0.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .mockup-phone-label { font-size: 0.6rem; color: var(--color-text-muted); font-weight: 600; }
+  .mockup-phone-stat { font-size: 0.85rem; font-weight: 800; color: #0f172a; }
+  .mockup-phone-sub { font-size: 0.6rem; color: #16a34a; font-weight: 700; }
   .why-choose {
     margin-top: 4rem;
     background: #eef4ff;
