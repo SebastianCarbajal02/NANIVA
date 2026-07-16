@@ -179,13 +179,21 @@ const partners = [
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    transition: transform 0.25s ease, border-color 0.25s ease, filter 0.25s ease;
+  }
+  .feature:hover .feature-icon {
+    transform: translateY(-5px) scale(1.12);
+    border-color: #2563eb;
+    filter: brightness(1.35);
   }
   .feature-icon img {
     width: 115px;
     height: 115px;
     object-fit: contain;
     mix-blend-mode: multiply;
-    
+
   }
   .partners {
     margin-top: 1.9rem;
