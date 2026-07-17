@@ -1,8 +1,9 @@
 ---
-import bgFacturacion from '../assets/image/pla-facturacion.webp';
+import bgFacturacion from '../assets/image/FACTURA5-05.png';
+import bgErpNaniva   from '../assets/image/ERP-03.png';
 import bgCatalogo from '../assets/image/plan-catalogo.webp';
 import bgRestaurante from '../assets/image/plan-restaurante.webp';
-import dashboardImg from '../assets/image/Dashboard.webp';
+import bgSoftware from '../assets/image/plan-software.webp';
 import iconFacturacion from '../assets/image/icon-naniva-facturacion.png';
 import iconCatalogo from '../assets/image/icon-naniva-catalogo.png';
 import iconRestaurante from '../assets/image/icon-naniva-restaurante.png';
@@ -12,6 +13,8 @@ import iconNaniva from '../assets/image/icon-naniva-ia-2.png';
 import iconErp from '../assets/image/icon-erp-2.png';
 import iconEcomerce from '../assets/image/icon-ecomerce-2.png';
 import imgNaniviaIa3 from '../assets/image/img-naniva-ia-3.png';
+import imgEcomerce4 from '../assets/image/ECOMERC-04.png';
+import imgImplem1 from '../assets/image/IMPLEM1-06.png';
 
 
 function iconSvg(name: string, color: string = "white", size = 22) {
@@ -83,6 +86,7 @@ const modules = [
     items: ["Facturas y Boletas", "Guías de Remisión", "Integrado con SUNAT"],
     cta: "Ver Facturación →",
     mockupImg: bgFacturacion,
+    mockupClass: "module-mockup-facturacion",
   },
   {
     icon: "bag",
@@ -94,6 +98,7 @@ const modules = [
     items: ["Catálogo interactivo", "Pedidos por WhatsApp", "Códigos QR"],
     cta: "Ver Catálogo →",
     mockupImg: bgCatalogo,
+    mockupClass: "module-mockup-catalogo",
   },
   {
     icon: "utensils",
@@ -105,6 +110,7 @@ const modules = [
     items: ["POS Restaurante", "Mesas", "Cocina", "Delivery"],
     cta: "Ver Restaurante →",
     mockupImg: bgRestaurante,
+    mockupClass: "module-mockup-restaurante",
   },
   {
     icon: "link",
@@ -114,6 +120,8 @@ const modules = [
     desc: "Conecta tus herramientas y automatiza tu negocio.",
     items: ["WhatsApp Business", "Pasarelas de pago", "Courier y envíos", "+50 integraciones"],
     cta: "Ver Integraciones →",
+    mockupImg: imgImplem1,
+    mockupClass: "module-mockup-integraciones",
   },
   {
     icon: "gear",
@@ -123,6 +131,8 @@ const modules = [
     desc: "Desarrollamos el sistema que tu empresa necesita.",
     items: ["Análisis personalizado", "Desarrollo a la medida", "Soporte continuo"],
     cta: "Cotizar proyecto →",
+    mockupImg: bgSoftware,
+    mockupClass: "module-mockup-software",
   },
 ];
 
@@ -179,32 +189,13 @@ const stats = [
                 </div>
               )}
               {s.mockup === "erp" && (
-                <div class="mockup mockup-erp">
-                  <div class="mockup-laptop">
-                    <img src={dashboardImg.src} alt="" class="mockup-laptop-screen" />
-                  </div>
-                  <div class="mockup-phone">
-                    <span class="mockup-phone-label">Resumen</span>
-                    <span class="mockup-phone-stat">S/ 69,450</span>
-                    <span class="mockup-phone-sub">1,320 Productos</span>
-                  </div>
+                <div class="mockup mockup-erp-img">
+                  <img src={bgErpNaniva.src} alt="ERP Naniva" class="mockup-erp-image" />
                 </div>
               )}
               {s.mockup === "ecommerce" && (
-                <div class="mockup mockup-ecommerce">
-                  <div class="mockup-head"><span>🛒</span> Tu tienda online</div>
-                  <div class="mockup-product">
-                    <div class="mockup-product-thumb">👟</div>
-                    <div class="mockup-product-info">
-                      <span class="mockup-product-name">Zapatilla Urbana</span>
-                      <span class="mockup-product-price">S/ 159.00</span>
-                    </div>
-                  </div>
-                  <button type="button" class="mockup-add-btn">Agregar al carrito</button>
-                  <div class="mockup-categories">
-                    <span>Categorías</span>
-                    <div class="mockup-cat-icons"><span>🎧</span><span>🎒</span><span>⌚</span></div>
-                  </div>
+                <div class="mockup mockup-ecommerce-img">
+                  <img src={imgEcomerce4.src} alt="Naniva Ecommerce" class="mockup-ecommerce-image" />
                 </div>
               )}
             </div>
@@ -234,27 +225,14 @@ const stats = [
               </li>
             ))}
           </ul>
-          {m.mockupImg && <img src={m.mockupImg.src} alt="" class="module-mockup" />}
+          {m.mockupImg && <img src={m.mockupImg.src} alt="" class={`module-mockup ${m.mockupClass ?? ""}`} />}
           <a href="#planes" class="ver-planes hover-pop" style={`color:${m.accent}; border-color:${m.accent}`}>
             {m.cta}
           </a>
         </article>
       ))}
     </div>
-  </div>
 
-  <div class="stats-bar">
-    <div class="container stats-grid">
-      {stats.map((st, i) => (
-        <div class="stat-item reveal" style={`transition-delay:${i * 0.08}s`}>
-          <div class="stat-icon" style={`background:${st.bg}`} set:html={iconSvg(st.icon, st.color, 30)} />
-          <div>
-            <h4>{st.value}</h4>
-            <p>{st.desc}</p>
-          </div>
-        </div>
-      ))}
-    </div>
   </div>
 </section>
 
@@ -420,6 +398,10 @@ const stats = [
   .mockup-reco-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.62rem; color: #334155; white-space: nowrap; }
   .dot { width: 6px; height: 6px; border-radius: 999px; flex-shrink: 0; }
 
+  .mockup-erp-img { position: relative; padding-top: 0.5rem; }
+  .mockup-erp-image { width: 100%; height: auto; display: block; }
+  .mockup-ecommerce-img { position: relative; padding-top: 0.5rem; }
+  .mockup-ecommerce-image { width: 100%; height: auto; display: block; }
   .mockup-erp { position: relative; padding-top: 0.5rem; }
   .mockup-laptop { background: #0f172a; border-radius: 10px; padding: 4px; }
   .mockup-laptop-screen { width: 100%; height: auto; border-radius: 6px; display: block; }
@@ -517,17 +499,50 @@ const stats = [
   .module-header h4 { font-size: 0.9rem; font-weight: 700; }
   .module-mockup {
     width: 100%;
-    max-width: 140px;
+    max-width: 170px;
     height: auto;
     object-fit: contain;
-    align-self: center;
-    margin: 0.5rem 0;
+    align-self: flex-end;
+    margin: -1.5rem 0 0.5rem auto;
   }
+  .module-mockup-facturacion {
+ max-width: 210px;
+  margin-top: -3rem;
+  margin-right:-1rem;
+  transform: translateY(-2rem)
+
+  }
+  .module-mockup-integraciones{
+  max-width: 205px;
+  max-height: 350px;
+  margin-top: -3rem;
+  margin-right:0.3rem;
+  transform: translateY(-3rem)
+  }
+  .module-mockup-catalogo {
+   max-width: 290px;
+  margin-top: -0.5%;
+  margin-right:-3rem;
+   }
+  .module-mockup-restaurante {
+    max-width: 270px;
+    margin-top: -3rem;
+    margin-right:-3rem;
+    transform: translateY(-1rem); }
+  .module-mockup-software {
+    max-width: 295px;
+    margin-top: -2rem;
+    margin-right:-4rem;
+  }
+
 
   .stats-bar {
     background: white;
-    border-top: 1px solid #e5e7eb;
-    padding: 2.5rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    margin-top: 3rem;
+
   }
   .stats-grid {
     display: grid;

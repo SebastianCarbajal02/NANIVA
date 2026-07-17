@@ -3,11 +3,10 @@ import dashboardImg from '../assets/image/Dashboard.webp';
 import dashboardZoom1Img from '../assets/image/img-zoom-1.png';
 import dashboardZoom2Img from '../assets/image/img-zoom-2.png';
 import dashboardZoom3Img from '../assets/image/img-zoom-3.png';
-import dashboardIllustration from '../assets/image/dashboard-illustration.png';
-import iconVentas from '../assets/image/icon-ventas-indicadores.png';
-import iconRecomendaciones from '../assets/image/icon-recomendaciones-ia.png';
-import iconConectada from '../assets/image/icon-empresa-conectada.png';
-import iconInformacion from '../assets/image/icon-informacion-clara.png';
+import iconVentas from '../assets/image/iconsdashb1-22.png';
+import iconRecomendaciones from '../assets/image/iconsdashb1-23.png';
+import iconConectada from '../assets/image/iconsdashb1-24.png';
+import iconInformacion from '../assets/image/iconsdashb1-25.png';
 
 const features = [
   { icon: iconVentas, title: "Ventas e indicadores", sub: "en tiempo real" },
@@ -34,16 +33,15 @@ const features = [
         <span class="badge">• DASHBOARD INTELIGENTE</span>
         <h2>El centro de control<br />de <span class="brand">tu empresa</span></h2>
         <p>Toda la información que necesitas, en tiempo real. Toma decisiones inteligentes y lleva tu negocio al siguiente nivel.</p>
-        <img src={dashboardIllustration.src} alt="" class="illustration" />
         <ul>
           {features.map((f) => (
             <li>
-              <img src={f.icon.src} alt="" class="feature-icon" />
-              <span class="feature-text">{f.title}<br />{f.sub}</span>
+              <span class="feature-icon-wrap"><img src={f.icon.src} alt="" class="feature-icon" /></span>
+              <span class="feature-text">{f.title} {f.sub}</span>
             </li>
           ))}
         </ul>
-        <a href="#demo" class="cta hover-pop">▶ Ver Demo del Sistema →</a>
+        <a href="#demo" class="cta hover-pop">Explorar Dashboard →</a>
       </div>
     </div>
   </div>
@@ -86,20 +84,21 @@ const features = [
   .eyebrow {
     display: inline-block;
     color: #2563eb;
-    font-weight: 700;
-    font-size: 0.85rem;
+    font-weight: 750;
+    font-size: 1.2rem;
     letter-spacing: 0.06em;
     margin-bottom: 0.5rem;
   }
   .showcase h1 {
-    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    font-size: clamp(1.8rem, 3.6vw, 3.6rem);
     font-weight: 800;
     color: #0f172a;
     margin-bottom: 0.75rem;
   }
   .section-sub {
     color: var(--color-text-muted);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
   }
   .panel {
     display: flex;
@@ -212,12 +211,15 @@ const features = [
   .info {
     flex: 0.8;
     min-width: 320px;
+    background: linear-gradient(160deg, #0b1220, #16233d);
+    border-radius: var(--radius);
+    padding: 2rem 1.75rem;
   }
   .badge {
     display: inline-flex;
     align-items: center;
-    background: #eef4ff;
-    color: #2563eb;
+    background: rgba(37, 99, 235, 0.18);
+    color: #60a5fa;
     font-weight: 700;
     font-size: 0.7rem;
     letter-spacing: 0.04em;
@@ -226,62 +228,76 @@ const features = [
     margin-bottom: 1rem;
   }
   .info h2 {
-    font-size: clamp(1rem, 3.6vw, 2rem);
+    font-size: clamp(1rem, 3.6vw, 1.5rem);
     line-height: 1.2;
     margin-bottom: 1.25rem;
-    color: #0f172a;
+    color: white;
   }
-  .brand { color: #2563eb; }
+  .brand { color: #60a5fa; }
   .info p {
-    font-size: 1.15rem;
+    font-size: 1rem;
     line-height: 1.5;
-    color: var(--color-text-muted);
+    color: #94a3b8;
     margin-bottom: 1.5rem;
-  }
-  .illustration {
-    width: 100%;
-    max-width: 120px;
-    height: 150px;
-    object-fit: cover;
-    object-position: center;
-    margin-bottom: 1.5rem;
-    margin-left: 1.5rem;
   }
   .info ul {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2.25rem;
+    margin-bottom: 1.75rem;
   }
   .info li {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.9rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .info li:last-child { border-bottom: none; }
+  .feature-icon-wrap {
+    width: 65px;
+    height: 65px;
+    flex-shrink: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  }
+  .info li:hover .feature-icon-wrap {
+    transform: scale(1.12);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05));
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
   }
   .feature-icon {
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
+    width: 65px;
+    height: 65px;
     object-fit: contain;
+    transition: transform 0.25s ease;
+  }
+  .info li:hover .feature-icon {
+    transform: scale(1.08);
   }
   .feature-text {
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.3;
-    color: #1e293b;
+    color: white;
   }
   .cta {
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.6rem;
+    width: 100%;
     background: #2563eb;
     color: white;
     padding: 1rem 2rem;
     border-radius: 999px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   @media (max-width: 900px) {
     .mockup { min-width: 100%; flex-basis: 100%; }

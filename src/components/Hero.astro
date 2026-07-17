@@ -1,5 +1,7 @@
 ---
-import banner from '../assets/image/banner.webp';
+import banner from '../assets/image/fondo final1-01.png';
+import heroPeople from '../assets/image/hompersonas fin1-02.png';
+import heroDashboard from '../assets/image/dashboardfinalp1-03.png';
 import logo from '../assets/image/logo.webp';
 import iconPos from '../assets/image/icono-iniicio-punto_venta.png';
 import iconEcommerce from '../assets/image/icono-inicio-ecomerce.png';
@@ -52,6 +54,11 @@ const partners = [
       ))}
     </div>
   </div>
+
+  <div class="hero-visual reveal">
+    <img src={heroDashboard.src} alt="Dashboard Naniva" class="hero-dashboard" />
+    <img src={heroPeople.src} alt="" class="hero-people" />
+  </div>
 </section>
 
 <style>
@@ -60,10 +67,51 @@ const partners = [
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     padding: 4rem 1.5rem 2rem 5rem;
+    overflow: hidden;
+  }
+  .hero-visual {
+    position: absolute;
+    right: 2rem;
+    bottom: 0;
+    width: min(56%, 860px);
+    height: 85%;
+    pointer-events: none;
+  }
+  .hero-people {
+    position: absolute;
+    left: -35%;
+    bottom: 0;
+    width: 140%;
+    height: auto;
+    object-fit: contain;
+    z-index: 2;
+    transform: translateY(5rem);
+    pointer-events: auto;
+    transition: filter 0.3s ease;
+  }
+  .hero-people:hover {
+    filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.7)) drop-shadow(0 0 45px rgba(37, 99, 235, 0.5));
+  }
+
+  .hero-dashboard {
+    position: absolute;
+    top: 8%;
+    right: 220;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(15, 23, 42, 0.25));
+    z-index: 1;
+    transform: translateY(-12rem);
+    pointer-events: auto;
+    transition: transform 0.3s ease;
+  }
+  .hero-dashboard:hover {
+    transform: translateY(-12rem) scale(1.06);
   }
   .content {
     max-width: 580px;
@@ -227,6 +275,9 @@ const partners = [
   }
   @media (max-width: 900px) {
     .hero { padding-left: 1.5rem; }
+  }
+  @media (max-width: 1100px) {
+    .hero-visual { display: none; }
   }
   @media (max-width: 768px) {
     .hero {

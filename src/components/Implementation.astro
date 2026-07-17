@@ -1,0 +1,229 @@
+---
+import iconDiagnostico from '../assets/image/icons2-07.png';
+import iconConfiguracion from '../assets/image/icons2-08.png';
+import iconCapacitacion from '../assets/image/icons2-09.png';
+import iconOperar from '../assets/image/icons2-10.png';
+import iconBoltImg from '../assets/image/icombarr-11.png';
+import iconShieldImg from '../assets/image/icombarr-12.png';
+import iconHeadsetImg from '../assets/image/icombarr-13.png';
+import iconUsersImg from '../assets/image/icombarr-14.png';
+
+const steps = [
+  {
+    num: 1,
+    color: "#2563eb",
+    bg: "#eaf1ff",
+    iconImg: iconDiagnostico,
+    title: "Diagnóstico",
+    items: ["Entendemos tu empresa", "Definimos el plan", "Preparamos la implementación"],
+  },
+  {
+    num: 2,
+    color: "#2563eb",
+    bg: "#eaf1ff",
+    iconImg: iconConfiguracion,
+    title: "Configuración",
+    items: ["Configuramos Naniva", "Importamos información", "Validamos los datos"],
+  },
+  {
+    num: 3,
+    color: "#2563eb",
+    bg: "#eaf1ff",
+    iconImg: iconCapacitacion,
+    title: "Capacitación",
+    items: ["Entrenamos al equipo", "Probamos el sistema", "Ajustamos detalles"],
+  },
+  {
+    num: 4,
+    color: "#16a34a",
+    bg: "#e6f7ee",
+    iconImg: iconOperar,
+    title: "¡Empieza a operar!",
+    items: ["Sistema en producción", "Equipo acompañado", "Soporte permanente"],
+    done: true,
+  },
+];
+
+const benefits = [
+  { iconImg: iconBoltImg, title: "Implementación rápida", desc: "Tu empresa operando en días, no en meses." },
+  { iconImg: iconShieldImg, title: "Datos seguros", desc: "Tus datos siempre protegidos con los más altos estándares." },
+  { iconImg: iconUsersImg, title: "Equipo especializado", desc: "Un equipo experto contigo en cada paso del proceso." },
+  { iconImg: iconHeadsetImg, title: "Soporte permanente", desc: "Te acompañamos siempre que nos necesites." },
+];
+---
+<section id="implementacion" class="implementation">
+  <div class="container">
+    <div class="tag">🚀 FACILIDAD DE IMPLEMENTACIÓN</div>
+    <h2>Implementar Naniva es <span class="highlight">más fácil</span> de lo que imaginas</h2>
+    <p class="subtitle">Nos encargamos de todo el proceso para que empieces a vender desde el primer día.<br />Nuestro equipo configura, migra tus datos y te acompaña hasta que tu empresa esté operando al 100%.</p>
+
+    <div class="steps-grid">
+      {steps.map((s, i) => (
+        <div class={`step-card reveal hover-lift ${s.done ? "step-done" : ""}`} style={`transition-delay:${i * 0.08}s`}>
+          <span class="step-num" style={`background:${s.color}`}>{s.num}</span>
+          <img src={s.iconImg.src} alt="" class="step-icon-img" />
+          <h4>{s.title}</h4>
+          <ul>
+            {s.items.map((item) => (
+              <li>
+                <span class="check" style={`color:${s.color}`}>✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          {i < steps.length - 1 && <span class="step-arrow">→</span>}
+        </div>
+      ))}
+    </div>
+
+    <div class="benefits-bar">
+      {benefits.map((b, i) => (
+        <div class="benefit-item reveal" style={`transition-delay:${i * 0.08}s`}>
+          <img src={b.iconImg.src} alt="" class="benefit-icon-img" />
+          <div>
+            <h5>{b.title}</h5>
+            <p>{b.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .implementation {
+    padding: 4rem 0;
+    background: #f8fafc;
+  }
+  .implementation .container {
+    max-width: 1600px;
+  }
+  .tag {
+    text-align: center;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+  h2 {
+    text-align: center;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    margin-bottom: 0.5rem;
+  }
+  .highlight { color: #2563eb; }
+  .subtitle {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .step-card {
+    position: relative;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: 1.75rem 1.5rem;
+  }
+  .step-card.step-done {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 1px #16a34a;
+  }
+  .step-num {
+    position: absolute;
+    top: -14px;
+    left: 1.5rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    color: white;
+    font-weight: 800;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
+  }
+  .step-icon-img {
+    display: block;
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin: 0.75rem auto 1.25rem;
+  }
+  .step-card h4 {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #0f172a;
+    padding-bottom: 0.85rem;
+    margin-bottom: 0.85rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .step-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .step-card li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #334155;
+  }
+  .check { font-weight: 800; flex-shrink: 0; }
+  .step-arrow {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+    color: #94a3b8;
+    font-size: 2.4rem;
+    font-weight: 650;
+    z-index: 3;
+  }
+
+  .benefits-bar {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+  .benefit-icon-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .benefit-item h5 { font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-bottom: 0.15rem; }
+  .benefit-item p { font-size: 0.78rem; color: var(--color-text-muted); }
+
+  @media (max-width: 1100px) {
+    .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    .step-arrow { display: none; }
+  }
+  @media (max-width: 900px) {
+    .benefits-bar { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 700px) {
+    .steps-grid { grid-template-columns: 1fr; }
+    .benefits-bar { grid-template-columns: 1fr; }
+  }
+</style>
