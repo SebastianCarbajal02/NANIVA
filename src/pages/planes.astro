@@ -1,14 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
-import CtaBanner from '../components/CtaBanner.astro';
 import Footer from '../components/Footer.astro';
 import banner from '../assets/image/banner-plan-03.png';
 import bannerPersona from '../assets/image/banner-plan-persona-03.png';
-import logo from '../assets/image/logo.webp';
-import iconFacturacion from '../assets/image/icono-plan.facturacion.png';
-import iconCatalogo from '../assets/image/icon-plan-catalogo-2.png';
-import iconRestaurante from '../assets/image/icono-plan-restaurante.png';
+import iconERP from '../assets/image/icondd-05.png';
+import iconCatalogo from '../assets/image/icondd-06.png';
+import iconEcommerce from '../assets/image/icondd-07.png';
+import iconIA from '../assets/image/icondd-08.png';
 
 const planFeatures = [
   { icon: "🏷️", title: "Planes flexibles", desc: "para cada necesidad" },
@@ -18,105 +17,13 @@ const planFeatures = [
 ];
 
 const products = [
-  {
-    id: "facturacion",
-    name: "Sistema de Facturación",
-    icon: iconFacturacion,
-    color: "#2563eb",
-    bg: "linear-gradient(135deg, #eaf1ff, #f5f9ff)",
-    items: ["Boletas y Facturas SUNAT", "Guías de Remisión", "Cotizaciones", "Reportes y estadísticas"],
-  },
-  {
-    id: "catalogo",
-    name: "Catálogo Digital",
-    icon: iconCatalogo,
-    color: "#16a34a",
-    bg: "linear-gradient(135deg, #e8fbee, #f4fdf7)",
-    items: ["Catálogo interactivo", "Pedidos por WhatsApp", "Fotos ilimitadas", "Códigos QR"],
-  },
-  {
-    id: "restaurante",
-    name: "Sistema de Restaurantes",
-    icon: iconRestaurante,
-    color: "#9333ea",
-    bg: "linear-gradient(135deg, #f3e8ff, #f9f4ff)",
-    items: ["Punto de Venta (POS)", "Gestión de mesas", "Delivery", "Cocina y comandas"],
-  },
+  { icon: iconERP, title: "ERP", desc: "Sistema principal" },
+  { icon: iconCatalogo, title: "Catálogo Digital", desc: "Catálogo en WhatsApp" },
+  { icon: iconEcommerce, title: "Ecommerce", desc: "Tienda online" },
+  { icon: iconIA, title: "IA", desc: "Inteligencia de negocio" },
 ];
-
-const planGroups = {
-  facturacion: {
-    label: "Sistema de Facturación",
-    plans: [
-      {
-        id: "facturacion-unico",
-        name: "Facturación",
-        color: "#2563eb",
-        bg: "linear-gradient(135deg, #eaf1ff, #f5f9ff)",
-        price: 79,
-        popular: false,
-        items: ["Facturas SUNAT ilimitadas", "Guías de Remisión", "Cotizaciones", "Reportes y estadísticas", "1 Usuario", "Soporte por email"],
-      },
-    ],
-  },
-  catalogo: {
-    label: "Catálogo Digital",
-    plans: [
-      {
-        id: "emprendedor",
-        name: "Emprendedor",
-        color: "#16a34a",
-        bg: "linear-gradient(135deg, #e8fbee, #f4fdf7)",
-        price: 49.90,
-        popular: false,
-        items: ["Catálogo digital integrado al sistema", "Creación de catálogos PDF", "Portada y fondo personalizados", "Enlace para compartir por WhatsApp", "Lista de catálogos guardados", "Soporte", "100 Productos (3 x imagen)"],
-      },
-      {
-        id: "negocio",
-        name: "Negocio",
-        color: "#2563eb",
-        bg: "linear-gradient(135deg, #eaf1ff, #f5f9ff)",
-        price: 79,
-        popular: true,
-        items: ["Catálogo digital integrado al sistema", "Creación de catálogos PDF", "Portada y fondo personalizados", "Banners", "Carga masiva de imágenes", "Enlace para compartir por WhatsApp (cotizaciones enlace pdf)", "Lista de catálogos guardados", "Edición básica de catálogos", "Soporte", "200 Productos (3 x imagen)", "Envío masivos por WhatsApp"],
-      },
-      {
-        id: "star",
-        name: "Star",
-        color: "#9333ea",
-        bg: "linear-gradient(135deg, #f3e8ff, #f9f4ff)",
-        price: 149,
-        popular: false,
-        items: ["Catálogo digital integrado al sistema", "Creación de catálogos PDF", "Portada y fondo personalizados", "Edición masiva de productos, categorías, precios y marcas", "Cambio de tema / colores / Banners", "Más plantillas o estilos de catálogo", "Envío masivo por WhatsApp (cotizaciones enlace pdf)", "Carga masiva de imágenes", "Soporte premium", "Hasta 1500 Productos (3 img x producto)"],
-      },
-    ],
-  },
-  restaurante: {
-    label: "Sistema de Restaurantes",
-    plans: [
-      {
-        id: "emprendedor-gastronomico",
-        name: "Emprendedor Gastronómico",
-        color: "#9333ea",
-        bg: "linear-gradient(135deg, #f3e8ff, #f9f4ff)",
-        price: 59,
-        popular: false,
-        items: ["Vende hasta 500 (Comprobantes electrónicos)", "Nota de Ventas", "Boletas", "Control de Stock", "Tomador de Pedidos", "Impresión de Comandas", "Impresión de Pre-Cuentas", "3 Usuarios", "Registro de Ventas Detallado", "Búsqueda RUC/DNI (interconectado con SUNAT/RENIEC)", "Soporte Premium llamada y WhatsApp"],
-      },
-      {
-        id: "empresarial-gastronomico",
-        name: "Empresarial Gastronómico",
-        color: "#2563eb",
-        bg: "linear-gradient(135deg, #eaf1ff, #f5f9ff)",
-        price: 118,
-        popular: true,
-        items: ["Vende sin límites", "Facturación electrónica", "Nota de Ventas", "Boletas", "Gestión de Inventario", "Tomador de Pedidos", "Impresión de Comandas", "Impresión de Pre-Cuentas", "Usuarios ilimitados", "Modificadores de Complementos", "Registro de Ventas Detallado", "Búsqueda RUC/DNI (interconectado con SUNAT/RENIEC)", "Soporte Premium llamada y WhatsApp"],
-      },
-    ],
-  },
-};
 ---
-<BaseLayout title="Planes - NANIVA" description="Elige el plan NANIVA ideal para tu negocio: Básico, Pro o Empresarial. Facturación electrónica, catálogo digital y sistema POS.">
+<BaseLayout title="Planes - NANIVA" description="Elige el plan NANIVA ideal para tu negocio.">
   <Nav />
   <section class="banner" style={`background-image: url('${banner.src}');`}>
     <div class="content reveal">
@@ -139,58 +46,20 @@ const planGroups = {
     <img src={bannerPersona.src} alt="" class="banner-persona" aria-hidden="true" />
   </section>
 
-  <section class="pricing products-section">
+  <section class="products-section">
     <div class="container">
-      <h2 class="section-title">Nuestros Productos</h2>
-      <p class="section-subtitle">Elige la solución que necesita tu negocio.</p>
-      <div class="plans-grid products-grid">
-        {products.map((prod, i) => (
-          <div class="plan-card product-card reveal hover-lift" style={`background:${prod.bg}; border-color:${prod.color}; transition-delay:${i * 0.1}s`}>
-            <img src={prod.icon.src} alt={prod.name} class="product-icon icon-bounce" />
-            <h3>{prod.name}</h3>
-            <ul>
-              {prod.items.map((item) => (
-                <li><span class="check" style={`color:${prod.color}`}>✓</span>{item}</li>
-              ))}
-            </ul>
-            <a href="#planes" class="choose-btn hover-pop plan-tab-trigger" data-target={prod.id} style={`background:${prod.color}`}>Ver más</a>
+      <div class="products-grid">
+        {products.map((product, i) => (
+          <div class="product-card reveal" style={`transition-delay:${i * 0.1}s`}>
+            <img src={product.icon.src} alt={product.title} class="product-icon" />
+            <h3>{product.title}</h3>
+            <p>{product.desc}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="pricing" id="planes">
-    <div class="container">
-      <h2 class="section-title plan-group-title">{planGroups.facturacion.label}</h2>
-
-      {Object.entries(planGroups).map(([groupId, group]) => (
-        <div class="plan-group" data-group={groupId} style={groupId === "facturacion" ? "" : "display:none"}>
-          <div class={`plans-grid plans-grid-${group.plans.length}`}>
-            {group.plans.map((p, i) => (
-              <div class="plan-card plan-appear hover-lift" data-index={i} style={`background:${p.bg}; border-color:${p.color}`}>
-                {p.popular && <div class="badge pulse-ring" style={`background:${p.color}`}>Más Popular</div>}
-                <h3>{p.name}</h3>
-                <div class="price">
-                  <span class="currency">S/</span>
-                  <span class="amount">{p.price}</span>
-                  <span class="period">/mes</span>
-                </div>
-                <ul>
-                  {p.items.map((item) => (
-                    <li><span class="check" style={`color:${p.color}`}>✓</span>{item}</li>
-                  ))}
-                </ul>
-                <a href="#contacto" class="choose-btn hover-pop" style={`background:${p.color}`}>Elegir Plan</a>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <CtaBanner />
   <Footer />
 </BaseLayout>
 
@@ -310,6 +179,79 @@ const planGroups = {
     font-size: 1rem;
   }
   .banner-note strong { color: #2563eb; }
+
+  .products-section {
+    padding: 3.5rem 2rem;
+    background: #ffffff;
+  }
+  .products-section .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .product-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.75rem 1.25rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .product-card:first-child {
+    border: 2px solid #2563eb;
+    background: #f0f7ff;
+  }
+  .product-card:hover {
+    border-color: #2563eb;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15);
+    transform: translateY(-2px);
+  }
+  .product-icon {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+  }
+  .product-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+    line-height: 1.3;
+  }
+  .product-card p {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  @media (max-width: 1100px) {
+    .products-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 100%; }
+    .product-card { padding: 1.5rem 1rem; }
+    .product-icon { width: 64px; height: 64px; }
+  }
+  @media (max-width: 900px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .products-grid { grid-template-columns: 1fr; }
+    .products-section { padding: 2.5rem 1rem; }
+    .product-card { padding: 1.5rem 1rem; }
+    .product-icon { width: 60px; height: 60px; }
+    .product-card h3 { font-size: 0.95rem; }
+  }
+
   @media (max-width: 900px) {
     .banner { padding-left: 1.5rem; }
   }
@@ -334,121 +276,4 @@ const planGroups = {
     .plan-feature-icon { width: 56px; height: 56px; font-size: 1.5rem; }
     .banner-note { flex-wrap: wrap; }
   }
-
-  .pricing { background: #f8fafc; padding: 4rem 0; }
-  .products-section { padding-bottom: 1rem; }
-  .section-title { text-align: center; font-size: clamp(1.5rem, 3vw, 2rem); color: #0f172a; margin-bottom: 0.5rem; }
-  .section-subtitle { text-align: center; color: var(--color-text-muted); margin-bottom: 2.5rem; }
-  .product-card ul { margin-bottom: 1.5rem; }
-  .product-icon {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-    margin: 0 auto 1rem;
-    display: block;
-  }
-  .plan-group-title { margin-bottom: 2.5rem; }
-  .plans-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  .plans-grid-1 { grid-template-columns: minmax(280px, 420px); justify-content: center; }
-  .plans-grid-2 { grid-template-columns: repeat(2, minmax(260px, 420px)); justify-content: center; }
-  @media (max-width: 900px) {
-    .plans-grid { grid-template-columns: 1fr; }
-  }
-  .plan-card {
-    position: relative;
-    border: 2px solid;
-    border-radius: 18px;
-    padding: 2rem 1.75rem;
-    text-align: center;
-  }
-  .plan-appear {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.45s ease, transform 0.45s ease;
-  }
-  .plan-appear.shown {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .badge {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.3rem 1rem;
-    border-radius: 999px;
-  }
-  .plan-card h3 { font-size: 1.3rem; color: #0f172a; margin-bottom: 0.75rem; }
-  .price { margin-bottom: 1.5rem; }
-  .currency { font-size: 1.2rem; font-weight: 700; color: #0f172a; }
-  .amount { font-size: 2.5rem; font-weight: 800; color: #0f172a; }
-  .period { color: #64748b; font-size: 0.9rem; }
-  .plan-card ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-    text-align: left;
-  }
-  .plan-card li { display: flex; align-items: center; gap: 0.5rem; color: #334155; font-size: 0.95rem; }
-  .check { font-weight: 700; flex-shrink: 0; }
-  .choose-btn {
-    display: block;
-    color: white;
-    padding: 0.85rem;
-    border-radius: 999px;
-    text-decoration: none;
-    font-weight: 700;
-  }
-
-  @media (max-width: 600px) {
-    .plans-grid { margin-bottom: 3rem; }
-    .plan-card { padding: 1.75rem 1.25rem; }
-  }
 </style>
-
-<script>
-  const titleEl = document.querySelector('.plan-group-title');
-  const groups = document.querySelectorAll<HTMLElement>('.plan-group');
-  const triggers = document.querySelectorAll<HTMLElement>('.plan-tab-trigger');
-  const labels: Record<string, string> = {
-    facturacion: 'Sistema de Facturación',
-    catalogo: 'Catálogo Digital',
-    restaurante: 'Sistema de Restaurantes',
-  };
-
-  function playStagger(group: HTMLElement) {
-    const cards = group.querySelectorAll<HTMLElement>('.plan-card');
-    cards.forEach((card) => {
-      card.classList.remove('shown');
-      void card.offsetWidth;
-      const index = Number(card.getAttribute('data-index')) || 0;
-      setTimeout(() => card.classList.add('shown'), 150 + index * 180);
-    });
-  }
-
-  triggers.forEach((trigger) => {
-    trigger.addEventListener('click', () => {
-      const target = trigger.getAttribute('data-target');
-      if (!target) return;
-      groups.forEach((g) => {
-        const isTarget = g.getAttribute('data-group') === target;
-        g.style.display = isTarget ? '' : 'none';
-        if (isTarget) playStagger(g);
-      });
-      if (titleEl && labels[target]) titleEl.textContent = labels[target];
-    });
-  });
-
-  const initialGroup = document.querySelector<HTMLElement>('.plan-group[data-group="facturacion"]');
-  if (initialGroup) playStagger(initialGroup);
-</script>
