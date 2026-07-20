@@ -3,6 +3,10 @@ import iconChart from '../assets/image/iconbffin1-26.png';
 import iconShieldImg from '../assets/image/iconbffin1-27.png';
 import iconStarImg from '../assets/image/iconbffin1-28.png';
 import iconUsersImg from '../assets/image/iconbffin1-29.png';
+import elohimColor from '../assets/image/elohim-color.png';
+import zurielColor from '../assets/image/zuriel-color.png';
+import wilsonColor from '../assets/image/wilson-color.png';
+
 
 function iconSvg(name: string, color: string = "currentColor", size = 18) {
   const icons: Record<string, string> = {
@@ -24,9 +28,9 @@ function iconSvg(name: string, color: string = "currentColor", size = 18) {
 
 const cases = [
   {
-    logo: "MASS COMPUTER",
-    logoIcon: "hex",
-    accent: "#2563eb",
+    logo: "ELOHIM",
+    logoIcon: elohimColor,
+    avatar: elohimColor,
     meta: [
       { icon: "tag", text: "Tecnología" },
       { icon: "box", text: "1,200 productos" },
@@ -47,9 +51,10 @@ const cases = [
     role: "Gerente General",
   },
   {
-    logo: "Norkys",
-    logoIcon: "text",
+    logo: "ZURIEL",
+    logoIcon: zurielColor,
     accent: "#2563eb",
+    avatar: zurielColor,
     meta: [
       { icon: "tag", text: "Retail" },
       { icon: "box", text: "850 productos" },
@@ -70,10 +75,10 @@ const cases = [
     role: "Gerente Comercial",
   },
   {
-    logo: "COESTI",
-    logoSub: "GRUPO EMPRESARIAL",
-    logoIcon: "text",
+    logo: "WILSON",
+    logoIcon: wilsonColor,
     accent: "#2563eb",
+    avatar: wilsonColor,
     meta: [
       { icon: "tag", text: "Servicios" },
       { icon: "box", text: "320 productos" },
@@ -111,18 +116,16 @@ const stats = [
 
     <div class="cases-grid">
       {cases.map((c, i) => (
-        <article class="case-card reveal hover-lift" style={`transition-delay:${i * 0.1}s`}>
+        <article class="case-card reveal hover-lift" style={`transition-delay:${i * 0.15}s`}>
           <div class="case-header">
             <div class="case-logo-wrap">
-              <div class="case-logo-icon" style={`background:${c.accent}`}></div>
+               <img src={c.avatar.src} alt={c.name} class="logoicon" />
               <div class="case-logo-text">
-                <span class="case-logo-name">{c.logo}</span>
-                {c.logoSub && <span class="case-logo-sub">{c.logoSub}</span>}
               </div>
             </div>
             <ul class="case-meta">
               {c.meta.map((m) => (
-                <li set:html={`${iconSvg(m.icon, '#94a3b8', 15)} <span>${m.text}</span>`} />
+                <li class="meta-item" set:html={`<span class="meta-svg">${iconSvg(m.icon, '#94a3b8', 15)}</span> <span>${m.text}</span>`} />
               ))}
             </ul>
           </div>
@@ -130,15 +133,15 @@ const stats = [
           <span class="case-label">CON NANIVA LOGRARON</span>
           <ul class="case-achievements">
             {c.achievements.map((a) => (
-              <li><span class="check">✓</span><span>{a}</span></li>
+              <li class="achievement-item"><span class="check">✓</span><span>{a}</span></li>
             ))}
           </ul>
 
           <span class="case-label">RESULTADOS</span>
           <div class="case-results">
-            {c.results.map((r) => (
+              {c.results.map((r) => (
               <div class="case-result">
-                <span class="case-result-icon" set:html={iconSvg(r.icon, '#2563eb', 20)} />
+                <span class="case-result-icon result-svg-wrap" set:html={iconSvg(r.icon, '#2563eb', 20)} />
                 <div>
                   <span class="case-result-value">{r.value}</span>
                   <span class="case-result-label">{r.label}</span>
@@ -152,7 +155,6 @@ const stats = [
             <p>{c.quote}</p>
           </div>
           <div class="case-author">
-            <span class="avatar"></span>
             <div>
               <span class="author-name">{c.name}</span>
               <span class="author-role">{c.role}</span>
@@ -165,7 +167,7 @@ const stats = [
     <div class="stats-bar">
       <div class="stats-grid">
         {stats.map((st, i) => (
-          <div class="stat-item reveal" style={`transition-delay:${i * 0.08}s`}>
+          <div class="stat-item reveal" style={`transition-delay:${i * 0.12}s`}>
             <img src={st.iconImg.src} alt="" class="stat-icon-img" />
             <div>
               <h4>{st.value}</h4>
@@ -222,25 +224,27 @@ const stats = [
   .cases-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 1.2rem;
     margin-bottom: 2rem;
   }
   .case-card {
     background: white;
     border: 1px solid #e5e7eb;
     border-radius: var(--radius);
-    padding: 1.75rem;
+    padding: 3rem;
     display: flex;
     flex-direction: column;
   }
   .case-header {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     gap: 1rem;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
     border-bottom: 1px solid #e5e7eb;
+    text-align: center;
   }
   .case-logo-wrap {
     display: flex;
@@ -253,27 +257,13 @@ const stats = [
     border-radius: 10px;
     flex-shrink: 0;
   }
-  .case-logo-text {
-    display: flex;
-    flex-direction: column;
-  }
-  .case-logo-name {
-    font-weight: 800;
-    font-size: 1.05rem;
-    color: #0f172a;
-    line-height: 1.15;
-  }
-  .case-logo-sub {
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    color: #64748b;
-  }
   .case-meta {
     list-style: none;
     display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem 1rem;
   }
   .case-meta li {
     display: flex;
@@ -282,6 +272,10 @@ const stats = [
     font-size: 0.78rem;
     color: #64748b;
     white-space: nowrap;
+  }
+  .case-logo-text {
+    display: flex;
+    flex-direction: column;
   }
   .case-label {
     display: block;
@@ -365,13 +359,7 @@ const stats = [
     gap: 0.7rem;
     margin-top: auto;
   }
-  .avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 999px;
-    background: #e2e8f0;
-    flex-shrink: 0;
-  }
+
   .author-name {
     display: block;
     font-weight: 700;
@@ -411,6 +399,263 @@ const stats = [
   .stat-item h4 { font-size: 1.15rem; font-weight: 800; color: #0f172a; margin-bottom: 0.1rem; }
   .stat-item p { font-size: 0.8rem; color: var(--color-text-muted); }
 
+  /* ===== ANIMACIONES ===== */
+
+  /* --- 1. Card entrance: slide up + fade (ya existe con .reveal, mejoramos stagger) --- */
+  .case-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.7s ease;
+  }
+
+  /* --- 2. Meta items staggered entrance --- */
+  .meta-item {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .case-card.in-view .meta-item {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .case-card.in-view .meta-item:nth-child(1) { transition-delay: 0.1s; }
+  .case-card.in-view .meta-item:nth-child(2) { transition-delay: 0.2s; }
+  .case-card.in-view .meta-item:nth-child(3) { transition-delay: 0.3s; }
+  .case-card.in-view .meta-item:nth-child(4) { transition-delay: 0.4s; }
+
+  /* Meta SVG icons: rotate & scale entrance */
+  .meta-svg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .meta-svg svg {
+    transition: transform 0.5s ease, stroke 0.3s ease;
+  }
+  .case-card.in-view .meta-svg svg {
+    animation: meta-icon-pop 0.5s ease forwards;
+  }
+  .case-card.in-view .meta-item:nth-child(1) .meta-svg svg { animation-delay: 0.15s; }
+  .case-card.in-view .meta-item:nth-child(2) .meta-svg svg { animation-delay: 0.25s; }
+  .case-card.in-view .meta-item:nth-child(3) .meta-svg svg { animation-delay: 0.35s; }
+  .case-card.in-view .meta-item:nth-child(4) .meta-svg svg { animation-delay: 0.45s; }
+  @keyframes meta-icon-pop {
+    0% { transform: scale(0) rotate(-90deg); opacity: 0; }
+    60% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  /* Meta icon hover pulse */
+  .meta-item:hover .meta-svg svg {
+    stroke: #2563eb !important;
+    transform: scale(1.2);
+  }
+
+  /* --- 3. Achievement items: checkmark scale-in + slide --- */
+  .achievement-item {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .case-card.in-view .achievement-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .case-card.in-view .achievement-item:nth-child(1) { transition-delay: 0.15s; }
+  .case-card.in-view .achievement-item:nth-child(2) { transition-delay: 0.25s; }
+  .case-card.in-view .achievement-item:nth-child(3) { transition-delay: 0.35s; }
+
+  /* Checkmark bounce */
+  .check {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  .case-card.in-view .check {
+    animation: check-bounce 0.5s ease forwards;
+  }
+  .case-card.in-view .achievement-item:nth-child(1) .check { animation-delay: 0.15s; }
+  .case-card.in-view .achievement-item:nth-child(2) .check { animation-delay: 0.25s; }
+  .case-card.in-view .achievement-item:nth-child(3) .check { animation-delay: 0.35s; }
+  @keyframes check-bounce {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+
+  /* --- 4. Result values: pulse emphasis --- */
+  .case-result-value {
+    display: inline-block;
+    transition: color 0.3s ease;
+  }
+  .case-card.in-view .case-result-value {
+    animation: result-pulse 0.6s ease forwards;
+  }
+  .case-card.in-view .case-result:nth-child(1) .case-result-value { animation-delay: 0.3s; }
+  .case-card.in-view .case-result:nth-child(2) .case-result-value { animation-delay: 0.45s; }
+  @keyframes result-pulse {
+    0% { transform: scale(1); color: #0f172a; }
+    40% { transform: scale(1.15); color: #2563eb; }
+    100% { transform: scale(1); color: #0f172a; }
+  }
+
+  /* --- 5. Quote mark floating animation --- */
+  .quote-mark {
+    display: inline-block;
+    animation: quote-float 3s ease-in-out infinite;
+  }
+  @keyframes quote-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  /* --- 6. Result icon background pulse + SVG entrance --- */
+  .result-svg-wrap svg {
+    transition: transform 0.4s ease;
+  }
+  .case-card.in-view .result-svg-wrap svg {
+    animation: result-svg-pop 0.6s ease forwards;
+  }
+  .case-card.in-view .case-result:nth-child(1) .result-svg-wrap svg { animation-delay: 0.35s; }
+  .case-card.in-view .case-result:nth-child(2) .result-svg-wrap svg { animation-delay: 0.5s; }
+  @keyframes result-svg-pop {
+    0% { transform: scale(0) rotate(45deg); opacity: 0; }
+    50% { transform: scale(1.3) rotate(-15deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  .case-result-icon {
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .case-card:hover .case-result-icon {
+    background: #dbeafe;
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  }
+  .case-card:hover .result-svg-wrap svg {
+    stroke: #1d4ed8 !important;
+    transform: scale(1.1);
+  }
+
+  /* --- 7. Stats bar: counter emphasis + icon entrance on reveal --- */
+  .stat-icon-img {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  .stat-item.in-view .stat-icon-img {
+    animation: stat-icon-bounce 0.7s ease forwards;
+  }
+  .stat-item.in-view:nth-child(1) .stat-icon-img { animation-delay: 0.1s; }
+  .stat-item.in-view:nth-child(2) .stat-icon-img { animation-delay: 0.25s; }
+  .stat-item.in-view:nth-child(3) .stat-icon-img { animation-delay: 0.4s; }
+  .stat-item.in-view:nth-child(4) .stat-icon-img { animation-delay: 0.55s; }
+  @keyframes stat-icon-bounce {
+    0% { transform: scale(0.3) rotate(-15deg); opacity: 0; }
+    50% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+    70% { transform: scale(0.95) rotate(-2deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  /* Stat icon hover wiggle */
+  .stat-item:hover .stat-icon-img {
+    animation: stat-icon-wiggle 0.5s ease;
+  }
+  @keyframes stat-icon-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(-8deg); }
+    40% { transform: rotate(8deg); }
+    60% { transform: rotate(-5deg); }
+    80% { transform: rotate(5deg); }
+  }
+
+  .stat-item h4 {
+    position: relative;
+    display: inline-block;
+  }
+  .stat-item.in-view h4 {
+    animation: stat-count 0.8s ease forwards;
+  }
+  .stat-item.in-view:nth-child(1) h4 { animation-delay: 0.1s; }
+  .stat-item.in-view:nth-child(2) h4 { animation-delay: 0.25s; }
+  .stat-item.in-view:nth-child(3) h4 { animation-delay: 0.4s; }
+  .stat-item.in-view:nth-child(4) h4 { animation-delay: 0.55s; }
+  @keyframes stat-count {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.2); color: #2563eb; }
+    100% { transform: scale(1); opacity: 1; color: #0f172a; }
+  }
+
+  /* --- 8. Logo icon entrance + hover --- */
+  .logoicon {
+    width: 100%;
+    height: 100px;
+    margin: auto;
+    object-fit: contain;
+    transform: scale(0.6) rotate(-10deg);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+    cursor: pointer;
+  }
+  .case-card.in-view .logoicon {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  .logoicon:hover {
+    transform: scale(1.12) rotate(0deg) !important;
+    opacity: 1;
+  }
+
+  /* --- 9. Tag badge entrance + trophy icon bounce --- */
+  .tag {
+    animation: tag-fade 0.8s ease forwards;
+  }
+  .tag svg {
+    transition: transform 0.3s ease;
+    animation: trophy-glow 2s ease-in-out infinite;
+  }
+  @keyframes tag-fade {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes trophy-glow {
+    0%, 100% { transform: scale(1) rotate(0deg); filter: none; }
+    25% { transform: scale(1.15) rotate(-5deg); filter: drop-shadow(0 0 4px rgba(37, 99, 235, 0.4)); }
+    75% { transform: scale(1.15) rotate(5deg); filter: drop-shadow(0 0 4px rgba(37, 99, 235, 0.4)); }
+  }
+
+  /* Subtitle-strong users icon */
+  .subtitle-strong svg {
+    animation: users-pulse 2.5s ease-in-out infinite;
+    transition: transform 0.2s ease;
+  }
+  .subtitle-strong:hover svg {
+    transform: scale(1.3);
+  }
+  @keyframes users-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  /* --- 10. Reduce motion --- */
+  @media (prefers-reduced-motion: reduce) {
+    .meta-item,
+    .meta-svg svg,
+    .achievement-item,
+    .check,
+    .case-result-value,
+    .quote-mark,
+    .case-result-icon,
+    .result-svg-wrap svg,
+    .stat-icon-img,
+    .stat-item h4,
+    .logoicon,
+    .tag,
+    .tag svg,
+    .subtitle-strong svg {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+  }
+
   @media (max-width: 1100px) {
     .cases-grid { grid-template-columns: 1fr; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -420,3 +665,20 @@ const stats = [
     .stats-grid { grid-template-columns: 1fr; }
   }
 </style>
+
+<script>
+  // Enhanced observer for case cards to add .in-view class
+  const cardObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  document.querySelectorAll(".case-card").forEach((el) => cardObserver.observe(el));
+</script>

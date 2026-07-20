@@ -41,7 +41,12 @@ const { title = "Spiffy Shepherd", description = "Landing page" } = Astro.props;
     line-height: 1.6;
   }
   section { padding: 5rem 1rem; }
-  .container { max-width: var(--max-width); margin: 0 auto; }
+  .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+  html, body { overflow-x: hidden; }
+
+  @media (max-width: 600px) {
+    .container { padding: 0 1rem; }
+  }
 
   .page-loader {
     position: fixed;

@@ -1,12 +1,13 @@
 ---
+import iconAsesoriaImg from '../assets/image/ICOMS1-07.png';
+import iconCompromisoImg from '../assets/image/ICOMS1-08.png';
+import iconRespuestaImg from '../assets/image/ICOMS1-09.png';
+import iconHeadsetImg from '../assets/image/ICOMS1-10.png';
+
 function iconSvg(name: string, color: string = "#2563eb", size = 18) {
   const icons: Record<string, string> = {
     help: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>`,
-    headset: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13a9 9 0 0 1 18 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19v1a3 3 0 0 1-3 3h-2"/></svg>`,
     whatsapp: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="${color}"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.92 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2m0 1.67a8.2 8.2 0 0 1 5.83 2.42 8.19 8.19 0 0 1 2.41 5.82c0 4.55-3.7 8.25-8.25 8.25a8.25 8.25 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.55 3.7-8.24 8.26-8.24m-4.53 4.7c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.03 0 1.2.87 2.35.99 2.51.12.16 1.7 2.7 4.19 3.7 2.07.82 2.49.66 2.94.62.45-.04 1.45-.6 1.65-1.17.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.46-.28-.24-.12-1.45-.72-1.67-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47z"/></svg>`,
-    clock: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
-    users: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-    shield: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>`,
   };
   return icons[name] ?? "";
 }
@@ -27,9 +28,9 @@ const colLeft = faqs.slice(0, half);
 const colRight = faqs.slice(half);
 
 const trustMini = [
-  { icon: "clock", label: "Respuesta rápida" },
-  { icon: "users", label: "Asesoría personalizada" },
-  { icon: "shield", label: "Sin compromiso" },
+  { iconImg: iconRespuestaImg, label: "Respuesta rápida" },
+  { iconImg: iconAsesoriaImg, label: "Asesoría personalizada" },
+  { iconImg: iconCompromisoImg, label: "Sin compromiso" },
 ];
 ---
 <section id="faq" class="faq">
@@ -71,7 +72,7 @@ const trustMini = [
 
       <div class="faq-side reveal">
         <div class="faq-side-icon-wrap">
-          <span class="faq-side-icon" set:html={iconSvg('headset', 'white', 30)} />
+          <img src={iconHeadsetImg.src} alt="" class="faq-side-icon-img" />
           <span class="sparkle">✦</span>
         </div>
         <h3>¿No encontraste<br />tu respuesta?</h3>
@@ -80,7 +81,7 @@ const trustMini = [
         <div class="faq-mini-list">
           {trustMini.map((t) => (
             <div class="faq-mini-item">
-              <span set:html={iconSvg(t.icon)} />
+              <img src={t.iconImg.src} alt="" class="faq-mini-icon-img" />
               <span>{t.label}</span>
             </div>
           ))}
@@ -214,15 +215,17 @@ const trustMini = [
   }
   .faq-side-icon-wrap {
     position: relative;
-    width: 76px;
-    height: 76px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    width: 92px;
+    height: 92px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.25rem;
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+  }
+  .faq-side-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
   .sparkle {
     position: absolute;
@@ -272,6 +275,11 @@ const trustMini = [
     font-size: 0.75rem;
     font-weight: 600;
     color: #475569;
+  }
+  .faq-mini-icon-img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
   }
 
   @media (max-width: 900px) {
