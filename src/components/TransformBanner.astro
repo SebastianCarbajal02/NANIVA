@@ -1,0 +1,62 @@
+---
+import bannerImg from '../assets/image/banner 2agregar boton-02.png';
+---
+<section id="transformar" class="transform-banner">
+  <img src={bannerImg.src} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="transform-banner-img reveal" />
+  <div class="transform-cta reveal">
+    <a href="#demo" class="transform-btn hover-pop">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><circle cx="8" cy="15" r="1" fill="#2563eb" stroke="none"/></svg>
+      Solicitar demostración gratuita →
+    </a>
+    <span class="transform-cta-sub">Sin compromiso. En menos de 30 minutos.</span>
+  </div>
+</section>
+
+<style>
+  .transform-banner {
+    position: relative;
+    overflow: hidden;
+  }
+  .transform-banner-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+  }
+  .transform-banner-img:hover {
+    transform: scale(1.02);
+  }
+  .transform-cta {
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .transform-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: white;
+    color: #0f172a;
+    padding: 1.5rem 2rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    box-shadow: 0 10px 30px rgba(2, 6, 23, 0.35);
+    white-space: nowrap;
+  }
+  .transform-cta-sub {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  @media (max-width: 900px) {
+    .transform-cta { display: none; }
+  }
+</style>

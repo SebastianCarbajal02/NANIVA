@@ -1,0 +1,422 @@
+---
+import iconChart from '../assets/image/iconbffin1-26.png';
+import iconShieldImg from '../assets/image/iconbffin1-27.png';
+import iconStarImg from '../assets/image/iconbffin1-28.png';
+import iconUsersImg from '../assets/image/iconbffin1-29.png';
+
+function iconSvg(name: string, color: string = "currentColor", size = 18) {
+  const icons: Record<string, string> = {
+    tag: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m20.59 13.41-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.5" fill="${color}" stroke="none"/></svg>`,
+    box: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>`,
+    users: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    calendar: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>`,
+    trend: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></svg>`,
+    clock: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
+    bolt: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>`,
+    headset: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13a9 9 0 0 1 18 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19v1a3 3 0 0 1-3 3h-2"/></svg>`,
+    star: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>`,
+    chart: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-4"/></svg>`,
+    shield: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>`,
+    trophy: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h3a2 2 0 0 1-2 4M7 5H4a2 2 0 0 0 2 4"/></svg>`,
+  };
+  return icons[name] ?? "";
+}
+
+const cases = [
+  {
+    logo: "MASS COMPUTER",
+    logoIcon: "hex",
+    accent: "#2563eb",
+    meta: [
+      { icon: "tag", text: "Tecnología" },
+      { icon: "box", text: "1,200 productos" },
+      { icon: "users", text: "5 usuarios" },
+      { icon: "calendar", text: "Desde 2023" },
+    ],
+    achievements: [
+      "Controlaron ventas e inventario desde un solo lugar",
+      "Redujeron errores en el stock",
+      "Tomaron decisiones con información en tiempo real",
+    ],
+    results: [
+      { icon: "trend", value: "+35%", label: "Más ventas" },
+      { icon: "clock", value: "20 h", label: "Menos trabajo semanal" },
+    ],
+    quote: "Naniva nos dio el control total del negocio. Hoy tomamos decisiones más rápidas y acertadas.",
+    name: "Juan Carlos R.",
+    role: "Gerente General",
+  },
+  {
+    logo: "Norkys",
+    logoIcon: "text",
+    accent: "#2563eb",
+    meta: [
+      { icon: "tag", text: "Retail" },
+      { icon: "box", text: "850 productos" },
+      { icon: "users", text: "8 usuarios" },
+      { icon: "calendar", text: "Desde 2022" },
+    ],
+    achievements: [
+      "IA recomendaron compras antes del quiebre",
+      "Menos desperdicio de inventario",
+      "Reposición automática de productos",
+    ],
+    results: [
+      { icon: "trend", value: "+80%", label: "Menos quiebres de stock" },
+      { icon: "clock", value: "+28%", label: "Más rentabilidad" },
+    ],
+    quote: "Reducimos quiebres y ahora nuestros clientes siempre encuentran lo que buscan.",
+    name: "Mariela S.",
+    role: "Gerente Comercial",
+  },
+  {
+    logo: "COESTI",
+    logoSub: "GRUPO EMPRESARIAL",
+    logoIcon: "text",
+    accent: "#2563eb",
+    meta: [
+      { icon: "tag", text: "Servicios" },
+      { icon: "box", text: "320 productos" },
+      { icon: "users", text: "12 usuarios" },
+      { icon: "calendar", text: "Desde 2023" },
+    ],
+    achievements: [
+      "Implementación completa en solo 7 días",
+      "Capacitación para todo el equipo",
+      "Soporte permanente desde el primer día",
+    ],
+    results: [
+      { icon: "bolt", value: "7 días", label: "Implementación completa" },
+      { icon: "headset", value: "100%", label: "Satisfacción con el soporte" },
+    ],
+    quote: "La implementación fue rapidísima y el equipo de soporte nos acompañó en cada paso.",
+    name: "Luis M.",
+    role: "Gerente de Operaciones",
+  },
+];
+
+const stats = [
+  { iconImg: iconUsersImg, value: "250+", desc: "empresas activas" },
+  { iconImg: iconStarImg, value: "4.9/5", desc: "satisfacción promedio de nuestros clientes" },
+  { iconImg: iconChart, value: "35%", desc: "crecimiento promedio de ventas" },
+  { iconImg: iconShieldImg, value: "98%", desc: "recomiendan Naniva" },
+];
+---
+<section id="casos-exito" class="case-studies">
+  <div class="container">
+    <div class="tag" set:html={`${iconSvg('trophy')} CASOS DE ÉXITO`} />
+    <h2>Empresas reales. <span class="highlight">Resultados reales.</span></h2>
+    <p class="subtitle-strong" set:html={`${iconSvg('users','#2563eb',18)} Más de 250 empresas ya transformaron su operación con Naniva.`} />
+    <p class="subtitle">Descubre cómo empresas de distintos sectores aumentaron ventas,<br />redujeron costos y tomaron mejores decisiones con Naniva.</p>
+
+    <div class="cases-grid">
+      {cases.map((c, i) => (
+        <article class="case-card reveal hover-lift" style={`transition-delay:${i * 0.1}s`}>
+          <div class="case-header">
+            <div class="case-logo-wrap">
+              <div class="case-logo-icon" style={`background:${c.accent}`}></div>
+              <div class="case-logo-text">
+                <span class="case-logo-name">{c.logo}</span>
+                {c.logoSub && <span class="case-logo-sub">{c.logoSub}</span>}
+              </div>
+            </div>
+            <ul class="case-meta">
+              {c.meta.map((m) => (
+                <li set:html={`${iconSvg(m.icon, '#94a3b8', 15)} <span>${m.text}</span>`} />
+              ))}
+            </ul>
+          </div>
+
+          <span class="case-label">CON NANIVA LOGRARON</span>
+          <ul class="case-achievements">
+            {c.achievements.map((a) => (
+              <li><span class="check">✓</span><span>{a}</span></li>
+            ))}
+          </ul>
+
+          <span class="case-label">RESULTADOS</span>
+          <div class="case-results">
+            {c.results.map((r) => (
+              <div class="case-result">
+                <span class="case-result-icon" set:html={iconSvg(r.icon, '#2563eb', 20)} />
+                <div>
+                  <span class="case-result-value">{r.value}</span>
+                  <span class="case-result-label">{r.label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="case-quote">
+            <span class="quote-mark">"</span>
+            <p>{c.quote}</p>
+          </div>
+          <div class="case-author">
+            <span class="avatar"></span>
+            <div>
+              <span class="author-name">{c.name}</span>
+              <span class="author-role">{c.role}</span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="stats-bar">
+      <div class="stats-grid">
+        {stats.map((st, i) => (
+          <div class="stat-item reveal" style={`transition-delay:${i * 0.08}s`}>
+            <img src={st.iconImg.src} alt="" class="stat-icon-img" />
+            <div>
+              <h4>{st.value}</h4>
+              <p>{st.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .case-studies { padding: 4rem 0; background: #f8fafc; }
+  .case-studies .container { max-width: 1600px; }
+  .tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    text-align: center;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+  h2 {
+    text-align: center;
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+  }
+  .highlight { color: #2563eb; }
+  .subtitle-strong {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    color: #1e293b;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+  .subtitle {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .case-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .case-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .case-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .case-logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .case-logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .case-logo-name {
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: #0f172a;
+    line-height: 1.15;
+  }
+  .case-logo-sub {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: #64748b;
+  }
+  .case-meta {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .case-meta li {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    color: #64748b;
+    white-space: nowrap;
+  }
+  .case-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    color: #2563eb;
+    margin-bottom: 0.6rem;
+  }
+  .case-achievements {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .case-achievements li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #334155;
+  }
+  .check { color: #16a34a; font-weight: 800; flex-shrink: 0; }
+  .case-results {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .case-result {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .case-result-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #eaf1ff;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .case-result-value {
+    display: block;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #0f172a;
+  }
+  .case-result-label {
+    display: block;
+    font-size: 0.72rem;
+    color: #64748b;
+  }
+  .case-quote {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.1rem;
+  }
+  .quote-mark {
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #2563eb;
+    font-weight: 800;
+  }
+  .case-quote p {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #475569;
+    line-height: 1.5;
+  }
+  .case-author {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: auto;
+  }
+  .avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    flex-shrink: 0;
+  }
+  .author-name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #0f172a;
+  }
+  .author-role {
+    display: block;
+    font-size: 0.75rem;
+    color: #2563eb;
+    font-weight: 600;
+  }
+
+  .stats-bar {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    
+  }
+  .stat-icon-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .stat-item h4 { font-size: 1.15rem; font-weight: 800; color: #0f172a; margin-bottom: 0.1rem; }
+  .stat-item p { font-size: 0.8rem; color: var(--color-text-muted); }
+
+  @media (max-width: 1100px) {
+    .cases-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .case-header { flex-direction: column; }
+    .stats-grid { grid-template-columns: 1fr; }
+  }
+</style>

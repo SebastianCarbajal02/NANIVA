@@ -1,0 +1,280 @@
+---
+function iconSvg(name: string, color: string = "#2563eb", size = 18) {
+  const icons: Record<string, string> = {
+    help: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>`,
+    headset: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13a9 9 0 0 1 18 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19v1a3 3 0 0 1-3 3h-2"/></svg>`,
+    whatsapp: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="${color}"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.92 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2m0 1.67a8.2 8.2 0 0 1 5.83 2.42 8.19 8.19 0 0 1 2.41 5.82c0 4.55-3.7 8.25-8.25 8.25a8.25 8.25 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.55 3.7-8.24 8.26-8.24m-4.53 4.7c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.03 0 1.2.87 2.35.99 2.51.12.16 1.7 2.7 4.19 3.7 2.07.82 2.49.66 2.94.62.45-.04 1.45-.6 1.65-1.17.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.46-.28-.24-.12-1.45-.72-1.67-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47z"/></svg>`,
+    clock: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
+    users: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    shield: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>`,
+  };
+  return icons[name] ?? "";
+}
+
+const faqs = [
+  { q: "¿Cuánto demora implementar Naniva?", a: "La implementación completa toma entre 3 y 7 días, dependiendo del tamaño de tu empresa y los módulos que necesites." },
+  { q: "¿Puedo conectar WhatsApp?", a: "Sí, Naniva se integra directamente con WhatsApp Business para catálogo, pedidos y notificaciones a tus clientes." },
+  { q: "¿Puedo migrar mis datos?", a: "Sí, nuestro equipo te ayuda a importar y validar tu información existente (productos, clientes, inventario) sin perder nada." },
+  { q: "¿La información está segura?", a: "Toda tu información se almacena cifrada en la nube con respaldos automáticos y los más altos estándares de seguridad." },
+  { q: "¿Necesito instalar algo?", a: "No, Naniva funciona 100% desde el navegador. Solo necesitas conexión a internet, sin instalar software adicional." },
+  { q: "¿Puedo usar varias empresas?", a: "Sí, puedes administrar múltiples empresas o sucursales desde una sola cuenta, cada una con su propia información." },
+  { q: "¿Tiene aplicación móvil?", a: "Sí, Naniva cuenta con una app móvil para que gestiones tu negocio desde cualquier lugar." },
+  { q: "¿Cómo solicito una demostración?", a: "Solo haz clic en \"Solicitar demostración\" o escríbenos por WhatsApp y coordinamos una sesión personalizada sin compromiso." },
+];
+
+const half = Math.ceil(faqs.length / 2);
+const colLeft = faqs.slice(0, half);
+const colRight = faqs.slice(half);
+
+const trustMini = [
+  { icon: "clock", label: "Respuesta rápida" },
+  { icon: "users", label: "Asesoría personalizada" },
+  { icon: "shield", label: "Sin compromiso" },
+];
+---
+<section id="faq" class="faq">
+  <div class="container">
+    <div class="faq-card">
+    <div class="faq-grid">
+      <div class="faq-main reveal">
+        <div class="tag" set:html={`${iconSvg('help')} PREGUNTAS FRECUENTES`} />
+        <h2>¿Tienes <span class="highlight">dudas?</span></h2>
+        <p class="subtitle">Aquí respondemos las preguntas más frecuentes antes de solicitar tu demostración.</p>
+
+        <div class="faq-cols">
+          <div class="faq-col">
+            {colLeft.map((f, i) => (
+              <details class="faq-item">
+                <summary>
+                  <span class="faq-num">{i + 1}</span>
+                  <span class="faq-q">{f.q}</span>
+                  <span class="faq-chevron">⌄</span>
+                </summary>
+                <p class="faq-a">{f.a}</p>
+              </details>
+            ))}
+          </div>
+          <div class="faq-col">
+            {colRight.map((f, i) => (
+              <details class="faq-item">
+                <summary>
+                  <span class="faq-num">{i + half + 1}</span>
+                  <span class="faq-q">{f.q}</span>
+                  <span class="faq-chevron">⌄</span>
+                </summary>
+                <p class="faq-a">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-side reveal">
+        <div class="faq-side-icon-wrap">
+          <span class="faq-side-icon" set:html={iconSvg('headset', 'white', 30)} />
+          <span class="sparkle">✦</span>
+        </div>
+        <h3>¿No encontraste<br />tu respuesta?</h3>
+        <p>Nuestro equipo está listo para ayudarte y orientarte en el proceso.</p>
+        <a href="https://wa.me/51987654321" target="_blank" rel="noopener noreferrer" class="whatsapp-btn hover-pop" set:html={`${iconSvg('whatsapp', 'white', 20)} Escríbenos por WhatsApp →`} />
+        <div class="faq-mini-list">
+          {trustMini.map((t) => (
+            <div class="faq-mini-item">
+              <span set:html={iconSvg(t.icon)} />
+              <span>{t.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding: 4rem 0;
+    background: #f8fafc;
+  }
+  .faq .container {
+    max-width: 1600px;
+  }
+  .faq-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06);
+  }
+  .faq-grid {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .faq-main {
+    flex: 2;
+    min-width: 320px;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #eaf1ff;
+    color: #2563eb;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+  }
+  .highlight { color: #2563eb; }
+  .subtitle {
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+  .faq-cols {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .faq-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .faq-item {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+  }
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    background: #eaf1ff;
+    color: #2563eb;
+    font-weight: 800;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .faq-q {
+    flex: 1;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: #0f172a;
+  }
+  .faq-chevron {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-a {
+    margin: 0.85rem 0 0 2.5rem;
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.5;
+  }
+
+  .faq-side {
+    flex: 1;
+    min-width: 280px;
+    background: linear-gradient(160deg, #eef4ff, #f8fbff);
+    border: 1px solid #dbeafe;
+    border-radius: var(--radius);
+    padding: 2rem 1.75rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(5rem);
+  }
+  .faq-side-icon-wrap {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+  }
+  .sparkle {
+    position: absolute;
+    top: -10px;
+    right: -18px;
+    color: #93c5fd;
+    font-size: 1.4rem;
+  }
+  .faq-side h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  .faq-side p {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    background: #16a34a;
+    color: white;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+  .faq-mini-list {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .faq-mini-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #475569;
+  }
+
+  @media (max-width: 900px) {
+    .faq-cols { grid-template-columns: 1fr; }
+  }
+</style>
