@@ -2,25 +2,136 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import banner from '../assets/image/banner-plan-03.png';
-import bannerPersona from '../assets/image/banner-plan-persona-03.png';
-import iconERP from '../assets/image/icondd-05.png';
-import iconCatalogo from '../assets/image/icondd-06.png';
-import iconEcommerce from '../assets/image/icondd-07.png';
-import iconIA from '../assets/image/icondd-08.png';
+import banner from '../assets/image/fondfo1-01.webp';
+import bannerPersona from '../assets/image/persona2f-02.webp';
+import iconFeatureFlex from '../assets/image/iconbnn2-07.webp';
+import iconFeatureGrowth from '../assets/image/iconbnn2-06.webp';
+import iconFeatureShield from '../assets/image/iconbnn2-05.webp';
+import iconFeatureSupport from '../assets/image/iconbnn2-04.webp';
+import iconERP from '../assets/image/icondd-05.webp';
+import iconCatalogo from '../assets/image/icondd-06.webp';
+import iconEcommerce from '../assets/image/icondd-07.webp';
+import iconIA from '../assets/image/icondd-08.webp';
+import erpMockup from '../assets/image/cel y laptop-01.webp';
+import iconCarro from '../assets/image/carro.webp';
+import iconClientes from '../assets/image/ICOMS1-07.webp';
+import iconCajaNegra from '../assets/image/caja-negra.webp';
+import iconBolsaCompra from '../assets/image/bolsa-de-la-compra (1).webp';
+import iconBarras from '../assets/image/barras.webp';
+import iconReportes from '../assets/image/reporte.webp';
+import logoInicio from '../assets/image/logo-inicio.webp';
+import iconEscudo from '../assets/image/escudo-planes.webp';
+import iconDestello from '../assets/image/destello.webp';
+import iconFinanzas from '../assets/image/finanzas.webp';
+import iconExtraContabilidad from '../assets/image/iconpmbb21-09.webp';
+import iconExtraComercial from '../assets/image/iconpmbb21-10.webp';
+import iconExtraNegocios from '../assets/image/iconpmbb21-12.webp';
+import iconExtraCompras from '../assets/image/iconpmbb21-13.webp';
+import bannerPlan from '../assets/image/bannner-plan.webp';
 
 const planFeatures = [
-  { icon: "🏷️", title: "Planes flexibles", desc: "para cada necesidad" },
-  { icon: "📈", title: "Impulsa", desc: "tu crecimiento" },
-  { icon: "🛡️", title: "Seguridad y", desc: "confianza" },
-  { icon: "👥", title: "Soporte", desc: "especializado" },
+  { iconImg: iconFeatureFlex, title: "Planes flexibles", desc: "para cada necesidad" },
+  { iconImg: iconFeatureGrowth, title: "Impulsa", desc: "tu crecimiento" },
+  { iconImg: iconFeatureShield, title: "Seguridad y", desc: "confianza" },
+  { iconImg: iconFeatureSupport, title: "Soporte", desc: "especializado" },
 ];
 
 const products = [
-  { icon: iconERP, title: "ERP", desc: "Sistema principal" },
-  { icon: iconCatalogo, title: "Catálogo Digital", desc: "Catálogo en WhatsApp" },
-  { icon: iconEcommerce, title: "Ecommerce", desc: "Tienda online" },
-  { icon: iconIA, title: "IA", desc: "Inteligencia de negocio" },
+  { icon: iconERP, title: "ERP", desc: "Sistema principal", anchor: "erp" },
+  { icon: iconCatalogo, title: "Catálogo Digital", desc: "Catálogo en WhatsApp", anchor: "catalogo-digital" },
+  { icon: iconEcommerce, title: "Ecommerce", desc: "Tienda online", anchor: "ecommerce" },
+  { icon: iconIA, title: "IA", desc: "Inteligencia de negocio", anchor: "ia" },
+];
+
+// Iconos referenciales (placeholder) — reemplazar por los definitivos luego.
+function icon(name: string, color: string = "#2563eb", size = 22) {
+  const icons: Record<string, string> = {
+    cart: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`,
+    users: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    box: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>`,
+    bag: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`,
+    bank: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7"/><path d="M4 10v10M20 10v10M9 10v10M15 10v10"/><path d="M2 20h20"/></svg>`,
+    chart: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>`,
+    check: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`,
+    shield: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>`,
+    layers: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>`,
+    bolt: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>`,
+    trend: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></svg>`,
+    receipt: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h16v20l-3-2-3 2-3-2-3 2-3-2-1 2Z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>`,
+    cloud: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.5 2A4 4 0 0 0 6 19h11.5Z"/></svg>`,
+    store: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 2-4h16l2 4"/><path d="M2 7h20v3a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0V7Z"/><path d="M4 10v10h16V10"/></svg>`,
+    ai: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h.01M15 9h.01M9 15c1 1 5 1 6 0"/></svg>`,
+  };
+  return icons[name] ?? "";
+}
+
+const heroChecklist = [
+  ["Facturación electrónica", "Inventario en tiempo real", "Compras y proveedores", "Ventas y POS", "Reportes inteligentes"],
+  ["Usuarios ilimitados", "100% en la nube", "Actualizaciones incluidas", "Soporte personalizado", "Fácil de usar"],
+];
+
+const heroStats = [
+  { icon: "users", value: "2", label: "Usuarios" },
+  { icon: "store", value: "1", label: "Punto de venta" },
+  { icon: "box", value: "1", label: "Almacén" },
+  { icon: "box", value: "5,000+", label: "Productos" },
+  { icon: "receipt", value: "Factura", label: "Electrónica" },
+  { icon: "cloud", value: "100%", label: "En la nube" },
+];
+
+const modules = [
+  { iconImg: iconCarro, color: "#0ea5a3", bg: "#e6fbf9", title: "Ventas y Facturación", items: ["Punto de Venta (POS)", "Facturación Electrónica", "Boletas y Facturas", "Guías de Remisión", "Historial de Ventas"] },
+  { iconImg: iconClientes, color: "#16a34a", bg: "#eafaf0", title: "Clientes", items: ["Registro de Clientes", "Cuentas por Cobrar", "Estado de Cuenta", "Historial de Compras"] },
+  { iconImg: iconCajaNegra, color: "#2563eb", bg: "#eaf1ff", title: "Inventario", items: ["Productos", "Entradas y Salidas", "Traspasos", "Kardex", "Almacenes", "Stock en tiempo real"] },
+  { iconImg: iconBolsaCompra, color: "#a855f7", bg: "#f5eeff", title: "Compras", items: ["Registrar Compras", "Cuentas por Pagar", "Proveedores", "Gastos por Pagar"] },
+  { iconImg: iconBarras, color: "#f97316", bg: "#fff2e6", title: "Finanzas", items: ["Caja", "Bancos", "Movimientos", "Gastos"] },
+  { iconImg: iconReportes, color: "#a855f7", bg: "#f5eeff", title: "Reportes Gerenciales", items: ["Dashboard Ejecutivo", "Reporte de Ventas", "Productos más vendidos", "Utilidad y Margen", "Inventario y Compras"] },
+];
+
+const planSidebarStats = [
+  { icon: "users", color: "#2563eb", bg: "#e8f0fe", value: "2", label: "Usuarios", sub: "Accesos limitados" },
+  { icon: "store", color: "#16a34a", bg: "#e3f9e5", value: "1", label: "Punto de venta", sub: "Activa tu POS" },
+  { icon: "box", color: "#a855f7", bg: "#f1e9fe", value: "1", label: "Almacén", sub: "Control total" },
+  { icon: "box", color: "#f97316", bg: "#feefdb", value: "5,000+", label: "Productos", sub: "Sin límite de registros" },
+  { icon: "receipt", color: "#ec4899", bg: "#fde4f0", value: "", label: "Factura electrónica", sub: "Integrado y listo" },
+];
+
+const integrationPoints = [
+  { iconImg: iconEscudo, title: "Sin duplicidad de datos" },
+  { iconImg: iconDestello, title: "Ahorra tiempo y reduce errores" },
+  { iconImg: iconFinanzas, title: "Toma decisiones con información real" },
+];
+
+const extraModules = [
+  { iconImg: iconExtraContabilidad, color: "#0ea5a3", bg: "#e6fbf9", title: "Contabilidad", desc: "Lleva la contabilidad de tu empresa." },
+  { iconImg: iconExtraComercial, color: "#16a34a", bg: "#eafaf0", title: "Gestión Comercial", desc: "CRM, cotizaciones y más." },
+  { iconImg: iconExtraNegocios, color: "#a855f7", bg: "#f5eeff", title: "Inteligencia de Negocios", desc: "Dashboards avanzados e indicadores." },
+  { iconImg: iconExtraCompras, color: "#f97316", bg: "#fff2e6", title: "Compras Inteligentes", desc: "Mejores compras, más control." },
+];
+
+// Placeholder — se completará con contenido real más adelante.
+const otherProducts = [
+  {
+    anchor: "catalogo-digital",
+    badge: "CATÁLOGO EN WHATSAPP",
+    title: "Catálogo Digital NANIVA",
+    subtitle: "Muestra y vende tus productos directamente desde WhatsApp.",
+    items: ["Catálogo siempre actualizado", "Pedidos por WhatsApp", "Fotos y precios de productos", "Enlace compartible"],
+  },
+  {
+    anchor: "ecommerce",
+    badge: "TIENDA ONLINE",
+    title: "Ecommerce NANIVA",
+    subtitle: "Tu propia tienda online conectada a tu inventario.",
+    items: ["Tienda online lista para vender", "Pagos en línea", "Sincronizado con tu inventario", "Diseño adaptable a tu marca"],
+  },
+  {
+    anchor: "ia",
+    badge: "INTELIGENCIA DE NEGOCIO",
+    title: "IA NANIVA",
+    subtitle: "Predicciones y recomendaciones basadas en tus datos.",
+    items: ["Predicción de ventas", "Recomendaciones de stock", "Alertas inteligentes", "Reportes automáticos"],
+  },
 ];
 ---
 <BaseLayout title="Planes - NANIVA" description="Elige el plan NANIVA ideal para tu negocio.">
@@ -33,8 +144,9 @@ const products = [
       <div class="plan-features">
         {planFeatures.map((f) => (
           <div class="plan-feature">
-            <span class="plan-feature-icon icon-bounce">{f.icon}</span>
-            <span class="plan-feature-label">{f.title}<br />{f.desc}</span>
+            <span class="plan-feature-icon icon-bounce">
+              <img src={f.iconImg.src} alt={f.title} class="plan-feature-icon-img" />
+            </span>
           </div>
         ))}
       </div>
@@ -48,22 +160,226 @@ const products = [
 
   <section class="products-section">
     <div class="container">
+      <div class="products-head reveal">
+        <span class="erp-badge">ELIGE TU SOLUCIÓN</span>
+        <h2>Elige la solución ideal<br />para <span class="p-highlight">hacer crecer tu negocio</span></h2>
+        <p>Selecciona el módulo que mejor se adapta a tus necesidades<br />y comienza a <span class="products-head-link">transformar tu empresa</span>.</p>
+      </div>
       <div class="products-grid">
         {products.map((product, i) => (
-          <div class="product-card reveal" style={`transition-delay:${i * 0.1}s`}>
+          <a href={`#${product.anchor}`} class="product-card reveal" style={`transition-delay:${i * 0.1}s`}>
             <img src={product.icon.src} alt={product.title} class="product-icon" />
             <h3>{product.title}</h3>
             <p>{product.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="erp" class="erp-detail">
+    <div class="container erp-hero">
+      <div class="erp-hero-copy reveal">
+        <span class="erp-badge">
+          <span set:html={icon("layers", "#2563eb", 15)} />
+          PLATAFORMA TODO EN UNO
+        </span>
+        <h2>ERP <span class="p-highlight">NANIVA</span></h2>
+        <p class="erp-hero-sub">El sistema completo para administrar tu empresa en un solo lugar.</p>
+
+        <div class="price-card">
+          <div class="price-main">
+            <span class="price-label">Desde</span>
+            <span class="price-value"><span class="price-S">S/</span> 79<span class="price-unit">/mes</span></span>
+          </div>
+          <span class="price-note">Todo lo que necesitas<br />para operar y crecer.</span>
+        </div>
+
+        <div class="checklist-grid">
+          {heroChecklist.map((col) => (
+            <ul class="checklist-col">
+              {col.map((item) => (
+                <li><span set:html={icon("check")} />{item}</li>
+              ))}
+            </ul>
+          ))}
+        </div>
+
+        <div class="erp-cta">
+          <a href="/contacto" class="btn-primary hover-pop">Comenzar ahora</a>
+          <a href="/contacto" class="btn-outline hover-pop">Solicitar demostración</a>
+        </div>
+
+        <div class="secure-note">
+          <span set:html={icon("shield")} />
+          Tus datos están seguros y protegidos
+        </div>
+      </div>
+
+      <div class="erp-hero-media reveal">
+        <img src={erpMockup.src} alt="Dashboard ERP Naniva" class="erp-mockup-img" />
+      </div>
+    </div>
+
+    <div class="container erp-stats-bar reveal">
+      {heroStats.map((s) => (
+        <div class="stat-pill">
+          <span class="stat-pill-icon" set:html={icon(s.icon)} />
+          <div>
+            <strong>{s.value}</strong>
+            <span>{s.label}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="container erp-modules">
+      <div class="modules-head reveal">
+        <span class="erp-badge alt">TU EMPRESA, TOTALMENTE ORGANIZADA</span>
+        <h2>Módulos diseñados para<br /><span class="p-highlight">cada área</span> de tu negocio</h2>
+        <p>Todo lo que necesitas en un solo sistema. Más control, más eficiencia, más crecimiento.</p>
+        <a href="/contacto" class="btn-primary hover-pop modules-head-cta">Comenzar ahora →</a>
+      </div>
+
+      <div class="modules-layout">
+        <div class="modules-grid">
+          {modules.map((m, i) => (
+            <div class="module-card reveal" style={`transition-delay:${i * 0.05}s`}>
+              <div class="module-header-row">
+                <span class="module-icon" style={`background:${m.bg}`}>
+                  <span
+                    class="module-icon-mask"
+                    role="img"
+                    aria-label={m.title}
+                    style={`background-color:${m.color}; -webkit-mask-image:url('${m.iconImg.src}'); mask-image:url('${m.iconImg.src}');`}
+                  ></span>
+                </span>
+                <h3>{m.title}</h3>
+              </div>
+              <ul>
+                {m.items.map((it) => (
+                  <li><span set:html={icon("check")} />{it}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <aside class="plan-sidebar reveal">
+          <div class="plan-sidebar-head">
+            <strong>Tu plan, tu crecimiento</strong>
+            <span class="plan-sidebar-rule"></span>
+            <span class="plan-sidebar-sub">Todo lo que necesitas<br />para crecer sin límites.</span>
+            <svg class="plan-sidebar-chart" viewBox="0 0 220 90" preserveAspectRatio="none">
+              <path d="M0 75 L40 60 L75 68 L110 40 L150 45 L190 15 L220 8" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="220" cy="8" r="5" fill="#38bdf8" />
+            </svg>
+          </div>
+
+          <div class="plan-sidebar-list">
+            {planSidebarStats.map((s, idx) => (
+              <div class="plan-sidebar-item" style={idx < planSidebarStats.length - 1 ? "" : "border-bottom:none"}>
+                <span class="plan-sidebar-icon" style={`background:${s.bg}`} set:html={icon(s.icon, s.color, 22)} />
+                <div class="plan-sidebar-text">
+                  {s.value && <strong class="plan-sidebar-value" style={`color:${s.color}`}>{s.value}</strong>}
+                  <span class="plan-sidebar-label">{s.label}</span>
+                  <span class="plan-sidebar-sub-label">{s.sub}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <a href="/contacto" class="btn-primary hover-pop plan-sidebar-btn">Expande tu plan →</a>
+
+        </aside>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="integration-banner reveal">
+        <span class="integration-icon">
+          <img src={logoInicio.src} alt="Naniva" class="integration-icon-img" />
+        </span>
+        <div class="integration-copy">
+          <strong>Todos los módulos trabajan juntos en perfecta integración</strong>
+          <span>Información centralizada, procesos automatizados y decisiones inteligentes.</span>
+        </div>
+        {integrationPoints.map((p) => (
+          <div class="integration-point">
+            <span
+              class="integration-point-icon"
+              style={`-webkit-mask-image:url('${p.iconImg.src}'); mask-image:url('${p.iconImg.src}');`}
+            ></span>
+            {p.title}
           </div>
         ))}
       </div>
+
+      <div class="extra-modules reveal">
+        <h3>Conoce nuestros módulos adicionales</h3>
+        <p>Añade los módulos que tu negocio necesita</p>
+        <div class="extra-modules-grid">
+          {extraModules.map((m) => (
+            <div class="extra-module-card">
+              <div class="extra-module-header">
+                <span class="module-icon-extra">
+                  <img src={m.iconImg.src} alt={m.title} class="module-icon-img-sm" />
+                </span>
+                <div class="extra-module-info">
+                  <strong>{m.title}</strong>
+                  <span>{m.desc}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="transformar-plan" class="banner-plan-cta">
+    <img src={bannerPlan.src} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="banner-plan-img" />
+    <div class="banner-plan-cta-overlay">
+      <span class="banner-plan-sub">Sin compromiso. En menos de 30 minutos.</span>
     </div>
   </section>
 
   <Footer />
 </BaseLayout>
 
+
 <style>
+
+  /* Animaciones globales de iconos */
+  @keyframes icon-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes icon-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.85; }
+  }
+  @keyframes icon-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(-6deg); }
+    40% { transform: rotate(6deg); }
+    60% { transform: rotate(-4deg); }
+    80% { transform: rotate(4deg); }
+  }
+  @keyframes icon-glow {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(37, 99, 235, 0.2)); }
+    50% { filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.5)); }
+  }
+  @keyframes icon-spin-in {
+    0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+    60% { transform: scale(1.15) rotate(10deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  @keyframes icon-reveal-up {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
   .banner {
     position: relative;
     min-height: 100vh;
@@ -73,21 +389,21 @@ const products = [
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 6.5rem 1.5rem 1.5rem 4rem;
+    padding: 3.5rem 5rem 2rem 8rem;
   }
   .banner-persona {
     position: absolute;
-    right: 0;
+    right: -10%;
     bottom: 0;
-    height: 95vh;
+    height: 91vh;
     width: auto;
     object-fit: contain;
     z-index: 1;
     pointer-events: none;
-    transform: translateY(-2rem);
+    transform: translateY(-1rem);
   }
   .content {
-    max-width: 540px;
+    max-width: 680px;
     position: relative;
     z-index: 2;
     display: flex;
@@ -107,19 +423,22 @@ const products = [
     width: 1px;
   }
   .content h1 {
-    font-size: clamp(3.3rem, 3.5vw, 3rem);
+    font-size: clamp(4rem, 4vw, 4rem);
     font-weight: 798;
     line-height: 1.15;
     color: #0f172a;
-    transform: translateY(-2rem);;
+    transform: translateY(-2rem);
+    
   }
   .content .highlight {
     color: #007bff;
   }
   .content p {
-    font-size: 1.3rem;
+    font-size: 2rem;
     font-weight: 650;
     color: #334155;
+    line-height: 1;
+    margin-bottom: 2rem;
   }
   .p-highlight {
     color: #2563eb;
@@ -134,23 +453,36 @@ const products = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.4rem;
-    width: 76px;
+    gap: 0.5rem;
+    width: 108px;
     text-align: center;
   }
   .plan-feature-icon {
-    width: 72px;
-    height: 72px;
-    border-radius: 16px;
-    background: white;
-    box-shadow: 0 4px 10px rgba(15,23,42,0.1);
+    width: 108px;
+    height: 96px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
+    overflow: visible;
+  }
+  .plan-feature-icon-img {
+    width: 150%;
+    height: 130%;
+    object-fit: contain;
+    animation: icon-float 3s ease-in-out infinite;
+    transition: filter 0.3s ease;
+  }
+  .plan-feature:nth-child(1) .plan-feature-icon-img { animation-delay: 0s; }
+  .plan-feature:nth-child(2) .plan-feature-icon-img { animation-delay: 0.3s; }
+  .plan-feature:nth-child(3) .plan-feature-icon-img { animation-delay: 0.6s; }
+  .plan-feature:nth-child(4) .plan-feature-icon-img { animation-delay: 0.9s; }
+  .plan-feature:hover .plan-feature-icon-img {
+    animation: icon-wiggle 0.6s ease;
+    filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.4));
   }
   .plan-feature-label {
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     font-weight: 640;
     color: #0f172a;
     line-height: 1.3;
@@ -181,8 +513,45 @@ const products = [
   .banner-note strong { color: #2563eb; }
 
   .products-section {
-    padding: 3.5rem 2rem;
+    padding: 1rem 1rem 2.5rem;
     background: #ffffff;
+    margin-top: 1rem;
+  }
+  .products-head {
+    position: relative;
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto 2rem;
+    padding: 1rem 1rem;
+  }
+  .products-head::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #f8f9fc, #eef2fb);
+    border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+    z-index: -1;
+  }
+  .products-head h2 {
+    font-size: clamp(2.3rem, 4.2vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    color: #0f172a;
+    line-height: 1.15;
+    margin: 0.9rem 0 0.75rem;
+  }
+  .products-head p {
+    color: #64748b;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    font-weight: 700;
+  }
+  .products-head-link {
+    color: #2563eb;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
   }
   .products-section .container {
     max-width: 1400px;
@@ -192,7 +561,7 @@ const products = [
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.25rem;
-    max-width: 900px;
+    max-width: 1300px;
     margin: 0 auto;
   }
   .product-card {
@@ -207,6 +576,7 @@ const products = [
     gap: 0.85rem;
     transition: all 0.3s ease;
     cursor: pointer;
+    text-decoration: none;
   }
   .product-card:first-child {
     border: 2px solid #2563eb;
@@ -218,22 +588,33 @@ const products = [
     transform: translateY(-2px);
   }
   .product-icon {
-    width: 72px;
-    height: 72px;
+    width: 100px;
+    height: 100px;
     object-fit: contain;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    animation: icon-pulse 4s ease-in-out infinite;
+  }
+  .product-card:nth-child(1) .product-icon { animation-delay: 0s; }
+  .product-card:nth-child(2) .product-icon { animation-delay: 0.5s; }
+  .product-card:nth-child(3) .product-icon { animation-delay: 1s; }
+  .product-card:nth-child(4) .product-icon { animation-delay: 1.5s; }
+  .product-card:hover .product-icon {
+    animation: icon-wiggle 0.6s ease;
+    filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.4));
   }
   .product-card h3 {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #0f172a;
     margin: 0;
     line-height: 1.3;
   }
   .product-card p {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #64748b;
     margin: 0;
     line-height: 1.2;
+    font-weight: 700;
   }
 
   @media (max-width: 1100px) {
@@ -250,6 +631,7 @@ const products = [
     .product-card { padding: 1.5rem 1rem; }
     .product-icon { width: 60px; height: 60px; }
     .product-card h3 { font-size: 0.95rem; }
+    .products-head h2 { white-space: normal; font-size: clamp(1.6rem, 7vw, 2.2rem); }
   }
 
   @media (max-width: 900px) {
@@ -271,9 +653,611 @@ const products = [
     .logo { transform: translateY(-1rem); height: 64px; }
     .content h1 { transform: none; font-size: clamp(1.8rem, 7vw, 2.5rem); }
     .content p { font-size: 1rem; }
-    .plan-features { justify-content: center; gap: 0.75rem; }
-    .plan-feature { width: 64px; }
-    .plan-feature-icon { width: 56px; height: 56px; font-size: 1.5rem; }
+    .plan-features { 
+      
+      justify-content: center; gap: 1rem; }
+    .plan-feature { width: 100px; }
+    .plan-feature-icon { width: 100px; height: 100px; font-size: 1.5rem; }
     .banner-note { flex-wrap: wrap; }
+  }
+
+  /* ===== ERP detail section ===== */
+  .erp-detail {
+    background: #f8fafc;
+    padding: 4rem 0 5rem;
+    scroll-margin-top: 6rem;
+  }
+  .erp-detail .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .p-highlight { color: #2563eb; }
+
+  .erp-hero {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding-bottom: 3rem;
+  }
+  .erp-hero-copy { flex: 1; min-width: 320px; }
+  .erp-hero-media { flex: 1.2; min-width: 320px; }
+  .erp-mockup-img {
+    width: 115%;
+    height: auto;
+    border-radius: 16px;
+   
+  }
+  .erp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #eef4ff;
+    color: #2563eb;
+    font-size: 1.1rem;
+    font-weight: 750;
+    letter-spacing: 0.03em;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    margin-top: 0.5rem;
+  }
+  .erp-badge.alt { background: #eef4ff; }
+  .erp-hero-copy h2 {
+    font-size: clamp(3rem, 5vw, 4rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.75rem;
+    line-height: 1.1;
+  }
+  .erp-hero-sub {
+    font-size: 1.5rem;
+    color: #475569;
+    margin: 0 0 1.5rem;
+    font-weight: 700;
+  }
+  .price-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .price-main { display: flex; flex-direction: column; }
+  .price-label { font-size: 1rem; color: #64748b; }
+  .price-value { font-size: 4.5rem; font-weight: 800; color: #2563eb;
+    transform: translateY(-1rem);
+   }
+  .price-unit { font-size: 1.5rem; font-weight: 600; color: #64748b;}
+  .price-S{
+    font-size: 2rem; font-weight: 600; color: #2563eb;
+  }
+  .price-note {
+    font-size: 1rem;
+    color: #334155;
+    border-left: 1px solid #e2e8f0;
+    padding-left: 1.5rem;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  .checklist-col {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .checklist-col.single {
+    max-width: 480px;
+    margin: 1.5rem 0;
+  }
+  .checklist-col li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.92rem;
+    color: #334155;
+  }
+  .erp-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.85rem 1.6rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline {
+    background: white;
+    color: #2563eb;
+    border: 1.5px solid #2563eb;
+    padding: 0.85rem 1.6rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .secure-note {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #334155;
+    font-weight: 600;
+    padding: 1rem;
+  }
+
+  .erp-stats-bar {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    margin: 0 auto 4rem;
+  }
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.6rem;
+    min-width: 0;
+  }
+  .stat-pill-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background: #eef4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .stat-pill strong { display: block; font-size: 1rem; color: #0f172a; white-space: nowrap; }
+  .stat-pill span { font-size: 0.9rem; color: #64748b; white-space: nowrap; }
+
+  .modules-head {
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto 2.5rem;
+  }
+  .modules-head h2 {
+    font-size: clamp(3rem, 3vw, 4rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0.7rem 0;
+    line-height: 1.1;
+  }
+  .modules-head p { color: #64748b; font-size: 1.2rem; font-weight: 600; }
+  .modules-head-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+  }
+
+  .modules-layout {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+  }
+  .modules-grid {
+    flex: 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .module-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.75rem;
+  }
+  .module-header-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .module-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .module-icon-mask {
+    display: block;
+    width: 75%;
+    height: 75%;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    animation: icon-pulse 4s ease-in-out infinite;
+    transition: transform 0.3s ease;
+  }
+  .module-card:nth-child(1) .module-icon-mask { animation-delay: 0s; }
+  .module-card:nth-child(2) .module-icon-mask { animation-delay: 0.3s; }
+  .module-card:nth-child(3) .module-icon-mask { animation-delay: 0.6s; }
+  .module-card:nth-child(4) .module-icon-mask { animation-delay: 0.9s; }
+  .module-card:nth-child(5) .module-icon-mask { animation-delay: 1.2s; }
+  .module-card:nth-child(6) .module-icon-mask { animation-delay: 1.5s; }
+  .module-card:hover .module-icon-mask {
+    animation: icon-wiggle 0.6s ease;
+    filter: brightness(1.2);
+  }
+  .module-icon-img-sm {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+    display: block;
+  }
+  .module-icon-extra {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .extra-module-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+  .extra-module-card > span {
+    display: block;
+    margin-top: 0.25rem;
+  }
+  .module-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+  }
+  .module-card ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .module-card li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #334155;
+  }
+
+  .plan-sidebar {
+    flex: 1;
+    min-width: 260px;
+    max-width: 320px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+    align-self: flex-start;
+  }
+  .plan-sidebar.reveal {
+    transform: none;
+    transition: opacity 0.7s ease;
+  }
+  .plan-sidebar-head {
+    position: relative;
+    background: linear-gradient(135deg, #2563eb, #1e3a8a);
+    color: white;
+    padding: 1rem 1rem 0rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    overflow: hidden;
+  }
+  .plan-sidebar-head strong { font-size: 1.15rem; font-weight: 800; }
+  .plan-sidebar-rule {
+    width: 32px;
+    height: 3px;
+    border-radius: 999px;
+    background: #38bdf8;
+  }
+  .plan-sidebar-sub {
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .plan-sidebar-chart {
+    width: 100%;
+    height: 42px;
+    margin-top: 0.5rem;
+  }
+
+  .plan-sidebar-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.25rem;
+  }
+  .plan-sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eef1f5;
+  }
+  .plan-sidebar-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .plan-sidebar-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+  .plan-sidebar-value {
+    font-size: 1.05rem;
+    font-weight: 800;
+  }
+  .plan-sidebar-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .plan-sidebar-sub-label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+  }
+
+  .plan-sidebar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin: 1.1rem 1.25rem;
+    text-align: center;
+  }
+
+  .plan-sidebar-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: #eef4ff;
+    padding: 1rem 1.25rem;
+    font-size: 0.78rem;
+    color: #2563eb;
+    line-height: 1.3;
+  }
+  .plan-sidebar-footer strong { color: #1d4ed8; }
+  .plan-sidebar-footer-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .integration-banner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .integration-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .integration-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .integration-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+    min-width: 220px;
+  }
+  .integration-copy strong { color: #0f172a; font-size: 0.98rem; }
+  .integration-copy span { color: #64748b; font-size: 0.85rem; }
+  .integration-point {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #334155;
+    font-weight: 600;
+  }
+  .integration-point-icon {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color: #2563eb;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    flex-shrink: 0;
+  }
+
+  .extra-modules { text-align: center; }
+  .extra-modules h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.4rem;
+  }
+  .extra-modules > p { color: #64748b; margin: 0 0 1.5rem; }
+  .extra-modules-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  .extra-module-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.25rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .extra-module-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+  .extra-module-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .extra-module-card strong { color: #0f172a; font-size: 0.95rem; }
+  .extra-module-info span { color: #64748b; font-size: 0.82rem; }
+
+  /* ===== Placeholder sections (Catálogo, Ecommerce, IA) ===== */
+  .other-product-detail {
+    padding: 4rem 0;
+    scroll-margin-top: 6rem;
+    border-top: 1px solid #e2e8f0;
+  }
+  .other-product-card {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .other-product-card h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+  }
+  .other-product-card .checklist-col.single {
+    align-items: flex-start;
+    display: inline-flex;
+  }
+  .other-product-card .erp-cta { justify-content: center; }
+  .banner-plan-cta {
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    max-width: 95%;
+    border-radius: 20px;
+    padding: 3;
+    
+  }
+  .banner-plan-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 450px;
+    object-fit:;
+    transition: transform 0.3s ease;
+  }
+  .banner-plan-img:hover {
+    transform: scale(1.02);
+  }
+  .banner-plan-cta-overlay {
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .banner-plan-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: white;
+    color: #0f172a;
+    padding: 1.5rem 2rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    box-shadow: 0 10px 30px rgba(2, 6, 23, 0.35);
+    white-space: nowrap;
+  }
+  .banner-plan-sub {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  @media (max-width: 900px) {
+    .banner-plan-cta-overlay { display: none; }
+  }
+  .placeholder-note {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    font-style: italic;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 1024px) {
+    .erp-stats-bar { grid-template-columns: repeat(3, 1fr); }
+    .modules-grid { grid-template-columns: repeat(2, 1fr); }
+    .extra-modules-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .erp-hero { flex-direction: column; }
+    .modules-layout { flex-direction: column; }
+    .plan-sidebar { width: 100%; }
+  }
+  @media (max-width: 640px) {
+    .erp-detail .container { padding: 0 1.25rem; }
+    .checklist-grid { grid-template-columns: 1fr; }
+    .erp-stats-bar { grid-template-columns: repeat(2, 1fr); padding: 1.25rem; }
+    .modules-grid { grid-template-columns: 1fr; }
+    .extra-modules-grid { grid-template-columns: 1fr; }
+    .price-card { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .price-note { border-left: none; padding-left: 0; }
   }
 </style>
