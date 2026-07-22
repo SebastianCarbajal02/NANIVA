@@ -270,13 +270,18 @@ const partners = [
   }
   /* Laptops 1440x900 — reducir tamaño */
   @media (max-width: 1440px) and (max-height: 950px) {
+    .hero {
+      min-height: 900px;
+      padding: 7rem 3rem 2rem 5rem;
+    }
     .hero-visual {
       width: min(42%, 580px);
       height: 78%;
-      right: 0.5rem;
+      right: 0;
     }
     .hero-dashboard {
       top: 12%;
+      right: 0;
       width: 84%;
       transform: translateY(-4rem);
     }

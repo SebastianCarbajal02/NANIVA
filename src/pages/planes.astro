@@ -28,6 +28,32 @@ import iconExtraComercial from '../assets/image/iconpmbb21-10.webp';
 import iconExtraNegocios from '../assets/image/iconpmbb21-12.webp';
 import iconExtraCompras from '../assets/image/iconpmbb21-13.webp';
 import bannerPlan from '../assets/image/bannner-plan.webp';
+import catalogoMockup from '../assets/image/icons-boton-planes/catgbb-15.png';
+import catFeatureShare from '../assets/image/icons-boton-planes/iconcatgl-18.png';
+import catFeatureWhatsapp from '../assets/image/icons-boton-planes/iconcatgl-19.png';
+import catFeatureQuote from '../assets/image/icons-boton-planes/iconcatgl-16.png';
+import catFeatureGrowth from '../assets/image/icons-boton-planes/iconcatgg-16.png';
+import iconNegocioFerreterias from '../assets/image/icons-boton-planes/iconocatgg-03.jpg.jpeg';
+import iconNegocioDistribuidoras from '../assets/image/icons-boton-planes/iconocatgg-04.jpg.jpeg';
+import iconNegocioTiendas from '../assets/image/icons-boton-planes/iconocatgg-05.jpg.jpeg';
+import iconNegocioImportadores from '../assets/image/icons-boton-planes/iconocatgg-06.jpg.jpeg';
+import iconNegocioMinimarkets from '../assets/image/icons-boton-planes/iconocatgg-07.jpg.jpeg';
+import iconNegocioMayoristas from '../assets/image/icons-boton-planes/iconocatgg-08.jpg.jpeg';
+import catalogoCtaBanner from '../assets/image/icons-boton-planes/banner-plan.png';
+import restauranteMockup from '../assets/image/icons-boton-ecomerce/chef2232-03.webp';
+import restauranteFeatureVentas from '../assets/image/icons-boton-ecomerce/iconrestaur-16.png';
+import restauranteFeatureComandas from '../assets/image/icons-boton-ecomerce/iconrestaur-17.png';
+import restauranteFeatureCaja from '../assets/image/icons-boton-ecomerce/iconrestaur-18.png';
+import iconMrestVentas from '../assets/image/icons-boton-ecomerce/icommm1-09.png';
+import iconMrestBusqueda from '../assets/image/icons-boton-ecomerce/icommm1-10.png';
+import iconMrestReportes from '../assets/image/icons-boton-ecomerce/icommm1-11.png';
+import iconMrestClientes from '../assets/image/icons-boton-ecomerce/icommm1-12.png';
+import iconcaja from '../assets/image/icons-boton-ecomerce/iconnnrets-16.png';
+import restauranteCtaBanner from '../assets/image/icons-boton-ecomerce/banner-ecoomer-abajo.webp';
+import iconMrestCaja from '../assets/image/icons-boton-ecomerce/icommm1-13.png';
+import iconMrestFacil from '../assets/image/icons-boton-ecomerce/f1icon-14.png';
+import iconRestauranteExtra15 from '../assets/image/icons-boton-planes/icons cayg-15 (1).png';
+import iconRestauranteExtra16 from '../assets/image/icons-boton-planes/icons cayg-16 (1).png';
 
 const planFeatures = [
   { iconImg: iconFeatureFlex, title: "Planes flexibles", desc: "para cada necesidad" },
@@ -61,6 +87,25 @@ function icon(name: string, color: string = "#2563eb", size = 22) {
     cloud: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.5 2A4 4 0 0 0 6 19h11.5Z"/></svg>`,
     store: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 2-4h16l2 4"/><path d="M2 7h20v3a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0V7Z"/><path d="M4 10v10h16V10"/></svg>`,
     ai: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h.01M15 9h.01M9 15c1 1 5 1 6 0"/></svg>`,
+    book: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>`,
+    filetext: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>`,
+    image: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>`,
+    monitor: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
+    upload: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>`,
+    whatsapp: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1s-.5-.1-.7.2-.8 1-.9 1.1-.3.2-.6 0a7.4 7.4 0 0 1-2.2-1.3 8 8 0 0 1-1.5-1.9c-.2-.3 0-.5.1-.6l.4-.5.2-.4a.5.5 0 0 0 0-.4c0-.1-.7-1.7-1-2.3s-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.8.4 3.6 3.6 0 0 0-1.1 2.7c0 1.6 1.2 3.1 1.3 3.3s2.3 3.6 5.7 5a19 19 0 0 0 1.9.7 4.6 4.6 0 0 0 2.1.1c.6-.1 1.8-.8 2.1-1.5s.3-1.4.2-1.5-.3-.2-.6-.3Z"/><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Z"/></svg>`,
+    folder: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6l2 3h8v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/></svg>`,
+    edit: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>`,
+    headset: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-3a9 9 0 0 1 18 0v3"/><path d="M21 15a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h3Zm-18 0a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H3Z"/><path d="M21 15v1a4 4 0 0 1-4 4h-4"/></svg>`,
+    send: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>`,
+    help: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9a4 4 0 1 1 5.5 3.7c-.9.4-1.5 1.3-1.5 2.3v.5"/><path d="M12 18.5h.01"/></svg>`,
+    refresh: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>`,
+    lock: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+    cloche: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h18"/><path d="M4 18a8 8 0 0 1 16 0"/><path d="M12 6v2"/><circle cx="12" cy="4" r="1"/></svg>`,
+    user: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></svg>`,
+    printer: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="4" y="9" width="16" height="8" rx="1"/><path d="M6 17v4h12v-4"/></svg>`,
+    search: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>`,
+    rocket: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>`,
+    checkcolor: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`,
   };
   return icons[name] ?? "";
 }
@@ -85,7 +130,6 @@ const modules = [
   { iconImg: iconCajaNegra, color: "#2563eb", bg: "#eaf1ff", title: "Inventario", items: ["Productos", "Entradas y Salidas", "Traspasos", "Kardex", "Almacenes", "Stock en tiempo real"] },
   { iconImg: iconBolsaCompra, color: "#a855f7", bg: "#f5eeff", title: "Compras", items: ["Registrar Compras", "Cuentas por Pagar", "Proveedores", "Gastos por Pagar"] },
   { iconImg: iconBarras, color: "#f97316", bg: "#fff2e6", title: "Finanzas", items: ["Caja", "Bancos", "Movimientos", "Gastos"] },
-  { iconImg: iconReportes, color: "#a855f7", bg: "#f5eeff", title: "Reportes Gerenciales", items: ["Dashboard Ejecutivo", "Reporte de Ventas", "Productos más vendidos", "Utilidad y Margen", "Inventario y Compras"] },
 ];
 
 const planSidebarStats = [
@@ -109,22 +153,156 @@ const extraModules = [
   { iconImg: iconExtraCompras, color: "#f97316", bg: "#fff2e6", title: "Compras Inteligentes", desc: "Mejores compras, más control." },
 ];
 
+const catalogoFeatures = [
+  { img: catFeatureShare, alt: "Comparte tu catálogo en segundos" },
+  { img: catFeatureWhatsapp, alt: "Recibe pedidos por WhatsApp" },
+  { img: catFeatureQuote, alt: "Envía cotizaciones profesionales" },
+  { img: catFeatureGrowth, alt: "Convierte consultas en ventas" },
+];
+
+const restauranteFeatures = [
+  { img: restauranteFeatureVentas, alt: "Registro de Ventas" },
+  { img: restauranteFeatureComandas, alt: "Comandas y pre comandas", className: "restaurante-feature-comandas" },
+  { img: restauranteFeatureCaja, alt: "Control de Caja" },
+  { img: iconcaja, alt: "Control de Stock" },
+];
+
+const restauranteHighlights = [
+  { img: iconMrestVentas, title: "Registro de ventas", sub: "detallado" },
+  { img: iconMrestBusqueda, title: "Búsqueda", sub: "RUC / DNI" },
+  { img: iconMrestReportes, title: "Reportes de ventas", sub: "y productos" },
+  { img: iconMrestClientes, title: "Historial de clientes", sub: "y preferencias" },
+  { img: iconMrestCaja, title: "Control de caja", sub: "y cierres" },
+  { img: iconMrestFacil, title: "Fácil de usar", sub: "e intuitivo" },
+];
+
+const CATALOGO_ANNUAL_DISCOUNT = 0.2;
+function annualPricing(monthly: number) {
+  const fullYear = monthly * 12;
+  const discounted = Math.round(fullYear * (1 - CATALOGO_ANNUAL_DISCOUNT));
+  return { fullYear, discounted, savings: fullYear - discounted };
+}
+
+const restaurantePlanBasico = {
+  name: "Plan Básico",
+  subtitle: "Ideal para pequeños restaurantes",
+  monthly: 79,
+  highlight: { icon: "trend", text: "Aumenta tus ganancias,", strong: "gestiona tu restaurante con COMANDAS" },
+  productsNote: { text: "Vende hasta", strong: "500", suffix: "(Comprobantes Electrónicos)" },
+  items: [
+    { icon: "filetext", text: "Nota de Ventas" },
+    { icon: "filetext", text: "Boletas" },
+    { icon: "box", text: "Control de Stock" },
+    { icon: "user", text: "Tomador de Pedidos" },
+    { icon: "printer", text: "Impresión de Comandas" },
+    { icon: "printer", text: "Impresión de Pre-Cuentas" },
+    { icon: "users", text: "3 Usuarios" },
+    { icon: "trend", text: "Registro de Ventas Detallado" },
+    { icon: "search", text: "Busqueda RUC/DNI", sub: "(Interconectado con SUNAT/RENIEC)" },
+  ],
+  support: { text: "SOPORTE PREMIUM", sub: "LLAMADA Y WHATSAPP" },
+  cta: "Empezar ahora",
+  ctaIcon: "cart",
+};
+
+const restaurantePlanProfesional = {
+  name: "Plan Profesional",
+  badge: "Más Vendido",
+  subtitleParts: ["Agiliza la atención a tus clientes", "y optimiza tus ", "Ventas"],
+  tagline: "Vende sin Límites",
+  monthly: 149,
+  includesNote: "Incluye todo lo del plan Básico más:",
+  items: [
+    "Facturación electrónica",
+    "Nota de Ventas",
+    "Boletas",
+    "Gestión de Inventario",
+    "Tomador de Pedidos",
+    "Impresión de Comandas",
+    "Impresión de Pre-Cuentas",
+    "Usuarios ilimitados",
+    "Modificadores de Complementos",
+    "Registro de Ventas Detallado",
+    { text: "Busqueda RUC/DNI", sub: "(Interconectado con SUNAT/RENIEC)" },
+  ],
+  support: { text: "SOPORTE PREMIUM", sub: "LLAMADA Y WHATSAPP" },
+  cta: "Empezar ahora",
+  ctaIcon: "rocket",
+};
+
+const catalogoPlans = [
+  {
+    name: "PLAN NEGOCIO",
+    monthly: 79,
+    productsNote: "Hasta 300 productos",
+    featured: false,
+    items: [
+      "Catálogo digital integrado al sistema",
+      "Creación de catálogos PDF",
+      "Portada y fondo personalizados",
+      "Banners",
+      "Carga masiva de imágenes",
+      { text: "Enlace para compartir por WhatsApp", sub: "(cotizaciones enlace pdf)" },
+      "Lista de catálogos guardados",
+      "Edición básica de catálogos",
+      "Soporte",
+      "300 Productos (2 x imagen)",
+      "Envío masivos por Whatsapp",
+    ],
+  },
+  {
+    name: "PLAN EMPRESA",
+    monthly: 118,
+    productsNote: "Hasta 600 productos (2x imagen)",
+    featured: true,
+    items: [
+      "Catálogo digital integrado al sistema",
+      "Creación de catálogos PDF",
+      "Portada y fondo personalizados",
+      "Edición masiva de productos, categorías, precios y marcas",
+      "Cambio de tema / colores / Banners",
+      "Más plantillas o estilos de catálogo",
+      { text: "Envío masivo por WhatsApp", sub: "(cotizaciones enlace pdf)" },
+      "Carga masiva de imágenes",
+      "Soporte premium",
+    ],
+    tag: { label: "NUEVO", text: "Envíos masivos por WhatsApp" },
+  },
+];
+
+const compareFeatures = [
+  { icon: "book", label: "Catálogo digital integrado al sistema", negocio: true, empresa: true },
+  { icon: "filetext", label: "Creación de catálogo PDF", negocio: true, empresa: true },
+  { icon: "image", label: "Portadas y fondos personalizados", negocio: true, empresa: true },
+  { icon: "monitor", label: "Banners", negocio: true, empresa: true },
+  { icon: "upload", label: "Carga masiva de imágenes", negocio: true, empresa: true },
+  { icon: "whatsapp", label: "Enlace para compartir por WhatsApp", sub: "(cotizaciones o enlace pdf)", negocio: true, empresa: true },
+  { icon: "folder", label: "Lista de catálogos guardados", negocio: true, empresa: true },
+  { icon: "edit", label: "Edición básica de catálogos", negocio: true, empresa: true },
+  { icon: "headset", label: "Soporte", negocio: true, empresa: true },
+  { icon: "box", label: "300 Productos (2K Imágenes)", negocio: true, empresa: true },
+  { icon: "send", label: "Envío masivo por WhatsApp", negocio: false, empresa: true, empresaTag: "NUEVO" },
+];
+
+const trustBadges = [
+  { icon: "shield", title: "Sin contratos forzosos", desc: "Planes flexibles sin permanencia" },
+  { icon: "refresh", title: "Cambia o cancela cuando quieras", desc: "Tú decides, sin complicaciones" },
+  { icon: "lock", title: "Pago 100% seguro", desc: "Tus datos siempre protegidos" },
+  { icon: "headset", title: "Soporte especializado", desc: "Estamos para ayudarte" },
+];
+
+const negociosCategories = [
+  { img: iconNegocioFerreterias, label: "Ferreterías" },
+  { img: iconNegocioDistribuidoras, label: "Distribuidoras" },
+  { img: iconNegocioTiendas, label: "Tiendas" },
+  { img: iconNegocioMinimarkets, label: "Minimarkets" },
+  { img: iconNegocioImportadores, label: "Importadores" },
+  { img: iconNegocioMayoristas, label: "Mayoristas" },
+];
+
+
 // Placeholder — se completará con contenido real más adelante.
 const otherProducts = [
-  {
-    anchor: "catalogo-digital",
-    badge: "CATÁLOGO EN WHATSAPP",
-    title: "Catálogo Digital NANIVA",
-    subtitle: "Muestra y vende tus productos directamente desde WhatsApp.",
-    items: ["Catálogo siempre actualizado", "Pedidos por WhatsApp", "Fotos y precios de productos", "Enlace compartible"],
-  },
-  {
-    anchor: "ecommerce",
-    badge: "TIENDA ONLINE",
-    title: "Ecommerce NANIVA",
-    subtitle: "Tu propia tienda online conectada a tu inventario.",
-    items: ["Tienda online lista para vender", "Pagos en línea", "Sincronizado con tu inventario", "Diseño adaptable a tu marca"],
-  },
   {
     anchor: "ia",
     badge: "INTELIGENCIA DE NEGOCIO",
@@ -167,7 +345,12 @@ const otherProducts = [
       </div>
       <div class="products-grid">
         {products.map((product, i) => (
-          <a href={`#${product.anchor}`} class="product-card reveal" style={`transition-delay:${i * 0.1}s`}>
+          <a
+            href={`#${product.anchor}`}
+            class={`product-card reveal${i === 0 ? " is-active" : ""}`}
+            data-target={product.anchor}
+            style={`transition-delay:${i * 0.1}s`}
+          >
             <img src={product.icon.src} alt={product.title} class="product-icon" />
             <h3>{product.title}</h3>
             <p>{product.desc}</p>
@@ -177,7 +360,7 @@ const otherProducts = [
     </div>
   </section>
 
-  <section id="erp" class="erp-detail">
+  <section id="erp" class="erp-detail product-detail is-active">
     <div class="container erp-hero">
       <div class="erp-hero-copy reveal">
         <span class="erp-badge">
@@ -335,17 +518,713 @@ const otherProducts = [
         </div>
       </div>
     </div>
-  </section>
 
-  <section id="transformar-plan" class="banner-plan-cta">
-    <img src={bannerPlan.src} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="banner-plan-img" />
-    <div class="banner-plan-cta-overlay">
-      <span class="banner-plan-sub">Sin compromiso. En menos de 30 minutos.</span>
+    <div class="banner-plan-cta">
+      <img src={bannerPlan.src} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="banner-plan-img" />
+      <div class="banner-plan-cta-overlay">
+        <span class="banner-plan-sub">Sin compromiso. En menos de 30 minutos.</span>
+      </div>
     </div>
   </section>
 
+  <section id="catalogo-digital" class="erp-detail catalogo-detail product-detail">
+    <div class="container erp-hero">
+      <div class="erp-hero-copy reveal">
+        <span class="erp-badge catalogo-badge">
+          <span set:html={icon("store", "#16a34a", 15)} />
+          CATÁLOGO EN WHATSAPP
+        </span>
+        <h2>Catálogo <span class="p-highlight catalogo-highlight">Digital</span></h2>
+        <p class="erp-hero-sub">Vender más a través de todos los canales. Comparte tu catálogo, recibe pedidos y convierte consultas en ventas.</p>
+
+        <div class="catalogo-features">
+          {catalogoFeatures.map((f) => (
+            <img src={f.img.src} alt={f.alt} class="catalogo-feature-img" />
+          ))}
+        </div>
+
+        <div class="erp-cta">
+          <a href="/contacto" class="btn-primary catalogo-btn-primary hover-pop">Comenzar ahora</a>
+          <a href="/contacto" class="btn-outline catalogo-btn-outline hover-pop">Solicitar demostración</a>
+        </div>
+      </div>
+
+      <div class="erp-hero-media reveal">
+        <img src={catalogoMockup.src} alt="Catálogo Digital Naniva - pedidos por WhatsApp" class="erp-mockup-img catalogo-mockup-img" />
+      </div>
+    </div>
+
+    <div class="container catalogo-pricing reveal" data-billing-scope="catalogo">
+      <div class="catalogo-pricing-head">
+        <h2><span set:html={icon("bag", "#16a34a", 26)} />Catálogo Digital</h2>
+        <p>Planes diseñados para negocios que quieren vender más por WhatsApp y otros canales.</p>
+      </div>
+
+      <div class="billing-toggle">
+        <button type="button" class="billing-toggle-btn is-active" data-billing-btn="mensual">Mensual</button>
+        <button type="button" class="billing-toggle-btn" data-billing-btn="anual">Anual</button>
+      </div>
+      <p class="billing-savings-note" data-billing-note="anual">Ahorra {Math.round(CATALOGO_ANNUAL_DISCOUNT * 100)}% pagando anual</p>
+
+      <div class="catalogo-plans-grid billing-panel is-active" data-billing-panel="mensual">
+        {catalogoPlans.map((plan) => (
+          <div class={`plan-card${plan.featured ? " plan-card-featured" : ""}`}>
+            {plan.badge && <span class="plan-badge">★ {plan.badge}</span>}
+            <h3 class="plan-name">{plan.name}</h3>
+            <div class="plan-price-block">
+              <div class="plan-price"><span class="plan-price-S">S/</span> {plan.monthly}<span class="plan-price-unit">/mes</span></div>
+            </div>
+            {plan.featured ? (
+              <span class="plan-products-note"><span set:html={icon("box", "#16a34a", 16)} /> {plan.productsNote}</span>
+            ) : (
+              <span class="plan-products-pill">{plan.productsNote}</span>
+            )}
+            <ul class="plan-items">
+              {plan.items.map((it) => (
+                <li>
+                  <span set:html={icon("check")} />
+                  <span>
+                    {typeof it === "string" ? it : (<>{it.text}<br /><span class="plan-item-sub">{it.sub}</span></>)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            {plan.tag && (
+              <div class="plan-tag-row">
+                <span class="plan-tag-badge">{plan.tag.label}</span>
+                <span class="plan-tag-text">{plan.tag.text}</span>
+              </div>
+            )}
+            <a href="/contacto" class={`plan-cta-btn hover-pop${plan.featured ? " plan-cta-btn-filled" : ""}`}>Elegir plan</a>
+          </div>
+        ))}
+      </div>
+
+      <div class="catalogo-plans-grid billing-panel" data-billing-panel="anual">
+        {catalogoPlans.map((plan) => {
+          const { fullYear, discounted, savings } = annualPricing(plan.monthly);
+          return (
+            <div class={`plan-card${plan.featured ? " plan-card-featured" : ""}`}>
+              {plan.badge && <span class="plan-badge">★ {plan.badge}</span>}
+              <h3 class="plan-name">{plan.name}</h3>
+              <div class="plan-price-block">
+                <span class="plan-price-strike">S/ {fullYear.toLocaleString("es-PE")}</span>
+                <div class="plan-price"><span class="plan-price-S">S/</span> {discounted.toLocaleString("es-PE")}<span class="plan-price-unit">/año</span></div>
+                <span class="plan-savings-note">Ahorra S/ {savings.toLocaleString("es-PE")} al año</span>
+              </div>
+              {plan.featured ? (
+                <span class="plan-products-note"><span set:html={icon("box", "#16a34a", 16)} /> {plan.productsNote}</span>
+              ) : (
+                <span class="plan-products-pill">{plan.productsNote}</span>
+              )}
+              <ul class="plan-items">
+                {plan.items.map((it) => (
+                  <li>
+                    <span set:html={icon("check")} />
+                    <span>
+                      {typeof it === "string" ? it : (<>{it.text}<br /><span class="plan-item-sub">{it.sub}</span></>)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              {plan.tag && (
+                <div class="plan-tag-row">
+                  <span class="plan-tag-badge">{plan.tag.label}</span>
+                  <span class="plan-tag-text">{plan.tag.text}</span>
+                </div>
+              )}
+              <a href="/contacto" class={`plan-cta-btn hover-pop${plan.featured ? " plan-cta-btn-filled" : ""}`}>Elegir plan</a>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    <div class="container catalogo-compare reveal">
+      <div class="catalogo-pricing-head">
+        <h2 class="compare-title">COMPARA LOS <span class="p-highlight catalogo-highlight">PLANES</span></h2>
+        <p>Elige el plan ideal para impulsar tu negocio</p>
+      </div>
+
+      <div class="compare-layout">
+        <div class="compare-table">
+          <div class="compare-row compare-row-head">
+            <div class="compare-cell compare-cell-label">
+              <span class="compare-label-title">CARACTERÍSTICAS</span>
+            </div>
+            <div class="compare-cell compare-cell-plan">
+              <span class="compare-plan-name">{catalogoPlans[0].name}</span>
+              <div class="compare-plan-price"><span class="plan-price-S">S/</span> {catalogoPlans[0].monthly}<span class="plan-price-unit">/mes</span></div>
+              <span class="plan-products-pill">{catalogoPlans[0].productsNote}</span>
+            </div>
+            <div class="compare-cell compare-cell-plan compare-cell-featured">
+              <span class="compare-plan-name">{catalogoPlans[1].name}</span>
+              <div class="compare-plan-price"><span class="plan-price-S">S/</span> {catalogoPlans[1].monthly}<span class="plan-price-unit">/mes</span></div>
+              <span class="plan-products-pill">{catalogoPlans[1].productsNote}</span>
+            </div>
+          </div>
+
+          {compareFeatures.map((f) => (
+            <div class="compare-row">
+              <div class="compare-cell compare-cell-label">
+                <span class="compare-label-icon" set:html={icon(f.icon, "#64748b", 15)} />
+                <span class="compare-label-text">
+                  {f.label}
+                  {f.sub && <span class="compare-label-sub">{f.sub}</span>}
+                </span>
+              </div>
+              <div class="compare-cell compare-cell-value">
+                {f.negocio ? <span class="compare-check" set:html={icon("check", "#16a34a", 16)} /> : <span class="compare-dash">—</span>}
+              </div>
+              <div class="compare-cell compare-cell-value compare-cell-featured">
+                {f.empresa ? (
+                  f.empresaTag ? (
+                    <span class="compare-new-tag">
+                      <span class="plan-tag-badge">{f.empresaTag}</span>
+                      {f.label}
+                    </span>
+                  ) : (
+                    <span class="compare-check" set:html={icon("check", "#16a34a", 16)} />
+                  )
+                ) : (
+                  <span class="compare-dash">—</span>
+                )}
+              </div>
+            </div>
+          ))}
+
+          <div class="compare-row compare-row-cta">
+            <div class="compare-cell compare-cell-label"></div>
+            <div class="compare-cell compare-cell-plan">
+              <a href="/contacto" class="plan-cta-btn hover-pop">Elegir plan</a>
+            </div>
+            <div class="compare-cell compare-cell-plan compare-cell-featured">
+              <a href="/contacto" class="plan-cta-btn plan-cta-btn-filled hover-pop">Elegir plan</a>
+            </div>
+          </div>
+        </div>
+
+        <aside class="compare-side">
+          <span class="compare-side-icon" set:html={icon("help", "#2563eb", 40)} />
+          <h3>¿Necesitas más productos?</h3>
+          <p>Puedes ampliar la cantidad de productos cuando tu negocio lo necesite.</p>
+          <a href="/contacto" class="btn-primary hover-pop compare-side-btn">Más información</a>
+        </aside>
+      </div>
+
+      <div class="trust-badges-row reveal">
+        {trustBadges.map((t) => (
+          <div class="trust-badge">
+            <span class="trust-badge-icon" set:html={icon(t.icon, "#16a34a", 22)} />
+            <div class="trust-badge-text">
+              <strong>{t.title}</strong>
+              <span>{t.desc}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="container catalogo-audience reveal">
+      <div class="catalogo-pricing-head">
+        <h2 class="audience-title"><span class="audience-dash"></span> Ideal para negocios <span class="p-highlight catalogo-highlight">como el tuyo</span> <span class="audience-dash"></span></h2>
+        <p>Nuestros planes se adaptan a todo tipo de negocio. Elige el que mejor se ajuste a tus necesidades.</p>
+      </div>
+
+      <div class="audience-carousel">
+        <button type="button" class="audience-nav" aria-label="Anterior" data-carousel-prev>‹</button>
+        <div class="audience-track" data-carousel-track>
+          {negociosCategories.map((c) => (
+            <div class="audience-card">
+              <img src={c.img.src} alt={c.label} class="audience-card-icon" />
+              <span class="audience-card-label">{c.label}</span>
+              <span class="audience-card-underline"></span>
+            </div>
+          ))}
+          <div class="audience-card catalogo-extra-audience-card">
+            <img src={iconRestauranteExtra15.src} alt="Farmacias" class="audience-card-icon" />
+            <span class="audience-card-label">Farmacias</span>
+            <span class="audience-card-underline"></span>
+          </div>
+          <div class="audience-card catalogo-extra-audience-card">
+            <img src={iconRestauranteExtra16.src} alt="Jugueterías" class="audience-card-icon" />
+            <span class="audience-card-label">Jugueterías</span>
+            <span class="audience-card-underline"></span>
+          </div>
+        </div>
+        <button type="button" class="audience-nav" aria-label="Siguiente" data-carousel-next>›</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <a href="/contacto" class="catalogo-cta-banner reveal">
+        <img src={catalogoCtaBanner.src} alt="Empieza a vender por WhatsApp hoy mismo" class="catalogo-cta-banner-img" />
+      </a>
+    </div>
+  </section>
+
+  <section id="ecommerce" class="erp-detail restaurante-detail product-detail">
+    <div class="container erp-hero">
+      <div class="erp-hero-copy reveal">
+        <span class="erp-badge restaurante-badge">
+          <span set:html={icon("cloche", "#7c3aed", 15)} />
+          Restaurante
+        </span>
+        <h2>Sistema <span class="p-highlight restaurante-highlight">Restaurantes</span></h2>
+        <p class="erp-hero-sub">Vender más a través de todos los canales. Comparte tu catálogo, recibe pedidos y convierte consultas en ventas.</p>
+
+        <div class="catalogo-features">
+          {restauranteFeatures.map((f) => (
+            <img src={f.img.src} alt={f.alt} class={`catalogo-feature-img ${f.className ?? ""}`} />
+          ))}
+        </div>
+
+        <div class="erp-cta">
+          <a href="/contacto" class="btn-primary restaurante-btn-primary hover-pop">Comenzar ahora</a>
+          <a href="/contacto" class="btn-outline restaurante-btn-outline hover-pop">Solicitar demostración</a>
+        </div>
+      </div>
+
+      <div class="erp-hero-media reveal">
+        <img src={restauranteMockup.src} alt="Sistema Restaurantes Naniva" class="erp-mockup-img restaurante-mockup-img" />
+      </div>
+    </div>
+
+    <div class="container restaurante-highlights-wrap reveal">
+      <div class="restaurante-highlights">
+        <h3 class="restaurante-highlights-title">
+          <span class="audience-dash restaurante-dash"></span> Todo lo que <span class="restaurante-highlight">tu restaurante</span> necesita <span class="audience-dash restaurante-dash"></span>
+        </h3>
+        <div class="restaurante-highlights-row">
+          {restauranteHighlights.map((h) => (
+            <div class="restaurante-highlight-item">
+              <span class="restaurante-highlight-icon">
+                <img src={h.img.src} alt={h.title} />
+              </span>
+              <span class="restaurante-highlight-dot"></span>
+              <strong>{h.title}</strong>
+              <span>{h.sub}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="container restaurante-pricing reveal" data-billing-scope="restaurante">
+      <div class="catalogo-pricing-head">
+        <span class="erp-badge restaurante-pricing-badge">Planes para cada tipo de restaurante</span>
+        <h2 class="restaurante-pricing-title">Elige el plan ideal para tu negocio</h2>
+      </div>
+
+      <div class="billing-toggle restaurante-billing-toggle">
+        <button type="button" class="billing-toggle-btn restaurante-toggle-btn is-active" data-billing-btn="mensual">Mensual</button>
+        <button type="button" class="billing-toggle-btn restaurante-toggle-btn" data-billing-btn="anual">Anual</button>
+      </div>
+      <p class="billing-savings-note restaurante-savings-note" data-billing-note="anual">Ahorra {Math.round(CATALOGO_ANNUAL_DISCOUNT * 100)}% pagando anual</p>
+
+      <div class="restaurante-plans-grid billing-panel is-active" data-billing-panel="mensual">
+        <div class="restaurante-plan-card">
+          <span class="restaurante-plan-icon" set:html={icon("cloche", "#7c3aed", 26)} />
+          <h3 class="restaurante-plan-name">{restaurantePlanBasico.name}</h3>
+          <p class="restaurante-plan-subtitle">{restaurantePlanBasico.subtitle}</p>
+
+          <div class="restaurante-highlight-box">
+            <span set:html={icon(restaurantePlanBasico.highlight.icon, "#7c3aed", 18)} />
+            <span>{restaurantePlanBasico.highlight.text} <strong>{restaurantePlanBasico.highlight.strong}</strong></span>
+          </div>
+
+          <div class="restaurante-plan-price-block">
+            <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span> {restaurantePlanBasico.monthly}<span class="plan-price-unit">por mes</span></div>
+          </div>
+
+          <div class="restaurante-note-box">
+            {restaurantePlanBasico.productsNote.text} <strong>{restaurantePlanBasico.productsNote.strong}</strong> {restaurantePlanBasico.productsNote.suffix}
+          </div>
+
+          <ul class="restaurante-plan-items">
+            {restaurantePlanBasico.items.map((it) => (
+              <li>
+                <span class="restaurante-item-icon" set:html={icon(it.icon, "#7c3aed", 17)} />
+                <span>
+                  {it.text}
+                  {it.sub && <span class="plan-item-sub restaurante-item-sub">{it.sub}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="restaurante-support-row">
+            <span set:html={icon("headset", "#7c3aed", 18)} />
+            <span>
+              <strong>{restaurantePlanBasico.support.text}</strong>
+              <span class="restaurante-support-sub">{restaurantePlanBasico.support.sub}</span>
+            </span>
+          </div>
+
+          <a href="/contacto" class="plan-cta-btn restaurante-cta-btn hover-pop">
+            <span set:html={icon(restaurantePlanBasico.ctaIcon, "currentColor", 16)} /> {restaurantePlanBasico.cta}
+          </a>
+        </div>
+
+        <div class="restaurante-plan-card restaurante-plan-card-featured">
+          <span class="plan-badge restaurante-plan-badge">★ {restaurantePlanProfesional.badge}</span>
+          <h3 class="restaurante-plan-name">{restaurantePlanProfesional.name}</h3>
+          <p class="restaurante-plan-subtitle">
+            {restaurantePlanProfesional.subtitleParts[0]}<br />
+            {restaurantePlanProfesional.subtitleParts[1]}<strong>{restaurantePlanProfesional.subtitleParts[2]}</strong>
+          </p>
+
+          <div class="restaurante-tagline">
+            <span class="audience-dash restaurante-dash"></span>
+            <span set:html={icon("rocket", "#7c3aed", 16)} /> {restaurantePlanProfesional.tagline} <span set:html={icon("rocket", "#7c3aed", 16)} />
+            <span class="audience-dash restaurante-dash"></span>
+          </div>
+
+          <div class="restaurante-plan-price-block">
+            <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span> {restaurantePlanProfesional.monthly}<span class="plan-price-unit">por mes</span></div>
+          </div>
+
+          <p class="restaurante-includes-note">{restaurantePlanProfesional.includesNote}</p>
+
+          <ul class="restaurante-plan-items restaurante-plan-items-check">
+            {restaurantePlanProfesional.items.map((it) => (
+              <li>
+                <span class="restaurante-item-icon" set:html={icon("checkcolor", "#7c3aed", 16)} />
+                <span>
+                  {typeof it === "string" ? it : (<>{it.text}<span class="plan-item-sub restaurante-item-sub">{it.sub}</span></>)}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="restaurante-support-row">
+            <strong>{restaurantePlanProfesional.support.text}</strong>
+            <span class="restaurante-support-sub">{restaurantePlanProfesional.support.sub}</span>
+          </div>
+
+          <a href="/contacto" class="plan-cta-btn plan-cta-btn-filled restaurante-cta-btn restaurante-cta-btn-filled hover-pop">
+            <span set:html={icon(restaurantePlanProfesional.ctaIcon, "white", 16)} /> {restaurantePlanProfesional.cta}
+          </a>
+        </div>
+      </div>
+
+      <div class="restaurante-plans-grid billing-panel" data-billing-panel="anual">
+        <div class="restaurante-plan-card">
+          <span class="restaurante-plan-icon" set:html={icon("cloche", "#7c3aed", 26)} />
+          <h3 class="restaurante-plan-name">{restaurantePlanBasico.name}</h3>
+          <p class="restaurante-plan-subtitle">{restaurantePlanBasico.subtitle}</p>
+
+          <div class="restaurante-highlight-box">
+            <span set:html={icon(restaurantePlanBasico.highlight.icon, "#7c3aed", 18)} />
+            <span>{restaurantePlanBasico.highlight.text} <strong>{restaurantePlanBasico.highlight.strong}</strong></span>
+          </div>
+
+          <div class="restaurante-plan-price-block">
+            <span class="plan-price-strike">S/ {annualPricing(restaurantePlanBasico.monthly).fullYear.toLocaleString("es-PE")}</span>
+            <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span> {annualPricing(restaurantePlanBasico.monthly).discounted.toLocaleString("es-PE")}<span class="plan-price-unit">por año</span></div>
+            <span class="plan-savings-note restaurante-plan-savings">Ahorra S/ {annualPricing(restaurantePlanBasico.monthly).savings.toLocaleString("es-PE")} al año</span>
+          </div>
+
+          <div class="restaurante-note-box">
+            {restaurantePlanBasico.productsNote.text} <strong>{restaurantePlanBasico.productsNote.strong}</strong> {restaurantePlanBasico.productsNote.suffix}
+          </div>
+
+          <ul class="restaurante-plan-items">
+            {restaurantePlanBasico.items.map((it) => (
+              <li>
+                <span class="restaurante-item-icon" set:html={icon(it.icon, "#7c3aed", 17)} />
+                <span>
+                  {it.text}
+                  {it.sub && <span class="plan-item-sub restaurante-item-sub">{it.sub}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="restaurante-support-row">
+            <span set:html={icon("headset", "#7c3aed", 18)} />
+            <span>
+              <strong>{restaurantePlanBasico.support.text}</strong>
+              <span class="restaurante-support-sub">{restaurantePlanBasico.support.sub}</span>
+            </span>
+          </div>
+
+          <a href="/contacto" class="plan-cta-btn restaurante-cta-btn hover-pop">
+            <span set:html={icon(restaurantePlanBasico.ctaIcon, "currentColor", 16)} /> {restaurantePlanBasico.cta}
+          </a>
+        </div>
+
+        <div class="restaurante-plan-card restaurante-plan-card-featured">
+          <span class="plan-badge restaurante-plan-badge">★ {restaurantePlanProfesional.badge}</span>
+          <h3 class="restaurante-plan-name">{restaurantePlanProfesional.name}</h3>
+          <p class="restaurante-plan-subtitle">
+            {restaurantePlanProfesional.subtitleParts[0]}<br />
+            {restaurantePlanProfesional.subtitleParts[1]}<strong>{restaurantePlanProfesional.subtitleParts[2]}</strong>
+          </p>
+
+          <div class="restaurante-tagline">
+            <span class="audience-dash restaurante-dash"></span>
+            <span set:html={icon("rocket", "#7c3aed", 16)} /> {restaurantePlanProfesional.tagline} <span set:html={icon("rocket", "#7c3aed", 16)} />
+            <span class="audience-dash restaurante-dash"></span>
+          </div>
+
+          <div class="restaurante-plan-price-block">
+            <span class="plan-price-strike">S/ {annualPricing(restaurantePlanProfesional.monthly).fullYear.toLocaleString("es-PE")}</span>
+            <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span> {annualPricing(restaurantePlanProfesional.monthly).discounted.toLocaleString("es-PE")}<span class="plan-price-unit">por año</span></div>
+            <span class="plan-savings-note restaurante-plan-savings">Ahorra S/ {annualPricing(restaurantePlanProfesional.monthly).savings.toLocaleString("es-PE")} al año</span>
+          </div>
+
+          <p class="restaurante-includes-note">{restaurantePlanProfesional.includesNote}</p>
+
+          <ul class="restaurante-plan-items restaurante-plan-items-check">
+            {restaurantePlanProfesional.items.map((it) => (
+              <li>
+                <span class="restaurante-item-icon" set:html={icon("checkcolor", "#7c3aed", 16)} />
+                <span>
+                  {typeof it === "string" ? it : (<>{it.text}<span class="plan-item-sub restaurante-item-sub">{it.sub}</span></>)}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="restaurante-support-row">
+            <strong>{restaurantePlanProfesional.support.text}</strong>
+            <span class="restaurante-support-sub">{restaurantePlanProfesional.support.sub}</span>
+          </div>
+
+          <a href="/contacto" class="plan-cta-btn plan-cta-btn-filled restaurante-cta-btn restaurante-cta-btn-filled hover-pop">
+            <span set:html={icon(restaurantePlanProfesional.ctaIcon, "white", 16)} /> {restaurantePlanProfesional.cta}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container catalogo-compare restaurante-compare reveal">
+      <div class="compare-layout">
+        <div class="rc-wrap">
+          <div class="rc-basico">
+            <div class="rc-label-head">
+              <span class="compare-label-title restaurante-compare-label-title">CARACTERÍSTICAS</span>
+            </div>
+            <div class="rc-plan-head">
+              <span class="restaurante-compare-icon" set:html={icon("cloche", "#7c3aed", 20)} />
+              <span class="compare-plan-name">{restaurantePlanBasico.name}</span>
+              <p class="restaurante-compare-plan-sub">{restaurantePlanBasico.subtitle}</p>
+              <div class="restaurante-compare-price-pill"><span class="plan-price-S">S/</span> {restaurantePlanBasico.monthly}<span class="plan-price-unit">por mes</span></div>
+            </div>
+
+            <div class="rc-row-label">
+              <span class="compare-label-icon" set:html={icon(restaurantePlanBasico.highlight.icon, "#7c3aed", 15)} />
+              <span class="compare-label-text restaurante-compare-label-text">
+                {restaurantePlanBasico.highlight.text}
+                <span class="compare-label-sub restaurante-compare-label-sub">{restaurantePlanBasico.highlight.strong}</span>
+              </span>
+            </div>
+            <div class="rc-row-value"></div>
+
+            <div class="rc-row-label">
+              <span class="compare-label-icon" set:html={icon("box", "#7c3aed", 15)} />
+              <span class="compare-label-text restaurante-compare-label-text">
+                {restaurantePlanBasico.productsNote.text} {restaurantePlanBasico.productsNote.strong}
+                <span class="compare-label-sub restaurante-compare-label-sub">{restaurantePlanBasico.productsNote.suffix}</span>
+              </span>
+            </div>
+            <div class="rc-row-value">
+              <span class="compare-check restaurante-compare-check" set:html={icon("checkcolor", "#7c3aed", 16)} />
+            </div>
+
+            {restaurantePlanBasico.items.map((it) => (
+              <>
+                <div class="rc-row-label">
+                  <span class="compare-label-icon" set:html={icon(it.icon, "#64748b", 15)} />
+                  <span class="compare-label-text restaurante-compare-label-text">
+                    {it.text}
+                    {it.sub && <span class="compare-label-sub restaurante-compare-label-sub">{it.sub}</span>}
+                  </span>
+                </div>
+                <div class="rc-row-value">
+                  <span class="compare-check restaurante-compare-check" set:html={icon("checkcolor", "#7c3aed", 16)} />
+                </div>
+              </>
+            ))}
+
+            <div class="rc-row-label">
+              <span class="compare-label-icon" set:html={icon("headset", "#7c3aed", 15)} />
+              <span class="compare-label-text restaurante-compare-label-text">
+                {restaurantePlanBasico.support.text}
+                <span class="compare-label-sub restaurante-compare-label-sub">{restaurantePlanBasico.support.sub}</span>
+              </span>
+            </div>
+            <div class="rc-row-value">
+              <span class="compare-check restaurante-compare-check" set:html={icon("checkcolor", "#7c3aed", 16)} />
+            </div>
+
+            <div class="rc-cta-empty"></div>
+            <div class="rc-cta">
+              <a href="/contacto" class="plan-cta-btn restaurante-cta-btn hover-pop">{restaurantePlanBasico.cta}</a>
+            </div>
+          </div>
+
+          <div class="rc-profesional">
+            <span class="plan-badge restaurante-plan-badge">★ {restaurantePlanProfesional.badge}</span>
+            <span class="restaurante-compare-icon" set:html={icon("rocket", "#7c3aed", 20)} />
+            <span class="compare-plan-name">{restaurantePlanProfesional.name}</span>
+            <p class="restaurante-compare-plan-sub">
+              {restaurantePlanProfesional.subtitleParts[0]}<br />
+              {restaurantePlanProfesional.subtitleParts[1]}<strong>{restaurantePlanProfesional.subtitleParts[2]}</strong>
+            </p>
+
+            <div class="restaurante-tagline">
+              <span class="audience-dash restaurante-dash"></span>
+              <span set:html={icon("rocket", "#7c3aed", 16)} /> {restaurantePlanProfesional.tagline} <span set:html={icon("rocket", "#7c3aed", 16)} />
+              <span class="audience-dash restaurante-dash"></span>
+            </div>
+
+            <div class="restaurante-compare-price-pill"><span class="plan-price-S">S/</span> {restaurantePlanProfesional.monthly}<span class="plan-price-unit">por mes</span></div>
+
+            <p class="restaurante-includes-note">{restaurantePlanProfesional.includesNote}</p>
+
+            <ul class="restaurante-plan-items restaurante-plan-items-check">
+              {restaurantePlanProfesional.items.map((it) => (
+                <li>
+                  <span class="restaurante-item-icon" set:html={icon("checkcolor", "#7c3aed", 16)} />
+                  <span>
+                    {typeof it === "string" ? it : (<>{it.text}<span class="plan-item-sub restaurante-item-sub">{it.sub}</span></>)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="restaurante-support-row">
+              <strong>{restaurantePlanProfesional.support.text}</strong>
+              <span class="restaurante-support-sub">{restaurantePlanProfesional.support.sub}</span>
+            </div>
+
+            <a href="/contacto" class="plan-cta-btn plan-cta-btn-filled restaurante-cta-btn restaurante-cta-btn-filled hover-pop">
+              <span set:html={icon(restaurantePlanProfesional.ctaIcon, "white", 16)} /> {restaurantePlanProfesional.cta}
+            </a>
+          </div>
+        </div>
+
+        <aside class="compare-side restaurante-compare-side">
+          <span class="compare-side-icon restaurante-compare-side-icon" set:html={icon("help", "#7c3aed", 40)} />
+          <h3>¿Necesitas más productos?</h3>
+          <p>Puedes ampliar la cantidad de productos cuando tu negocio lo necesite.</p>
+          <a href="/contacto" class="btn-primary restaurante-btn-primary hover-pop compare-side-btn">Más información</a>
+        </aside>
+      </div>
+    </div>
+
+    <div class="container">
+      <a href="/contacto" class="catalogo-cta-banner reveal">
+        <img src={restauranteCtaBanner.src} alt="Empieza a digitalizar tu restaurante hoy mismo" class="catalogo-cta-banner-img" />
+      </a>
+    </div>
+  </section>
+
+  {otherProducts.map((product) => (
+    <section id={product.anchor} class="other-product-detail product-detail">
+      <div class="container other-product-card reveal">
+        <span class="erp-badge">{product.badge}</span>
+        <h2>{product.title}</h2>
+        <p class="erp-hero-sub">{product.subtitle}</p>
+        <ul class="checklist-col single">
+          {product.items.map((it) => (
+            <li><span set:html={icon("check")} />{it}</li>
+          ))}
+        </ul>
+        <div class="erp-cta">
+          <a href="/contacto" class="btn-primary hover-pop">Comenzar ahora</a>
+          <a href="/contacto" class="btn-outline hover-pop">Solicitar demostración</a>
+        </div>
+      </div>
+    </section>
+  ))}
+
   <Footer />
 </BaseLayout>
+
+<script>
+  function initProductSwitcher() {
+    const cards = document.querySelectorAll<HTMLAnchorElement>(".product-card[data-target]");
+    const details = document.querySelectorAll<HTMLElement>(".product-detail");
+
+    function showDetail(target: string) {
+      let matched = false;
+      details.forEach((detail) => {
+        const isMatch = detail.id === target;
+        detail.classList.toggle("is-active", isMatch);
+        if (isMatch) matched = true;
+      });
+      cards.forEach((card) => {
+        card.classList.toggle("is-active", card.dataset.target === target);
+      });
+      return matched;
+    }
+
+    cards.forEach((card) => {
+      card.addEventListener("click", (e) => {
+        const target = card.dataset.target;
+        if (!target) return;
+        e.preventDefault();
+        if (showDetail(target)) {
+          history.replaceState(null, "", `#${target}`);
+          document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+
+    const initialHash = window.location.hash.replace("#", "");
+    if (initialHash) showDetail(initialHash);
+  }
+
+  function initBillingToggle() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>("[data-billing-btn]");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const billing = btn.dataset.billingBtn;
+        if (!billing) return;
+        const scope = btn.closest<HTMLElement>("[data-billing-scope]");
+        if (!scope) return;
+
+        scope.querySelectorAll<HTMLButtonElement>("[data-billing-btn]").forEach((b) => b.classList.toggle("is-active", b.dataset.billingBtn === billing));
+        scope.querySelectorAll<HTMLElement>("[data-billing-panel]").forEach((panel) => {
+          panel.classList.toggle("is-active", panel.dataset.billingPanel === billing);
+        });
+        scope.querySelectorAll<HTMLElement>("[data-billing-note]").forEach((note) => {
+          note.classList.toggle("is-active", note.dataset.billingNote === billing);
+        });
+      });
+    });
+  }
+
+  function initAudienceCarousel() {
+    document.querySelectorAll<HTMLElement>("[data-carousel-track]").forEach((track) => {
+      const wrapper = track.closest(".audience-carousel");
+      if (!wrapper) return;
+      const prevBtn = wrapper.querySelector<HTMLButtonElement>("[data-carousel-prev]");
+      const nextBtn = wrapper.querySelector<HTMLButtonElement>("[data-carousel-next]");
+      const scrollAmount = () => track.clientWidth * 0.8;
+
+      prevBtn?.addEventListener("click", () => {
+        track.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+      });
+      nextBtn?.addEventListener("click", () => {
+        track.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+      });
+    });
+  }
+
+  initProductSwitcher();
+  initBillingToggle();
+  initAudienceCarousel();
+  document.addEventListener("astro:after-swap", () => {
+    initProductSwitcher();
+    initBillingToggle();
+    initAudienceCarousel();
+  });
+</script>
 
 
 <style>
@@ -534,7 +1413,7 @@ const otherProducts = [
   }
   .products-head h2 {
     font-size: clamp(2.3rem, 4.2vw, 4.5rem);
-    font-weight: 900;
+    font-weight: 600;
     letter-spacing: -0.01em;
     white-space: nowrap;
     color: #0f172a;
@@ -578,7 +1457,7 @@ const otherProducts = [
     cursor: pointer;
     text-decoration: none;
   }
-  .product-card:first-child {
+  .product-card.is-active {
     border: 2px solid #2563eb;
     background: #f0f7ff;
   }
@@ -661,6 +1540,14 @@ const otherProducts = [
     .banner-note { flex-wrap: wrap; }
   }
 
+  /* ===== Product detail switching (only one visible at a time) ===== */
+  .product-detail {
+    display: none;
+  }
+  .product-detail.is-active {
+    display: block;
+  }
+
   /* ===== ERP detail section ===== */
   .erp-detail {
     background: #f8fafc;
@@ -671,6 +1558,7 @@ const otherProducts = [
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
+    margin-top: 4rem;
   }
   .p-highlight { color: #2563eb; }
 
@@ -1159,7 +2047,584 @@ const otherProducts = [
   .extra-module-card strong { color: #0f172a; font-size: 0.95rem; }
   .extra-module-info span { color: #64748b; font-size: 0.82rem; }
 
-  /* ===== Placeholder sections (Catálogo, Ecommerce, IA) ===== */
+  /* ===== Catálogo Digital ===== */
+  .catalogo-detail { border-top: 1px solid #e2e8f0; }
+  .catalogo-badge { background: #e3f9e5; color: #16a34a; }
+  .catalogo-highlight { color: #16a34a; }
+  .catalogo-features {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+  }
+  .catalogo-feature-img {
+    width: 132px;
+    height: 148px;
+    object-fit: contain;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  .catalogo-feature-img:nth-child(2),
+  .catalogo-feature-img:nth-child(3) {
+    transform: scale(1.12);
+  }
+  .catalogo-feature-img:nth-child(2) {
+    transform: scale(1.07);
+  }
+  .catalogo-feature-img:hover {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 12px rgba(128, 75, 228, 0.35));
+  }
+  .catalogo-feature-img:nth-child(2):hover,
+  .catalogo-feature-img:nth-child(3):hover {
+    transform: scale(1.27);
+  }
+  .catalogo-feature-img:nth-child(2):hover {
+    transform: scale(1.22);
+  }
+  .catalogo-btn-primary { background: #16a34a; }
+  .catalogo-btn-outline { color: #16a34a; border-color: #16a34a; }
+  .catalogo-mockup-img { border-radius: 0; }
+
+  /* ===== Sistema de Restaurante ===== */
+  .restaurante-detail { border-top: 1px solid #e2e8f0; }
+  .restaurante-highlight {
+    color: #7c3aed;
+  }
+  .restaurante-btn-primary { background: #7c3aed; }
+  .restaurante-btn-outline { color: #7c3aed; border-color: #7c3aed; }
+  .restaurante-mockup-img { border-radius: 0; }
+
+  .restaurante-highlights-wrap {
+    margin-top: 4rem;
+  }
+  .restaurante-highlights {
+    background: linear-gradient(160deg, #f5f3ff, #ffffff);
+    border: 1px solid #ede9fe;
+    border-radius: 20px;
+    padding: 2rem 2.5rem 2.25rem;
+    box-shadow: 0 12px 32px rgba(124, 58, 237, 0.08);
+  }
+  .restaurante-highlights-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-size: clamp(2rem, 2.8vw, 2.3rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 2rem;
+  }
+  .restaurante-dash { background: #7c3aed; }
+  .restaurante-highlights-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .restaurante-highlight-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 0 0.75rem;
+    border-right: 1px solid #ede9fe;
+  }
+  .restaurante-highlight-item:last-child { border-right: none; }
+  .restaurante-highlight-icon img { width: 180px; height: 180px; object-fit: contain; }
+  .restaurante-highlight-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #c4b5fd;
+  }
+  .restaurante-highlight-item strong { font-size: 1rem; font-weight: 800; color: #0f172a; }
+  .restaurante-highlight-item span { font-size: 0.9rem; color: #64748b; font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .restaurante-highlights-row { grid-template-columns: repeat(3, 1fr); row-gap: 1.5rem; }
+    .restaurante-highlight-item { border-right: none; }
+  }
+  @media (max-width: 560px) {
+    .restaurante-highlights-row { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ===== Catálogo Digital — Pricing ===== */
+  .catalogo-pricing {
+    padding-top: 3rem;
+    border-top: 1px solid #e2e8f0;
+  }
+  .catalogo-pricing-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 1.5rem;
+  }
+  .catalogo-pricing-head h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+  }
+  .catalogo-pricing-head p {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  /* ===== Catálogo Digital ===== */
+  .restaurante-detail { border-top: 1px solid #e2e8f0; }
+  .restaurante-badge { background: #f5f3ff; color: #7c3aed; }
+  .restaurante-highlight { color: #7c3aed; }
+  .restaurante-features {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+  }
+
+  .billing-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    background: #f1f5f9;
+    border-radius: 999px;
+    padding: 0.3rem;
+    max-width: fit-content;
+    margin: 0 auto;
+  }
+  .billing-toggle-btn {
+    border: none;
+    background: transparent;
+    color: #475569;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.6rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .billing-toggle-btn.is-active {
+    background: #16a34a;
+    color: white;
+  }
+  .billing-savings-note {
+    text-align: center;
+    color: #64748b;
+    font-size: 0.85rem;
+    margin: 0.75rem 0 0;
+    display: none;
+  }
+  .billing-savings-note.is-active { display: block; }
+
+  .catalogo-plans-grid {
+    display: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 2rem auto 0;
+  }
+  .catalogo-plans-grid.is-active { display: grid; }
+  .catalogo-plans-grid[data-billing-panel="anual"] { max-width: 900px; }
+
+  .plan-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 2rem 1.75rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .plan-card-featured {
+    border-color: #16a34a;
+    box-shadow: 0 12px 32px rgba(22, 163, 74, 0.12);
+  }
+  .plan-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #16a34a;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .plan-name {
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0.5rem 0 1rem;
+  }
+  .plan-price-block {
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+  .plan-price-strike {
+    display: block;
+    color: #94a3b8;
+    text-decoration: line-through;
+    font-size: 0.95rem;
+    margin-bottom: 0.15rem;
+  }
+  .plan-price {
+    color: #16a34a;
+    font-size: 2.4rem;
+    font-weight: 800;
+  }
+  .plan-price-S { font-size: 1.3rem; font-weight: 700; }
+  .plan-price-unit { font-size: 1rem; font-weight: 600; color: #64748b; }
+  .plan-savings-note {
+    display: block;
+    color: #16a34a;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 0.2rem;
+  }
+  .plan-products-pill {
+    align-self: center;
+    background: #e3f9e5;
+    color: #16a34a;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 1.25rem;
+  }
+  .plan-products-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 1.25rem;
+  }
+  .plan-items {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    flex: 1;
+  }
+  .plan-items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: #334155;
+  }
+  .plan-items li span:not(.plan-item-sub) svg { flex-shrink: 0; margin-top: 0.15rem; }
+  .plan-item-sub {
+    color: #16a34a;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .plan-tag-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .plan-tag-badge {
+    background: #eef4ff;
+    color: #2563eb;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+  }
+  .plan-tag-text {
+    color: #16a34a;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .plan-cta-btn {
+    text-align: center;
+    background: white;
+    color: #16a34a;
+    border: 1.5px solid #16a34a;
+    padding: 0.85rem 1.6rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+  .plan-cta-btn-filled {
+    background: #16a34a;
+    color: white;
+    border-color: #16a34a;
+  }
+
+  @media (max-width: 720px) {
+    .catalogo-plans-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Catálogo Digital — Compara los planes ===== */
+  .catalogo-compare.container {
+    padding-top: 4rem;
+    border-top: 1px solid #e2e8f0;
+    max-width: 1600px;
+  }
+  .compare-title { color: #0f172a; }
+
+  .compare-layout {
+    display: grid;
+    grid-template-columns: 2.7fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+    margin-top: 3rem;
+    height: auto;
+    
+  }
+
+  .compare-table {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    overflow: hidden;
+    height: 100%;
+  }
+  .compare-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-cell {
+    padding: 0.55rem 1.1rem;
+  }
+  .compare-cell-label {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .compare-label-icon { flex-shrink: 0; display: flex; }
+  .compare-label-text {
+    font-size: 0.9rem;
+    color: #334155;
+    font-weight: 600;
+  }
+  .compare-label-sub {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.68rem;
+    font-weight: 500;
+  }
+  .compare-label-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid #16a34a;
+    padding-bottom: 0.2rem;
+
+    
+  }
+  .compare-cell-plan {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    
+  }
+  .compare-plan-name { font-size: 0.85rem; font-weight: 800; color: #0f172a; }
+  .compare-plan-price { color: #0f172a; font-size: 3.5rem; font-weight: 800; }
+  .compare-cell-value { text-align: center; }
+  .compare-check { display: inline-flex; }
+  .compare-dash { color: #cbd5e1; font-weight: 700; }
+  .compare-cell-featured { background: #f0faf1; }
+  .compare-new-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #16a34a;
+  }
+  .compare-row-head .compare-cell-plan { padding-top: 1rem; padding-bottom: 0.85rem; position: relative; }
+  .compare-row-head .compare-cell-featured .plan-badge { position: static; transform: none; margin-bottom: 0.2rem; }
+  .compare-row-cta .compare-cell-plan { padding: 0.85rem; }
+  .compare-row-cta .plan-cta-btn { width: 100%; padding: 0.6rem 1.2rem; font-size: 0.85rem; }
+  .compare-cell-plan .plan-products-pill {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.7rem;
+    margin-bottom: 0;
+  }
+  .compare-cell-plan .plan-badge {
+    font-size: 0.68rem;
+    padding: 0.25rem 0.75rem;
+  }
+
+  .compare-side {
+    background: linear-gradient(160deg, #eaf1ff, #f5f9ff);
+    border-radius: 18px;
+    padding: 2.5rem 1.75rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 700px;
+  }
+  .compare-side-icon {
+    background: white;
+    border-radius: 50%;
+    padding: 1rem;
+    display: flex;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
+    margin-bottom: 0.5rem;
+  }
+  .compare-side h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+  }
+  .compare-side p {
+    color: #475569;
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem;
+  }
+  .compare-side-btn { width: 100%; text-align: center; }
+
+  .trust-badges-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    padding: 1.5rem 2rem;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  }
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+  .trust-badge-icon {
+    flex-shrink: 0;
+    background: #e3f9e5;
+    border-radius: 10px;
+    padding: 0.5rem;
+    display: flex;
+  }
+  .trust-badge-text { display: flex; flex-direction: column; gap: 0.1rem; }
+  .trust-badge-text strong { font-size: 0.85rem; color: #0f172a; }
+  .trust-badge-text span { font-size: 0.78rem; color: #64748b; }
+
+  /* ===== Catálogo Digital — Ideal para negocios (carrusel) ===== */
+  .catalogo-audience {
+    padding-top: 3.5rem;
+  }
+  .audience-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+  .audience-dash {
+    display: inline-block;
+    width: 28px;
+    height: 3px;
+    background: #0f172a;
+    border-radius: 2px;
+  }
+
+  .audience-carousel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .audience-nav {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #2563eb;
+    font-size: 1.4rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+  .audience-nav:hover { border-color: #2563eb; }
+  .audience-track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    flex: 1;
+    scrollbar-width: none;
+  }
+  .audience-track::-webkit-scrollbar { display: none; }
+  .audience-card {
+    flex: 0 0 200px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    text-align: center;
+  }
+  .audience-card-icon { width: 120px; height: 120px; object-fit: contain; }
+  .audience-card-label { font-weight: 700; font-size: 1.1rem; color: #0f172a; }
+  .audience-card-underline {
+    width: 24px;
+    height: 3px;
+    background: #16a34a;
+    border-radius: 2px;
+  }
+
+  /* ===== Catálogo Digital — Banner CTA ===== */
+  .catalogo-cta-banner {
+    display: block;
+    margin-top: 3rem;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .catalogo-cta-banner-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .restaurante-feature-comandas {
+   height: 156px;  }
+
+  @media (max-width: 900px) {
+    .compare-layout { grid-template-columns: 1fr; }
+    .trust-badges-row { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .compare-row { grid-template-columns: 1.4fr 1fr 1fr; }
+    .compare-cell { padding: 0.65rem 0.5rem; }
+    .compare-label-text { font-size: 0.9rem; }
+    .trust-badges-row { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Placeholder sections (Ecommerce, IA) ===== */
   .other-product-detail {
     padding: 4rem 0;
     scroll-margin-top: 6rem;
@@ -1184,18 +2649,15 @@ const otherProducts = [
   .banner-plan-cta {
     position: relative;
     overflow: hidden;
-    margin: 0 auto;
+    margin: 3rem auto 0;
     max-width: 95%;
     border-radius: 20px;
-    padding: 3;
-    
   }
   .banner-plan-img {
     display: block;
     width: 100%;
     height: auto;
     max-height: 450px;
-    object-fit:;
     transition: transform 0.3s ease;
   }
   .banner-plan-img:hover {
@@ -1259,5 +2721,286 @@ const otherProducts = [
     .extra-modules-grid { grid-template-columns: 1fr; }
     .price-card { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
     .price-note { border-left: none; padding-left: 0; }
+  }
+
+  /* ===== Sistema Restaurantes — Planes ===== */
+  .restaurante-pricing {
+    padding-top: 4rem;
+  }
+  .restaurante-pricing-badge {
+    background: #f5f3ff;
+    color: #7c3aed;
+  }
+  .restaurante-pricing-title {
+    text-align: center;
+  }
+  .restaurante-billing-toggle { margin-top: 1rem; }
+  .restaurante-toggle-btn.is-active { background: #7c3aed; }
+  .restaurante-savings-note.is-active { color: #7c3aed; font-weight: 700; }
+
+  .restaurante-plans-grid {
+    display: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 2rem auto 0;
+  }
+  .restaurante-plans-grid.is-active { display: grid; }
+
+  .restaurante-plan-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 2rem 1.75rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .restaurante-plan-card-featured {
+    border-color: #7c3aed;
+    box-shadow: 0 16px 40px rgba(124, 58, 237, 0.14);
+  }
+  .restaurante-plan-badge { background: #7c3aed; }
+  .restaurante-plan-icon {
+    align-self: center;
+    background: #f5f3ff;
+    border-radius: 14px;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+  }
+  .restaurante-plan-name {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.3rem;
+  }
+  .restaurante-plan-subtitle {
+    text-align: center;
+    color: #64748b;
+    font-size: 0.88rem;
+    margin: 0 0 1.25rem;
+    line-height: 1.4;
+  }
+  .restaurante-plan-subtitle strong { color: #7c3aed; }
+  .restaurante-highlight-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    background: #f5f3ff;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-size: 0.82rem;
+    color: #4c1d95;
+    margin-bottom: 1.25rem;
+  }
+  .restaurante-highlight-box strong { color: #7c3aed; }
+  .restaurante-tagline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #7c3aed;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .restaurante-plan-price-block { text-align: center; margin-bottom: 1rem; }
+  .restaurante-plan-price { color: #7c3aed; }
+  .restaurante-plan-savings { color: #7c3aed; }
+  .restaurante-note-box {
+    background: #f5f3ff;
+    color: #4c1d95;
+    border-radius: 12px;
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
+  .restaurante-note-box strong { color: #7c3aed; }
+  .restaurante-includes-note {
+    text-align: center;
+    color: #7c3aed;
+    font-weight: 700;
+    font-size: 0.88rem;
+    margin: 0 0 1.25rem;
+  }
+  .restaurante-plan-items {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    flex: 1;
+  }
+  .restaurante-plan-items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    color: #334155;
+  }
+  .restaurante-item-icon { flex-shrink: 0; display: flex; margin-top: 0.1rem; }
+  .restaurante-item-sub {
+    display: block;
+    color: #7c3aed;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+  .restaurante-support-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #faf9ff;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.82rem;
+  }
+  .restaurante-support-row strong { color: #7c3aed; display: block; }
+  .restaurante-support-sub { color: #64748b; font-size: 0.76rem; }
+  .restaurante-cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #7c3aed;
+    border-color: #7c3aed;
+  }
+  .restaurante-cta-btn-filled {
+    background: #7c3aed;
+    border-color: #7c3aed;
+    color: white;
+  }
+
+  @media (max-width: 720px) {
+    .restaurante-plans-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Sistema Restaurantes — Comparativa ===== */
+  .restaurante-compare-label-title { border-bottom-color: #7c3aed; }
+  .restaurante-compare-featured { background: #f5f3ff; }
+  .restaurante-compare-price { color: #7c3aed; }
+  .restaurante-compare-icon {
+    background: #f5f3ff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.3rem;
+  }
+  .restaurante-compare-label-sub { color: #7c3aed; }
+  .restaurante-compare-side {
+    background: linear-gradient(160deg, #f5f3ff, #faf9ff);
+  }
+  .restaurante-compare-side-icon {
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.14);
+  }
+
+  .rc-wrap {
+    display: flex;
+    align-items: stretch;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .rc-basico {
+    flex: 1.7;
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    align-content: start;
+  }
+  .rc-label-head {
+    grid-column: 1;
+    padding: 1.75rem 1.25rem 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    align-items: flex-end;
+  }
+  .rc-plan-head {
+    grid-column: 2;
+    text-align: center;
+    padding: 1.75rem 1rem 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  .rc-row-label {
+    grid-column: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    padding: 0.65rem 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .rc-row-value {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .rc-cta-empty { grid-column: 1; }
+  .rc-cta {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+  }
+  .rc-cta .plan-cta-btn { width: 100%; padding: 0.6rem 1rem; font-size: 0.85rem; }
+
+  .rc-profesional {
+    flex: 1;
+    background: #faf9ff;
+    border-left: 1px solid #ede9fe;
+    padding: 1.75rem 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+  .rc-profesional .plan-badge { position: static; transform: none; margin-bottom: 0.5rem; }
+  .rc-profesional .restaurante-plan-items { width: 100%; text-align: left; }
+  .rc-profesional .restaurante-support-row { width: 100%; text-align: left; }
+  .rc-profesional .plan-cta-btn { width: 100%; }
+
+  .restaurante-compare-plan-sub {
+    color: #64748b;
+    font-size: 0.82rem;
+    margin: 0 0 0.5rem;
+    line-height: 1.4;
+  }
+  .restaurante-compare-plan-sub strong { color: #7c3aed; }
+  .restaurante-compare-price-pill {
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 0.5rem 1.25rem;
+    margin-top: 0.4rem;
+  }
+  .restaurante-compare-price-pill .plan-price-S,
+  .restaurante-compare-price-pill .plan-price-unit {
+    color: #64748b;
+  }
+  .restaurante-compare-price-pill {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #7c3aed;
+  }
+
+  @media (max-width: 720px) {
+    .rc-wrap { flex-direction: column; }
+    .rc-profesional { border-left: none; border-top: 1px solid #ede9fe; }
   }
 </style>
