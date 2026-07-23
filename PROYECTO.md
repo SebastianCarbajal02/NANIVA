@@ -15,14 +15,49 @@ src/
 │   ├── Footer.astro           # Pie de página
 │   └── Welcome.astro          # Componente de bienvenida
 ├── assets/
-│   ├── image/                 # Imágenes y logos
+│   ├── image/                 # Imágenes y logos (ver organización abajo)
 │   └── styles/                # Estilos globales
 ├── layouts/
 │   └── BaseLayout.astro       # Layout base de la página
 └── pages/
-    └── index.astro            # Página principal
+    ├── index.astro            # Página principal (home)
+    ├── planes.astro           # Página de planes (ERP, Catálogo, Restaurante, IA)
+    ├── servicios.astro        # Página de servicios
+    └── contacto.astro         # Página de contacto
 
 ```
+
+---
+
+## 🗂️ Organización de `src/assets/image/`
+
+Las imágenes están agrupadas por página y, dentro de cada página, por modelo/producto cuando aplica. Todos los `import` en el código apuntan a estas rutas — si mueves un archivo, actualiza también su import.
+
+```
+assets/image/
+├── shared/                 # Usado en más de una página/componente
+│   ├── logos/               logo.webp, logo-inicio.webp
+│   ├── clientes/             logos de empresas cliente (color + negro), usados en ClientsTrust y CaseStudies
+│   ├── metodos-pago/         Visa, Mastercard, Yape, Sunat
+│   └── iconos-comunes/       iconos reusados entre Home y Planes (carro, caja-negra, ICOMS1-07)
+├── home/                    # Todo lo que solo aparece en index.astro
+│   ├── hero/, showcase/, demo-video/, faq/, casos-exito/,
+│   ├── implementacion/, why-naniva/, transform-banner/, footer/
+│   └── servicios-home/       tarjetas de servicios del home (Services.astro)
+├── planes/                  # Todo lo que solo aparece en planes.astro
+│   ├── compartido/           banner, features y iconos del hub de planes (no son de un producto en particular)
+│   ├── catalogo/             sección "Catálogo Digital"
+│   ├── tipo-negocio/         tarjetas "ideal para negocios como el tuyo"
+│   └── restaurante/          sección de Restaurantes (ojo: en el código su anchor/id todavía dice "ecommerce",
+│                              pendiente de renombrar cuando se construya el producto Ecommerce real)
+├── servicios/               # servicios.astro + ServicesFull.astro
+│   └── full/
+├── contacto/                # contacto.astro
+└── _sin-usar/               # Imágenes que no están referenciadas en ningún archivo .astro
+                               (no se borraron por si aún las necesitas; revisar y eliminar cuando confirmes)
+```
+
+**Convención:** al agregar una imagen nueva, colócala en la carpeta de la página que la usa (y en una subcarpeta de producto si pertenece a un plan/servicio específico). Si la va a usar más de una página, va en `shared/`.
 
 ---
 

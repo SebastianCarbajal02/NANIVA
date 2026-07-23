@@ -1,18 +1,18 @@
 ﻿---
-import banner from '../assets/image/fondo final1-01.webp';
-import heroPeople from '../assets/image/hompersonas fin1-02.webp';
-import heroDashboard from '../assets/image/dashboardfinalp1-03.webp';
-import logo from '../assets/image/logo.webp';
-import iconPos from '../assets/image/icono-iniicio-punto_venta.webp';
-import iconEcommerce from '../assets/image/icono-inicio-ecomerce.webp';
-import iconReportes from '../assets/image/iconos-inicio-reporte.webp';
-import iconFacturacion from '../assets/image/facturacion-eletronica.webp';
-import iconEmpresarial from '../assets/image/icono-empresarial.webp';
-import iconErp from '../assets/image/icono-erp.webp';
-import iconSunat from '../assets/image/sunat-Photoroom.webp';
-import iconVisa from '../assets/image/Visa-Logo.webp';
-import iconMastercard from '../assets/image/mastecard.webp';
-import iconYape from '../assets/image/YAPE.webp';
+import banner from '../assets/image/home/hero/fondo final1-01.webp';
+import heroPeople from '../assets/image/home/hero/hompersonas fin1-02.webp';
+import heroDashboard from '../assets/image/home/hero/dashboardfinalp1-03.webp';
+import logo from '../assets/image/shared/logos/logo.webp';
+import iconPos from '../assets/image/home/hero/icono-iniicio-punto_venta.webp';
+import iconEcommerce from '../assets/image/home/hero/icono-inicio-ecomerce.webp';
+import iconReportes from '../assets/image/home/hero/iconos-inicio-reporte.webp';
+import iconFacturacion from '../assets/image/home/hero/facturacion-eletronica.webp';
+import iconEmpresarial from '../assets/image/home/hero/icono-empresarial.webp';
+import iconErp from '../assets/image/home/hero/icono-erp.webp';
+import iconSunat from '../assets/image/shared/metodos-pago/sunat-Photoroom.webp';
+import iconVisa from '../assets/image/shared/metodos-pago/Visa-Logo.webp';
+import iconMastercard from '../assets/image/shared/metodos-pago/mastecard.webp';
+import iconYape from '../assets/image/shared/metodos-pago/YAPE.webp';
 
 const features = [
   { icon: iconPos, label: "Punto de Venta (POS)" },
@@ -75,21 +75,21 @@ const partners = [
   }
   .hero-visual {
     position: absolute;
-    right: 2rem;
+    right: clamp(0px, 1.2vw, 2rem);
     bottom: 0;
-    width: min(56%, 860px);
+    width: clamp(500px, 56vw, 860px);
     height: 85%;
     pointer-events: none;
   }
   .hero-people {
     position: absolute;
-    left: -35%;
+    left: clamp(-39%, calc(-39% + 0.12 * (100vw - 1100px)), -35%);
     bottom: 0;
     width: 140%;
     height: auto;
     object-fit: contain;
     z-index: 2;
-    transform: translateY(5rem);
+    transform: translateY(clamp(3rem, calc(3rem + 0.08 * (100vw - 1100px)), 5rem));
     pointer-events: auto;
     transition: filter 0.3s ease;
   }
@@ -98,20 +98,21 @@ const partners = [
   }
 
   .hero-dashboard {
+    --dash-y: clamp(-12rem, calc(0rem - 0.48 * (100vw - 1100px)), 0rem);
     position: absolute;
-    top: 8%;
-    right: 220;
+    top: 9%;
+    right: 0;
     width: 100%;
     height: auto;
     object-fit: contain;
     filter: drop-shadow(0 20px 40px rgba(15, 23, 42, 0.25));
     z-index: 1;
-    transform: translateY(-12rem);
+    transform: translateY(var(--dash-y));
     pointer-events: auto;
     transition: transform 0.3s ease;
   }
   .hero-dashboard:hover {
-    transform: translateY(-12rem) scale(1.06);
+    transform: translateY(var(--dash-y)) scale(1.06);
   }
   .content {
     max-width: 580px;
@@ -282,26 +283,6 @@ const partners = [
     .hero {
       min-height: 800px;
       padding: 7rem 3rem 2rem 5rem;
-    }
-    .hero-visual {
-      right: 0;
-      bottom: 0;
-      width: 41%;
-      height: 85%;
-    }
-    .hero-dashboard {
-      top: 10%;
-      right: 12rem;
-      transform: none;
-    }
-    .hero-dashboard:hover {
-      transform: scale(1.06);
-    }
-    .hero-people {
-      left: -39%;
-      bottom: 0;
-      transform: none;
-      transform: translateY(3rem)
     }
     .content {
       max-width: 580px;
