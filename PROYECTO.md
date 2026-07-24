@@ -5,13 +5,21 @@
 ```
 src/
 ├── components/
-│   ├── Nav.astro              # Navegación principal
-│   ├── Hero.astro             # Sección hero con CTA
+│   ├── Nav.astro              # Navegación principal (fixed, con rutas Inicio/Servicios/Planes/Contáctanos)
+│   ├── Hero.astro             # Sección hero con CTA (rediseñado, copy + CTAs nuevos)
+│   ├── Hero_original.astro    # Versión previa del Hero (respaldo, sin usar)
 │   ├── ClientsTrust.astro     # Carousel de empresas clientes
 │   ├── Services.astro         # Tarjetas de servicios (8 items)
+│   ├── ServicesFull.astro     # Grid completo de servicios (usado en /servicios)
+│   ├── DemoVideo.astro        # Sección de video demo
+│   ├── WhyNaniva.astro        # Banner "¿Por qué Naniva?" (imagen full-width con glow)
 │   ├── Showcase.astro         # Dashboard interactivo
+│   ├── Implementation.astro   # Pasos del proceso de implementación (Diagnóstico, Configuración, Capacitación, Operar)
+│   ├── CaseStudies.astro      # Casos de éxito de clientes (ELOHIM, ZURIEL, WILSON) con métricas y testimonios
+│   ├── TransformBanner.astro  # Banner CTA "transforma tu empresa"
 │   ├── Testimonials.astro     # Testimonios de clientes
 │   ├── CtaBanner.astro        # Banner CTA final
+│   ├── Faq.astro              # Preguntas frecuentes (2 columnas + mini trust badges)
 │   ├── Footer.astro           # Pie de página
 │   └── Welcome.astro          # Componente de bienvenida
 ├── assets/
@@ -20,12 +28,16 @@ src/
 ├── layouts/
 │   └── BaseLayout.astro       # Layout base de la página
 └── pages/
-    ├── index.astro            # Página principal (home)
-    ├── planes.astro           # Página de planes (ERP, Catálogo, Restaurante, IA)
-    ├── servicios.astro        # Página de servicios
-    └── contacto.astro         # Página de contacto
+    ├── index.astro            # Página principal
+    ├── servicios.astro        # Página de servicios con banner de stats
+    ├── planes.astro           # Página de planes (features, productos: ERP, Catálogo, Ecommerce, IA)
+    ├── contacto.astro         # Página de contacto (formulario + info de contacto)
+    └── api/
+        └── contact.js         # Endpoint POST que envía el formulario a Web3Forms
 
 ```
+
+El sitio pasó de ser una landing de una sola página a un **sitio multi-página** (Inicio, Servicios, Planes, Contáctanos) navegable desde `Nav.astro`.
 
 ---
 
@@ -262,7 +274,46 @@ assets/image/
 
 ## 📊 Estado Actual
 
-### Showcase.astro (Última actualización)
+### Sitio multi-página (Última actualización)
+- ✅ `Nav.astro` reconstruido con links a Inicio/Servicios/Planes/Contáctanos, iconos SVG y estado activo por ruta
+- ✅ Nueva página **/servicios** (`servicios.astro`): banner con stats (+10,000 comprobantes, +1,500 negocios, 99.9% disponibilidad, soporte 24/7) + `ServicesFull.astro`
+- ✅ Nueva página **/planes** (`planes.astro`): banner con features (planes flexibles, seguridad, soporte) + grid de productos (ERP, Catálogo Digital, Ecommerce, IA)
+- ✅ Nueva página **/contacto** (`contacto.astro`): banner con datos de contacto (teléfono, email, horario, dirección) + formulario que postea a `/api/contact`
+- ✅ Endpoint **`/api/contact.js`**: valida campos, sanitiza input, reenvía el mensaje a Web3Forms (requiere `WEB3FORMS_KEY` en variables de entorno)
+
+### Banner de /planes (Última actualización)
+- ✅ Fondo (`fondfo1-01.webp`) y persona (`persona2f-02.webp`) reemplazados por nuevas imágenes; ambas llegaron a resolución de impresión (25 575×11 983 y 17 979×12 299 px, 3.4 MB y 6.8 MB) y se redimensionaron con `sharp` (2400px / 1600px de ancho) antes de convertir a WebP — quedaron en ~100 KB cada una
+- ✅ Los 4 íconos de `plan-features` (Planes flexibles, Impulsa tu crecimiento, Seguridad y confianza, Soporte especializado) pasaron de emoji a imágenes (`iconbnn2-04` a `07.webp`); estas ya traen el fondo navy redondeado renderizado en el propio PNG, por lo que se quitó el `background: white` que tenía el contenedor `.plan-feature-icon`
+- ✅ Íconos de la sección de integración ERP (Sin duplicidad de datos, Ahorra tiempo, Toma decisiones) reemplazados por `escudo-planes.webp`, `destello.webp`, `finanzas.webp`, coloreados en azul vía `mask-image` (mismo patrón que los íconos de módulos)
+- ✅ El logo (`logo-inicio.webp`) reemplaza el ícono "layers" en el banner "Todos los módulos trabajan juntos en perfecta integración"
+
+### Home (index.astro) — nuevo orden de secciones
+Nav → Hero → ClientsTrust → Services → DemoVideo → WhyNaniva → Showcase → Implementation → CaseStudies → TransformBanner → Faq → Footer
+
+### Hero.astro
+- ✅ Copy y CTAs rediseñados, ajuste de espaciado del contenido
+- ✅ Se conserva `Hero_original.astro` como respaldo de la versión previa (no se usa en las páginas)
+
+### CaseStudies.astro
+- ✅ Casos de éxito completos con métricas (ELOHIM, ZURIEL, WILSON): rubro, nº de productos/usuarios, logros, resultados (%, horas ahorradas) y testimonio
+- ✅ Imágenes de avatar y logos a color en header de tarjetas (object-fit: cover)
+
+### Implementation.astro (nuevo)
+- ✅ 4 pasos del proceso: Diagnóstico → Configuración → Capacitación → Operar, cada uno con icono e ítems
+
+### WhyNaniva.astro (nuevo)
+- ✅ Banner de imagen full-width ("¿Por qué elegir Naniva?") con glow azul en hover
+
+### TransformBanner.astro (nuevo)
+- ✅ Banner CTA con imagen + botón "Solicitar demostración gratuita"
+
+### Faq.astro (nuevo)
+- ✅ 8 preguntas frecuentes en 2 columnas + mini badges de confianza (respuesta rápida, asesoría personalizada, sin compromiso)
+
+### Footer.astro
+- ✅ Rediseñado (356 líneas, antes más simple)
+
+### Showcase.astro
 - ✅ Vuelto al panel único con fondo degradado (antes azul, ahora morado claro)
 - ✅ Mockup como caja blanca flotante con animación float restaurada
 - ✅ Info sin tarjeta propia, integrada al fondo del panel
@@ -297,7 +348,7 @@ assets/image/
 ## 📝 Notas Técnicas
 
 - **Astro Static:** Pre-renderizado en build time
-- **Image optimization:** Uso de .webp y .png
+- **Image optimization:** 100% WebP (169 archivos, 0 PNG)
 - **CSS Specificity:** Selectores compuestos (.mockup img.img-default)
 - **Object-fit:** contain/cover + object-position para cropping
 - **Aspect-ratio:** Mantiene proporciones sin media queries extras
@@ -305,12 +356,109 @@ assets/image/
 
 ---
 
+### Iconos de módulos (CSS Mask)
+- Los iconos de los 6 módulos en `planes.astro` usan CSS `mask-image` para colorearse dinámicamente
+- Cada módulo tiene un `iconImg` (imagen en negro) y un `color` de acento que se aplica vía `background-color` + `mask-image`
+- Esto permite cambiar el color de todos los iconos desde el código sin necesidad de editar las imágenes
+
+**Iconos usados:**
+| Módulo | Imagen | Color |
+|--------|--------|-------|
+| Ventas y Facturación | `carro.webp` | `#0ea5a3` (teal) |
+| Clientes | `ICOMS1-07.webp` | `#16a34a` (verde) |
+| Inventario | `caja-negra.webp` | `#2563eb` (azul) |
+| Compras | `bolsa-de-la-compra (1).webp` | `#a855f7` (púrpura) |
+| Finanzas | `barras.webp` | `#f97316` (naranja) |
+| Reportes Gerenciales | `iconos-inicio-reporte.webp` | `#a855f7` (púrpura) |
+
+---
+
+### Conversión a WebP
+- Todas las imágenes del proyecto (169 archivos) están en formato WebP
+- **125 archivos PNG/JPEG originales eliminados** del repositorio
+- Script de conversión: `scripts/convert-to-webp.mjs` (usa `sharp`, calidad 80%)
+- 0 referencias a `.png` en todo el código fuente
+
+---
+
+### Animaciones de iconos (planes.astro)
+Se implementaron 6 animaciones CSS reutilizables para los iconos:
+
+| Animación | Efecto |
+|-----------|--------|
+| `icon-float` | Flotación vertical (sube y baja) |
+| `icon-pulse` | Pulso suave (escala + opacidad) |
+| `icon-wiggle` | Movimiento lateral (hover) |
+| `icon-glow` | Brillo azul alrededor |
+| `icon-spin-in` | Entrada giratoria |
+| `icon-reveal-up` | Aparición desde abajo |
+
+**Aplicación:**
+- **Banner features:** `icon-float` con delays escalonados (0s, 0.3s, 0.6s, 0.9s) + hover con `icon-wiggle`
+- **Product cards:** `icon-pulse` con delays (0s, 0.5s, 1s, 1.5s) + hover con `icon-wiggle`
+- **Módulos ERP (6):** `icon-pulse` con delays (0s a 1.5s) + hover con `icon-wiggle`
+- **Módulos adicionales (4):** `icon-pulse` con delays escalonados
+
+---
+
+### Módulos Adicionales (planes.astro)
+Sección "Conoce nuestros módulos adicionales" con 4 tarjetas:
+
+| Módulo | Imagen | Color |
+|--------|--------|-------|
+| Contabilidad | `iconpmbb21-09.webp` | `#0ea5a3` (teal) |
+| Gestión Comercial | `iconpmbb21-10.webp` | `#16a34a` (verde) |
+| Inteligencia de Negocios | `iconpmbb21-12.webp` | `#a855f7` (púrpura) |
+| Compras Inteligentes | `iconpmbb21-13.webp` | `#f97316` (naranja) |
+
+Layout: `[Icono 75×75px] Título + Descripción (columna)`
+
+---
+
+### Banner CTA en /planes
+- Sección `<section id="transformar-plan">` debajo de módulos adicionales
+- Imagen full-width con `max-height: 350px`
+- Botón blanco flotante a la derecha con icono SVG de calendario
+- Texto: "Solicitar demostración gratuita →" + "Sin compromiso. En menos de 30 minutos."
+- Oculto en móviles (max-width: 900px)
+
+---
+
+### Catálogo Digital (planes.astro)
+Sección completa de productos con:
+
+**Hero:**
+- 4 iconos de features animados (`icon-pulse` con delays escalonados)
+- Hover: `icon-wiggle` + escala 1.15x + glow verde
+- Botones "Comenzar ahora" y "Solicitar demostración" en verde
+
+**Planes de precios:**
+- 2 planes: **PLAN NEGOCIO** (S/79/mes, hasta 300 productos) y **PLAN EMPRESA** (S/118/mes, hasta 600 productos)
+- Toggle Mensual/Anual con 20% de descuento anual
+- Tabla comparativa de características
+- Trust badges: "Sin contratos forzosos", "Cambia o cancela", "Pago 100% seguro", "Soporte especializado"
+
+**Audiencia:**
+- Carrusel de categorías de negocio: Ferreterías, Distribuidoras, Tiendas, Minimarkets, Importadores, Mayoristas
+- Banner CTA final con imagen
+
+---
+
+### Product Switcher (planes.astro)
+- Sistema de navegación entre productos (ERP, Catálogo Digital, Ecommerce, IA) mediante JavaScript
+- Solo un detalle de producto visible a la vez mediante clase `.is-active`
+- Actualización de URL hash para navegación directa
+- Inicialización automática en cambio de rutas Astro (`astro:after-swap`)
+
+---
+
 ## 🔄 Próximos Pasos (Opcionales)
 
 - [ ] Agregar más testimonios
-- [ ] Integrar formulario demo
+- [x] Integrar formulario demo → formulario de contacto en `/contacto` + endpoint `/api/contact.js` (Web3Forms)
 - [ ] Lazy loading imágenes
 - [ ] Animaciones scroll more prominent
 - [ ] Dark mode support
 - [ ] Más responsive tweaks
+- [ ] Revisar/eliminar `Hero_original.astro` si ya no se necesita como respaldo
 
