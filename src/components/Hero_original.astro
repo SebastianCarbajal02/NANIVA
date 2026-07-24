@@ -1,7 +1,7 @@
 ﻿---
 import banner from '../assets/image/home/hero/fondo final1-01.webp';
 import heroPeople from '../assets/image/home/hero/hompersonas fin1-02.webp';
-import heroDashboard from '../assets/image/home/hero/dashboardfinalp1-03.webp';
+import heroDashboard from '../assets/image/home/hero/banner33-03.png';
 import logo from '../assets/image/shared/logos/logo.webp';
 import iconPos from '../assets/image/home/hero/icono-iniicio-punto_venta.webp';
 import iconEcommerce from '../assets/image/home/hero/icono-inicio-ecomerce.webp';
@@ -56,8 +56,8 @@ const partners = [
   </div>
 
   <div class="hero-visual reveal">
-    <img src={heroDashboard.src} alt="Dashboard Naniva" class="hero-dashboard" />
-    <img src={heroPeople.src} alt="" class="hero-people" />
+
+    <img src={heroDashboard.src} alt="" class="hero-people" />
   </div>
 </section>
 
@@ -83,18 +83,14 @@ const partners = [
   }
   .hero-people {
     position: absolute;
-    left: clamp(-39%, calc(-39% + 0.12 * (100vw - 1100px)), -35%);
+    right: -4%;
     bottom: 0;
-    width: 140%;
-    height: auto;
+    height: 100vh;
+    width: auto;
     object-fit: contain;
-    z-index: 2;
-    transform: translateY(clamp(3rem, calc(3rem + 0.08 * (100vw - 1100px)), 5rem));
-    pointer-events: auto;
-    transition: filter 0.3s ease;
-  }
-  .hero-people:hover {
-    filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.7)) drop-shadow(0 0 45px rgba(37, 99, 235, 0.5));
+    z-index: 1;
+    pointer-events: none;
+    transform: translateY(2rem);
   }
 
   .hero-dashboard {
@@ -287,17 +283,13 @@ const partners = [
       padding: 7rem 3rem 2rem 5rem;
     }
     .hero-people {
-      left: clamp(-40%, calc(-20% + 0.12 * (100vw - 1100px)), -24%);
+      right: -3%;
       bottom: 0;
-      width: 130%;
-      height: auto;
+      height: 85vh;
+      width: auto;
       object-fit: contain;
-      z-index: 2;
-      transform: translateY(clamp(3rem, calc(3rem + 0.08 * (100vw - 1100px)), 5rem));
-    }
-    .hero-dashboard {
-      filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.7)) drop-shadow(0 0 45px rgba(37, 99, 235, 0.5));
-      left: clamp(-35%, calc(-20% + 0.12 * (100vw - 900px)), -20%);
+      z-index: 1;
+      transform: translateY(-1rem);
     }
     .features {
       gap: 1rem;

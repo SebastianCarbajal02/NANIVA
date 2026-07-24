@@ -5,9 +5,9 @@
 ```
 src/
 ├── components/
-│   ├── Nav.astro              # Navegación principal (fixed, con rutas Inicio/Servicios/Planes/Contáctanos)
-│   ├── Hero.astro             # Sección hero con CTA (rediseñado, copy + CTAs nuevos)
-│   ├── Hero_original.astro    # Versión previa del Hero (respaldo, sin usar)
+│   ├── Nav.astro              # Navegación principal (fixed, con rutas Inicio/Servicios/IA/Planes/Contáctanos)
+│   ├── Hero_original.astro    # Hero de inicio (Hero.astro rediseñado se eliminó; este volvió a ser el activo en index.astro)
+│   ├── HeroIA.astro           # Hero de /ia (badge + 4 features + mockup dashboard/persona)
 │   ├── ClientsTrust.astro     # Carousel de empresas clientes
 │   ├── Services.astro         # Tarjetas de servicios (8 items)
 │   ├── ServicesFull.astro     # Grid completo de servicios (usado en /servicios)
@@ -31,6 +31,7 @@ src/
     ├── index.astro            # Página principal
     ├── servicios.astro        # Página de servicios con banner de stats
     ├── planes.astro           # Página de planes (features, productos: ERP, Catálogo, Ecommerce, IA)
+    ├── ia.astro                # Página de IA (Hero con mockup + persona, fondo del hero de inicio)
     ├── contacto.astro         # Página de contacto (formulario + info de contacto)
     └── api/
         └── contact.js         # Endpoint POST que envía el formulario a Web3Forms
@@ -275,9 +276,10 @@ assets/image/
 ## 📊 Estado Actual
 
 ### Sitio multi-página (Última actualización)
-- ✅ `Nav.astro` reconstruido con links a Inicio/Servicios/Planes/Contáctanos, iconos SVG y estado activo por ruta
+- ✅ `Nav.astro` reconstruido con links a Inicio/Servicios/IA/Planes/Contáctanos, iconos SVG y estado activo por ruta
 - ✅ Nueva página **/servicios** (`servicios.astro`): banner con stats (+10,000 comprobantes, +1,500 negocios, 99.9% disponibilidad, soporte 24/7) + `ServicesFull.astro`
 - ✅ Nueva página **/planes** (`planes.astro`): banner con features (planes flexibles, seguridad, soporte) + grid de productos (ERP, Catálogo Digital, Ecommerce, IA)
+- ✅ Nueva página **/ia** (`ia.astro` + `HeroIA.astro`): solo Hero por ahora (badge, título, 4 iconos de features, 2 CTAs, mockup dashboard+persona a la derecha). Fondo reutiliza `fondo final1-01.webp` (el mismo del Hero de inicio) y el layout está acotado por `.container` igual que `erp-hero` de planes.astro (no full-bleed 100vh), para que la imagen no crezca desproporcionadamente al hacer zoom. Íconos fuente en `assets/image/IA/` (PNG originales); pendiente: sección de beneficios con los íconos restantes (bombilla, diana, personas, gráfico, check, monitor, cerebro) — falta diseño/copy
 - ✅ Nueva página **/contacto** (`contacto.astro`): banner con datos de contacto (teléfono, email, horario, dirección) + formulario que postea a `/api/contact`
 - ✅ Endpoint **`/api/contact.js`**: valida campos, sanitiza input, reenvía el mensaje a Web3Forms (requiere `WEB3FORMS_KEY` en variables de entorno)
 
@@ -290,9 +292,8 @@ assets/image/
 ### Home (index.astro) — nuevo orden de secciones
 Nav → Hero → ClientsTrust → Services → DemoVideo → WhyNaniva → Showcase → Implementation → CaseStudies → TransformBanner → Faq → Footer
 
-### Hero.astro
-- ✅ Copy y CTAs rediseñados, ajuste de espaciado del contenido
-- ✅ Se conserva `Hero_original.astro` como respaldo de la versión previa (no se usa en las páginas)
+### Hero_original.astro
+- ✅ Es el Hero activo en `index.astro`. El rediseño (`Hero.astro`) se eliminó en un merge; el nombre "_original" quedó desactualizado
 
 ### CaseStudies.astro
 - ✅ Casos de éxito completos con métricas (ELOHIM, ZURIEL, WILSON): rubro, nº de productos/usuarios, logros, resultados (%, horas ahorradas) y testimonio
