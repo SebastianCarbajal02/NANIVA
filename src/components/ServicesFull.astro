@@ -85,22 +85,6 @@ const whyChoose = [
       </div>
     ))}
   </div>
-
-  <div class="why-section">
-    <div class="container">
-      <h3>¿Por qué elegir <strong class="brand">NANIVA</strong>?</h3>
-      <p class="why-sub">Más de 1,500 negocios ya confían en nosotros para llevar el control de su negocio.</p>
-      <div class="why-grid">
-        {whyChoose.map((w, i) => (
-          <div class="why-card reveal hover-lift" style={`transition-delay:${i * 0.08}s`}>
-            <div class="why-icon">{w.icon}</div>
-            <h4>{w.title}</h4>
-            <p>{w.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
 </section>
 
 <style>

@@ -37,7 +37,7 @@ const partners = [
     <h1>La plataforma<br /><span class="highlight">inteligente</span><br />para hacer crecer<br />tu empresa.</h1>
     <p>Administra ventas, inventario, facturación electrónica,<br />ecommerce e inteligencia artificial <span class="p-highlight">desde una sola plataforma</span>.</p>
     <div class="hero-actions">
-      <a href="#demo" class="btn-primary hover-pop">
+      <a href="https://wa.link/x4dnva" target="_blank" class="btn-primary hover-pop">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
         Solicitar demostración
       </a>
@@ -47,8 +47,8 @@ const partners = [
       </a>
     </div>
     <div class="features">
-      {features.map((f) => (
-        <div class="feature">
+      {features.map((f, i) => (
+        <div class={`feature ${i === 2 ? 'feature-third' : ''} ${i === 4 ? 'feature-fifth' : ''}`}>
           <span class="feature-icon"><img src={f.icon.src} alt={f.label} /></span>
         </div>
       ))}
@@ -275,39 +275,42 @@ const partners = [
   @media (max-width: 900px) {
     .hero { padding-left: 1.1rem; }
   }
-  @media (max-width: 1500px) and (min-width: 1100px) {
+  @media (max-width: 1368px) and (min-width: 606px) {
     .tag { transform: translateY(-1rem);color: #2563eb; }
     h1 { transform: translateY(-1rem); }
     .hero {
-      min-height: 750px;
+      min-height: 680px;
       padding: 7rem 3rem 2rem 5rem;
     }
     .hero-people {
       right: -3%;
       bottom: 0;
-      height: 90vh;
+      height: 100vh;
       width: auto;
       object-fit: contain;
       z-index: 1;
-      transform: translateY(-1rem);
+      transform: translateY(1rem);
     }
     .features {
-      gap: 1rem;
-      top: 3rem;
+      gap: 1.5rem;
+      top: 1rem;
     }
     .feature {
-      width: 60px;
+      width: 100px;
       flex: 0 0 60px;
     }
     .feature-icon {
-      width: 60px;
-      height: 60px;
+      width: 1px;
+      height: 1px;
       flex: 0 0 60px;
     }
     .feature-icon img {
-      width: 85px;
-      height: 85px;
-      flex: 0 0 85px;
+      width: 100px;
+      height: 100px;
+      flex: 0 0 100px;
+    }
+    .feature-third {
+       
     }
   }
   @media (max-width: 1100px) {

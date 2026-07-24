@@ -46,6 +46,7 @@ const mainServices = [
     items: ["Detecta problemas antes que pasen", "Encuentra oportunidades de venta", "Prioriza lo más importante", "Recomienda acciones claras"],
     cta: "Descubrir IA →",
     mockup: "ia",
+    href: "https://wa.me/51908644190",
   },
   {
     icon: "package",
@@ -59,6 +60,7 @@ const mainServices = [
     items: ["Ventas e Inventario", "Compras", "Clientes", "Reportes en tiempo real"],
     cta: "Ver ERP →",
     mockup: "erp",
+    href: "https://wa.me/51908644190",
   },
   {
     icon: "cart",
@@ -72,6 +74,7 @@ const mainServices = [
     items: ["Tienda online personalizada", "Pasarelas de pago", "Sincronizado con tu inventario"],
     cta: "Ver Ecommerce →",
     mockup: "ecommerce",
+    href: "https://wa.link/tq6esl",
   },
 ];
 
@@ -87,6 +90,7 @@ const modules = [
     cta: "Ver Facturación →",
     mockupImg: bgFacturacion,
     mockupClass: "module-mockup-facturacion",
+    href: "https://wa.link/ku5uo4",
   },
   {
     icon: "bag",
@@ -99,6 +103,7 @@ const modules = [
     cta: "Ver Catálogo →",
     mockupImg: bgCatalogo,
     mockupClass: "module-mockup-catalogo",
+    href: "/planes#catalogo",
   },
   {
     icon: "utensils",
@@ -111,6 +116,7 @@ const modules = [
     cta: "Ver Restaurante →",
     mockupImg: bgRestaurante,
     mockupClass: "module-mockup-restaurante",
+    href: "/planes#restaurante",
   },
   {
     icon: "link",
@@ -122,6 +128,7 @@ const modules = [
     cta: "Ver Integraciones →",
     mockupImg: imgImplem1,
     mockupClass: "module-mockup-integraciones",
+    href: "https://wa.link/d7xirk",
   },
   {
     icon: "gear",
@@ -133,6 +140,7 @@ const modules = [
     cta: "Cotizar proyecto →",
     mockupImg: bgSoftware,
     mockupClass: "module-mockup-software",
+    href: "https://wa.link/dma1jx",
   },
 ];
 
@@ -178,7 +186,7 @@ const stats = [
                   </li>
                 ))}
               </ul>
-              <a href="#planes" class="ver-planes hover-pop" style={`color:${s.accent}; border-color:${s.accent}`}>
+              <a href={s.href} target="_blank" class="ver-planes hover-pop" style={`color:${s.accent}; border-color:${s.accent}`}>
                 {s.cta}
               </a>
             </div>
@@ -226,7 +234,7 @@ const stats = [
             ))}
           </ul>
           {m.mockupImg && <img src={m.mockupImg.src} alt="" class={`module-mockup ${m.mockupClass ?? ""}`} />}
-          <a href="#planes" class="ver-planes hover-pop" style={`color:${m.accent}; border-color:${m.accent}`}>
+          <a href={m.href} target="_blank" class="ver-planes hover-pop" style={`color:${m.accent}; border-color:${m.accent}`}>
             {m.cta}
           </a>
         </article>
