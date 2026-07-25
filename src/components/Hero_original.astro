@@ -83,32 +83,14 @@ const partners = [
   }
   .hero-people {
     position: absolute;
-    right: -4%;
+    right: clamp(-6%, calc(-4% - 0.0015 * (100vw - 606px)), -3%);
     bottom: 0;
-    height: 100vh;
-    width: auto;
+    width: 150%;
+    height: auto;
     object-fit: contain;
     z-index: 1;
     pointer-events: none;
-    transform: translateY(2rem);
-  }
-
-  .hero-dashboard {
-    --dash-y: clamp(-12rem, calc(0rem - 0.48 * (100vw - 1100px)), 0rem);
-    position: absolute;
-    top: 9%;
-    right: 0;
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 20px 40px rgba(15, 23, 42, 0.25));
-    z-index: 1;
-    transform: translateY(var(--dash-y));
-    pointer-events: auto;
-    transition: transform 0.3s ease;
-  }
-  .hero-dashboard:hover {
-    transform: translateY(var(--dash-y)) scale(1.06);
+    transform: translateY(clamp(1rem, calc(1rem + 0.0016 * (100vw - 606px)), 2rem));
   }
   .content {
     max-width: clamp(320px, calc(44vw - 120px), 580px);
@@ -281,15 +263,6 @@ const partners = [
     .hero {
       min-height: 680px;
       padding: 7rem 3rem 2rem 5rem;
-    }
-    .hero-people {
-      right: -3%;
-      bottom: 0;
-      height: 100vh;
-      width: auto;
-      object-fit: contain;
-      z-index: 1;
-      transform: translateY(1rem);
     }
     .features {
       gap: 1.5rem;

@@ -1175,7 +1175,11 @@ const otherProducts = [
     });
 
     const initialHash = window.location.hash.replace("#", "");
-    if (initialHash) showDetail(initialHash);
+    if (initialHash && showDetail(initialHash)) {
+      requestAnimationFrame(() => {
+        document.getElementById(initialHash)?.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start" });
+      });
+    }
   }
 
   function initBillingToggle() {
