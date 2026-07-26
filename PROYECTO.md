@@ -8,6 +8,14 @@ src/
 │   ├── Nav.astro              # Navegación principal (fixed, con rutas Inicio/Servicios/IA/Planes/Contáctanos)
 │   ├── Hero_original.astro    # Hero de inicio (Hero.astro rediseñado se eliminó; este volvió a ser el activo en index.astro)
 │   ├── HeroIA.astro           # Hero de /ia (badge + 4 features + mockup dashboard/persona)
+│   ├── BenefitsIA.astro       # Beneficios de la sección IA
+│   ├── ComparisonIA.astro     # Comparativa "con IA vs sin IA"
+│   ├── FeaturesIA.astro       # Features detallados de IA
+│   ├── ResultadosClientes.astro # Resultados/casos de clientes en /ia
+│   ├── ImplementacionIA.astro # Pasos de implementación de IA
+│   ├── CtaBannerIA.astro      # Banner CTA final de /ia
+│   ├── ContactoHero.astro     # Banner superior de /contacto (logo, h1, features, CTAs WhatsApp)
+│   ├── ContactoInfo.astro     # Formulario + tarjetas de info de contacto (teléfono, email, horario, dirección)
 │   ├── ClientsTrust.astro     # Carousel de empresas clientes
 │   ├── Services.astro         # Tarjetas de servicios (8 items)
 │   ├── ServicesFull.astro     # Grid completo de servicios (usado en /servicios)
@@ -38,7 +46,18 @@ src/
 
 ```
 
-El sitio pasó de ser una landing de una sola página a un **sitio multi-página** (Inicio, Servicios, Planes, Contáctanos) navegable desde `Nav.astro`.
+El sitio pasó de ser una landing de una sola página a un **sitio multi-página** (Inicio, Servicios, Planes, IA, Contáctanos) navegable desde `Nav.astro`.
+
+### Convención: una página = varios componentes por sección
+
+Cada página (`src/pages/*.astro`) debe limitarse a importar `BaseLayout`, `Nav`, `Footer` y un componente por sección, y componerlos — no meter secciones completas (markup + estilos) directamente en el archivo de la página. Ejemplo ya aplicado:
+
+- `ia.astro` → `HeroIA`, `BenefitsIA`, `ComparisonIA`, `FeaturesIA`, `ResultadosClientes`, `ImplementacionIA`, `CtaBannerIA`.
+- `contacto.astro` → `ContactoHero`, `ContactoInfo`.
+
+**Por qué:** mantiene cada página corta y fácil de escanear, y aísla los estilos de cada sección en su propio archivo (menos scroll, menos riesgo de romper una sección al tocar otra).
+
+**Pendiente:** `planes.astro` y `servicios.astro` todavía tienen todo el markup y los estilos de sus secciones inline en el archivo de la página — no siguen esta convención todavía. Si se van a seguir tocando mucho, vale la pena dividirlos igual en componentes por sección.
 
 ---
 
