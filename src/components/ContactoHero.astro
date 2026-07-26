@@ -1,0 +1,172 @@
+---
+import banner from '../assets/image/contacto/banner-contactos.webp';
+import logo from '../assets/image/shared/logos/logo.webp';
+import iconAcompanamiento from '../assets/image/contacto/iconcontc-02.png';
+import iconSoluciones from '../assets/image/contacto/iconcontc-03.png';
+import iconRespuesta from '../assets/image/contacto/iconcontc-04.png';
+import iconAtencion from '../assets/image/contacto/iconcontc-05.png';
+
+const bannerFeatures = [
+  { icon: iconAtencion, title: "Atención personalizada", desc: "Asesoría 1 a 1 con nuestros expertos." },
+  { icon: iconRespuesta, title: "Respuesta rápida", desc: "Te respondemos en menos de 5 minutos." },
+  { icon: iconSoluciones, title: "Soluciones a medida", desc: "Implementamos la mejor solución para tu negocio." },
+  { icon: iconAcompanamiento, title: "Acompañamiento total", desc: "Desde la implementación hasta el crecimiento." },
+];
+---
+<section class="banner" style={`background-image: url('${banner.src}');`}>
+  <div class="content reveal">
+    <img src={logo.src} alt="Naniva" class="logo" />
+    <h1>Contáctanos y<br /><span class="highlight">Digitaliza</span> tu Negocio</h1>
+    <p class="banner-subtitle">Nuestro equipo de expertos está listo para responder todas tus dudas y ayudar a implementar la mejor solución para tu empresa.</p>
+    <div class="banner-actions">
+      <a href="https://wa.me/51908644190" target="_blank" rel="noopener noreferrer" class="btn-primary hover-pop pulse-ring whatsapp">💬 Escríbenos Ahora</a>
+      <a href="#info" class="btn-outline hover-pop">📅 Ver Horarios</a>
+    </div>
+    <div class="banner-features">
+      {bannerFeatures.map((f) => (
+        <div class="banner-feature">
+          <span class="banner-feature-icon icon-bounce"><img src={f.icon.src} alt={f.title} /></span>
+          <h4>{f.title}</h4>
+          <p class="feature-desc">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .banner {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 8rem 1.5rem 2rem 4rem;
+  }
+  .content {
+    max-width: 540px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 0.65rem;
+  }
+  .banner-actions {
+    width: 100%;
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    transform: translateY(-2rem);
+  }
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  .btn-outline {
+    background: white;
+    color: #2563eb;
+    border: 1px solid #2563eb;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  .banner-features {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+  }
+  .banner-feature {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:0.5rem;
+  }
+  .banner-feature-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .banner-feature-icon img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    padding-left:2rem;
+    margin-bottom: 1rem;
+  }
+  .banner-feature h4 {
+    font-size: 1rem;
+    color: #0f172a;
+    line-height: 1.2;
+    
+  }
+  .banner-feature p.feature-desc {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .logo {
+    height: 92px;
+    width: auto;
+    object-fit: contain;
+    transform: translateY(-7rem);
+  }
+  h1 {
+    font-size: clamp(3rem, 3.5vw, 4rem);
+    font-weight: 798;
+    line-height: 1.15;
+    color: #0f172a;
+    transform: translateY(-5rem);
+  }
+  .highlight { color: #007bff; }
+  .banner-subtitle {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #475569;
+    transform: translateY(-3.5rem);
+  }
+  @media (max-width: 900px) {
+    .banner { padding-left: 1.5rem; }
+  }
+  @media (max-width: 768px) {
+    .banner {
+      background-position: 70% center;
+      height: auto;
+      min-height: 100vh;
+      overflow: visible;
+      padding: 6.5rem 1rem 2rem;
+    }
+    .content {
+      max-width: 100%;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      gap: 1rem;
+    }
+    .logo { transform: none; height: 60px; }
+    h1 { transform: none; font-size: clamp(1.8rem, 7vw, 2.4rem); }
+    .banner-subtitle { transform: none; font-size: 0.9rem; }
+    .banner-actions { transform: none; }
+    .btn-primary, .btn-outline { flex: 1 1 auto; justify-content: center; text-align: center; }
+    .banner-features { flex-wrap: wrap; }
+    .banner-feature { flex: 1 1 calc(50% - 0.5rem); }
+    .banner-feature h4 { white-space: normal; }
+  }
+</style>

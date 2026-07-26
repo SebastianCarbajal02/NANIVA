@@ -34,7 +34,7 @@ const partners = [
 <section class="hero" style={`background-image: url('${banner.src}');`}>
   <div class="content reveal">
     <span class="tag">PLATAFORMA TODO EN UNO</span>
-    <h1>La plataforma<br /><span class="highlight">inteligente</span><br />para hacer crecer<br />tu empresa.</h1>
+    <h1>La plataforma <span class="highlight">inteligente</span><br />para hacer crecer<br />tu empresa.</h1>
     <p>Administra ventas, inventario, facturación electrónica,<br />ecommerce e inteligencia artificial <span class="p-highlight">desde una sola plataforma</span>.</p>
     <div class="hero-actions">
       <a href="https://wa.link/x4dnva" target="_blank" class="btn-primary hover-pop">
@@ -83,14 +83,14 @@ const partners = [
   }
   .hero-people {
     position: absolute;
-    right: clamp(-6%, calc(-4% - 0.0015 * (100vw - 606px)), -3%);
+    right: clamp(-6%, calc(-4% - 0.0015 * (100vw - 606px)), -5%);
     bottom: 0;
     width: 150%;
     height: auto;
     object-fit: contain;
     z-index: 1;
     pointer-events: none;
-    transform: translateY(clamp(1rem, calc(1rem + 0.0016 * (100vw - 606px)), 2rem));
+    transform: translateY(2rem);
   }
   .content {
     max-width: clamp(320px, calc(44vw - 120px), 580px);
@@ -258,10 +258,17 @@ const partners = [
     .hero { padding-left: 1.1rem; }
   }
   @media (max-width: 1368px) and (min-width: 606px) {
-    .tag { transform: translateY(-1rem);color: #2563eb; }
-    h1 { transform: translateY(-1rem); }
+    .tag {
+       transform: translateY(-2rem);color: #2563eb; }
+    h1 {
+    font-size: clamp(1rem, 3.2vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #0f172a;
+    width: 100%;
+  }
     .hero {
-      min-height: 480px;
+      min-height: 600px;
       padding: 7rem 3rem 2rem 5rem;
     }
     .hero-people {

@@ -210,7 +210,7 @@ const restaurantePlanProfesional = {
   badge: "Más Vendido",
   subtitleParts: ["Agiliza la atención a tus clientes", "y optimiza tus ", "Ventas"],
   tagline: "Vende sin Límites",
-  monthly: 149,
+  monthly: 118,
   includesNote: "Incluye todo lo del plan Básico más:",
   items: [
     "Facturación electrónica",
@@ -236,6 +236,7 @@ const catalogoPlans = [
     monthly: 79,
     productsNote: "Hasta 300 productos",
     featured: false,
+    href: "https://wa.link/m8m2xy", // TODO: reemplazar con el link definitivo
     items: [
       "Catálogo digital integrado al sistema",
       "Creación de catálogos PDF",
@@ -255,6 +256,7 @@ const catalogoPlans = [
     monthly: 118,
     productsNote: "Hasta 600 productos (2x imagen)",
     featured: true,
+    href: "https://wa.link/wwunpb", // TODO: reemplazar con el link definitivo
     items: [
       "Catálogo digital integrado al sistema",
       "Creación de catálogos PDF",
@@ -389,8 +391,8 @@ const otherProducts = [
         </div>
 
         <div class="erp-cta">
-          <a href="/contacto" class="btn-primary hover-pop">Comenzar ahora</a>
-          <a href="/contacto" class="btn-outline hover-pop">Solicitar demostración</a>
+          <a href="https://wa.link/c32qo2" class="btn-primary hover-pop">Comenzar ahora</a>
+          <a href="https://wa.link/x4dnva" class="btn-outline hover-pop">Solicitar demostración</a>
         </div>
 
         <div class="secure-note">
@@ -421,7 +423,7 @@ const otherProducts = [
         <span class="erp-badge alt">TU EMPRESA, TOTALMENTE ORGANIZADA</span>
         <h2>Módulos diseñados para<br /><span class="p-highlight">cada área</span> de tu negocio</h2>
         <p>Todo lo que necesitas en un solo sistema. Más control, más eficiencia, más crecimiento.</p>
-        <a href="/contacto" class="btn-primary hover-pop modules-head-cta">Comenzar ahora →</a>
+        <a href="https://wa.link/c32qo2" class="btn-primary hover-pop modules-head-cta">Comenzar ahora →</a>
       </div>
 
       <div class="modules-layout">
@@ -472,7 +474,7 @@ const otherProducts = [
             ))}
           </div>
 
-          <a href="/contacto" class="btn-primary hover-pop plan-sidebar-btn">Expande tu plan →</a>
+          <a href="https://wa.link/c32qo2" class="btn-primary hover-pop plan-sidebar-btn">Expande tu plan →</a>
 
         </aside>
       </div>
@@ -520,7 +522,9 @@ const otherProducts = [
     </div>
 
     <div class="banner-plan-cta">
-      <img src={bannerPlan.src} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="banner-plan-img" />
+      <a href="https://wa.link/c32qo2" target="_blank">
+        <img src={bannerPlan.src} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="banner-plan-img" />
+      </a>
       <div class="banner-plan-cta-overlay">
         <span class="banner-plan-sub">Sin compromiso. En menos de 30 minutos.</span>
       </div>
@@ -544,8 +548,8 @@ const otherProducts = [
         </div>
 
         <div class="erp-cta">
-          <a href="/contacto" class="btn-primary catalogo-btn-primary hover-pop">Comenzar ahora</a>
-          <a href="/contacto" class="btn-outline catalogo-btn-outline hover-pop">Solicitar demostración</a>
+          <a href="https://wa.link/9masnd" class="btn-primary catalogo-btn-primary hover-pop">Comenzar ahora</a>
+          <a href="https://wa.link/4n11hv" class="btn-outline catalogo-btn-outline hover-pop">Solicitar demostración</a>
         </div>
       </div>
 
@@ -595,7 +599,7 @@ const otherProducts = [
                 <span class="plan-tag-text">{plan.tag.text}</span>
               </div>
             )}
-            <a href="/contacto" class={`plan-cta-btn hover-pop${plan.featured ? " plan-cta-btn-filled" : ""}`}>Elegir plan</a>
+            <a href={plan.href} class={`plan-cta-btn hover-pop${plan.featured ? " plan-cta-btn-filled" : ""}`}>Elegir plan</a>
           </div>
         ))}
       </div>
@@ -633,7 +637,7 @@ const otherProducts = [
                   <span class="plan-tag-text">{plan.tag.text}</span>
                 </div>
               )}
-              <a href="/contacto" class={`plan-cta-btn hover-pop${plan.featured ? " plan-cta-btn-filled" : ""}`}>Elegir plan</a>
+              <a href={plan.href} class={`plan-cta-btn hover-pop${plan.featured ? " plan-cta-btn-filled" : ""}`}>Elegir plan</a>
             </div>
           );
         })}
@@ -696,10 +700,10 @@ const otherProducts = [
           <div class="compare-row compare-row-cta">
             <div class="compare-cell compare-cell-label"></div>
             <div class="compare-cell compare-cell-plan">
-              <a href="/contacto" class="plan-cta-btn hover-pop">Elegir plan</a>
+              <a href={catalogoPlans[0].href} class="plan-cta-btn hover-pop">Elegir plan</a>
             </div>
             <div class="compare-cell compare-cell-plan compare-cell-featured">
-              <a href="/contacto" class="plan-cta-btn plan-cta-btn-filled hover-pop">Elegir plan</a>
+              <a href={catalogoPlans[1].href} class="plan-cta-btn plan-cta-btn-filled hover-pop">Elegir plan</a>
             </div>
           </div>
         </div>
@@ -757,9 +761,10 @@ const otherProducts = [
     </div>
 
     <div class="container">
-      <a href="/contacto" class="catalogo-cta-banner reveal">
+      <div class="catalogo-cta-banner reveal">
         <img src={catalogoCtaBanner.src} alt="Empieza a vender por WhatsApp hoy mismo" class="catalogo-cta-banner-img" />
-      </a>
+        <a href="https://wa.link/4n11hv" class="catalogo-cta-banner-btn hover-pop pulse-ring whatsapp">Solicitar demostración aquí→</a>
+      </div>
     </div>
   </section>
 
@@ -780,8 +785,8 @@ const otherProducts = [
         </div>
 
         <div class="erp-cta">
-          <a href="/contacto" class="btn-primary restaurante-btn-primary hover-pop">Comenzar ahora</a>
-          <a href="/contacto" class="btn-outline restaurante-btn-outline hover-pop">Solicitar demostración</a>
+          <a href="https://wa.link/n2whmv" class="btn-primary restaurante-btn-primary hover-pop">Comenzar ahora</a>
+          <a href="https://wa.link/s6p6ci" class="btn-outline restaurante-btn-outline hover-pop">Solicitar demostración</a>
         </div>
       </div>
 
@@ -861,7 +866,7 @@ const otherProducts = [
             </span>
           </div>
 
-          <a href="/contacto" class="plan-cta-btn restaurante-cta-btn hover-pop">
+          <a href="https://wa.link/64jjx7" class="plan-cta-btn restaurante-cta-btn hover-pop">
             <span set:html={icon(restaurantePlanBasico.ctaIcon, "currentColor", 16)} /> {restaurantePlanBasico.cta}
           </a>
         </div>
@@ -902,7 +907,7 @@ const otherProducts = [
             <span class="restaurante-support-sub">{restaurantePlanProfesional.support.sub}</span>
           </div>
 
-          <a href="/contacto" class="plan-cta-btn plan-cta-btn-filled restaurante-cta-btn restaurante-cta-btn-filled hover-pop">
+          <a href="https://wa.link/57fb8p" class="plan-cta-btn plan-cta-btn-filled restaurante-cta-btn restaurante-cta-btn-filled hover-pop">
             <span set:html={icon(restaurantePlanProfesional.ctaIcon, "white", 16)} /> {restaurantePlanProfesional.cta}
           </a>
         </div>
@@ -949,7 +954,7 @@ const otherProducts = [
             </span>
           </div>
 
-          <a href="/contacto" class="plan-cta-btn restaurante-cta-btn hover-pop">
+          <a href="https://wa.link/57fb8p" class="plan-cta-btn restaurante-cta-btn hover-pop">
             <span set:html={icon(restaurantePlanBasico.ctaIcon, "currentColor", 16)} /> {restaurantePlanBasico.cta}
           </a>
         </div>
@@ -1061,7 +1066,7 @@ const otherProducts = [
 
             <div class="rc-cta-empty"></div>
             <div class="rc-cta">
-              <a href="/contacto" class="plan-cta-btn restaurante-cta-btn hover-pop">{restaurantePlanBasico.cta}</a>
+              <a href="https://wa.link/64jjx7" class="plan-cta-btn restaurante-cta-btn hover-pop">{restaurantePlanBasico.cta}</a>
             </div>
           </div>
 
@@ -1116,9 +1121,10 @@ const otherProducts = [
     </div>
 
     <div class="container">
-      <a href="/contacto" class="catalogo-cta-banner reveal">
+      <div class="catalogo-cta-banner reveal">
         <img src={restauranteCtaBanner.src} alt="Empieza a digitalizar tu restaurante hoy mismo" class="catalogo-cta-banner-img" />
-      </a>
+        <a href="https://wa.link/s6p6ci" class="catalogo-cta-banner-btn restaurante-cta-banner-btn hover-pop pulse-ring whatsapp">Solicitar información aquí→</a>
+      </div>
     </div>
   </section>
 
@@ -2603,6 +2609,7 @@ const otherProducts = [
 
   /* ===== Catálogo Digital — Banner CTA ===== */
   .catalogo-cta-banner {
+    position: relative;
     display: block;
     margin-top: 3rem;
     border-radius: 20px;
@@ -2612,6 +2619,37 @@ const otherProducts = [
     width: 100%;
     height: auto;
     display: block;
+  }
+  .catalogo-cta-banner-btn {
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    color: #16a34a;
+    font-weight: 700;
+    font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+    padding: 0.85rem 1.75rem;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+  }
+  .restaurante-cta-banner-btn {
+    color: #7c3aed;
+  }
+  @media (max-width: 700px) {
+    .catalogo-cta-banner-btn {
+      position: static;
+      transform: none;
+      display: flex;
+      justify-content: center;
+      margin: 0.75rem auto 0;
+      width: max-content;
+    }
   }
 
   .restaurante-feature-comandas {
