@@ -16,6 +16,7 @@ src/
 │   ├── CtaBannerIA.astro      # Banner CTA final de /ia
 │   ├── ContactoHero.astro     # Banner superior de /contacto (logo, h1, features, CTAs WhatsApp)
 │   ├── ContactoInfo.astro     # Formulario + tarjetas de info de contacto (teléfono, email, horario, dirección)
+│   ├── ServiciosBanner.astro  # Banner de /servicios (h1, descripción, stats)
 │   ├── ClientsTrust.astro     # Carousel de empresas clientes
 │   ├── Services.astro         # Tarjetas de servicios (8 items)
 │   ├── ServicesFull.astro     # Grid completo de servicios (usado en /servicios)
@@ -54,10 +55,11 @@ Cada página (`src/pages/*.astro`) debe limitarse a importar `BaseLayout`, `Nav`
 
 - `ia.astro` → `HeroIA`, `BenefitsIA`, `ComparisonIA`, `FeaturesIA`, `ResultadosClientes`, `ImplementacionIA`, `CtaBannerIA`.
 - `contacto.astro` → `ContactoHero`, `ContactoInfo`.
+- `servicios.astro` → `ServiciosBanner`, `ServicesFull` ✅
 
 **Por qué:** mantiene cada página corta y fácil de escanear, y aísla los estilos de cada sección en su propio archivo (menos scroll, menos riesgo de romper una sección al tocar otra).
 
-**Pendiente:** `planes.astro` y `servicios.astro` todavía tienen todo el markup y los estilos de sus secciones inline en el archivo de la página — no siguen esta convención todavía. Si se van a seguir tocando mucho, vale la pena dividirlos igual en componentes por sección.
+**Pendiente:** `planes.astro` todavía tiene todo el markup y los estilos de sus secciones inline en el archivo de la página — no sigue esta convención todavía. Si se va a seguir tocando, vale la pena dividirlo en componentes por sección.
 
 ---
 
@@ -296,7 +298,7 @@ assets/image/
 
 ### Sitio multi-página (Última actualización)
 - ✅ `Nav.astro` reconstruido con links a Inicio/Servicios/IA/Planes/Contáctanos, iconos SVG y estado activo por ruta
-- ✅ Nueva página **/servicios** (`servicios.astro`): banner con stats (+10,000 comprobantes, +1,500 negocios, 99.9% disponibilidad, soporte 24/7) + `ServicesFull.astro`
+- ✅ Nueva página **/servicios** (`servicios.astro`): refactorizada con componentes (`ServiciosBanner`, `ServicesFull`) siguiendo patrón de ia.astro. Banner con stats (+10,000 comprobantes, +1,500 negocios, 99.9% disponibilidad, soporte 24/7)
 - ✅ Nueva página **/planes** (`planes.astro`): banner con features (planes flexibles, seguridad, soporte) + grid de productos (ERP, Catálogo Digital, Ecommerce, IA)
 - ✅ Nueva página **/ia** (`ia.astro` + `HeroIA.astro`): solo Hero por ahora (badge, título, 4 iconos de features, 2 CTAs, mockup dashboard+persona a la derecha). Fondo reutiliza `fondo final1-01.webp` (el mismo del Hero de inicio) y el layout está acotado por `.container` igual que `erp-hero` de planes.astro (no full-bleed 100vh), para que la imagen no crezca desproporcionadamente al hacer zoom. Íconos fuente en `assets/image/IA/` (PNG originales); pendiente: sección de beneficios con los íconos restantes (bombilla, diana, personas, gráfico, check, monitor, cerebro) — falta diseño/copy
 - ✅ Nueva página **/contacto** (`contacto.astro`): banner con datos de contacto (teléfono, email, horario, dirección) + formulario que postea a `/api/contact`

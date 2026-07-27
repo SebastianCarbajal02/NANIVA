@@ -1,5 +1,6 @@
 ---
-import banner2 from '../assets/image/servicios/banner-services.webp';
+import fondoImg from '../assets/image/servicios/fondo-contactanos-01.webp';
+import personasImg from '../assets/image/servicios/servicios personas-02.webp';
 
 const stats = [
   { value: "+10,000", label: "Comprobantes emitidos" },
@@ -10,7 +11,8 @@ const stats = [
 ];
 ---
 
-<section class="banner" style={`background-image: url('${banner2.src}');`}>
+<section class="banner" style={`background-image: url('${fondoImg.src}');`}>
+  <img src={personasImg.src} alt="Personas usando servicios" class="personas-img" />
   <div class="content reveal">
     <h1>Impulsa tu negocio<br />con nuestas<br /><span class="highlight">Soluciones</span></h1>
     <p>Te asesoramos para que tengas el mejor<br />sistema que se adecue para tu NEGOCIO.</p>
@@ -33,22 +35,32 @@ const stats = [
   .banner {
     position: relative;
     min-height: 100vh;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     background-size: cover;
-    background-position: center 10%;
+    background-position: center;
     background-repeat: no-repeat;
-    padding: 8rem 8rem 2rem 4rem;
+    padding: 4rem;
+    gap: 2rem;
+  }
+
+  .personas-img {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: contain;
+    object-position: right center;
   }
 
   .content {
     max-width: 540px;
-    padding-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
     gap: 1.5rem;
+    z-index: 10;
   }
 
   h1 {
@@ -126,29 +138,26 @@ const stats = [
     font-weight: 700;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1200px) {
     .banner {
-      padding-left: 1.5rem;
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding: 3rem 2rem;
+    }
+
+    .personas-img {
+      max-height: 400px;
+      order: -1;
     }
   }
 
   @media (max-width: 768px) {
     .banner {
-      background-position: 70% center;
-      min-height: auto;
-      padding: 6.5rem 1rem 2rem;
+      padding: 2rem 1rem;
     }
 
     .content {
       max-width: 100%;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-    }
-
-    .logo {
-      transform: translateY(-1rem);
-      height: 64px;
     }
 
     h1 {
@@ -172,9 +181,13 @@ const stats = [
     .stat:nth-child(3) {
       flex: 1 1 calc(50% - 0.5rem);
     }
+
+    .personas-img {
+      max-height: 300px;
+    }
   }
 
-  @media (max-width: 380px) {
+  @media (max-width: 480px) {
     .stat,
     .stat:last-child,
     .stat:nth-child(1),
