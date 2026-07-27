@@ -1,5 +1,6 @@
 ---
-import banner from '../assets/image/contacto/banner-contactos.webp';
+import banner from '../assets/image/contacto/fondo contactanos-01.webp';
+import personaImg from '../assets/image/contacto/contactanos persona-02.webp';
 import logo from '../assets/image/shared/logos/logo.webp';
 import iconAcompanamiento from '../assets/image/contacto/iconcontc-02.png';
 import iconSoluciones from '../assets/image/contacto/iconcontc-03.png';
@@ -14,6 +15,7 @@ const bannerFeatures = [
 ];
 ---
 <section class="banner" style={`background-image: url('${banner.src}');`}>
+  <img src={personaImg.src} alt="Contacto persona" class="banner-persona" aria-hidden="true" />
   <div class="content reveal">
     <img src={logo.src} alt="Naniva" class="logo" />
     <h1>Contáctanos y<br /><span class="highlight">Digitaliza</span> tu Negocio</h1>
@@ -46,6 +48,19 @@ const bannerFeatures = [
     background-repeat: no-repeat;
     padding: 8rem 1.5rem 2rem 4rem;
   }
+
+  .banner-persona {
+    position: absolute;
+    right: -3rem;
+    bottom: 0;
+    max-width: 60%;
+    height: auto;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
+    transform: translateY(3rem);
+  }
+
   .content {
     max-width: 540px;
     display: flex;
@@ -142,6 +157,11 @@ const bannerFeatures = [
     color: #475569;
     transform: translateY(-3.5rem);
   }
+  @media (max-width: 1368px) and (min-width: 606px) {
+
+     
+
+    }
   @media (max-width: 900px) {
     .banner { padding-left: 1.5rem; }
   }
