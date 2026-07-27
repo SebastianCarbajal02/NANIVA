@@ -4,6 +4,7 @@ import catFeatureShare from '../assets/image/planes/catalogo/iconcatgl-18.png';
 import catFeatureWhatsapp from '../assets/image/planes/catalogo/iconcatgl-19.png';
 import catFeatureQuote from '../assets/image/planes/catalogo/iconcatgl-16.png';
 import catFeatureGrowth from '../assets/image/planes/catalogo/iconcatgg-16.png';
+import mensajeroIcon from '../assets/image/servicios/full/mensajero.webp';
 import iconNegocioFerreterias from '../assets/image/planes/tipo-negocio/iconocatgg-03.jpg.jpeg';
 import iconNegocioDistribuidoras from '../assets/image/planes/tipo-negocio/iconocatgg-04.jpg.jpeg';
 import iconNegocioTiendas from '../assets/image/planes/tipo-negocio/iconocatgg-05.jpg.jpeg';
@@ -294,7 +295,7 @@ const negociosCategories = [
       </div>
 
       <aside class="compare-side">
-        <span class="compare-side-icon" set:html={icon("help", "#2563eb", 40)} />
+        <img src={mensajeroIcon.src} alt="Mensajero" class="compare-side-icon" />
         <h3>¿Necesitas más productos?</h3>
         <p>Puedes ampliar la cantidad de productos cuando tu negocio lo necesite.</p>
         <a href="/contacto" class="btn-primary hover-pop compare-side-btn">Más información</a>
@@ -721,6 +722,52 @@ const negociosCategories = [
     border-color: #16a34a;
   }
 
+    @media (max-width: 1368px) and (min-width: 606px) {
+
+      .erp-detail {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    margin-top: 4rem;
+}
+
+    .erp-mockup-img { width: 100%;
+    margin-left:3rem}
+
+    .erp-hero-copy h2 {
+    font-size: clamp(2rem, 3.5vw, 4rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.75rem;
+    line-height: 1.1;
+  }
+
+  .erp-hero-sub {
+    font-size: 1.2rem;
+    color: #475569;
+    margin: 0 0 1.5rem;
+    font-weight: 600;
+  }
+  .catalogo-features{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+    width: 120%;
+} 
+.catalogo-feature-img:nth-child(1) {
+    transform: scale(1.12);
+  }
+
+  .catalogo-feature-img:nth-child(3) {
+    margin-top: 0.3rem;
+    transform: scale(1.03);
+  }
+
+  .catalogo-feature-img:nth-child(2) {
+    transform: scale(1.12);
+  }
+
+    }
   @media (max-width: 720px) {
     .catalogo-plans-grid { grid-template-columns: 1fr; }
   }
@@ -836,12 +883,18 @@ const negociosCategories = [
   }
 
   .compare-side-icon {
+    width: 80px;
+    height: 80px;
     background: white;
     border-radius: 50%;
     padding: 1rem;
     display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
     margin-bottom: 0.5rem;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(25%) sepia(86%) saturate(2057%) hue-rotate(208deg) brightness(104%) contrast(106%);
   }
 
   .compare-side h3 {

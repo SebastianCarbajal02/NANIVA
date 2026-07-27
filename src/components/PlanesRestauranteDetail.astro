@@ -3,6 +3,7 @@ import restauranteMockup from '../assets/image/planes/restaurante/chef2232-03.we
 import restauranteFeatureVentas from '../assets/image/planes/restaurante/iconrestaur-16.png';
 import restauranteFeatureComandas from '../assets/image/planes/restaurante/iconrestaur-17.png';
 import restauranteFeatureCaja from '../assets/image/planes/restaurante/iconrestaur-18.png';
+import mensajeroIcon from '../assets/image/servicios/full/mensajero.webp';
 import iconMrestVentas from '../assets/image/planes/restaurante/icommm1-09.png';
 import iconMrestBusqueda from '../assets/image/planes/restaurante/icommm1-10.png';
 import iconMrestReportes from '../assets/image/planes/restaurante/icommm1-11.png';
@@ -446,7 +447,7 @@ const restaurantePlanProfesional = {
       </div>
 
       <aside class="compare-side restaurante-compare-side">
-        <span class="compare-side-icon restaurante-compare-side-icon" set:html={icon("help", "#7c3aed", 40)} />
+        <img src={mensajeroIcon.src} alt="Mensajero" class="compare-side-icon restaurante-compare-side-icon" />
         <h3>¿Necesitas más productos?</h3>
         <p>Puedes ampliar la cantidad de productos cuando tu negocio lo necesite.</p>
         <a href="/contacto" class="btn-primary restaurante-btn-primary hover-pop compare-side-btn">Más información</a>
@@ -1131,12 +1132,18 @@ const restaurantePlanProfesional = {
   }
 
   .compare-side-icon {
+    width: 80px;
+    height: 80px;
     background: white;
     border-radius: 50%;
     padding: 1rem;
     display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
     margin-bottom: 0.5rem;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(25%) sepia(86%) saturate(2057%) hue-rotate(208deg) brightness(104%) contrast(106%);
   }
 
   .restaurante-compare-side-icon {
