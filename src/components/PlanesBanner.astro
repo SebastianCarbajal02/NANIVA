@@ -1,6 +1,7 @@
 ---
 import banner from '../assets/image/planes/compartido/fondfo1-01.webp';
 import bannerPersona from '../assets/image/planes/compartido/persona2f-02.webp';
+import estrella from '../assets/image/planes/compartido/estrella.webp';
 import iconFeatureFlex from '../assets/image/planes/compartido/iconbnn2-07.webp';
 import iconFeatureGrowth from '../assets/image/planes/compartido/iconbnn2-06.webp';
 import iconFeatureShield from '../assets/image/planes/compartido/iconbnn2-05.webp';
@@ -29,7 +30,7 @@ const planFeatures = [
       ))}
     </div>
     <div class="banner-note">
-      <span class="note-icon">⭐</span>
+      <img src={estrella.src} alt="Estrella" class="note-icon" />
       <span>Elige el plan ideal y lleva tu negocio<br /><strong>al siguiente nivel ↗</strong></span>
     </div>
   </div>
@@ -157,24 +158,19 @@ const planFeatures = [
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    background: rgba(219, 234, 254, 0.9);
+    background: #ffffff;
     padding: 0.75rem 1.25rem;
     border-radius: 14px;
     font-size: 0.85rem;
     color: #1e3a8a;
+    border: 1px solid #e2e8f0;
   }
 
   .note-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 999px;
-    background: #2563eb;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
     flex-shrink: 0;
-    font-size: 1rem;
   }
 
   .banner-note strong {
