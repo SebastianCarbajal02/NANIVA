@@ -35,24 +35,25 @@ const stats = [
   .banner {
     position: relative;
     min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     align-items: center;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     padding: 4rem;
-    gap: 2rem;
+    overflow: hidden;
   }
 
   .personas-img {
-    width: 100%;
+    position: absolute;
+    right: clamp(-6%, calc(-4% - 0.0015 * (100vw - 606px)), -5%);
+    bottom: 0;
+    width: 150%;
     height: auto;
-    max-height: 600px;
     object-fit: contain;
-    object-position: center;
-    grid-column: 2;
-    grid-row: 1;
+    z-index: 1;
+    pointer-events: none;
+    transform: translateY(2rem);
   }
 
   .content {
@@ -63,8 +64,6 @@ const stats = [
     text-align: left;
     gap: 1.5rem;
     z-index: 10;
-    grid-column: 1;
-    grid-row: 1;
   }
 
   h1 {
@@ -144,14 +143,13 @@ const stats = [
 
   @media (max-width: 1200px) {
     .banner {
-      grid-template-columns: 1fr;
       min-height: auto;
       padding: 3rem 2rem;
     }
 
     .personas-img {
-      max-height: 400px;
-      order: -1;
+      width: 200%;
+      right: clamp(-30%, calc(-20% - 0.0015 * (100vw - 606px)), -15%);
     }
   }
 
