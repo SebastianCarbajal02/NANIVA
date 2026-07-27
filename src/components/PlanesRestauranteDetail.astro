@@ -3,7 +3,7 @@ import restauranteMockup from '../assets/image/planes/restaurante/chef2232-03.we
 import restauranteFeatureVentas from '../assets/image/planes/restaurante/iconrestaur-16.png';
 import restauranteFeatureComandas from '../assets/image/planes/restaurante/iconrestaur-17.png';
 import restauranteFeatureCaja from '../assets/image/planes/restaurante/iconrestaur-18.png';
-import mensajeroIcon from '../assets/image/servicios/full/mensajero-alt.webp';
+import mensajeroIcon from '../assets/image/servicios/full/mensajero (1).png';
 import iconMrestVentas from '../assets/image/planes/restaurante/icommm1-09.png';
 import iconMrestBusqueda from '../assets/image/planes/restaurante/icommm1-10.png';
 import iconMrestReportes from '../assets/image/planes/restaurante/icommm1-11.png';
@@ -1141,6 +1141,7 @@ const restaurantePlanProfesional = {
 
   .restaurante-compare-side-icon {
     box-shadow: 0 8px 20px rgba(124, 58, 237, 0.14);
+    filter: brightness(0) saturate(100%) invert(25%) sepia(86%) saturate(2057%) hue-rotate(268deg) brightness(104%) contrast(106%);
   }
 
   .compare-side h3 {
@@ -1268,7 +1269,24 @@ const restaurantePlanProfesional = {
     .restaurante-feature-img:nth-child(2) {
       transform: scale(1.12);
     }
+    .catalogo-features{
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+    width: 120%;
+    
   }
+  .restaurante-highlights{
+    background: linear-gradient(160deg, #f5f3ff, #fff);
+    border: 1px solid #ede9fe;
+    border-radius: 20px;
+    padding: 2rem 2.5rem 2.25rem;
+    box-shadow: 0 12px 32px #7c3aed14;
+    width: 110%;
+    margin-left: -3.6rem;
+}
+}
 
   .product-detail {
     display: none;
