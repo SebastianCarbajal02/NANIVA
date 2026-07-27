@@ -1,0 +1,297 @@
+---
+import banner from '../assets/image/planes/compartido/fondfo1-01.webp';
+import bannerPersona from '../assets/image/planes/compartido/persona2f-02.webp';
+import iconFeatureFlex from '../assets/image/planes/compartido/iconbnn2-07.webp';
+import iconFeatureGrowth from '../assets/image/planes/compartido/iconbnn2-06.webp';
+import iconFeatureShield from '../assets/image/planes/compartido/iconbnn2-05.webp';
+import iconFeatureSupport from '../assets/image/planes/compartido/iconbnn2-04.webp';
+
+const planFeatures = [
+  { iconImg: iconFeatureFlex, title: "Planes flexibles", desc: "para cada necesidad" },
+  { iconImg: iconFeatureGrowth, title: "Impulsa", desc: "tu crecimiento" },
+  { iconImg: iconFeatureShield, title: "Seguridad y", desc: "confianza" },
+  { iconImg: iconFeatureSupport, title: "Soporte", desc: "especializado" },
+];
+---
+
+<section class="banner" style={`background-image: url('${banner.src}');`}>
+  <div class="content reveal">
+    <div class="logo-spacer" aria-hidden="true"></div>
+    <h1>Descubre nuestros<br /><span class="highlight">PLANES</span></h1>
+    <p>La solución perfecta para<br />hacer <span class="p-highlight">crecer tu negocio</span></p>
+    <div class="plan-features">
+      {planFeatures.map((f) => (
+        <div class="plan-feature">
+          <span class="plan-feature-icon icon-bounce">
+            <img src={f.iconImg.src} alt={f.title} class="plan-feature-icon-img" />
+          </span>
+        </div>
+      ))}
+    </div>
+    <div class="banner-note">
+      <span class="note-icon">⭐</span>
+      <span>Elige el plan ideal y lleva tu negocio<br /><strong>al siguiente nivel ↗</strong></span>
+    </div>
+  </div>
+  <img src={bannerPersona.src} alt="" class="banner-persona" aria-hidden="true" />
+</section>
+
+<style>
+  .banner {
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 3.5rem 5rem 2rem 8rem;
+  }
+
+  .banner-persona {
+    position: absolute;
+    right: -10%;
+    bottom: 0;
+    height: 91vh;
+    width: auto;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
+    transform: translateY(-1rem);
+  }
+
+  .content {
+    max-width: 680px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 0.65rem;
+  }
+
+  .logo-spacer {
+    height: 4rem;
+    width: 1px;
+  }
+
+  .content h1 {
+    font-size: clamp(4rem, 4vw, 4rem);
+    font-weight: 798;
+    line-height: 1.15;
+    color: #0f172a;
+    transform: translateY(-2rem);
+  }
+
+  .content .highlight {
+    color: #007bff;
+  }
+
+  .content p {
+    font-size: 2rem;
+    font-weight: 650;
+    color: #334155;
+    line-height: 1;
+    margin-bottom: 2rem;
+  }
+
+  .p-highlight {
+    color: #2563eb;
+  }
+
+  .plan-features {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .plan-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 108px;
+    text-align: center;
+  }
+
+  .plan-feature-icon {
+    width: 108px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    overflow: visible;
+  }
+
+  .plan-feature-icon-img {
+    width: 150%;
+    height: 130%;
+    object-fit: contain;
+    animation: icon-float 3s ease-in-out infinite;
+    transition: filter 0.3s ease;
+  }
+
+  .plan-feature:nth-child(1) .plan-feature-icon-img { animation-delay: 0s; }
+  .plan-feature:nth-child(2) .plan-feature-icon-img { animation-delay: 0.3s; }
+  .plan-feature:nth-child(3) .plan-feature-icon-img { animation-delay: 0.6s; }
+  .plan-feature:nth-child(4) .plan-feature-icon-img { animation-delay: 0.9s; }
+
+  .plan-feature:hover .plan-feature-icon-img {
+    animation: icon-wiggle 0.6s ease;
+    filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.4));
+  }
+
+  .plan-feature-label {
+    font-size: 0.8rem;
+    font-weight: 640;
+    color: #0f172a;
+    line-height: 1.3;
+  }
+
+  .banner-note {
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(219, 234, 254, 0.9);
+    padding: 0.75rem 1.25rem;
+    border-radius: 14px;
+    font-size: 0.85rem;
+    color: #1e3a8a;
+  }
+
+  .note-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: #2563eb;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+  }
+
+  .banner-note strong {
+    color: #2563eb;
+  }
+
+  @keyframes icon-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes icon-wiggle {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  @media (max-width: 1200px) {
+    .banner {
+      padding: 2rem 3rem 2rem 4rem;
+    }
+
+    .banner-persona {
+      height: 80vh;
+      right: -5%;
+    }
+
+    .content h1 {
+      font-size: clamp(2.5rem, 3.5vw, 3.5rem);
+    }
+
+    .content p {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .banner {
+      padding: 2rem 1.5rem;
+      min-height: auto;
+    }
+
+    .banner-persona {
+      height: 60vh;
+      right: -15%;
+      opacity: 0.3;
+    }
+
+    .content {
+      max-width: 100%;
+    }
+
+    .content h1 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      transform: none;
+    }
+
+    .content p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .plan-features {
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .plan-feature {
+      width: 80px;
+    }
+
+    .plan-feature-icon {
+      width: 80px;
+      height: 70px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .banner {
+      padding: 1.5rem 1rem;
+    }
+
+    .banner-persona {
+      display: none;
+    }
+
+    .content h1 {
+      font-size: clamp(1.4rem, 6vw, 2rem);
+    }
+
+    .content p {
+      font-size: 1rem;
+    }
+
+    .plan-features {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .plan-feature {
+      width: 70px;
+    }
+
+    .plan-feature-icon {
+      width: 70px;
+      height: 60px;
+    }
+
+    .banner-note {
+      font-size: 0.75rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .note-icon {
+      width: 28px;
+      height: 28px;
+      font-size: 0.8rem;
+    }
+  }
+</style>

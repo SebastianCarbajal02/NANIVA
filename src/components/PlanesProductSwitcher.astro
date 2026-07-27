@@ -1,0 +1,209 @@
+---
+import iconERP from '../assets/image/planes/compartido/icondd-05.webp';
+import iconCatalogo from '../assets/image/planes/compartido/icondd-06.webp';
+import iconEcommerce from '../assets/image/planes/compartido/icondd-07.webp';
+import iconIA from '../assets/image/planes/compartido/icondd-08.webp';
+
+const products = [
+  { icon: iconERP, title: "ERP", desc: "Sistema principal", anchor: "erp" },
+  { icon: iconCatalogo, title: "Catálogo Digital", desc: "Catálogo en WhatsApp", anchor: "catalogo-digital" },
+  { icon: iconEcommerce, title: "Restaurante", desc: "Sistema de gestión", anchor: "ecommerce" },
+  { icon: iconIA, title: "IA", desc: "Inteligencia de negocio", anchor: "ia" },
+];
+---
+
+<section class="products-section">
+  <div class="container">
+    <div class="products-head reveal">
+      <span class="erp-badge">ELIGE TU SOLUCIÓN</span>
+      <h2>Elige la solución ideal<br />para <span class="p-highlight">hacer crecer tu negocio</span></h2>
+      <p>Selecciona el módulo que mejor se adapta a tus necesidades<br />y comienza a <span class="products-head-link">transformar tu empresa</span>.</p>
+    </div>
+    <div class="products-grid">
+      {products.map((product, i) => (
+        <a
+          href={`#${product.anchor}`}
+          class={`product-card reveal${i === 0 ? " is-active" : ""}`}
+          data-target={product.anchor}
+          style={`transition-delay:${i * 0.1}s`}
+        >
+          <img src={product.icon.src} alt={product.title} class="product-icon" />
+          <h3>{product.title}</h3>
+          <p>{product.desc}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .products-section {
+    padding: 1rem 1rem 2.5rem;
+    background: #ffffff;
+    margin-top: 1rem;
+  }
+
+  .products-head {
+    position: relative;
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto 2rem;
+    padding: 1rem 1rem;
+  }
+
+  .products-head::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #f8f9fc, #eef2fb);
+    border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+    z-index: -1;
+  }
+
+  .products-head h2 {
+    font-size: clamp(2.3rem, 4.2vw, 4.5rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    color: #0f172a;
+    line-height: 1.15;
+    margin: 0.9rem 0 0.75rem;
+  }
+
+  .products-head p {
+    color: #64748b;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    font-weight: 700;
+  }
+
+  .products-head-link {
+    color: #2563eb;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .p-highlight {
+    color: #2563eb;
+  }
+
+  .erp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #eef4ff;
+    color: #2563eb;
+    font-size: 1.1rem;
+    font-weight: 750;
+    letter-spacing: 0.03em;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    margin-top: 0.5rem;
+  }
+
+  .products-section .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .product-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.75rem 1.25rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .product-card.is-active {
+    border: 2px solid #2563eb;
+    background: #f0f7ff;
+  }
+
+  .product-card:hover {
+    border-color: #2563eb;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .product-icon {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    animation: icon-pulse 4s ease-in-out infinite;
+  }
+
+  .product-card:nth-child(1) .product-icon { animation-delay: 0s; }
+  .product-card:nth-child(2) .product-icon { animation-delay: 0.5s; }
+  .product-card:nth-child(3) .product-icon { animation-delay: 1s; }
+  .product-card:nth-child(4) .product-icon { animation-delay: 1.5s; }
+
+  .product-card:hover .product-icon {
+    animation: icon-wiggle 0.6s ease;
+    filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.4));
+  }
+
+  .product-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .product-card p {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  @keyframes icon-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.85; }
+  }
+
+  @keyframes icon-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(-6deg); }
+    40% { transform: rotate(6deg); }
+    60% { transform: rotate(-4deg); }
+    80% { transform: rotate(4deg); }
+  }
+
+  @media (max-width: 1100px) {
+    .products-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 100%; }
+    .product-card { padding: 1.5rem 1rem; }
+    .product-icon { width: 64px; height: 64px; }
+  }
+
+  @media (max-width: 900px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .products-grid { grid-template-columns: 1fr; }
+    .products-section { padding: 2.5rem 1rem; }
+    .product-card { padding: 1.5rem 1rem; }
+    .product-icon { width: 60px; height: 60px; }
+    .product-card h3 { font-size: 0.95rem; }
+    .products-head h2 { white-space: normal; font-size: clamp(1.6rem, 7vw, 2.2rem); }
+  }
+</style>

@@ -1,0 +1,1231 @@
+---
+import restauranteMockup from '../assets/image/planes/restaurante/chef2232-03.webp';
+import restauranteFeatureVentas from '../assets/image/planes/restaurante/iconrestaur-16.png';
+import restauranteFeatureComandas from '../assets/image/planes/restaurante/iconrestaur-17.png';
+import restauranteFeatureCaja from '../assets/image/planes/restaurante/iconrestaur-18.png';
+import iconMrestVentas from '../assets/image/planes/restaurante/icommm1-09.png';
+import iconMrestBusqueda from '../assets/image/planes/restaurante/icommm1-10.png';
+import iconMrestReportes from '../assets/image/planes/restaurante/icommm1-11.png';
+import iconMrestClientes from '../assets/image/planes/restaurante/icommm1-12.png';
+import iconcaja from '../assets/image/planes/restaurante/iconnnrets-16.png';
+import restauranteCtaBanner from '../assets/image/planes/restaurante/banner-ecoomer-abajo.webp';
+import iconMrestCaja from '../assets/image/planes/restaurante/icommm1-13.png';
+import iconMrestFacil from '../assets/image/planes/restaurante/f1icon-14.png';
+
+// Icon generator function
+function icon(name: string, color: string = "#2563eb", size = 22) {
+  const icons: Record<string, string> = {
+    cloche: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h18"/><path d="M4 18a8 8 0 0 1 16 0"/><path d="M12 6v2"/><circle cx="12" cy="4" r="1"/></svg>`,
+    trend: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></svg>`,
+    filetext: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>`,
+    box: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>`,
+    user: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></svg>`,
+    printer: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="4" y="9" width="16" height="8" rx="1"/><path d="M6 17v4h12v-4"/></svg>`,
+    users: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    search: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>`,
+    headset: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-3a9 9 0 0 1 18 0v3"/><path d="M21 15a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h3Zm-18 0a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H3Z"/><path d="M21 15v1a4 4 0 0 1-4 4h-4"/></svg>`,
+    rocket: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>`,
+    checkcolor: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`,
+    help: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9a4 4 0 1 1 5.5 3.7c-.9.4-1.5 1.3-1.5 2.3v.5"/><path d="M12 18.5h.01"/></svg>`,
+  };
+  return icons[name] ?? "";
+}
+
+const CATALOGO_ANNUAL_DISCOUNT = 0.2;
+function annualPricing(monthly: number) {
+  const fullYear = monthly * 12;
+  const discounted = Math.round(fullYear * (1 - CATALOGO_ANNUAL_DISCOUNT));
+  return { fullYear, discounted, savings: fullYear - discounted };
+}
+
+const restauranteFeatures = [
+  { img: restauranteFeatureVentas, alt: "Registro de Ventas" },
+  { img: restauranteFeatureComandas, alt: "Comandas y pre comandas", className: "restaurante-feature-comandas" },
+  { img: restauranteFeatureCaja, alt: "Control de Caja" },
+  { img: iconcaja, alt: "Control de Stock" },
+];
+
+const restauranteHighlights = [
+  { img: iconMrestVentas, title: "Registro de ventas", sub: "detallado" },
+  { img: iconMrestBusqueda, title: "Búsqueda", sub: "RUC / DNI" },
+  { img: iconMrestReportes, title: "Reportes de ventas", sub: "y productos" },
+  { img: iconMrestClientes, title: "Historial de clientes", sub: "y preferencias" },
+  { img: iconMrestCaja, title: "Control de caja", sub: "y cierres" },
+  { img: iconMrestFacil, title: "Fácil de usar", sub: "e intuitivo" },
+];
+
+const restaurantePlanBasico = {
+  name: "Plan Básico",
+  subtitle: "Ideal para pequeños restaurantes",
+  monthly: 79,
+  highlight: { icon: "trend", text: "Aumenta tus ganancias,", strong: "gestiona tu restaurante con COMANDAS" },
+  productsNote: { text: "Vende hasta", strong: "500", suffix: "(Comprobantes Electrónicos)" },
+  items: [
+    { icon: "filetext", text: "Nota de Ventas" },
+    { icon: "filetext", text: "Boletas" },
+    { icon: "box", text: "Control de Stock" },
+    { icon: "user", text: "Tomador de Pedidos" },
+    { icon: "printer", text: "Impresión de Comandas" },
+    { icon: "printer", text: "Impresión de Pre-Cuentas" },
+    { icon: "users", text: "3 Usuarios" },
+    { icon: "trend", text: "Registro de Ventas Detallado" },
+    { icon: "search", text: "Busqueda RUC/DNI", sub: "(Interconectado con SUNAT/RENIEC)" },
+  ],
+  support: { text: "SOPORTE PREMIUM", sub: "LLAMADA Y WHATSAPP" },
+  cta: "Empezar ahora",
+  ctaIcon: "cart",
+};
+
+const restaurantePlanProfesional = {
+  name: "Plan Profesional",
+  badge: "Más Vendido",
+  subtitleParts: ["Agiliza la atención a tus clientes", "y optimiza tus ", "Ventas"],
+  tagline: "Vende sin Límites",
+  monthly: 118,
+  includesNote: "Incluye todo lo del plan Básico más:",
+  items: [
+    "Facturación electrónica",
+    "Nota de Ventas",
+    "Boletas",
+    "Gestión de Inventario",
+    "Tomador de Pedidos",
+    "Impresión de Comandas",
+    "Impresión de Pre-Cuentas",
+    "Usuarios ilimitados",
+    "Modificadores de Complementos",
+    "Registro de Ventas Detallado",
+    { text: "Busqueda RUC/DNI", sub: "(Interconectado con SUNAT/RENIEC)" },
+  ],
+  support: { text: "SOPORTE PREMIUM", sub: "LLAMADA Y WHATSAPP" },
+  cta: "Empezar ahora",
+  ctaIcon: "rocket",
+};
+---
+
+<section id="ecommerce" class="erp-detail restaurante-detail product-detail">
+  <div class="container erp-hero">
+    <div class="erp-hero-copy reveal">
+      <span class="erp-badge restaurante-badge">
+        <span set:html={icon("cloche", "#7c3aed", 15)} />
+        Restaurante
+      </span>
+      <h2>Sistema <span class="p-highlight restaurante-highlight">Restaurantes</span></h2>
+      <p class="erp-hero-sub">Vender más a través de todos los canales. Comparte tu catálogo, recibe pedidos y convierte consultas en ventas.</p>
+
+      <div class="catalogo-features">
+        {restauranteFeatures.map((f) => (
+          <img src={f.img.src} alt={f.alt} class={`catalogo-feature-img ${f.className ?? ""}`} />
+        ))}
+      </div>
+
+      <div class="erp-cta">
+        <a href="https://wa.link/n2whmv" class="btn-primary restaurante-btn-primary hover-pop">Comenzar ahora</a>
+        <a href="https://wa.link/s6p6ci" class="btn-outline restaurante-btn-outline hover-pop">Solicitar demostración</a>
+      </div>
+    </div>
+
+    <div class="erp-hero-media reveal">
+      <img src={restauranteMockup.src} alt="Sistema Restaurantes Naniva" class="erp-mockup-img restaurante-mockup-img" />
+    </div>
+  </div>
+
+  <div class="container restaurante-highlights-wrap reveal">
+    <div class="restaurante-highlights">
+      <h3 class="restaurante-highlights-title">
+        <span class="audience-dash restaurante-dash"></span> Todo lo que <span class="restaurante-highlight">tu restaurante</span> necesita <span class="audience-dash restaurante-dash"></span>
+      </h3>
+      <div class="restaurante-highlights-row">
+        {restauranteHighlights.map((h) => (
+          <div class="restaurante-highlight-item">
+            <span class="restaurante-highlight-icon">
+              <img src={h.img.src} alt={h.title} />
+            </span>
+            <span class="restaurante-highlight-dot"></span>
+            <strong>{h.title}</strong>
+            <span>{h.sub}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="container restaurante-pricing reveal" data-billing-scope="restaurante">
+    <div class="catalogo-pricing-head">
+      <span class="erp-badge restaurante-pricing-badge">Planes para cada tipo de restaurante</span>
+      <h2 class="restaurante-pricing-title">Elige el plan ideal para tu negocio</h2>
+    </div>
+
+    <div class="billing-toggle restaurante-billing-toggle">
+      <button type="button" class="billing-toggle-btn restaurante-toggle-btn is-active" data-billing-btn="mensual">Mensual</button>
+      <button type="button" class="billing-toggle-btn restaurante-toggle-btn" data-billing-btn="anual">Anual</button>
+    </div>
+    <p class="billing-savings-note restaurante-savings-note" data-billing-note="anual">Ahorra {Math.round(CATALOGO_ANNUAL_DISCOUNT * 100)}% pagando anual</p>
+
+    <div class="restaurante-plans-grid billing-panel is-active" data-billing-panel="mensual">
+      <div class="restaurante-plan-card">
+        <span class="restaurante-plan-icon" set:html={icon("cloche", "#7c3aed", 26)} />
+        <h3 class="restaurante-plan-name">{restaurantePlanBasico.name}</h3>
+        <p class="restaurante-plan-subtitle">{restaurantePlanBasico.subtitle}</p>
+
+        <div class="restaurante-highlight-box">
+          <span set:html={icon(restaurantePlanBasico.highlight.icon, "#7c3aed", 18)} />
+          <span>{restaurantePlanBasico.highlight.text} <strong>{restaurantePlanBasico.highlight.strong}</strong></span>
+        </div>
+
+        <div class="restaurante-plan-price-block">
+          <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span> {restaurantePlanBasico.monthly}<span class="plan-price-unit">por mes</span></div>
+        </div>
+
+        <div class="restaurante-note-box">
+          {restaurantePlanBasico.productsNote.text} <strong>{restaurantePlanBasico.productsNote.strong}</strong> {restaurantePlanBasico.productsNote.suffix}
+        </div>
+
+        <ul class="restaurante-plan-items">
+          {restaurantePlanBasico.items.map((it) => (
+            <li>
+              <span class="restaurante-item-icon" set:html={icon(it.icon, "#7c3aed", 17)} />
+              <span>
+                {it.text}
+                {it.sub && <span class="plan-item-sub restaurante-item-sub">{it.sub}</span>}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="restaurante-support-row">
+          <span set:html={icon("headset", "#7c3aed", 18)} />
+          <span>
+            <strong>{restaurantePlanBasico.support.text}</strong>
+            <span class="restaurante-support-sub">{restaurantePlanBasico.support.sub}</span>
+          </span>
+        </div>
+
+        <a href="https://wa.link/64jjx7" class="plan-cta-btn restaurante-cta-btn hover-pop">
+          <span set:html={icon(restaurantePlanBasico.ctaIcon, "currentColor", 16)} /> {restaurantePlanBasico.cta}
+        </a>
+      </div>
+
+      <div class="restaurante-plan-card restaurante-plan-card-featured">
+        <span class="plan-badge restaurante-plan-badge">★ {restaurantePlanProfesional.badge}</span>
+        <h3 class="restaurante-plan-name">{restaurantePlanProfesional.name}</h3>
+        <p class="restaurante-plan-subtitle">
+          {restaurantePlanProfesional.subtitleParts[0]}<br />
+          {restaurantePlanProfesional.subtitleParts[1]}<strong>{restaurantePlanProfesional.subtitleParts[2]}</strong>
+        </p>
+
+        <div class="restaurante-tagline">
+          <span class="audience-dash restaurante-dash"></span>
+          <span set:html={icon("rocket", "#7c3aed", 16)} /> {restaurantePlanProfesional.tagline} <span set:html={icon("rocket", "#7c3aed", 16)} />
+          <span class="audience-dash restaurante-dash"></span>
+        </div>
+
+        <div class="restaurante-plan-price-block">
+          <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span> {restaurantePlanProfesional.monthly}<span class="plan-price-unit">por mes</span></div>
+        </div>
+
+        <p class="restaurante-includes-note">{restaurantePlanProfesional.includesNote}</p>
+
+        <ul class="restaurante-plan-items restaurante-plan-items-check">
+          {restaurantePlanProfesional.items.map((it) => (
+            <li>
+              <span class="restaurante-item-icon" set:html={icon("checkcolor", "#7c3aed", 16)} />
+              <span>
+                {typeof it === "string" ? it : (<>{it.text}<span class="plan-item-sub restaurante-item-sub">{it.sub}</span></>)}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="restaurante-support-row">
+          <strong>{restaurantePlanProfesional.support.text}</strong>
+          <span class="restaurante-support-sub">{restaurantePlanProfesional.support.sub}</span>
+        </div>
+
+        <a href="https://wa.link/57fb8p" class="plan-cta-btn plan-cta-btn-filled restaurante-cta-btn restaurante-cta-btn-filled hover-pop">
+          <span set:html={icon(restaurantePlanProfesional.ctaIcon, "white", 16)} /> {restaurantePlanProfesional.cta}
+        </a>
+      </div>
+    </div>
+
+    <div class="restaurante-plans-grid billing-panel" data-billing-panel="anual">
+      <div class="restaurante-plan-card">
+        <span class="restaurante-plan-icon" set:html={icon("cloche", "#7c3aed", 26)} />
+        <h3 class="restaurante-plan-name">{restaurantePlanBasico.name}</h3>
+        <p class="restaurante-plan-subtitle">{restaurantePlanBasico.subtitle}</p>
+
+        <div class="restaurante-highlight-box">
+          <span set:html={icon(restaurantePlanBasico.highlight.icon, "#7c3aed", 18)} />
+          <span>{restaurantePlanBasico.highlight.text} <strong>{restaurantePlanBasico.highlight.strong}</strong></span>
+        </div>
+
+        <div class="restaurante-plan-price-block">
+          <span class="plan-price-strike">S/ {annualPricing(restaurantePlanBasico.monthly).fullYear.toLocaleString("es-PE")}</span>
+          <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span> {annualPricing(restaurantePlanBasico.monthly).discounted.toLocaleString("es-PE")}<span class="plan-price-unit">por año</span></div>
+          <span class="plan-savings-note restaurante-plan-savings">Ahorra S/ {annualPricing(restaurantePlanBasico.monthly).savings.toLocaleString("es-PE")} al año</span>
+        </div>
+
+        <div class="restaurante-note-box">
+          {restaurantePlanBasico.productsNote.text} <strong>{restaurantePlanBasico.productsNote.strong}</strong> {restaurantePlanBasico.productsNote.suffix}
+        </div>
+
+        <ul class="restaurante-plan-items">
+          {restaurantePlanBasico.items.map((it) => (
+            <li>
+              <span class="restaurante-item-icon" set:html={icon(it.icon, "#7c3aed", 17)} />
+              <span>
+                {it.text}
+                {it.sub && <span class="plan-item-sub restaurante-item-sub">{it.sub}</span>}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="restaurante-support-row">
+          <span set:html={icon("headset", "#7c3aed", 18)} />
+          <span>
+            <strong>{restaurantePlanBasico.support.text}</strong>
+            <span class="restaurante-support-sub">{restaurantePlanBasico.support.sub}</span>
+          </span>
+        </div>
+
+        <a href="https://wa.link/57fb8p" class="plan-cta-btn restaurante-cta-btn hover-pop">
+          <span set:html={icon(restaurantePlanBasico.ctaIcon, "currentColor", 16)} /> {restaurantePlanBasico.cta}
+        </a>
+      </div>
+
+      <div class="restaurante-plan-card restaurante-plan-card-featured">
+        <span class="plan-badge restaurante-plan-badge">★ {restaurantePlanProfesional.badge}</span>
+        <h3 class="restaurante-plan-name">{restaurantePlanProfesional.name}</h3>
+        <p class="restaurante-plan-subtitle">
+          {restaurantePlanProfesional.subtitleParts[0]}<br />
+          {restaurantePlanProfesional.subtitleParts[1]}<strong>{restaurantePlanProfesional.subtitleParts[2]}</strong>
+        </p>
+
+        <div class="restaurante-tagline">
+          <span class="audience-dash restaurante-dash"></span>
+          <span set:html={icon("rocket", "#7c3aed", 16)} /> {restaurantePlanProfesional.tagline} <span set:html={icon("rocket", "#7c3aed", 16)} />
+          <span class="audience-dash restaurante-dash"></span>
+        </div>
+
+        <div class="restaurante-plan-price-block">
+          <span class="plan-price-strike">S/ {annualPricing(restaurantePlanProfesional.monthly).fullYear.toLocaleString("es-PE")}</span>
+          <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span> {annualPricing(restaurantePlanProfesional.monthly).discounted.toLocaleString("es-PE")}<span class="plan-price-unit">por año</span></div>
+          <span class="plan-savings-note restaurante-plan-savings">Ahorra S/ {annualPricing(restaurantePlanProfesional.monthly).savings.toLocaleString("es-PE")} al año</span>
+        </div>
+
+        <p class="restaurante-includes-note">{restaurantePlanProfesional.includesNote}</p>
+
+        <ul class="restaurante-plan-items restaurante-plan-items-check">
+          {restaurantePlanProfesional.items.map((it) => (
+            <li>
+              <span class="restaurante-item-icon" set:html={icon("checkcolor", "#7c3aed", 16)} />
+              <span>
+                {typeof it === "string" ? it : (<>{it.text}<span class="plan-item-sub restaurante-item-sub">{it.sub}</span></>)}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="restaurante-support-row">
+          <strong>{restaurantePlanProfesional.support.text}</strong>
+          <span class="restaurante-support-sub">{restaurantePlanProfesional.support.sub}</span>
+        </div>
+
+        <a href="/contacto" class="plan-cta-btn plan-cta-btn-filled restaurante-cta-btn restaurante-cta-btn-filled hover-pop">
+          <span set:html={icon(restaurantePlanProfesional.ctaIcon, "white", 16)} /> {restaurantePlanProfesional.cta}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container catalogo-compare restaurante-compare reveal">
+    <div class="compare-layout">
+      <div class="rc-wrap">
+        <div class="rc-basico">
+          <div class="rc-label-head">
+            <span class="compare-label-title restaurante-compare-label-title">CARACTERÍSTICAS</span>
+          </div>
+          <div class="rc-plan-head">
+            <span class="restaurante-compare-icon" set:html={icon("cloche", "#7c3aed", 20)} />
+            <span class="compare-plan-name">{restaurantePlanBasico.name}</span>
+            <p class="restaurante-compare-plan-sub">{restaurantePlanBasico.subtitle}</p>
+            <div class="restaurante-compare-price-pill"><span class="plan-price-S">S/</span> {restaurantePlanBasico.monthly}<span class="plan-price-unit">por mes</span></div>
+          </div>
+
+          <div class="rc-row-label">
+            <span class="compare-label-icon" set:html={icon(restaurantePlanBasico.highlight.icon, "#7c3aed", 15)} />
+            <span class="compare-label-text restaurante-compare-label-text">
+              {restaurantePlanBasico.highlight.text}
+              <span class="compare-label-sub restaurante-compare-label-sub">{restaurantePlanBasico.highlight.strong}</span>
+            </span>
+          </div>
+          <div class="rc-row-value"></div>
+
+          <div class="rc-row-label">
+            <span class="compare-label-icon" set:html={icon("box", "#7c3aed", 15)} />
+            <span class="compare-label-text restaurante-compare-label-text">
+              {restaurantePlanBasico.productsNote.text} {restaurantePlanBasico.productsNote.strong}
+              <span class="compare-label-sub restaurante-compare-label-sub">{restaurantePlanBasico.productsNote.suffix}</span>
+            </span>
+          </div>
+          <div class="rc-row-value">
+            <span class="compare-check restaurante-compare-check" set:html={icon("checkcolor", "#7c3aed", 16)} />
+          </div>
+
+          {restaurantePlanBasico.items.map((it) => (
+            <>
+              <div class="rc-row-label">
+                <span class="compare-label-icon" set:html={icon(it.icon, "#64748b", 15)} />
+                <span class="compare-label-text restaurante-compare-label-text">
+                  {it.text}
+                  {it.sub && <span class="compare-label-sub restaurante-compare-label-sub">{it.sub}</span>}
+                </span>
+              </div>
+              <div class="rc-row-value">
+                <span class="compare-check restaurante-compare-check" set:html={icon("checkcolor", "#7c3aed", 16)} />
+              </div>
+            </>
+          ))}
+
+          <div class="rc-row-label">
+            <span class="compare-label-icon" set:html={icon("headset", "#7c3aed", 15)} />
+            <span class="compare-label-text restaurante-compare-label-text">
+              {restaurantePlanBasico.support.text}
+              <span class="compare-label-sub restaurante-compare-label-sub">{restaurantePlanBasico.support.sub}</span>
+            </span>
+          </div>
+          <div class="rc-row-value">
+            <span class="compare-check restaurante-compare-check" set:html={icon("checkcolor", "#7c3aed", 16)} />
+          </div>
+
+          <div class="rc-cta-empty"></div>
+          <div class="rc-cta">
+            <a href="https://wa.link/64jjx7" class="plan-cta-btn restaurante-cta-btn hover-pop">{restaurantePlanBasico.cta}</a>
+          </div>
+        </div>
+
+        <div class="rc-profesional">
+          <span class="plan-badge restaurante-plan-badge">★ {restaurantePlanProfesional.badge}</span>
+          <span class="restaurante-compare-icon" set:html={icon("rocket", "#7c3aed", 20)} />
+          <span class="compare-plan-name">{restaurantePlanProfesional.name}</span>
+          <p class="restaurante-compare-plan-sub">
+            {restaurantePlanProfesional.subtitleParts[0]}<br />
+            {restaurantePlanProfesional.subtitleParts[1]}<strong>{restaurantePlanProfesional.subtitleParts[2]}</strong>
+          </p>
+
+          <div class="restaurante-tagline">
+            <span class="audience-dash restaurante-dash"></span>
+            <span set:html={icon("rocket", "#7c3aed", 16)} /> {restaurantePlanProfesional.tagline} <span set:html={icon("rocket", "#7c3aed", 16)} />
+            <span class="audience-dash restaurante-dash"></span>
+          </div>
+
+          <div class="restaurante-compare-price-pill"><span class="plan-price-S">S/</span> {restaurantePlanProfesional.monthly}<span class="plan-price-unit">por mes</span></div>
+
+          <p class="restaurante-includes-note">{restaurantePlanProfesional.includesNote}</p>
+
+          <ul class="restaurante-plan-items restaurante-plan-items-check">
+            {restaurantePlanProfesional.items.map((it) => (
+              <li>
+                <span class="restaurante-item-icon" set:html={icon("checkcolor", "#7c3aed", 16)} />
+                <span>
+                  {typeof it === "string" ? it : (<>{it.text}<span class="plan-item-sub restaurante-item-sub">{it.sub}</span></>)}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="restaurante-support-row">
+            <strong>{restaurantePlanProfesional.support.text}</strong>
+            <span class="restaurante-support-sub">{restaurantePlanProfesional.support.sub}</span>
+          </div>
+
+          <a href="/contacto" class="plan-cta-btn plan-cta-btn-filled restaurante-cta-btn restaurante-cta-btn-filled hover-pop">
+            <span set:html={icon(restaurantePlanProfesional.ctaIcon, "white", 16)} /> {restaurantePlanProfesional.cta}
+          </a>
+        </div>
+      </div>
+
+      <aside class="compare-side restaurante-compare-side">
+        <span class="compare-side-icon restaurante-compare-side-icon" set:html={icon("help", "#7c3aed", 40)} />
+        <h3>¿Necesitas más productos?</h3>
+        <p>Puedes ampliar la cantidad de productos cuando tu negocio lo necesite.</p>
+        <a href="/contacto" class="btn-primary restaurante-btn-primary hover-pop compare-side-btn">Más información</a>
+      </aside>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="catalogo-cta-banner reveal">
+      <img src={restauranteCtaBanner.src} alt="Empieza a digitalizar tu restaurante hoy mismo" class="catalogo-cta-banner-img" />
+      <a href="https://wa.link/s6p6ci" class="catalogo-cta-banner-btn restaurante-cta-banner-btn hover-pop pulse-ring whatsapp">Solicitar información aquí→</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .p-highlight { color: #2563eb; }
+  .restaurante-highlight { color: #7c3aed; }
+
+  .erp-detail {
+    background: #f8fafc;
+    padding: 4rem 0 5rem;
+    scroll-margin-top: 6rem;
+  }
+
+  .erp-detail .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    margin-top: 4rem;
+  }
+
+  .erp-hero {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .erp-hero-copy { flex: 1; min-width: 320px; }
+  .erp-hero-media { flex: 1.2; min-width: 320px; }
+
+  .erp-mockup-img {
+    width: 115%;
+    height: auto;
+    border-radius: 16px;
+  }
+
+  .erp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #eef4ff;
+    color: #2563eb;
+    font-size: 1.1rem;
+    font-weight: 750;
+    letter-spacing: 0.03em;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    margin-top: 0.5rem;
+  }
+
+  .restaurante-badge { background: #f5f3ff; color: #7c3aed; }
+
+  .erp-hero-copy h2 {
+    font-size: clamp(3rem, 5vw, 4rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.75rem;
+    line-height: 1.1;
+  }
+
+  .erp-hero-sub {
+    font-size: 1.5rem;
+    color: #475569;
+    margin: 0 0 1.5rem;
+    font-weight: 700;
+  }
+
+  .catalogo-features {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+  }
+
+  .catalogo-feature-img {
+    width: 132px;
+    height: 148px;
+    object-fit: contain;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+
+  .restaurante-feature-comandas {
+    height: 156px;
+  }
+
+  .erp-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.85rem 1.6rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-outline {
+    background: white;
+    color: #2563eb;
+    border: 1.5px solid #2563eb;
+    padding: 0.85rem 1.6rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .restaurante-btn-primary { background: #7c3aed; }
+  .restaurante-btn-outline { color: #7c3aed; border-color: #7c3aed; }
+  .restaurante-mockup-img { border-radius: 0; }
+
+  .restaurante-detail { border-top: 1px solid #e2e8f0; }
+
+  .restaurante-highlights-wrap {
+    margin-top: 4rem;
+  }
+
+  .restaurante-highlights {
+    background: linear-gradient(160deg, #f5f3ff, #ffffff);
+    border: 1px solid #ede9fe;
+    border-radius: 20px;
+    padding: 2rem 2.5rem 2.25rem;
+    box-shadow: 0 12px 32px rgba(124, 58, 237, 0.08);
+  }
+
+  .restaurante-highlights-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-size: clamp(2rem, 2.8vw, 2.3rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 2rem;
+  }
+
+  .restaurante-dash { background: #7c3aed; }
+  .audience-dash {
+    display: inline-block;
+    width: 28px;
+    height: 3px;
+    background: #0f172a;
+    border-radius: 2px;
+  }
+
+  .restaurante-highlights-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .restaurante-highlight-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 0 0.75rem;
+    border-right: 1px solid #ede9fe;
+  }
+
+  .restaurante-highlight-item:last-child { border-right: none; }
+  .restaurante-highlight-icon img { width: 180px; height: 180px; object-fit: contain; }
+  .restaurante-highlight-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #c4b5fd;
+  }
+
+  .restaurante-highlight-item strong { font-size: 1rem; font-weight: 800; color: #0f172a; }
+  .restaurante-highlight-item span { font-size: 0.9rem; color: #64748b; font-weight: 600; }
+
+  .restaurante-pricing {
+    padding-top: 4rem;
+  }
+
+  .restaurante-pricing-badge {
+    background: #f5f3ff;
+    color: #7c3aed;
+  }
+
+  .restaurante-pricing-title {
+    text-align: center;
+  }
+
+  .catalogo-pricing-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .catalogo-pricing-head h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+  }
+
+  .catalogo-pricing-head p {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .billing-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    background: #f1f5f9;
+    border-radius: 999px;
+    padding: 0.3rem;
+    max-width: fit-content;
+    margin: 0 auto;
+  }
+
+  .billing-toggle-btn {
+    border: none;
+    background: transparent;
+    color: #475569;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.6rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .restaurante-billing-toggle { margin-top: 1rem; }
+  .restaurante-toggle-btn.is-active { background: #7c3aed; }
+
+  .billing-savings-note {
+    text-align: center;
+    color: #64748b;
+    font-size: 0.85rem;
+    margin: 0.75rem 0 0;
+    display: none;
+  }
+
+  .billing-savings-note.is-active { display: block; }
+  .restaurante-savings-note.is-active { color: #7c3aed; font-weight: 700; }
+
+  .restaurante-plans-grid {
+    display: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 2rem auto 0;
+  }
+
+  .restaurante-plans-grid.is-active { display: grid; }
+
+  .restaurante-plan-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 2rem 1.75rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .restaurante-plan-card-featured {
+    border-color: #7c3aed;
+    box-shadow: 0 16px 40px rgba(124, 58, 237, 0.14);
+  }
+
+  .restaurante-plan-badge { background: #7c3aed; }
+  .plan-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #7c3aed;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .restaurante-plan-icon {
+    align-self: center;
+    background: #f5f3ff;
+    border-radius: 14px;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .restaurante-plan-name {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.3rem;
+  }
+
+  .restaurante-plan-subtitle {
+    text-align: center;
+    color: #64748b;
+    font-size: 0.88rem;
+    margin: 0 0 1.25rem;
+    line-height: 1.4;
+  }
+
+  .restaurante-plan-subtitle strong { color: #7c3aed; }
+
+  .restaurante-highlight-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    background: #f5f3ff;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-size: 0.82rem;
+    color: #4c1d95;
+    margin-bottom: 1.25rem;
+  }
+
+  .restaurante-highlight-box strong { color: #7c3aed; }
+
+  .restaurante-tagline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #7c3aed;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .restaurante-plan-price-block { text-align: center; margin-bottom: 1rem; }
+
+  .plan-price {
+    color: #16a34a;
+    font-size: 2.4rem;
+    font-weight: 800;
+  }
+
+  .restaurante-plan-price { color: #7c3aed; }
+  .plan-price-S { font-size: 1.3rem; font-weight: 700; }
+  .plan-price-unit { font-size: 1rem; font-weight: 600; color: #64748b; }
+
+  .restaurante-plan-savings { color: #7c3aed; }
+  .plan-price-strike {
+    display: block;
+    color: #94a3b8;
+    text-decoration: line-through;
+    font-size: 0.95rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .plan-savings-note {
+    display: block;
+    color: #16a34a;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 0.2rem;
+  }
+
+  .restaurante-note-box {
+    background: #f5f3ff;
+    color: #4c1d95;
+    border-radius: 12px;
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .restaurante-note-box strong { color: #7c3aed; }
+
+  .restaurante-includes-note {
+    text-align: center;
+    color: #7c3aed;
+    font-weight: 700;
+    font-size: 0.88rem;
+    margin: 0 0 1.25rem;
+  }
+
+  .restaurante-plan-items {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    flex: 1;
+  }
+
+  .restaurante-plan-items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    color: #334155;
+  }
+
+  .restaurante-item-icon { flex-shrink: 0; display: flex; margin-top: 0.1rem; }
+
+  .plan-item-sub {
+    color: #16a34a;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .restaurante-item-sub {
+    display: block;
+    color: #7c3aed;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  .restaurante-support-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #faf9ff;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.82rem;
+  }
+
+  .restaurante-support-row strong { color: #7c3aed; display: block; }
+  .restaurante-support-sub { color: #64748b; font-size: 0.76rem; }
+
+  .plan-cta-btn {
+    text-align: center;
+    background: white;
+    color: #16a34a;
+    border: 1.5px solid #16a34a;
+    padding: 0.85rem 1.6rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  .plan-cta-btn-filled {
+    background: #16a34a;
+    color: white;
+    border-color: #16a34a;
+  }
+
+  .restaurante-cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #7c3aed;
+    border-color: #7c3aed;
+  }
+
+  .restaurante-cta-btn-filled {
+    background: #7c3aed;
+    border-color: #7c3aed;
+    color: white;
+  }
+
+  @media (max-width: 720px) {
+    .restaurante-plans-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 900px) {
+    .restaurante-highlights-row { grid-template-columns: repeat(3, 1fr); row-gap: 1.5rem; }
+    .restaurante-highlight-item { border-right: none; }
+  }
+
+  @media (max-width: 560px) {
+    .restaurante-highlights-row { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .catalogo-compare.container {
+    padding-top: 4rem;
+    border-top: 1px solid #e2e8f0;
+    max-width: 1600px;
+  }
+
+  .compare-label-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid #16a34a;
+    padding-bottom: 0.2rem;
+  }
+
+  .restaurante-compare-label-title { border-bottom-color: #7c3aed; }
+
+  .compare-layout {
+    display: grid;
+    grid-template-columns: 2.7fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+    margin-top: 3rem;
+    height: auto;
+  }
+
+  .rc-wrap {
+    display: flex;
+    align-items: stretch;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .rc-basico {
+    flex: 1.7;
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    align-content: start;
+  }
+
+  .rc-label-head {
+    grid-column: 1;
+    padding: 1.75rem 1.25rem 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .rc-plan-head {
+    grid-column: 2;
+    text-align: center;
+    padding: 1.75rem 1rem 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .rc-row-label {
+    grid-column: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    padding: 0.65rem 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .rc-row-value {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .rc-cta-empty { grid-column: 1; }
+  .rc-cta {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .rc-cta .plan-cta-btn { width: 100%; padding: 0.6rem 1rem; font-size: 0.85rem; }
+
+  .rc-profesional {
+    flex: 1;
+    background: #faf9ff;
+    border-left: 1px solid #ede9fe;
+    padding: 1.75rem 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+
+  .rc-profesional .plan-badge { position: static; transform: none; margin-bottom: 0.5rem; }
+  .rc-profesional .restaurante-plan-items { width: 100%; text-align: left; }
+  .rc-profesional .restaurante-support-row { width: 100%; text-align: left; }
+  .rc-profesional .plan-cta-btn { width: 100%; }
+
+  .restaurante-compare-label-text {
+    font-size: 0.9rem;
+    color: #334155;
+    font-weight: 600;
+  }
+
+  .compare-label-sub {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.68rem;
+    font-weight: 500;
+  }
+
+  .restaurante-compare-label-sub { color: #7c3aed; }
+
+  .restaurante-compare-icon {
+    background: #f5f3ff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.3rem;
+  }
+
+  .compare-plan-name { font-size: 0.85rem; font-weight: 800; color: #0f172a; }
+
+  .restaurante-compare-plan-sub {
+    color: #64748b;
+    font-size: 0.82rem;
+    margin: 0 0 0.5rem;
+    line-height: 1.4;
+  }
+
+  .restaurante-compare-plan-sub strong { color: #7c3aed; }
+
+  .restaurante-compare-price-pill {
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 0.5rem 1.25rem;
+    margin-top: 0.4rem;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #7c3aed;
+  }
+
+  .restaurante-compare-price-pill .plan-price-S,
+  .restaurante-compare-price-pill .plan-price-unit {
+    color: #64748b;
+  }
+
+  .compare-label-icon { flex-shrink: 0; display: flex; }
+  .restaurante-compare-check {
+    display: inline-flex;
+  }
+
+  .compare-side {
+    background: linear-gradient(160deg, #eaf1ff, #f5f9ff);
+    border-radius: 18px;
+    padding: 2.5rem 1.75rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 700px;
+  }
+
+  .restaurante-compare-side {
+    background: linear-gradient(160deg, #f5f3ff, #faf9ff);
+  }
+
+  .compare-side-icon {
+    background: white;
+    border-radius: 50%;
+    padding: 1rem;
+    display: flex;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
+    margin-bottom: 0.5rem;
+  }
+
+  .restaurante-compare-side-icon {
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.14);
+  }
+
+  .compare-side h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .compare-side p {
+    color: #475569;
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .compare-side-btn { width: 100%; text-align: center; }
+
+  .catalogo-cta-banner {
+    position: relative;
+    display: block;
+    margin-top: 3rem;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .catalogo-cta-banner-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .catalogo-cta-banner-btn {
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    color: #16a34a;
+    font-weight: 700;
+    font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+    padding: 0.85rem 1.75rem;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+  }
+
+  .restaurante-cta-banner-btn {
+    color: #7c3aed;
+  }
+
+  @media (max-width: 700px) {
+    .catalogo-cta-banner-btn {
+      position: static;
+      transform: none;
+      display: flex;
+      justify-content: center;
+      margin: 0.75rem auto 0;
+      width: max-content;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .compare-layout { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 720px) {
+    .rc-wrap { flex-direction: column; }
+    .rc-profesional { border-left: none; border-top: 1px solid #ede9fe; }
+  }
+
+  @media (max-width: 900px) {
+    .erp-hero { flex-direction: column; }
+    .erp-hero-copy, .erp-hero-media { min-width: 0; width: 100%; }
+    .erp-mockup-img { width: 100%; }
+  }
+
+  .product-detail {
+    display: none;
+  }
+
+  .product-detail.is-active {
+    display: block;
+  }
+</style>

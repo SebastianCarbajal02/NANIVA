@@ -1,0 +1,1039 @@
+---
+import catalogoMockup from '../assets/image/planes/catalogo/catgbb-15.png';
+import catFeatureShare from '../assets/image/planes/catalogo/iconcatgl-18.png';
+import catFeatureWhatsapp from '../assets/image/planes/catalogo/iconcatgl-19.png';
+import catFeatureQuote from '../assets/image/planes/catalogo/iconcatgl-16.png';
+import catFeatureGrowth from '../assets/image/planes/catalogo/iconcatgg-16.png';
+import iconNegocioFerreterias from '../assets/image/planes/tipo-negocio/iconocatgg-03.jpg.jpeg';
+import iconNegocioDistribuidoras from '../assets/image/planes/tipo-negocio/iconocatgg-04.jpg.jpeg';
+import iconNegocioTiendas from '../assets/image/planes/tipo-negocio/iconocatgg-05.jpg.jpeg';
+import iconNegocioImportadores from '../assets/image/planes/tipo-negocio/iconocatgg-06.jpg.jpeg';
+import iconNegocioMinimarkets from '../assets/image/planes/tipo-negocio/iconocatgg-07.jpg.jpeg';
+import iconNegocioMayoristas from '../assets/image/planes/tipo-negocio/iconocatgg-08.jpg.jpeg';
+import catalogoCtaBanner from '../assets/image/planes/catalogo/banner-plan.png';
+import iconRestauranteExtra15 from '../assets/image/planes/tipo-negocio/icons cayg-15 (1).png';
+import iconRestauranteExtra16 from '../assets/image/planes/tipo-negocio/icons cayg-16 (1).png';
+
+// Icon generator function
+function icon(name: string, color: string = "#2563eb", size = 22) {
+  const icons: Record<string, string> = {
+    store: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 2-4h16l2 4"/><path d="M2 7h20v3a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0V7Z"/><path d="M4 10v10h16V10"/></svg>`,
+    check: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`,
+    box: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>`,
+    help: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9a4 4 0 1 1 5.5 3.7c-.9.4-1.5 1.3-1.5 2.3v.5"/><path d="M12 18.5h.01"/></svg>`,
+    shield: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>`,
+    refresh: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>`,
+    lock: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+    headset: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-3a9 9 0 0 1 18 0v3"/><path d="M21 15a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h3Zm-18 0a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H3Z"/><path d="M21 15v1a4 4 0 0 1-4 4h-4"/></svg>`,
+  };
+  return icons[name] ?? "";
+}
+
+const CATALOGO_ANNUAL_DISCOUNT = 0.2;
+function annualPricing(monthly: number) {
+  const fullYear = monthly * 12;
+  const discounted = Math.round(fullYear * (1 - CATALOGO_ANNUAL_DISCOUNT));
+  return { fullYear, discounted, savings: fullYear - discounted };
+}
+
+const catalogoFeatures = [
+  { img: catFeatureShare, alt: "Comparte tu catálogo en segundos" },
+  { img: catFeatureWhatsapp, alt: "Recibe pedidos por WhatsApp" },
+  { img: catFeatureQuote, alt: "Envía cotizaciones profesionales" },
+  { img: catFeatureGrowth, alt: "Convierte consultas en ventas" },
+];
+
+const catalogoPlans = [
+  {
+    name: "PLAN NEGOCIO",
+    monthly: 79,
+    productsNote: "Hasta 300 productos",
+    featured: false,
+    href: "https://wa.link/m8m2xy",
+    items: [
+      "Catálogo digital integrado al sistema",
+      "Creación de catálogos PDF",
+      "Portada y fondo personalizados",
+      "Banners",
+      "Carga masiva de imágenes",
+      { text: "Enlace para compartir por WhatsApp", sub: "(cotizaciones enlace pdf)" },
+      "Lista de catálogos guardados",
+      "Edición básica de catálogos",
+      "Soporte",
+      "300 Productos (2 x imagen)",
+      "Envío masivos por Whatsapp",
+    ],
+  },
+  {
+    name: "PLAN EMPRESA",
+    monthly: 118,
+    productsNote: "Hasta 600 productos (2x imagen)",
+    featured: true,
+    href: "https://wa.link/wwunpb",
+    items: [
+      "Catálogo digital integrado al sistema",
+      "Creación de catálogos PDF",
+      "Portada y fondo personalizados",
+      "Edición masiva de productos, categorías, precios y marcas",
+      "Cambio de tema / colores / Banners",
+      "Más plantillas o estilos de catálogo",
+      { text: "Envío masivo por WhatsApp", sub: "(cotizaciones enlace pdf)" },
+      "Carga masiva de imágenes",
+      "Soporte premium",
+    ],
+    tag: { label: "NUEVO", text: "Envíos masivos por WhatsApp" },
+  },
+];
+
+const compareFeatures = [
+  { icon: "book", label: "Catálogo digital integrado al sistema", negocio: true, empresa: true },
+  { icon: "filetext", label: "Creación de catálogo PDF", negocio: true, empresa: true },
+  { icon: "image", label: "Portadas y fondos personalizados", negocio: true, empresa: true },
+  { icon: "monitor", label: "Banners", negocio: true, empresa: true },
+  { icon: "upload", label: "Carga masiva de imágenes", negocio: true, empresa: true },
+  { icon: "whatsapp", label: "Enlace para compartir por WhatsApp", sub: "(cotizaciones o enlace pdf)", negocio: true, empresa: true },
+  { icon: "folder", label: "Lista de catálogos guardados", negocio: true, empresa: true },
+  { icon: "edit", label: "Edición básica de catálogos", negocio: true, empresa: true },
+  { icon: "headset", label: "Soporte", negocio: true, empresa: true },
+  { icon: "box", label: "300 Productos (2K Imágenes)", negocio: true, empresa: true },
+  { icon: "send", label: "Envío masivo por WhatsApp", negocio: false, empresa: true, empresaTag: "NUEVO" },
+];
+
+const trustBadges = [
+  { icon: "shield", title: "Sin contratos forzosos", desc: "Planes flexibles sin permanencia" },
+  { icon: "refresh", title: "Cambia o cancela cuando quieras", desc: "Tú decides, sin complicaciones" },
+  { icon: "lock", title: "Pago 100% seguro", desc: "Tus datos siempre protegidos" },
+  { icon: "headset", title: "Soporte especializado", desc: "Estamos para ayudarte" },
+];
+
+const negociosCategories = [
+  { img: iconNegocioFerreterias, label: "Ferreterías" },
+  { img: iconNegocioDistribuidoras, label: "Distribuidoras" },
+  { img: iconNegocioTiendas, label: "Tiendas" },
+  { img: iconNegocioMinimarkets, label: "Minimarkets" },
+  { img: iconNegocioImportadores, label: "Importadores" },
+  { img: iconNegocioMayoristas, label: "Mayoristas" },
+];
+---
+
+<section id="catalogo-digital" class="erp-detail catalogo-detail product-detail">
+  <div class="container erp-hero">
+    <div class="erp-hero-copy reveal">
+      <span class="erp-badge catalogo-badge">
+        <span set:html={icon("store", "#16a34a", 15)} />
+        CATÁLOGO EN WHATSAPP
+      </span>
+      <h2>Catálogo <span class="p-highlight catalogo-highlight">Digital</span></h2>
+      <p class="erp-hero-sub">Vender más a través de todos los canales. Comparte tu catálogo, recibe pedidos y convierte consultas en ventas.</p>
+
+      <div class="catalogo-features">
+        {catalogoFeatures.map((f) => (
+          <img src={f.img.src} alt={f.alt} class="catalogo-feature-img" />
+        ))}
+      </div>
+
+      <div class="erp-cta">
+        <a href="https://wa.link/9masnd" class="btn-primary catalogo-btn-primary hover-pop">Comenzar ahora</a>
+        <a href="https://wa.link/4n11hv" class="btn-outline catalogo-btn-outline hover-pop">Solicitar demostración</a>
+      </div>
+    </div>
+
+    <div class="erp-hero-media reveal">
+      <img src={catalogoMockup.src} alt="Catálogo Digital Naniva - pedidos por WhatsApp" class="erp-mockup-img catalogo-mockup-img" />
+    </div>
+  </div>
+
+  <div class="container catalogo-pricing reveal" data-billing-scope="catalogo">
+    <div class="catalogo-pricing-head">
+      <h2><span set:html={icon("bag", "#16a34a", 26)} />Catálogo Digital</h2>
+      <p>Planes diseñados para negocios que quieren vender más por WhatsApp y otros canales.</p>
+    </div>
+
+    <div class="billing-toggle">
+      <button type="button" class="billing-toggle-btn is-active" data-billing-btn="mensual">Mensual</button>
+      <button type="button" class="billing-toggle-btn" data-billing-btn="anual">Anual</button>
+    </div>
+    <p class="billing-savings-note" data-billing-note="anual">Ahorra {Math.round(CATALOGO_ANNUAL_DISCOUNT * 100)}% pagando anual</p>
+
+    <div class="catalogo-plans-grid billing-panel is-active" data-billing-panel="mensual">
+      {catalogoPlans.map((plan) => (
+        <div class={`plan-card${plan.featured ? " plan-card-featured" : ""}`}>
+          {plan.badge && <span class="plan-badge">★ {plan.badge}</span>}
+          <h3 class="plan-name">{plan.name}</h3>
+          <div class="plan-price-block">
+            <div class="plan-price"><span class="plan-price-S">S/</span> {plan.monthly}<span class="plan-price-unit">/mes</span></div>
+          </div>
+          {plan.featured ? (
+            <span class="plan-products-note"><span set:html={icon("box", "#16a34a", 16)} /> {plan.productsNote}</span>
+          ) : (
+            <span class="plan-products-pill">{plan.productsNote}</span>
+          )}
+          <ul class="plan-items">
+            {plan.items.map((it) => (
+              <li>
+                <span set:html={icon("check")} />
+                <span>
+                  {typeof it === "string" ? it : (<>{it.text}<br /><span class="plan-item-sub">{it.sub}</span></>)}
+                </span>
+              </li>
+            ))}
+          </ul>
+          {plan.tag && (
+            <div class="plan-tag-row">
+              <span class="plan-tag-badge">{plan.tag.label}</span>
+              <span class="plan-tag-text">{plan.tag.text}</span>
+            </div>
+          )}
+          <a href={plan.href} class={`plan-cta-btn hover-pop${plan.featured ? " plan-cta-btn-filled" : ""}`}>Elegir plan</a>
+        </div>
+      ))}
+    </div>
+
+    <div class="catalogo-plans-grid billing-panel" data-billing-panel="anual">
+      {catalogoPlans.map((plan) => {
+        const { fullYear, discounted, savings } = annualPricing(plan.monthly);
+        return (
+          <div class={`plan-card${plan.featured ? " plan-card-featured" : ""}`}>
+            {plan.badge && <span class="plan-badge">★ {plan.badge}</span>}
+            <h3 class="plan-name">{plan.name}</h3>
+            <div class="plan-price-block">
+              <span class="plan-price-strike">S/ {fullYear.toLocaleString("es-PE")}</span>
+              <div class="plan-price"><span class="plan-price-S">S/</span> {discounted.toLocaleString("es-PE")}<span class="plan-price-unit">/año</span></div>
+              <span class="plan-savings-note">Ahorra S/ {savings.toLocaleString("es-PE")} al año</span>
+            </div>
+            {plan.featured ? (
+              <span class="plan-products-note"><span set:html={icon("box", "#16a34a", 16)} /> {plan.productsNote}</span>
+            ) : (
+              <span class="plan-products-pill">{plan.productsNote}</span>
+            )}
+            <ul class="plan-items">
+              {plan.items.map((it) => (
+                <li>
+                  <span set:html={icon("check")} />
+                  <span>
+                    {typeof it === "string" ? it : (<>{it.text}<br /><span class="plan-item-sub">{it.sub}</span></>)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            {plan.tag && (
+              <div class="plan-tag-row">
+                <span class="plan-tag-badge">{plan.tag.label}</span>
+                <span class="plan-tag-text">{plan.tag.text}</span>
+              </div>
+            )}
+            <a href={plan.href} class={`plan-cta-btn hover-pop${plan.featured ? " plan-cta-btn-filled" : ""}`}>Elegir plan</a>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  <div class="container catalogo-compare reveal">
+    <div class="catalogo-pricing-head">
+      <h2 class="compare-title">COMPARA LOS <span class="p-highlight catalogo-highlight">PLANES</span></h2>
+      <p>Elige el plan ideal para impulsar tu negocio</p>
+    </div>
+
+    <div class="compare-layout">
+      <div class="compare-table">
+        <div class="compare-row compare-row-head">
+          <div class="compare-cell compare-cell-label">
+            <span class="compare-label-title">CARACTERÍSTICAS</span>
+          </div>
+          <div class="compare-cell compare-cell-plan">
+            <span class="compare-plan-name">{catalogoPlans[0].name}</span>
+            <div class="compare-plan-price"><span class="plan-price-S">S/</span> {catalogoPlans[0].monthly}<span class="plan-price-unit">/mes</span></div>
+            <span class="plan-products-pill">{catalogoPlans[0].productsNote}</span>
+          </div>
+          <div class="compare-cell compare-cell-plan compare-cell-featured">
+            <span class="compare-plan-name">{catalogoPlans[1].name}</span>
+            <div class="compare-plan-price"><span class="plan-price-S">S/</span> {catalogoPlans[1].monthly}<span class="plan-price-unit">/mes</span></div>
+            <span class="plan-products-pill">{catalogoPlans[1].productsNote}</span>
+          </div>
+        </div>
+
+        {compareFeatures.map((f) => (
+          <div class="compare-row">
+            <div class="compare-cell compare-cell-label">
+              <span class="compare-label-icon" set:html={icon(f.icon, "#64748b", 15)} />
+              <span class="compare-label-text">
+                {f.label}
+                {f.sub && <span class="compare-label-sub">{f.sub}</span>}
+              </span>
+            </div>
+            <div class="compare-cell compare-cell-value">
+              {f.negocio ? <span class="compare-check" set:html={icon("check", "#16a34a", 16)} /> : <span class="compare-dash">—</span>}
+            </div>
+            <div class="compare-cell compare-cell-value compare-cell-featured">
+              {f.empresa ? (
+                f.empresaTag ? (
+                  <span class="compare-new-tag">
+                    <span class="plan-tag-badge">{f.empresaTag}</span>
+                    {f.label}
+                  </span>
+                ) : (
+                  <span class="compare-check" set:html={icon("check", "#16a34a", 16)} />
+                )
+              ) : (
+                <span class="compare-dash">—</span>
+              )}
+            </div>
+          </div>
+        ))}
+
+        <div class="compare-row compare-row-cta">
+          <div class="compare-cell compare-cell-label"></div>
+          <div class="compare-cell compare-cell-plan">
+            <a href={catalogoPlans[0].href} class="plan-cta-btn hover-pop">Elegir plan</a>
+          </div>
+          <div class="compare-cell compare-cell-plan compare-cell-featured">
+            <a href={catalogoPlans[1].href} class="plan-cta-btn plan-cta-btn-filled hover-pop">Elegir plan</a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="compare-side">
+        <span class="compare-side-icon" set:html={icon("help", "#2563eb", 40)} />
+        <h3>¿Necesitas más productos?</h3>
+        <p>Puedes ampliar la cantidad de productos cuando tu negocio lo necesite.</p>
+        <a href="/contacto" class="btn-primary hover-pop compare-side-btn">Más información</a>
+      </aside>
+    </div>
+
+    <div class="trust-badges-row reveal">
+      {trustBadges.map((t) => (
+        <div class="trust-badge">
+          <span class="trust-badge-icon" set:html={icon(t.icon, "#16a34a", 22)} />
+          <div class="trust-badge-text">
+            <strong>{t.title}</strong>
+            <span>{t.desc}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="container catalogo-audience reveal">
+    <div class="catalogo-pricing-head">
+      <h2 class="audience-title"><span class="audience-dash"></span> Ideal para negocios <span class="p-highlight catalogo-highlight">como el tuyo</span> <span class="audience-dash"></span></h2>
+      <p>Nuestros planes se adaptan a todo tipo de negocio. Elige el que mejor se ajuste a tus necesidades.</p>
+    </div>
+
+    <div class="audience-carousel">
+      <button type="button" class="audience-nav" aria-label="Anterior" data-carousel-prev>‹</button>
+      <div class="audience-track" data-carousel-track>
+        {negociosCategories.map((c) => (
+          <div class="audience-card">
+            <img src={c.img.src} alt={c.label} class="audience-card-icon" />
+            <span class="audience-card-label">{c.label}</span>
+            <span class="audience-card-underline"></span>
+          </div>
+        ))}
+        <div class="audience-card catalogo-extra-audience-card">
+          <img src={iconRestauranteExtra15.src} alt="Farmacias" class="audience-card-icon" />
+          <span class="audience-card-label">Farmacias</span>
+          <span class="audience-card-underline"></span>
+        </div>
+        <div class="audience-card catalogo-extra-audience-card">
+          <img src={iconRestauranteExtra16.src} alt="Jugueterías" class="audience-card-icon" />
+          <span class="audience-card-label">Jugueterías</span>
+          <span class="audience-card-underline"></span>
+        </div>
+      </div>
+      <button type="button" class="audience-nav" aria-label="Siguiente" data-carousel-next>›</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="catalogo-cta-banner reveal">
+      <img src={catalogoCtaBanner.src} alt="Empieza a vender por WhatsApp hoy mismo" class="catalogo-cta-banner-img" />
+      <a href="https://wa.link/4n11hv" class="catalogo-cta-banner-btn hover-pop pulse-ring whatsapp">Solicitar demostración aquí→</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .p-highlight { color: #2563eb; }
+  .catalogo-highlight { color: #16a34a; }
+
+  .erp-detail {
+    background: #f8fafc;
+    padding: 4rem 0 5rem;
+    scroll-margin-top: 6rem;
+  }
+
+  .erp-detail .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    margin-top: 4rem;
+  }
+
+  .erp-hero {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .erp-hero-copy { flex: 1; min-width: 320px; }
+  .erp-hero-media { flex: 1.2; min-width: 320px; }
+
+  .erp-mockup-img {
+    width: 115%;
+    height: auto;
+    border-radius: 16px;
+  }
+
+  .erp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #eef4ff;
+    color: #2563eb;
+    font-size: 1.1rem;
+    font-weight: 750;
+    letter-spacing: 0.03em;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    margin-top: 0.5rem;
+  }
+
+  .catalogo-badge { background: #e3f9e5; color: #16a34a; }
+
+  .erp-hero-copy h2 {
+    font-size: clamp(3rem, 5vw, 4rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.75rem;
+    line-height: 1.1;
+  }
+
+  .erp-hero-sub {
+    font-size: 1.5rem;
+    color: #475569;
+    margin: 0 0 1.5rem;
+    font-weight: 700;
+  }
+
+  .catalogo-features {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+  }
+
+  .catalogo-feature-img {
+    width: 132px;
+    height: 148px;
+    object-fit: contain;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+
+  .catalogo-feature-img:nth-child(2),
+  .catalogo-feature-img:nth-child(3) {
+    transform: scale(1.12);
+  }
+
+  .catalogo-feature-img:nth-child(2) {
+    transform: scale(1.07);
+  }
+
+  .catalogo-feature-img:hover {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 12px rgba(128, 75, 228, 0.35));
+  }
+
+  .catalogo-feature-img:nth-child(2):hover,
+  .catalogo-feature-img:nth-child(3):hover {
+    transform: scale(1.27);
+  }
+
+  .catalogo-feature-img:nth-child(2):hover {
+    transform: scale(1.22);
+  }
+
+  .catalogo-mockup-img { border-radius: 0; }
+
+  .erp-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.85rem 1.6rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-outline {
+    background: white;
+    color: #2563eb;
+    border: 1.5px solid #2563eb;
+    padding: 0.85rem 1.6rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .catalogo-btn-primary { background: #16a34a; }
+  .catalogo-btn-outline { color: #16a34a; border-color: #16a34a; }
+
+  .catalogo-detail { border-top: 1px solid #e2e8f0; }
+
+  .catalogo-pricing {
+    padding-top: 3rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .catalogo-pricing-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .catalogo-pricing-head h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.5rem;
+  }
+
+  .catalogo-pricing-head p {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .billing-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    background: #f1f5f9;
+    border-radius: 999px;
+    padding: 0.3rem;
+    max-width: fit-content;
+    margin: 0 auto;
+  }
+
+  .billing-toggle-btn {
+    border: none;
+    background: transparent;
+    color: #475569;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.6rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .billing-toggle-btn.is-active {
+    background: #16a34a;
+    color: white;
+  }
+
+  .billing-savings-note {
+    text-align: center;
+    color: #64748b;
+    font-size: 0.85rem;
+    margin: 0.75rem 0 0;
+    display: none;
+  }
+
+  .billing-savings-note.is-active { display: block; }
+
+  .catalogo-plans-grid {
+    display: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 2rem auto 0;
+  }
+
+  .catalogo-plans-grid.is-active { display: grid; }
+
+  .plan-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 2rem 1.75rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .plan-card-featured {
+    border-color: #16a34a;
+    box-shadow: 0 12px 32px rgba(22, 163, 74, 0.12);
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #16a34a;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .plan-name {
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0.5rem 0 1rem;
+  }
+
+  .plan-price-block {
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .plan-price-strike {
+    display: block;
+    color: #94a3b8;
+    text-decoration: line-through;
+    font-size: 0.95rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .plan-price {
+    color: #16a34a;
+    font-size: 2.4rem;
+    font-weight: 800;
+  }
+
+  .plan-price-S { font-size: 1.3rem; font-weight: 700; }
+  .plan-price-unit { font-size: 1rem; font-weight: 600; color: #64748b; }
+
+  .plan-savings-note {
+    display: block;
+    color: #16a34a;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 0.2rem;
+  }
+
+  .plan-products-pill {
+    align-self: center;
+    background: #e3f9e5;
+    color: #16a34a;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 1.25rem;
+  }
+
+  .plan-products-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 1.25rem;
+  }
+
+  .plan-items {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    flex: 1;
+  }
+
+  .plan-items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: #334155;
+  }
+
+  .plan-item-sub {
+    color: #16a34a;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .plan-tag-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .plan-tag-badge {
+    background: #eef4ff;
+    color: #2563eb;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+  }
+
+  .plan-tag-text {
+    color: #16a34a;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .plan-cta-btn {
+    text-align: center;
+    background: white;
+    color: #16a34a;
+    border: 1.5px solid #16a34a;
+    padding: 0.85rem 1.6rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  .plan-cta-btn-filled {
+    background: #16a34a;
+    color: white;
+    border-color: #16a34a;
+  }
+
+  @media (max-width: 720px) {
+    .catalogo-plans-grid { grid-template-columns: 1fr; }
+  }
+
+  .catalogo-compare.container {
+    padding-top: 4rem;
+    border-top: 1px solid #e2e8f0;
+    max-width: 1600px;
+  }
+
+  .compare-title { color: #0f172a; }
+
+  .compare-layout {
+    display: grid;
+    grid-template-columns: 2.7fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+    margin-top: 3rem;
+    height: auto;
+  }
+
+  .compare-table {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .compare-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .compare-row:last-child { border-bottom: none; }
+
+  .compare-cell {
+    padding: 0.55rem 1.1rem;
+  }
+
+  .compare-cell-label {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .compare-label-icon { flex-shrink: 0; display: flex; }
+
+  .compare-label-text {
+    font-size: 0.9rem;
+    color: #334155;
+    font-weight: 600;
+  }
+
+  .compare-label-sub {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.68rem;
+    font-weight: 500;
+  }
+
+  .compare-label-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid #16a34a;
+    padding-bottom: 0.2rem;
+  }
+
+  .compare-cell-plan {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .compare-plan-name { font-size: 0.85rem; font-weight: 800; color: #0f172a; }
+  .compare-plan-price { color: #0f172a; font-size: 3.5rem; font-weight: 800; }
+  .compare-cell-value { text-align: center; }
+  .compare-check { display: inline-flex; }
+  .compare-dash { color: #cbd5e1; font-weight: 700; }
+  .compare-cell-featured { background: #f0faf1; }
+
+  .compare-new-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #16a34a;
+  }
+
+  .compare-row-head .compare-cell-plan { padding-top: 1rem; padding-bottom: 0.85rem; position: relative; }
+  .compare-row-head .compare-cell-featured .plan-badge { position: static; transform: none; margin-bottom: 0.2rem; }
+  .compare-row-cta .compare-cell-plan { padding: 0.85rem; }
+  .compare-row-cta .plan-cta-btn { width: 100%; padding: 0.6rem 1.2rem; font-size: 0.85rem; }
+
+  .compare-side {
+    background: linear-gradient(160deg, #eaf1ff, #f5f9ff);
+    border-radius: 18px;
+    padding: 2.5rem 1.75rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 700px;
+  }
+
+  .compare-side-icon {
+    background: white;
+    border-radius: 50%;
+    padding: 1rem;
+    display: flex;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
+    margin-bottom: 0.5rem;
+  }
+
+  .compare-side h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .compare-side p {
+    color: #475569;
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .compare-side-btn { width: 100%; text-align: center; }
+
+  .trust-badges-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    padding: 1.5rem 2rem;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  }
+
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .trust-badge-icon {
+    flex-shrink: 0;
+    background: #e3f9e5;
+    border-radius: 10px;
+    padding: 0.5rem;
+    display: flex;
+  }
+
+  .trust-badge-text { display: flex; flex-direction: column; gap: 0.1rem; }
+  .trust-badge-text strong { font-size: 0.85rem; color: #0f172a; }
+  .trust-badge-text span { font-size: 0.78rem; color: #64748b; }
+
+  .catalogo-audience {
+    padding-top: 3.5rem;
+  }
+
+  .audience-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .audience-dash {
+    display: inline-block;
+    width: 28px;
+    height: 3px;
+    background: #0f172a;
+    border-radius: 2px;
+  }
+
+  .audience-carousel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .audience-nav {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #2563eb;
+    font-size: 1.4rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+
+  .audience-nav:hover { border-color: #2563eb; }
+
+  .audience-track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    flex: 1;
+    scrollbar-width: none;
+  }
+
+  .audience-track::-webkit-scrollbar { display: none; }
+
+  .audience-card {
+    flex: 0 0 200px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    text-align: center;
+  }
+
+  .audience-card-icon { width: 120px; height: 120px; object-fit: contain; }
+  .audience-card-label { font-weight: 700; font-size: 1.1rem; color: #0f172a; }
+  .audience-card-underline {
+    width: 24px;
+    height: 3px;
+    background: #16a34a;
+    border-radius: 2px;
+  }
+
+  .catalogo-cta-banner {
+    position: relative;
+    display: block;
+    margin-top: 3rem;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .catalogo-cta-banner-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .catalogo-cta-banner-btn {
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    color: #16a34a;
+    font-weight: 700;
+    font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+    padding: 0.85rem 1.75rem;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 700px) {
+    .catalogo-cta-banner-btn {
+      position: static;
+      transform: none;
+      display: flex;
+      justify-content: center;
+      margin: 0.75rem auto 0;
+      width: max-content;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .compare-layout { grid-template-columns: 1fr; }
+    .trust-badges-row { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .compare-row { grid-template-columns: 1.4fr 1fr 1fr; }
+    .compare-cell { padding: 0.65rem 0.5rem; }
+    .compare-label-text { font-size: 0.9rem; }
+    .trust-badges-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 900px) {
+    .erp-hero { flex-direction: column; }
+    .erp-hero-copy, .erp-hero-media { min-width: 0; width: 100%; }
+    .erp-mockup-img { width: 100%; }
+  }
+
+  .product-detail {
+    display: none;
+  }
+
+  .product-detail.is-active {
+    display: block;
+  }
+</style>
