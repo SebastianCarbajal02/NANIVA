@@ -17,21 +17,33 @@ const bannerFeatures = [
 <section class="banner" style={`background-image: url('${banner.src}');`}>
   <img src={personaImg.src} alt="Contacto persona" class="banner-persona" aria-hidden="true" />
   <div class="content reveal">
-    <img src={logo.src} alt="Naniva" class="logo" />
     <h1>Contáctanos y<br /><span class="highlight">Digitaliza</span> tu Negocio</h1>
     <p class="banner-subtitle">Nuestro equipo de expertos está listo para responder todas tus dudas y ayudar a implementar la mejor solución para tu empresa.</p>
     <div class="banner-actions">
-      <a href="https://wa.me/51908644190" target="_blank" rel="noopener noreferrer" class="btn-primary hover-pop pulse-ring whatsapp">💬 Escríbenos Ahora</a>
-      <a href="#info" class="btn-outline hover-pop">📅 Ver Horarios</a>
+      <a href="https://wa.me/51908644190" target="_blank" rel="noopener noreferrer" class="btn-primary hover-pop pulse-ring whatsapp">Escríbenos Ahora</a>
+      <a href="#info" class="btn-outline hover-pop">Ver Horarios</a>
     </div>
     <div class="banner-features">
-      {bannerFeatures.map((f) => (
-        <div class="banner-feature">
-          <span class="banner-feature-icon icon-bounce"><img src={f.icon.src} alt={f.title} /></span>
-          <h4>{f.title}</h4>
-          <p class="feature-desc">{f.desc}</p>
-        </div>
-      ))}
+      <div class="banner-feature">
+        <span class="banner-feature-icon banner-feature-icon-1 icon-bounce"><img src={bannerFeatures[0].icon.src} alt={bannerFeatures[0].title} /></span>
+        <h4>{bannerFeatures[0].title}</h4>
+        <p class="feature-desc">{bannerFeatures[0].desc}</p>
+      </div>
+      <div class="banner-feature">
+        <span class="banner-feature-icon banner-feature-icon-2 icon-bounce"><img src={bannerFeatures[1].icon.src} alt={bannerFeatures[1].title} /></span>
+        <h4>{bannerFeatures[1].title}</h4>
+        <p class="feature-desc">{bannerFeatures[1].desc}</p>
+      </div>
+      <div class="banner-feature">
+        <span class="banner-feature-icon banner-feature-icon-3 icon-bounce"><img src={bannerFeatures[2].icon.src} alt={bannerFeatures[2].title} /></span>
+        <h4>{bannerFeatures[2].title}</h4>
+        <p class="feature-desc">{bannerFeatures[2].desc}</p>
+      </div>
+      <div class="banner-feature">
+        <span class="banner-feature-icon banner-feature-icon-4 icon-bounce"><img src={bannerFeatures[3].icon.src} alt={bannerFeatures[3].title} /></span>
+        <h4>{bannerFeatures[3].title}</h4>
+        <p class="feature-desc">{bannerFeatures[3].desc}</p>
+      </div>
     </div>
   </div>
 </section>
@@ -46,19 +58,19 @@ const bannerFeatures = [
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 8rem 1.5rem 2rem 4rem;
+    padding: 8rem 2rem 2rem 5rem;
   }
 
   .banner-persona {
     position: absolute;
-    right: -3rem;
+    right: 0rem;
     bottom: 0;
     max-width: 60%;
-    height: auto;
+    height: 100vh;
     object-fit: contain;
     z-index: 1;
     pointer-events: none;
-    transform: translateY(3rem);
+    transform: translateY(1rem);
   }
 
   .content {
@@ -80,10 +92,10 @@ const bannerFeatures = [
     background: #2563eb;
     color: white;
     padding: 0.85rem 1.5rem;
-    border-radius: 999px;
+    border-radius: 5px;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 1rem;
     white-space: nowrap;
   }
   .btn-outline {
@@ -91,24 +103,26 @@ const bannerFeatures = [
     color: #2563eb;
     border: 1px solid #2563eb;
     padding: 0.85rem 1.5rem;
-    border-radius: 999px;
+    border-radius: 5px;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 1rem;
     white-space: nowrap;
   }
   .banner-features {
-    width: 100%;
+    width: 140%;
     display: flex;
     gap: 1rem;
+    gap: 4rem;
+    transform: translateY(3rem);
   }
   .banner-feature {
-    flex: 1;
+    flex: 2;
     min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap:0.5rem;
+    gap:0rem;
   }
   .banner-feature-icon {
     width: 48px;
@@ -123,18 +137,40 @@ const bannerFeatures = [
     object-fit: contain;
     padding-left:2rem;
     margin-bottom: 1rem;
+    margin-left: 2rem;
   }
+
+  .banner-feature-icon-1 { animation: icon-float 3s ease-in-out infinite; }
+  .banner-feature-icon-1 img { animation-delay: 0s; }
+
+  .banner-feature-icon-2 { animation: icon-float 3s ease-in-out infinite; }
+  .banner-feature-icon-2 img { animation-delay: 0.2s; }
+
+  .banner-feature-icon-3 { animation: icon-float 3s ease-in-out infinite; }
+  .banner-feature-icon-3 img { animation-delay: 0.4s; }
+
+  .banner-feature-icon-4 { animation: icon-float 3s ease-in-out infinite; }
+  .banner-feature-icon-4 img { animation-delay: 0.6s; }
+
+  @keyframes icon-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
   .banner-feature h4 {
     font-size: 1rem;
     color: #0f172a;
-    line-height: 1.2;
+    line-height: 2;
+    width: 180%;
+    
     
   }
   .banner-feature p.feature-desc {
     font-size: 0.8rem;
     color: #64748b;
     font-weight: 500;
-    line-height: 1.2;
+    line-height: 1.4;
+     width: 120%;
   }
   .logo {
     height: 92px;
@@ -159,8 +195,59 @@ const bannerFeatures = [
   }
   @media (max-width: 1368px) and (min-width: 606px) {
 
-     
+     .banner-persona {
+    position: absolute;
+    right: 0rem;
+    bottom: 0;
+    max-width: 60%;
+    height: 90vh;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
+    transform: translateY(-0.3rem);
+  }
 
+  .content {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 0.65rem;
+  }
+  h1 {
+    font-size: clamp(3rem, 3.5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    transform: translateY(-3rem);
+  }
+  .banner-subtitle {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #475569;
+    transform: translateY(-2.5rem);
+  }
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    white-space: nowrap;
+    transform: translateY(0.5rem);
+  }
+  .btn-outline {
+    font-size: 1rem;
+    white-space: nowrap;
+    transform: translateY(0.5rem);
+  }
+  .banner-features{
+    width: 120%;
+    display: flex;
+}
     }
   @media (max-width: 900px) {
     .banner { padding-left: 1.5rem; }
