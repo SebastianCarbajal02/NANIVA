@@ -1221,6 +1221,55 @@ const restaurantePlanProfesional = {
     .erp-mockup-img { width: 100%; }
   }
 
+  @media (max-width: 1368px) and (min-width: 606px) {
+    .erp-detail {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      margin-top: 4rem;
+    }
+
+    .erp-mockup-img {
+      width: 100%;
+      margin-left: 3rem;
+    }
+
+    .erp-hero-copy h2 {
+      font-size: clamp(2rem, 3.5vw, 4rem);
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 0.75rem;
+      line-height: 1.1;
+    }
+
+    .erp-hero-sub {
+      font-size: 1.2rem;
+      color: #475569;
+      margin: 0 0 1.5rem;
+      font-weight: 600;
+    }
+
+    .restaurante-features {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+      width: 120%;
+    }
+
+    .restaurante-feature-img:nth-child(1) {
+      transform: scale(1.12);
+    }
+
+    .restaurante-feature-img:nth-child(3) {
+      margin-top: 0.3rem;
+      transform: scale(1.03);
+    }
+
+    .restaurante-feature-img:nth-child(2) {
+      transform: scale(1.12);
+    }
+  }
+
   .product-detail {
     display: none;
   }
