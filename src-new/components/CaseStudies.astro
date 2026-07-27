@@ -1,0 +1,684 @@
+---
+import iconChart from '../assets/image/home/casos-exito/iconbffin1-26.webp';
+import iconShieldImg from '../assets/image/home/casos-exito/iconbffin1-27.webp';
+import iconStarImg from '../assets/image/home/casos-exito/iconbffin1-28.webp';
+import iconUsersImg from '../assets/image/home/casos-exito/iconbffin1-29.webp';
+import elohimColor from '../assets/image/shared/clientes/elohim-color.webp';
+import zurielColor from '../assets/image/shared/clientes/zuriel-color.webp';
+import wilsonColor from '../assets/image/shared/clientes/wilson-color.webp';
+
+
+function iconSvg(name: string, color: string = "currentColor", size = 18) {
+  const icons: Record<string, string> = {
+    tag: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m20.59 13.41-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.5" fill="${color}" stroke="none"/></svg>`,
+    box: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>`,
+    users: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    calendar: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>`,
+    trend: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></svg>`,
+    clock: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>`,
+    bolt: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>`,
+    headset: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13a9 9 0 0 1 18 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19v1a3 3 0 0 1-3 3h-2"/></svg>`,
+    star: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>`,
+    chart: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-4"/></svg>`,
+    shield: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>`,
+    trophy: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h3a2 2 0 0 1-2 4M7 5H4a2 2 0 0 0 2 4"/></svg>`,
+  };
+  return icons[name] ?? "";
+}
+
+const cases = [
+  {
+    logo: "ELOHIM",
+    logoIcon: elohimColor,
+    avatar: elohimColor,
+    meta: [
+      { icon: "tag", text: "Tecnología" },
+      { icon: "box", text: "1,200 productos" },
+      { icon: "users", text: "5 usuarios" },
+      { icon: "calendar", text: "Desde 2023" },
+    ],
+    achievements: [
+      "Controlaron ventas e inventario desde un solo lugar",
+      "Redujeron errores en el stock",
+      "Tomaron decisiones con información en tiempo real",
+    ],
+    results: [
+      { icon: "trend", value: "+35%", label: "Más ventas" },
+      { icon: "clock", value: "20 h", label: "Menos trabajo semanal" },
+    ],
+    quote: "Naniva nos dio el control total del negocio. Hoy tomamos decisiones más rápidas y acertadas.",
+    name: "Juan Carlos R.",
+    role: "Gerente General",
+  },
+  {
+    logo: "ZURIEL",
+    logoIcon: zurielColor,
+    accent: "#2563eb",
+    avatar: zurielColor,
+    meta: [
+      { icon: "tag", text: "Retail" },
+      { icon: "box", text: "850 productos" },
+      { icon: "users", text: "8 usuarios" },
+      { icon: "calendar", text: "Desde 2022" },
+    ],
+    achievements: [
+      "IA recomendaron compras antes del quiebre",
+      "Menos desperdicio de inventario",
+      "Reposición automática de productos",
+    ],
+    results: [
+      { icon: "trend", value: "+80%", label: "Menos quiebres de stock" },
+      { icon: "clock", value: "+28%", label: "Más rentabilidad" },
+    ],
+    quote: "Reducimos quiebres y ahora nuestros clientes siempre encuentran lo que buscan.",
+    name: "Mariela S.",
+    role: "Gerente Comercial",
+  },
+  {
+    logo: "WILSON",
+    logoIcon: wilsonColor,
+    accent: "#2563eb",
+    avatar: wilsonColor,
+    meta: [
+      { icon: "tag", text: "Servicios" },
+      { icon: "box", text: "320 productos" },
+      { icon: "users", text: "12 usuarios" },
+      { icon: "calendar", text: "Desde 2023" },
+    ],
+    achievements: [
+      "Implementación completa en solo 7 días",
+      "Capacitación para todo el equipo",
+      "Soporte permanente desde el primer día",
+    ],
+    results: [
+      { icon: "bolt", value: "7 días", label: "Implementación completa" },
+      { icon: "headset", value: "100%", label: "Satisfacción con el soporte" },
+    ],
+    quote: "La implementación fue rapidísima y el equipo de soporte nos acompañó en cada paso.",
+    name: "Luis M.",
+    role: "Gerente de Operaciones",
+  },
+];
+
+const stats = [
+  { iconImg: iconUsersImg, value: "250+", desc: "empresas activas" },
+  { iconImg: iconStarImg, value: "4.9/5", desc: "satisfacción promedio de nuestros clientes" },
+  { iconImg: iconChart, value: "35%", desc: "crecimiento promedio de ventas" },
+  { iconImg: iconShieldImg, value: "98%", desc: "recomiendan Naniva" },
+];
+---
+<section id="casos-exito" class="case-studies">
+  <div class="container">
+    <div class="tag" set:html={`${iconSvg('trophy')} CASOS DE ÉXITO`} />
+    <h2>Empresas reales. <span class="highlight">Resultados reales.</span></h2>
+    <p class="subtitle-strong" set:html={`${iconSvg('users','#2563eb',18)} Más de 250 empresas ya transformaron su operación con Naniva.`} />
+    <p class="subtitle">Descubre cómo empresas de distintos sectores aumentaron ventas,<br />redujeron costos y tomaron mejores decisiones con Naniva.</p>
+
+    <div class="cases-grid">
+      {cases.map((c, i) => (
+        <article class="case-card reveal hover-lift" style={`transition-delay:${i * 0.15}s`}>
+          <div class="case-header">
+            <div class="case-logo-wrap">
+               <img src={c.avatar.src} alt={c.name} class="logoicon" />
+              <div class="case-logo-text">
+              </div>
+            </div>
+            <ul class="case-meta">
+              {c.meta.map((m) => (
+                <li class="meta-item" set:html={`<span class="meta-svg">${iconSvg(m.icon, '#94a3b8', 15)}</span> <span>${m.text}</span>`} />
+              ))}
+            </ul>
+          </div>
+
+          <span class="case-label">CON NANIVA LOGRARON</span>
+          <ul class="case-achievements">
+            {c.achievements.map((a) => (
+              <li class="achievement-item"><span class="check">✓</span><span>{a}</span></li>
+            ))}
+          </ul>
+
+          <span class="case-label">RESULTADOS</span>
+          <div class="case-results">
+              {c.results.map((r) => (
+              <div class="case-result">
+                <span class="case-result-icon result-svg-wrap" set:html={iconSvg(r.icon, '#2563eb', 20)} />
+                <div>
+                  <span class="case-result-value">{r.value}</span>
+                  <span class="case-result-label">{r.label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="case-quote">
+            <span class="quote-mark">"</span>
+            <p>{c.quote}</p>
+          </div>
+          <div class="case-author">
+            <div>
+              <span class="author-name">{c.name}</span>
+              <span class="author-role">{c.role}</span>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="stats-bar">
+      <div class="stats-grid">
+        {stats.map((st, i) => (
+          <div class="stat-item reveal" style={`transition-delay:${i * 0.12}s`}>
+            <img src={st.iconImg.src} alt="" class="stat-icon-img" />
+            <div>
+              <h4>{st.value}</h4>
+              <p>{st.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .case-studies { padding: 4rem 0; background: #f8fafc; }
+  .case-studies .container { max-width: 1600px; }
+  .tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    text-align: center;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+  h2 {
+    text-align: center;
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+  }
+  .highlight { color: #2563eb; }
+  .subtitle-strong {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+    color: #1e293b;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+  .subtitle {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .case-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .case-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+  }
+  .case-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .case-logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .case-meta {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem 1rem;
+  }
+  .case-meta li {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    color: #64748b;
+    white-space: nowrap;
+  }
+  .case-logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .case-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    color: #2563eb;
+    margin-bottom: 0.6rem;
+  }
+  .case-achievements {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .case-achievements li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #334155;
+  }
+  .check { color: #16a34a; font-weight: 800; flex-shrink: 0; }
+  .case-results {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .case-result {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .case-result-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #eaf1ff;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .case-result-value {
+    display: block;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #0f172a;
+  }
+  .case-result-label {
+    display: block;
+    font-size: 0.72rem;
+    color: #64748b;
+  }
+  .case-quote {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.1rem;
+  }
+  .quote-mark {
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #2563eb;
+    font-weight: 800;
+  }
+  .case-quote p {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #475569;
+    line-height: 1.5;
+  }
+  .case-author {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: auto;
+  }
+
+  .author-name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #0f172a;
+  }
+  .author-role {
+    display: block;
+    font-size: 0.75rem;
+    color: #2563eb;
+    font-weight: 600;
+  }
+
+  .stats-bar {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    
+  }
+  .stat-icon-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .stat-item h4 { font-size: 1.15rem; font-weight: 800; color: #0f172a; margin-bottom: 0.1rem; }
+  .stat-item p { font-size: 0.8rem; color: var(--color-text-muted); }
+
+  /* ===== ANIMACIONES ===== */
+
+  /* --- 1. Card entrance: slide up + fade (ya existe con .reveal, mejoramos stagger) --- */
+  .case-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.7s ease;
+  }
+
+  /* --- 2. Meta items staggered entrance --- */
+  .meta-item {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .case-card.in-view .meta-item {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .case-card.in-view .meta-item:nth-child(1) { transition-delay: 0.1s; }
+  .case-card.in-view .meta-item:nth-child(2) { transition-delay: 0.2s; }
+  .case-card.in-view .meta-item:nth-child(3) { transition-delay: 0.3s; }
+  .case-card.in-view .meta-item:nth-child(4) { transition-delay: 0.4s; }
+
+  /* Meta SVG icons: rotate & scale entrance */
+  .meta-svg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .meta-svg svg {
+    transition: transform 0.5s ease, stroke 0.3s ease;
+  }
+  .case-card.in-view .meta-svg svg {
+    animation: meta-icon-pop 0.5s ease forwards;
+  }
+  .case-card.in-view .meta-item:nth-child(1) .meta-svg svg { animation-delay: 0.15s; }
+  .case-card.in-view .meta-item:nth-child(2) .meta-svg svg { animation-delay: 0.25s; }
+  .case-card.in-view .meta-item:nth-child(3) .meta-svg svg { animation-delay: 0.35s; }
+  .case-card.in-view .meta-item:nth-child(4) .meta-svg svg { animation-delay: 0.45s; }
+  @keyframes meta-icon-pop {
+    0% { transform: scale(0) rotate(-90deg); opacity: 0; }
+    60% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  /* Meta icon hover pulse */
+  .meta-item:hover .meta-svg svg {
+    stroke: #2563eb !important;
+    transform: scale(1.2);
+  }
+
+  /* --- 3. Achievement items: checkmark scale-in + slide --- */
+  .achievement-item {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .case-card.in-view .achievement-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .case-card.in-view .achievement-item:nth-child(1) { transition-delay: 0.15s; }
+  .case-card.in-view .achievement-item:nth-child(2) { transition-delay: 0.25s; }
+  .case-card.in-view .achievement-item:nth-child(3) { transition-delay: 0.35s; }
+
+  /* Checkmark bounce */
+  .check {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  .case-card.in-view .check {
+    animation: check-bounce 0.5s ease forwards;
+  }
+  .case-card.in-view .achievement-item:nth-child(1) .check { animation-delay: 0.15s; }
+  .case-card.in-view .achievement-item:nth-child(2) .check { animation-delay: 0.25s; }
+  .case-card.in-view .achievement-item:nth-child(3) .check { animation-delay: 0.35s; }
+  @keyframes check-bounce {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+
+  /* --- 4. Result values: pulse emphasis --- */
+  .case-result-value {
+    display: inline-block;
+    transition: color 0.3s ease;
+  }
+  .case-card.in-view .case-result-value {
+    animation: result-pulse 0.6s ease forwards;
+  }
+  .case-card.in-view .case-result:nth-child(1) .case-result-value { animation-delay: 0.3s; }
+  .case-card.in-view .case-result:nth-child(2) .case-result-value { animation-delay: 0.45s; }
+  @keyframes result-pulse {
+    0% { transform: scale(1); color: #0f172a; }
+    40% { transform: scale(1.15); color: #2563eb; }
+    100% { transform: scale(1); color: #0f172a; }
+  }
+
+  /* --- 5. Quote mark floating animation --- */
+  .quote-mark {
+    display: inline-block;
+    animation: quote-float 3s ease-in-out infinite;
+  }
+  @keyframes quote-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  /* --- 6. Result icon background pulse + SVG entrance --- */
+  .result-svg-wrap svg {
+    transition: transform 0.4s ease;
+  }
+  .case-card.in-view .result-svg-wrap svg {
+    animation: result-svg-pop 0.6s ease forwards;
+  }
+  .case-card.in-view .case-result:nth-child(1) .result-svg-wrap svg { animation-delay: 0.35s; }
+  .case-card.in-view .case-result:nth-child(2) .result-svg-wrap svg { animation-delay: 0.5s; }
+  @keyframes result-svg-pop {
+    0% { transform: scale(0) rotate(45deg); opacity: 0; }
+    50% { transform: scale(1.3) rotate(-15deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  .case-result-icon {
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .case-card:hover .case-result-icon {
+    background: #dbeafe;
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  }
+  .case-card:hover .result-svg-wrap svg {
+    stroke: #1d4ed8 !important;
+    transform: scale(1.1);
+  }
+
+  /* --- 7. Stats bar: counter emphasis + icon entrance on reveal --- */
+  .stat-icon-img {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  .stat-item.in-view .stat-icon-img {
+    animation: stat-icon-bounce 0.7s ease forwards;
+  }
+  .stat-item.in-view:nth-child(1) .stat-icon-img { animation-delay: 0.1s; }
+  .stat-item.in-view:nth-child(2) .stat-icon-img { animation-delay: 0.25s; }
+  .stat-item.in-view:nth-child(3) .stat-icon-img { animation-delay: 0.4s; }
+  .stat-item.in-view:nth-child(4) .stat-icon-img { animation-delay: 0.55s; }
+  @keyframes stat-icon-bounce {
+    0% { transform: scale(0.3) rotate(-15deg); opacity: 0; }
+    50% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+    70% { transform: scale(0.95) rotate(-2deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  /* Stat icon hover wiggle */
+  .stat-item:hover .stat-icon-img {
+    animation: stat-icon-wiggle 0.5s ease;
+  }
+  @keyframes stat-icon-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(-8deg); }
+    40% { transform: rotate(8deg); }
+    60% { transform: rotate(-5deg); }
+    80% { transform: rotate(5deg); }
+  }
+
+  .stat-item h4 {
+    position: relative;
+    display: inline-block;
+  }
+  .stat-item.in-view h4 {
+    animation: stat-count 0.8s ease forwards;
+  }
+  .stat-item.in-view:nth-child(1) h4 { animation-delay: 0.1s; }
+  .stat-item.in-view:nth-child(2) h4 { animation-delay: 0.25s; }
+  .stat-item.in-view:nth-child(3) h4 { animation-delay: 0.4s; }
+  .stat-item.in-view:nth-child(4) h4 { animation-delay: 0.55s; }
+  @keyframes stat-count {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.2); color: #2563eb; }
+    100% { transform: scale(1); opacity: 1; color: #0f172a; }
+  }
+
+  /* --- 8. Logo icon entrance + hover --- */
+  .logoicon {
+    width: 100%;
+    height: 100px;
+    margin: auto;
+    object-fit: contain;
+    transform: scale(0.6) rotate(-10deg);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+    cursor: pointer;
+  }
+  .case-card.in-view .logoicon {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  .logoicon:hover {
+    transform: scale(1.12) rotate(0deg) !important;
+    opacity: 1;
+  }
+
+  /* --- 9. Tag badge entrance + trophy icon bounce --- */
+  .tag {
+    animation: tag-fade 0.8s ease forwards;
+  }
+  .tag svg {
+    transition: transform 0.3s ease;
+    animation: trophy-glow 2s ease-in-out infinite;
+  }
+  @keyframes tag-fade {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes trophy-glow {
+    0%, 100% { transform: scale(1) rotate(0deg); filter: none; }
+    25% { transform: scale(1.15) rotate(-5deg); filter: drop-shadow(0 0 4px rgba(37, 99, 235, 0.4)); }
+    75% { transform: scale(1.15) rotate(5deg); filter: drop-shadow(0 0 4px rgba(37, 99, 235, 0.4)); }
+  }
+
+  /* Subtitle-strong users icon */
+  .subtitle-strong svg {
+    animation: users-pulse 2.5s ease-in-out infinite;
+    transition: transform 0.2s ease;
+  }
+  .subtitle-strong:hover svg {
+    transform: scale(1.3);
+  }
+  @keyframes users-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  /* --- 10. Reduce motion --- */
+  @media (prefers-reduced-motion: reduce) {
+    .meta-item,
+    .meta-svg svg,
+    .achievement-item,
+    .check,
+    .case-result-value,
+    .quote-mark,
+    .case-result-icon,
+    .result-svg-wrap svg,
+    .stat-icon-img,
+    .stat-item h4,
+    .logoicon,
+    .tag,
+    .tag svg,
+    .subtitle-strong svg {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .cases-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .case-header { flex-direction: column; }
+    .stats-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  // Enhanced observer for case cards to add .in-view class
+  const cardObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2, rootMargin: "0px 0px -40px 0px" }
+  );
+
+  document.querySelectorAll(".case-card").forEach((el) => cardObserver.observe(el));
+</script>

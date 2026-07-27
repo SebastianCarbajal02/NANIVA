@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://localhost:4321/ -o /tmp/out68.html -w \"%{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:4321/)",
+      "Bash(curl -s http://localhost:4321/ -o /tmp/out69.html -w \"%{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:4321/ -o /tmp/out70.html -w \"%{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:4321/ -o /tmp/out71.html -w \"%{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:4321/ -o /tmp/out72.html -w \"%{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:4321/ -o /tmp/out73.html -w \"%{http_code}\\\\n\")",
+      "Bash(npx astro *)",
+      "Bash(timeout 5 npx astro check)",
+      "Bash(netstat -ano)"
+    ]
+  }
+}

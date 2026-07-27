@@ -1,0 +1,315 @@
+---
+import erp from '../assets/image/IA/cosasia-06.png';
+import erpIllustration from '../assets/image/IA/cosasia-07.png';
+import nanivaIcon from '../assets/image/IA/cosasia-09.png';
+import nanivaIllustration from '../assets/image/IA/cosasia-10.png';
+
+const erpFeatures = [
+  { icon: '×', text: 'Muestra datos e informes.' },
+  { icon: '×', text: 'Tú analizas y buscas problemas.' },
+  { icon: '×', text: 'Tú encuentras oportunidades.' },
+  { icon: '×', text: 'Tú decides después de horas de análisis.' },
+];
+
+const nanivaFeatures = [
+  { icon: '✓', text: 'Analiza automáticamente miles de datos.' },
+  { icon: '✓', text: 'Detecta problemas y oportunidades.' },
+  { icon: '✓', text: 'Prioriza lo importante para tu negocio.' },
+  { icon: '✓', text: 'Te recomienda acciones concretas y claras.' },
+];
+---
+
+<section class="comparison-ia">
+  <div class="container">
+    <h2 class="comparison-title reveal">La diferencia es quién descubre la oportunidad primero.</h2>
+
+    <div class="comparison-grid">
+      <!-- ERP Tradicional Card -->
+      <div class="comparison-card erp-card reveal">
+        <div class="card-content">
+          <div class="card-header">
+            <img src={nanivaIcon.src} alt="ERP tradicional" class="card-icon card-icon-lg" />
+            <h3>ERP tradicional</h3>
+          </div>
+
+          <ul class="features-list">
+            {erpFeatures.map((feature) => (
+              <li class="feature-item erp-feature">
+                <span class="feature-icon erp-icon">{feature.icon}</span>
+                <span class="feature-text">{feature.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="card-illustration">
+          <img src={erp.src} alt="ERP tradicional illustration" class="illustration-img illustration-lg" />
+        </div>
+      </div>
+
+      <!-- VS Circle -->
+      <div class="vs-circle">
+        <span>VS</span>
+      </div>
+
+      <!-- Naniva IA Card -->
+      <div class="comparison-card naniva-card reveal">
+        <div class="card-content">
+          <div class="card-header">
+            <img src={nanivaIllustration.src} alt="Naniva IA" class="card-icon card-icon-lg" />
+            <h3>Naniva IA</h3>
+          </div>
+
+          <ul class="features-list">
+            {nanivaFeatures.map((feature) => (
+              <li class="feature-item naniva-feature">
+                <span class="feature-icon naniva-icon">{feature.icon}</span>
+                <span class="feature-text">{feature.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="card-illustration">
+          <img src={erpIllustration.src} alt="Naniva IA illustration" class="illustration-img illustration-lg" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .comparison-ia {
+    background: #f8fafc;
+    padding: 5rem 1rem;
+  }
+
+  .comparison-ia .container {
+    max-width: 1400px;
+  }
+
+  .comparison-title {
+    font-size: clamp(1.8rem, 2.6vw, 2.5rem);
+    font-weight:700;
+    color: #0f172a;
+    text-align: center;
+    margin-bottom: 4rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.2;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: stretch;
+    position: relative;
+  }
+
+  .comparison-card {
+    display: flex;
+    flex-direction: row;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06);
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .erp-card {
+    border: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .naniva-card {
+    border: 2px solid rgba(37, 99, 235, 0.2);
+    box-shadow: 0 14px 40px rgba(37, 99, 235, 0.1);
+  }
+
+  .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .card-icon-lg {
+    width: 72px;
+    height: 72px;
+  }
+
+  .card-header h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .erp-card .card-header h3 {
+    color: #0f172a;
+  }
+
+  .naniva-card .card-header h3 {
+    color: #2563eb;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .feature-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .erp-icon {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+  }
+
+  .naniva-icon {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+  }
+
+  .feature-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #475569;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .card-illustration {
+    flex: 0 0 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1.5rem;
+  }
+
+  .illustration-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    max-height: 280px;
+  }
+
+  .illustration-lg {
+    max-height: 320px;
+  }
+
+  .vs-circle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px;
+    height: 72px;
+    background: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: #2563eb;
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+    z-index: 10;
+  }
+
+  @media (max-width: 1000px) {
+    .comparison-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .vs-circle {
+      position: relative;
+      left: auto;
+      top: auto;
+      transform: none;
+      margin: 0 auto 2rem;
+    }
+
+    .comparison-card {
+      flex-direction: column;
+      min-height: auto;
+    }
+
+    .card-illustration {
+      flex: 1;
+      margin-left: 0;
+      margin-top: 2rem;
+      max-height: 200px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .comparison-ia {
+      padding: 3.5rem 1rem;
+    }
+
+    .comparison-title {
+      margin-bottom: 3rem;
+    }
+
+    .comparison-grid {
+      gap: 1.5rem;
+    }
+
+    .comparison-card {
+      padding: 1.75rem;
+      min-height: auto;
+    }
+
+    .card-header h3 {
+      font-size: 1.15rem;
+    }
+
+    .feature-text {
+      font-size: 0.9rem;
+    }
+
+    .vs-circle {
+      width: 64px;
+      height: 64px;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+</style>
