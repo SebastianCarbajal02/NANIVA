@@ -128,9 +128,34 @@ const whyChoose = [
       return Math.round(scrollLeft / width);
     };
 
+    let animFrame: number | null = null;
+
+    const easeInOutQuad = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+
+    const animateScrollTo = (target: number, duration = 600) => {
+      if (animFrame) cancelAnimationFrame(animFrame);
+      track.classList.add("is-animating");
+      const start = track.scrollLeft;
+      const distance = target - start;
+      const startTime = performance.now();
+
+      const step = (now: number) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        track.scrollLeft = start + distance * easeInOutQuad(progress);
+        if (progress < 1) {
+          animFrame = requestAnimationFrame(step);
+        } else {
+          animFrame = null;
+          track.classList.remove("is-animating");
+        }
+      };
+      animFrame = requestAnimationFrame(step);
+    };
+
     const goTo = (index: number) => {
       const clamped = Math.max(0, Math.min(slides.length - 1, index));
-      track.scrollTo({ left: clamped * track.clientWidth, behavior: "smooth" });
+      animateScrollTo(clamped * track.clientWidth, 600);
     };
 
     const onScroll = () => setActiveDot(currentIndex());
@@ -184,6 +209,7 @@ const whyChoose = [
     track.addEventListener("pointercancel", endDrag);
   }
 
+  initServicesCarousel();
   document.addEventListener("astro:page-load", initServicesCarousel);
 </script>
 
@@ -317,7 +343,8 @@ const whyChoose = [
       user-select: none;
     }
     .services-track::-webkit-scrollbar { display: none; }
-    .services-track.is-dragging {
+    .services-track.is-dragging,
+    .services-track.is-animating {
       cursor: grabbing;
       scroll-snap-type: none;
     }

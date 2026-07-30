@@ -1,5 +1,4 @@
 ---
-import dashboardImg from '../assets/image/home/demo-video/Dashboard.webp';
 import iconBrainImg from '../assets/image/home/demo-video/icomvid-15.webp';
 import iconClockImg from '../assets/image/home/demo-video/icomvid-16.webp';
 import iconCartImg from '../assets/image/home/demo-video/icomvid-17.webp';
@@ -70,16 +69,15 @@ const previewCards = [
       </div>
 
       <div class="demo-video-wrap">
-        <video src="/video/video.mkv" poster={dashboardImg.src} class="demo-screen" playsinline></video>
-        <button type="button" class="play-btn" aria-label="Reproducir demo">▶</button>
-        <div class="video-controls">
-          <span class="video-time">0:00 / 0:00</span>
-          <div class="video-bar"><span class="video-progress"></span></div>
-          <span class="video-icons">
-            <button type="button" class="mute-btn" aria-label="Silenciar">🔊</button>
-            <button type="button" class="fullscreen-btn" aria-label="Pantalla completa">⛶</button>
-          </span>
-        </div>
+        <iframe
+          class="demo-screen"
+          src="https://www.youtube.com/embed/Tw1SRSDoIT4?si=c0rNqddCOxJYvkMN"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
       </div>
     </div>
 
@@ -280,71 +278,10 @@ const previewCards = [
   }
   .demo-screen {
     width: 100%;
+    aspect-ratio: 16 / 9;
     height: auto;
     display: block;
-  }
-  .play-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 84px;
-    height: 84px;
-    border-radius: 999px;
-    background: #2563eb;
-    color: white;
-    border: 6px solid rgba(255, 255, 255, 0.9);
-    font-size: 1.6rem;
-    cursor: pointer;
-    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .video-controls {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(0deg, rgba(0,0,0,0.75), transparent);
-    padding: 0.75rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: white;
-    font-size: 0.8rem;
-  }
-  .video-bar {
-    flex: 1;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 999px;
-    overflow: hidden;
-    cursor: pointer;
-    padding: 0.5rem 0;
-    margin: -0.5rem 0;
-    background-clip: content-box;
-  }
-  .video-progress {
-    display: block;
-    width: 2%;
-    height: 100%;
-    background: white;
-    pointer-events: none;
-  }
-  .video-icons {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .video-icons button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 0.95rem;
-    line-height: 1;
-    cursor: pointer;
-    padding: 0.15rem;
+    border: 0;
   }
 
   .stats-bar {
@@ -383,78 +320,3 @@ const previewCards = [
     .stats-grid { grid-template-columns: 1fr; }
   }
 </style>
-
-<script>
-  function formatTime(seconds: number) {
-    if (!Number.isFinite(seconds)) return "0:00";
-    const m = Math.floor(seconds / 60);
-    const s = Math.floor(seconds % 60);
-    return `${m}:${s.toString().padStart(2, "0")}`;
-  }
-
-  document.querySelectorAll<HTMLElement>(".demo-video-wrap").forEach((wrap) => {
-    const video = wrap.querySelector("video");
-    const playBtn = wrap.querySelector<HTMLButtonElement>(".play-btn");
-    const timeLabel = wrap.querySelector(".video-time");
-    const bar = wrap.querySelector<HTMLElement>(".video-bar");
-    const progress = wrap.querySelector<HTMLElement>(".video-progress");
-    const muteBtn = wrap.querySelector<HTMLButtonElement>(".mute-btn");
-    const fullscreenBtn = wrap.querySelector<HTMLButtonElement>(".fullscreen-btn");
-    if (!video || !playBtn || !timeLabel || !bar || !progress) return;
-
-    const updateTime = () => {
-      timeLabel.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
-      progress.style.width = `${(video.currentTime / (video.duration || 1)) * 100}%`;
-    };
-
-    const seekTo = (clientX: number) => {
-      const rect = bar.getBoundingClientRect();
-      const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
-      if (Number.isFinite(video.duration)) video.currentTime = ratio * video.duration;
-    };
-
-    playBtn.addEventListener("click", () => {
-      video.play();
-    });
-    video.addEventListener("play", () => {
-      playBtn.style.display = "none";
-    });
-    video.addEventListener("pause", () => {
-      playBtn.style.display = "flex";
-    });
-    video.addEventListener("timeupdate", updateTime);
-    video.addEventListener("loadedmetadata", updateTime);
-    video.addEventListener("click", () => {
-      if (video.paused) video.play();
-      else video.pause();
-    });
-
-    bar.addEventListener("click", (e) => seekTo((e as MouseEvent).clientX));
-    let dragging = false;
-    bar.addEventListener("mousedown", (e) => {
-      dragging = true;
-      seekTo((e as MouseEvent).clientX);
-    });
-    window.addEventListener("mousemove", (e) => {
-      if (dragging) seekTo((e as MouseEvent).clientX);
-    });
-    window.addEventListener("mouseup", () => {
-      dragging = false;
-    });
-
-    muteBtn?.addEventListener("click", () => {
-      video.muted = !video.muted;
-      muteBtn.textContent = video.muted ? "🔇" : "🔊";
-    });
-
-    fullscreenBtn?.addEventListener("click", () => {
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-      } else if (video.requestFullscreen) {
-        video.requestFullscreen();
-      } else if ((video as any).webkitEnterFullscreen) {
-        (video as any).webkitEnterFullscreen();
-      }
-    });
-  });
-</script>
