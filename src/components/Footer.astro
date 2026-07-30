@@ -22,7 +22,7 @@ function iconSvg(name: string, color: string = "#2563eb", size = 20) {
 }
 
 const productLinks = ["ERP", "Ecommerce", "Facturación electrónica", "Catálogo digital", "Inteligencia Artificial", "Integraciones"];
-const resourceLinks = ["Casos de éxito", "Blog", "Centro de ayuda", "Documentación API", "Precios"];
+const resourceLinks = ["Casos de éxito", "Términos y condiciones", "Centro de ayuda", "Documentación API", "Precios"];
 const companyLinks = ["Nosotros", "Clientes", "Trabaja con nosotros", "Contacto"];
 
 const socials = [
@@ -62,9 +62,14 @@ const complianceBadges = [
 
       <div class="links-col">
         <h4>Recursos</h4>
-        {resourceLinks.map((link) => (
-          <a href="#" set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
-        ))}
+        {resourceLinks.map((link) => {
+          const href = link === "Términos y condiciones" ? "/terminos y condiciones ff.pdf" : "#";
+          const target = link === "Términos y condiciones" ? "_blank" : undefined;
+          const rel = link === "Términos y condiciones" ? "noopener noreferrer" : undefined;
+          return (
+            <a href={href} target={target} rel={rel} set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
+          );
+        })}
         <a href="#" set:html={`${iconSvg('book', '#2563eb')} <span>Libro de Reclamaciones</span>`} />
       </div>
 

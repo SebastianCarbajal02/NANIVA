@@ -1,11 +1,13 @@
 ---
 import brainiImg from '../assets/image/IA/img cerebrof1_Mesa de trabajo 1.webp';
 import ctaBackground from '../assets/image/IA/FONDOO12_Mesa de trabajo 1.webp';
+import cerebroImg from '../assets/image/IA/cerebtroia.png';
 ---
 
 <section class="cta-banner-ia">
   <div class="container">
     <div class="cta-content" style={`background-image: url('${ctaBackground.src}');`}>
+     
       <!-- Left Column -->
       <div class="cta-text reveal">
         <span class="cta-badge">✨ IA QUE TRABAJA POR TI</span>
@@ -18,17 +20,19 @@ import ctaBackground from '../assets/image/IA/FONDOO12_Mesa de trabajo 1.webp';
         <p class="cta-description">
           Mientras tú diriges tu empresa, Naniva IA nunca deja de analizarla.
         </p>
-
-        <div class="cta-buttons">
+        
+        <div class="cta-buttons"> 
+           <img src={cerebroImg.src} alt="Ilustración de cerebro" class="cerebro-mobile" />
           <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary hover-pop">
             Quiero ver Naniva IA en acción →
           </a>
+          
           <a href="https://wa.link/d99odw" target="_blank" rel="noopener noreferrer" class="btn-secondary">
             Solicitar demostración
           </a>
         </div>
       </div>
-
+      
       <!-- Right Column -->
       <div class="cta-visual reveal">
         <img src={brainiImg.src} alt="Ilustración de cerebro con engranajes" class="brain-illustration" />
@@ -179,6 +183,10 @@ import ctaBackground from '../assets/image/IA/FONDOO12_Mesa de trabajo 1.webp';
     object-position: right center;
   }
 
+  .cerebro-mobile {
+    display: none;
+  }
+
   @media (max-width: 1100px) {
     .cta-content {
       min-height: 420px;
@@ -316,6 +324,14 @@ import ctaBackground from '../assets/image/IA/FONDOO12_Mesa de trabajo 1.webp';
 
     .brain-illustration {
       display: none;
+    }
+
+    .cerebro-mobile {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      margin-bottom: 1.5rem;
     }
   }
 </style>
