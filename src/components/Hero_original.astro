@@ -326,8 +326,13 @@ const partners = [
     .partners { width: 100%; max-width: 100%; justify-content: center; }
   }
   @media (max-width: 400px) {
-    .features { gap: 0.6rem; }
-    .feature { width: 56px; }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem 0.5rem;
+      justify-items: center;
+    }
+    .feature { width: 100%; }
   }
 </style>
 
