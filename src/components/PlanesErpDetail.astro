@@ -1,5 +1,6 @@
 ---
 import erpMockup from '../assets/image/planes/compartido/cel y laptop-01.webp';
+import erpMockupMobile from '../assets/image/planes/compartido/plan-erp-movil.png';
 import iconCarro from '../assets/image/shared/iconos-comunes/carro.webp';
 import iconClientes from '../assets/image/shared/iconos-comunes/ICOMS1-07.webp';
 import iconCajaNegra from '../assets/image/shared/iconos-comunes/caja-negra.webp';
@@ -114,7 +115,7 @@ const extraModules = [
     </div>
 
     <div class="erp-hero-media reveal">
-      <img src={erpMockup.src} alt="Dashboard ERP Naniva" class="erp-mockup-img" />
+      <img src={erpMockup.src} alt="Dashboard ERP Naniva" class="erp-mockup-img erp-mockup-desktop" />
     </div>
   </div>
 
@@ -235,7 +236,8 @@ const extraModules = [
 
   <div class="banner-plan-cta">
     <a href="https://wa.link/c32qo2" target="_blank">
-      <img src={bannerPlan.src} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="banner-plan-img" />
+      <img src={bannerPlan.src} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="banner-plan-img banner-plan-desktop" />
+      <img src={erpMockupMobile.src} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="banner-plan-img banner-plan-mobile" />
     </a>
     <div class="banner-plan-cta-overlay">
       <span class="banner-plan-sub">Sin compromiso. En menos de 30 minutos.</span>
@@ -273,6 +275,14 @@ const extraModules = [
     width: 115%;
     height: auto;
     border-radius: 16px;
+  }
+
+  .erp-mockup-desktop {
+    display: block;
+  }
+
+  .erp-mockup-mobile {
+    display: none;
   }
 
   .erp-badge {
@@ -768,6 +778,14 @@ const extraModules = [
     transition: transform 0.3s ease;
   }
 
+  .banner-plan-desktop {
+    display: block;
+  }
+
+  .banner-plan-mobile {
+    display: none;
+  }
+
   .banner-plan-img:hover {
     transform: scale(1.02);
   }
@@ -852,5 +870,24 @@ const extraModules = [
     .extra-modules-grid { grid-template-columns: 1fr; }
     .price-card { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
     .price-note { border-left: none; padding-left: 0; }
+  }
+
+  @media (max-width: 480px) {
+    .erp-mockup-desktop {
+      display: none;
+    }
+
+    .erp-mockup-mobile {
+      display: block;
+      width: 100%;
+    }
+
+    .banner-plan-desktop {
+      display: none;
+    }
+
+    .banner-plan-mobile {
+      display: block;
+    }
   }
 </style>

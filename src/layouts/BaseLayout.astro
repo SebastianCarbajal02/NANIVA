@@ -1,4 +1,6 @@
 ---
+import Footer from '../components/Footer.astro';
+
 export interface Props {
   title?: string;
   description?: string;
@@ -18,6 +20,7 @@ const { title = "Spiffy Shepherd", description = "Landing page" } = Astro.props;
       <div class="spinner"></div>
     </div>
     <slot />
+    <Footer />
   </body>
 </html>
 
