@@ -17,8 +17,8 @@ const stats = [
     <h1>Impulsa tu negocio<br />con nuestas<br /><span class="highlight">Soluciones</span></h1>
     <p>Te asesoramos para que tengas el mejor<br />sistema que se adecue para tu NEGOCIO.</p>
     <div class="stats">
-      {stats.map((s) => (
-        <div class="stat">
+      {stats.map((s, i) => (
+        <div class="stat reveal" style={`transition-delay:${i * 0.12}s`}>
           <span class="stat-value">{s.value}</span>
           <span class={`stat-label ${s.labelClass ?? ""}`}>
             {s.label.split("|").map((line, idx, arr) => (
@@ -172,7 +172,7 @@ const stats = [
     font-size: 1.5rem;
     font-weight: 650;
     color: #334155;
-    transform: translateY(3rem);
+    transform: translateY(4rem);
   }
     .content {
     max-width: 640px;
@@ -272,12 +272,56 @@ const stats = [
   }
 
   @media (max-width: 480px) {
-    .stat,
-    .stat:last-child,
-    .stat:nth-child(1),
-    .stat:nth-child(2),
-    .stat:nth-child(3) {
-      flex: 1 1 100%;
+    .banner {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 2rem;
+    }
+
+    .personas-img {
+      display: none;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 3vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: #0f172a;
+      width: 100%;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #334155;
+      transform: translateY(2rem);
+    }
+
+    .content {
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      gap: 1rem;
+      z-index: 10;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .stat:last-child {
+      grid-column: 1 / -1;
     }
   }
 </style>
