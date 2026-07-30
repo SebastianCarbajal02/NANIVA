@@ -4,10 +4,10 @@ import iconCompromisoImg from '../assets/image/home/faq/ICOMS1-08.webp';
 import iconRespuestaImg from '../assets/image/home/faq/ICOMS1-09.webp';
 import iconHeadsetImg from '../assets/image/home/faq/ICOMS1-10.webp';
 
-function iconSvg(name: string, color: string = "#2563eb", size = 18) {
+function iconSvg(name: string, color: string = "#2563eb", size = 18): string {
   const icons: Record<string, string> = {
     help: `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>`,
-    whatsapp: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="${color}"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.92 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2m0 1.67a8.2 8.2 0 0 1 5.83 2.42 8.19 8.19 0 0 1 2.41 5.82c0 4.55-3.7 8.25-8.25 8.25a8.25 8.25 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.39c0-4.55 3.7-8.24 8.26-8.24m-4.53 4.7c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.03 0 1.2.87 2.35.99 2.51.12.16 1.7 2.7 4.19 3.7 2.07.82 2.49.66 2.94.62.45-.04 1.45-.6 1.65-1.17.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.46-.28-.24-.12-1.45-.72-1.67-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42h-.47z"/></svg>`,
+    whatsapp: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="${color}"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371 0-.57 0-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a5.505 5.505 0 0 0-5.5 5.515c0 1.527.586 2.957 1.655 4.038l-.655 2.392 2.445-.644C6.926 20.285 8.372 21 9.975 21c3.051 0 5.538-2.487 5.538-5.538 0-1.48-.635-2.869-1.744-3.91-.857-.857-2.007-1.363-3.224-1.363z"/></svg>`,
   };
   return icons[name] ?? "";
 }
@@ -77,7 +77,7 @@ const trustMini = [
         </div>
         <h3>¿No encontraste<br />tu respuesta?</h3>
         <p>Nuestro equipo está listo para ayudarte y orientarte en el proceso.</p>
-        <a href="https://wa.link/iar289" target="_blank" rel="noopener noreferrer" class="whatsapp-btn hover-pop" set:html={`${iconSvg('whatsapp', 'white', 20)} Escríbenos por WhatsApp →`} />
+        <a href="https://wa.link/iar289" target="_blank" rel="noopener noreferrer" class="whatsapp-btn hover-pop" set:html={`${iconSvg('whatsapp', 'white', 28)} Escríbenos por WhatsApp →`} />
         <div class="faq-mini-list">
           {trustMini.map((t) => (
             <div class="faq-mini-item">
@@ -251,16 +251,17 @@ const trustMini = [
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 1rem;
     width: 100%;
     background: #16a34a;
     color: white;
-    padding: 0.9rem 1.5rem;
+    padding: 1.1rem 2rem;
     border-radius: 999px;
     text-decoration: none;
     font-weight: 700;
     font-size: 0.95rem;
     margin-bottom: 1.5rem;
+    white-space: nowrap;
   }
   .faq-mini-list {
     display: flex;
@@ -285,4 +286,44 @@ const trustMini = [
   @media (max-width: 900px) {
     .faq-cols { grid-template-columns: 1fr; }
   }
+    @media (max-width: 400px) 
+    { 
+    .faq-card[data-astro-cid-hemr5th4] {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: 0 14px 40px #0f172a0f;
+}
+.faq-side {
+    flex: 1;
+    min-width: 280px;
+    background: linear-gradient(160deg, #eef4ff, #f8fbff);
+    border: 1px solid #dbeafe;
+    border-radius: var(--radius);
+    padding: 2rem 1.75rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(-1rem);
+  }
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    background: #16a34a;
+    color: white;
+    padding: 1.1rem 2em;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    white-space: nowrap;
+  }
+
+
+    }
 </style>
