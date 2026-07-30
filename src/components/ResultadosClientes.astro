@@ -1,10 +1,10 @@
 ---
-import chartIcon from '../assets/image/IA/ICONNBANNE-15.png';
-import cartIcon from '../assets/image/IA/ICONNBANNE-14.png';
-import personIcon from '../assets/image/IA/ICONNBANNE-13.png';
-import moneyIcon from '../assets/image/IA/ICONNBANNE-12.png';
-import clockIcon from '../assets/image/IA/ICONNBANNE-11.png';
-import fondoSection from '../assets/image/IA/FONDOO12_Mesa de trabajo 1.png';
+import chartIcon from '../assets/image/IA/ICONNBANNE-15.webp';
+import cartIcon from '../assets/image/IA/ICONNBANNE-14.webp';
+import personIcon from '../assets/image/IA/ICONNBANNE-13.webp';
+import moneyIcon from '../assets/image/IA/ICONNBANNE-12.webp';
+import clockIcon from '../assets/image/IA/ICONNBANNE-11.webp';
+import fondoSection from '../assets/image/IA/FONDOO12_Mesa de trabajo 1.webp';
 
 const stats = [
   { icon: chartIcon, target: 35, sign: '+', description: 'Aumento promedio en ventas' },
@@ -21,8 +21,8 @@ const stats = [
     <h2 id="resultados-title">Resultados que nuestros clientes ya están logrando</h2>
 
     <div class="stats-grid">
-      {stats.map((item) => (
-        <article class="stat-card">
+      {stats.map((item, i) => (
+        <article class="stat-card reveal" style={`transition-delay:${i * 0.12}s`}>
           <div class="stat-icon-wrap">
             <img src={item.icon.src} alt="" class="stat-icon" loading="lazy" decoding="async" />
           </div>
@@ -175,6 +175,12 @@ const stats = [
     text-align: center;
   }
 
+  .stat-card.reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
   .stat-icon-wrap {
     display: flex;
     align-items: center;
@@ -241,7 +247,7 @@ const stats = [
     }
   }
 
-  @media (max-width: 560px) {
+  @media (max-width: 480px) {
     .resultados-clientes__inner {
       padding: 1.5rem 1rem;
       border-radius: 24px;
@@ -249,10 +255,78 @@ const stats = [
 
     .stats-grid {
       grid-template-columns: 1fr;
+      gap: 1rem;
     }
 
     .stat-card {
-      min-height: 220px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+      column-gap: 1rem;
+      row-gap: 0.1rem;
+      align-items: center;
+      text-align: left;
+      min-height: 0;
+      padding:0rem 0rem 0rem 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+    }
+
+    .stat-icon-wrap {
+      grid-row: 1;
+      grid-column: 1;
+      width: 50px;
+      height: 50px;
+      min-height: 0;
+      border-radius: 50%;
+    }
+
+    .stat-icon {
+      width: 80px;
+      height: 80px;
+      transform: translateY(1rem);
+    }
+
+    .stat-value {
+      grid-row: 1;
+      grid-column: 2 / -1;
+      justify-content: flex-start;
+      font-size: 1.6rem;
+      min-height: auto;
+      margin-left: 2rem;
+          
+
+    }
+
+    .stat-description {
+      grid-row: 2;
+      grid-column: 1 / -1;
+      font-size: 0.82rem;
+      max-width: 100%;
+      margin-top: 0.4rem;
+      margin-left: 6rem;
+      transform: translateY(-1rem);
+    }
+    .resultados-clientes{
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto 3rem;
+    padding: 0.5rem 0.5rem;
+    color: #f8fafc;
+    /* border-radius: 32px; */
+    isolation: isolate;
+    background: #04091a;
+    }
+
+    .stat-card.reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .stat-card.reveal.in-view {
+      opacity: 1;
+      transform: none;
     }
   }
 </style>

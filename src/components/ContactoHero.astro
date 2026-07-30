@@ -259,7 +259,6 @@ const bannerFeatures = [
     }
     .content {
       max-width: 100%;
-      background: rgba(255, 255, 255, 0.92);
       padding: 1.5rem;
       border-radius: var(--radius);
       gap: 1rem;
@@ -313,6 +312,50 @@ const bannerFeatures = [
     .banner-feature p.feature-desc {
       text-align: center;
       font-size: 0.65rem;
+      width: 100%;
+    }
+  }
+
+  @media (width <= 480px) {
+    .banner-persona {
+      display: none;
+    }
+
+    .banner-features {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1rem;
+      transform: none;
+    }
+
+    .banner-feature {
+      flex: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.5rem;
+    }
+
+    .banner-feature-icon img,
+    .banner-feature-icon-1 img,
+    .banner-feature-icon-4 img {
+      width: 64px;
+      height: 64px;
+      margin: 0;
+      padding-left: 0;
+    }
+
+    .banner-feature h4 {
+      font-size: 0.85rem;
+      width: 100%;
+      white-space: nowrap;
+    }
+
+    .banner-feature p.feature-desc {
+      font-size: 0.75rem;
       width: 100%;
     }
   }

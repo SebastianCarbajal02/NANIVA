@@ -1,6 +1,6 @@
 ---
-import brainiImg from '../assets/image/IA/img cerebrof1_Mesa de trabajo 1.png';
-import ctaBackground from '../assets/image/IA/FONDOO12_Mesa de trabajo 1.png';
+import brainiImg from '../assets/image/IA/img cerebrof1_Mesa de trabajo 1.webp';
+import ctaBackground from '../assets/image/IA/FONDOO12_Mesa de trabajo 1.webp';
 ---
 
 <section class="cta-banner-ia">
@@ -268,6 +268,54 @@ import ctaBackground from '../assets/image/IA/FONDOO12_Mesa de trabajo 1.png';
     .cta-badge {
       font-size: 0.68rem;
       padding: 0.45rem 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cta-content {
+      flex-direction: column;
+      min-height: auto;
+      padding: 2rem 1.25rem;
+    }
+
+    .cta-content::before {
+      display: none;
+    }
+
+    .cta-text {
+      max-width: 100%;
+      text-align: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cta-badge {
+      transform: none;
+      order: 1;
+    }
+
+    .cta-title {
+      transform: none;
+      order: 2;
+    }
+
+    .cta-description {
+      transform: none;
+      max-width: 100%;
+      order: 3;
+    }
+
+    .cta-buttons {
+      order: 4;
+    }
+
+    .cta-visual {
+      display: none;
+    }
+
+    .brain-illustration {
+      display: none;
     }
   }
 </style>

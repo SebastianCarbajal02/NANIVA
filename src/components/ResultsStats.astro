@@ -1,9 +1,9 @@
 ---
-import chartIcon from '../assets/image/IA/ICONNBANNE-15.png';
-import cartIcon from '../assets/image/IA/ICONNBANNE-14.png';
-import personIcon from '../assets/image/IA/ICONNBANNE-13.png';
-import moneyIcon from '../assets/image/IA/ICONNBANNE-12.png';
-import clockIcon from '../assets/image/IA/ICONNBANNE-11.png';
+import chartIcon from '../assets/image/IA/ICONNBANNE-15.webp';
+import cartIcon from '../assets/image/IA/ICONNBANNE-14.webp';
+import personIcon from '../assets/image/IA/ICONNBANNE-13.webp';
+import moneyIcon from '../assets/image/IA/ICONNBANNE-12.webp';
+import clockIcon from '../assets/image/IA/ICONNBANNE-11.webp';
 
 const stats = [
   {
@@ -236,6 +236,59 @@ const stats = [
 
     .stat-card {
       min-height: 220px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .results-grid {
+      gap: 0.5rem;
+    }
+
+    .stat-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+      column-gap: 1rem;
+      row-gap: 0.1rem;
+      align-items: center;
+      text-align: left;
+      min-height: 0;
+      padding: 0.9rem 0.5rem;
+      border: none;
+      background: transparent;
+      border-radius: 0;
+    }
+
+    .stat-icon-wrap {
+      grid-row: 1;
+      grid-column: 1;
+      width: 60px;
+      height: 60px;
+      min-height: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.35), rgba(139, 92, 246, 0.08) 70%);
+      box-shadow: 0 0 24px rgba(139, 92, 246, 0.45);
+    }
+
+    .stat-icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    .stat-value {
+      grid-row: 1;
+      grid-column: 2;
+      justify-content: flex-start;
+      font-size: 1.6rem;
+      min-height: auto;
+    }
+
+    .stat-description {
+      grid-row: 2;
+      grid-column: 1 / -1;
+      font-size: 0.82rem;
+      max-width: 100%;
+      margin-top: 0.4rem;
     }
   }
 </style>
