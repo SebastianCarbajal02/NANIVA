@@ -28,11 +28,21 @@ export async function POST({ request }) {
     const cleanPhone = phone ? sanitize(phone) : '';
     const cleanMessage = sanitize(message);
 
+    const accessKey = import.meta.env.WEB3FORMS_KEY;
+    if (!accessKey) {
+      console.error('WEB3FORMS_KEY no está configurada en las variables de entorno.');
+      return new Response(JSON.stringify({ error: 'Configuración del servidor incompleta' }), { status: 500 });
+    }
+
     const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      },
       body: JSON.stringify({
-        access_key: import.meta.env.WEB3FORMS_KEY,
+        access_key: accessKey,
         subject: 'Nuevo mensaje desde NANIVA Web',
         from_name: 'Formulario Web NANIVA',
         name: cleanName,
@@ -42,7 +52,14 @@ export async function POST({ request }) {
       }),
     });
 
-    const data = await response.json();
+    const rawBody = await response.text();
+    let data;
+    try {
+      data = JSON.parse(rawBody);
+    } catch {
+      console.error('Web3Forms devolvió una respuesta no-JSON:', response.status, rawBody.slice(0, 300));
+      return new Response(JSON.stringify({ error: 'Respuesta inválida del servicio de correo' }), { status: 502 });
+    }
 
     if (!response.ok) {
       console.error('Web3Forms error:', data);

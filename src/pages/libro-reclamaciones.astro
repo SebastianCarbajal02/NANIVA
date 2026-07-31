@@ -534,6 +534,94 @@ const barItems = [
         justify-content: center;
       }
     }
+
+    .form-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .form-modal-backdrop[hidden] {
+      display: none;
+    }
+
+    .form-modal {
+      position: relative;
+      background: white;
+      border-radius: 18px;
+      padding: 2.5rem 2rem 2rem;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.25);
+      animation: modal-pop 0.25s ease;
+    }
+
+    @keyframes modal-pop {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .form-modal-close {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: #f1f5f9;
+      color: #475569;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .form-modal-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 1.25rem;
+      border-radius: 999px;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    .form-modal-icon-success {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .form-modal-icon-error {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .form-modal h3 {
+      font-size: 1.3rem;
+      color: var(--text-dark);
+      margin-bottom: 0.6rem;
+    }
+
+    .form-modal p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-modal-btn {
+      width: 100%;
+      justify-content: center;
+      display: inline-flex;
+    }
   </style>
 
   <!-- HERO BANNER -->
@@ -874,10 +962,73 @@ const barItems = [
     </div>
   </div>
 
+  <div id="formModal" class="form-modal-backdrop" hidden>
+    <div class="form-modal" role="dialog" aria-modal="true" aria-labelledby="formModalTitle">
+      <button type="button" class="form-modal-close" id="formModalClose" aria-label="Cerrar">✕</button>
+      <span class="form-modal-icon form-modal-icon-success">✓</span>
+      <h3 id="formModalTitle">Reclamación enviada</h3>
+      <p id="formModalMessage">Gracias por tu reclamo. Nos pondremos en contacto pronto.</p>
+      <button type="button" class="btn-primary hover-pop form-modal-btn" id="formModalOk">Entendido</button>
+    </div>
+  </div>
+
   <script>
     const form1 = document.getElementById('reclamacionForm') as HTMLFormElement | null;
     const form2 = document.getElementById('reclamacionForm2') as HTMLFormElement | null;
     const submitBtn = document.querySelector<HTMLButtonElement>('.submit-btn');
+
+    const modal = document.getElementById('formModal') as HTMLElement | null;
+    const modalIcon = modal?.querySelector<HTMLElement>('.form-modal-icon');
+    const modalTitle = document.getElementById('formModalTitle');
+    const modalMessage = document.getElementById('formModalMessage');
+    const modalClose = document.getElementById('formModalClose');
+    const modalOk = document.getElementById('formModalOk');
+
+    function showModal(kind: 'success' | 'error', title: string, message: string) {
+      if (!modal || !modalIcon || !modalTitle || !modalMessage) return;
+      modalIcon.classList.toggle('form-modal-icon-success', kind === 'success');
+      modalIcon.classList.toggle('form-modal-icon-error', kind === 'error');
+      modalIcon.textContent = kind === 'success' ? '✓' : '✕';
+      modalTitle.textContent = title;
+      modalMessage.textContent = message;
+      modal.hidden = false;
+    }
+
+    function hideModal() {
+      if (modal) modal.hidden = true;
+    }
+
+    modalClose?.addEventListener('click', hideModal);
+    modalOk?.addEventListener('click', hideModal);
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) hideModal();
+    });
+
+    function buildMessage(d: Record<string, string>) {
+      return `
+NUEVO RECLAMO - LIBRO DE RECLAMACIONES NANIVA
+
+--- Datos del Cliente ---
+Tipo de documento: ${d.tipoDocumento}
+N° de documento: ${d.numeroDocumento}
+Nombre completo: ${d.nombreCompleto}
+Teléfono: ${d.telefono}
+Correo: ${d.correo || 'No proporcionado'}
+Domicilio: ${d.domicilio}
+Ubicación: ${d.departamento} / ${d.provincia} / ${d.distrito}
+
+--- Detalle de la Reclamación ---
+Orden de compra: ${d.ordenCompra || 'No proporcionado'}
+Producto / Servicio: ${d.producto}
+Tipo de bien: ${d.tipobien}
+Tipo: ${d.tipoReclamacion}
+Monto reclamado: S/ ${d.monto}
+Submotivo: ${d.submotivo || 'No proporcionado'}
+Motivo: ${d.motivo}
+Detalle: ${d.detalle}
+Pedido del cliente: ${d.pedido}
+`.trim();
+    }
 
     form2?.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -888,7 +1039,7 @@ const barItems = [
       const data = {
         ...Object.fromEntries(new FormData(form1)),
         ...Object.fromEntries(new FormData(form2)),
-      };
+      } as Record<string, string>;
 
       const originalText = submitBtn?.innerHTML;
       if (submitBtn) {
@@ -897,24 +1048,32 @@ const barItems = [
       }
 
       try {
-        const response = await fetch('/api/reclamo', {
+        const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: import.meta.env.PUBLIC_WEB3FORMS_KEY,
+            subject: `Nuevo reclamo de ${data.nombreCompleto} - Libro de Reclamaciones NANIVA`,
+            from_name: 'Libro de Reclamaciones NANIVA',
+            name: data.nombreCompleto,
+            email: data.correo || 'no-reply@naniva.com',
+            phone: data.telefono,
+            message: buildMessage(data),
+          }),
         });
 
         const result = await response.json();
 
-        if (!response.ok) {
-          throw new Error(result.error || 'Error al enviar el reclamo');
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || 'Error al enviar el reclamo');
         }
 
-        alert('Gracias por tu reclamo. Nos pondremos en contacto pronto.');
+        showModal('success', 'Reclamación enviada', 'Gracias por tu reclamo. Nos pondremos en contacto pronto.');
         form1.reset();
         form2.reset();
       } catch (error) {
         console.error('Error al enviar reclamo:', error);
-        alert('Hubo un error al enviar tu reclamo. Por favor intenta nuevamente.');
+        showModal('error', 'No se pudo enviar', 'Hubo un error al enviar tu reclamo. Por favor intenta nuevamente.');
       } finally {
         if (submitBtn && originalText) {
           submitBtn.disabled = false;

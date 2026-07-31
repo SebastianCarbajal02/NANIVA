@@ -177,6 +177,10 @@ const { title = "Spiffy Shepherd", description = "Landing page" } = Astro.props;
     if (!link) return;
     const href = link.getAttribute("href");
     if (!href || href.startsWith("#") || href.startsWith("http") || link.target === "_blank") return;
+
+    const [path, hash] = href.split("#");
+    if (hash && (path === "" || path === window.location.pathname)) return;
+
     loader?.classList.add("active");
   });
 

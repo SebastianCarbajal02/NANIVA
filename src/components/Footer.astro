@@ -21,9 +21,15 @@ function iconSvg(name: string, color: string = "#2563eb", size = 20) {
   return icons[name] ?? "";
 }
 
-const productLinks = ["ERP", "Ecommerce", "Facturación electrónica", "Catálogo digital", "Inteligencia Artificial", "Integraciones"];
-const resourceLinks = ["Casos de éxito", "Términos y condiciones", "Centro de ayuda", "Documentación API", "Precios"];
-const companyLinks = ["Nosotros", "Clientes", "Trabaja con nosotros", "Contacto"];
+const productLinks = ["ERP", "Ecommerce", "Facturación electrónica", "Catálogo digital", "Inteligencia Artificial"];
+const productLinkHrefs: Record<string, string> = {
+  "ERP": "/planes#erp",
+  "Facturación electrónica": "/servicios",
+  "Catálogo digital": "/planes#catalogo-digital",
+  "Inteligencia Artificial": "/ia",
+};
+const resourceLinks = ["Casos de éxito", "Términos y condiciones", "Precios"];
+const companyLinks = ["Nosotros", "Clientes", "Contacto"];
 
 const socials = [
   { icon: "tiktok", href: "https://www.tiktok.com/@naniva_tec_sac", label: "TikTok" },
@@ -56,14 +62,14 @@ const complianceBadges = [
       <div class="links-col">
         <h4>Producto</h4>
         {productLinks.map((link) => (
-          <a href="#" set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
+          <a href={productLinkHrefs[link] ?? "#"} set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
         ))}
       </div>
 
       <div class="links-col">
         <h4>Recursos</h4>
         {resourceLinks.map((link) => {
-          const href = link === "Términos y condiciones" ? "/terminos%20y%20condiciones%20fffff.pdf" : "#";
+          const href = link === "Términos y condiciones" ? "/terminos%20y%20condiciones%20fffff.pdf" : link === "Precios" ? "/planes" : link === "Casos de éxito" ? "/#casos-exito" : "#";
           const target = link === "Términos y condiciones" ? "_blank" : undefined;
           const rel = link === "Términos y condiciones" ? "noopener noreferrer" : undefined;
           return (
@@ -76,7 +82,7 @@ const complianceBadges = [
       <div class="links-col">
         <h4>Empresa</h4>
         {companyLinks.map((link) => (
-          <a href="#" set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
+          <a href="/contacto" set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
         ))}
       </div>
 
@@ -85,8 +91,8 @@ const complianceBadges = [
         <p>Agenda una demostración personalizada.</p>
         <div class="contact-list">
           <a href="mailto:hola@naniva.com" set:html={`${iconSvg('mail')} hola@naniva.com`} />
-          <a href="tel:+51987654321" set:html={`${iconSvg('phone')} +51 987 654 321`} />
-          <a href="https://wa.me/51987654321" target="_blank" rel="noopener noreferrer" set:html={`${iconSvg('whatsapp', '#25D366')} Escríbenos por WhatsApp`} />
+          <a href="tel:+51908644190" set:html={`${iconSvg('phone')} +51 908644190`} />
+          <a href="https://wa.me/51908644190" target="_blank" rel="noopener noreferrer" set:html={`${iconSvg('whatsapp', '#25D366')} Escríbenos por WhatsApp`} />
         </div>
         <a href="https://wa.link/x4dnva" target="_blank"  class="cta-btn hover-pop" set:html={`${iconSvg('calendar')} Solicitar demostración →`} />
       </div>
@@ -104,14 +110,6 @@ const complianceBadges = [
   <div class="bottom">
     <div class="container bottom-inner">
       <p>&copy; {year} Naniva. Todos los derechos reservados.</p>
-      <div class="bottom-links">
-        <a href="#">Términos y condiciones</a>
-        <span class="sep">|</span>
-        <a href="#">Política de privacidad</a>
-        <span class="sep">|</span>
-        <a href="#">Política de cookies</a>
-      </div>
-      <span class="lang">Español ⌄</span>
     </div>
   </div>
 </footer>
@@ -288,19 +286,6 @@ footer .container {
   padding: 0 1.5rem;
   font-size: 0.85rem;
 }
-.bottom-links {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-.bottom-links a {
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-}
-.bottom-links a:hover { color: white; }
-.sep { opacity: 0.4; }
-.lang { color: rgba(255, 255, 255, 0.7); }
-
 @media (max-width: 1200px) {
   .top-grid { grid-template-columns: repeat(2, 1fr); }
 }
