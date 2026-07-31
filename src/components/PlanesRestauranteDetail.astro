@@ -10,6 +10,7 @@ import iconMrestReportes from '../assets/image/planes/restaurante/icommm1-11.png
 import iconMrestClientes from '../assets/image/planes/restaurante/icommm1-12.png';
 import iconcaja from '../assets/image/planes/restaurante/iconnnrets-16.png';
 import restauranteCtaBanner from '../assets/image/planes/restaurante/banner-ecoomer-abajo.webp';
+import restauranteCtaBannerMobile from '../assets/image/planes/restaurante/banner-restauranet.png';
 import iconMrestCaja from '../assets/image/planes/restaurante/icommm1-13.png';
 import iconMrestFacil from '../assets/image/planes/restaurante/f1icon-14.png';
 
@@ -131,21 +132,25 @@ const restaurantePlanProfesional = {
   </div>
 
   <div class="container restaurante-highlights-wrap reveal">
+    <h3 class="restaurante-highlights-title">
+      <span class="audience-dash restaurante-dash"></span> Todo lo que <span class="restaurante-highlight">tu restaurante</span> necesita <span class="audience-dash restaurante-dash"></span>
+    </h3>
     <div class="restaurante-highlights">
-      <h3 class="restaurante-highlights-title">
-        <span class="audience-dash restaurante-dash"></span> Todo lo que <span class="restaurante-highlight">tu restaurante</span> necesita <span class="audience-dash restaurante-dash"></span>
-      </h3>
-      <div class="restaurante-highlights-row">
-        {restauranteHighlights.map((h) => (
-          <div class="restaurante-highlight-item">
-            <span class="restaurante-highlight-icon">
-              <img src={h.img.src} alt={h.title} />
-            </span>
-            <span class="restaurante-highlight-dot"></span>
-            <strong>{h.title}</strong>
-            <span>{h.sub}</span>
-          </div>
-        ))}
+      <div class="restaurante-highlights-carousel audience-carousel">
+        <button type="button" class="audience-nav restaurante-audience-nav" aria-label="Anterior" data-carousel-prev>‹</button>
+        <div class="restaurante-highlights-row audience-track" data-carousel-track>
+          {restauranteHighlights.map((h) => (
+            <div class="restaurante-highlight-item">
+              <span class="restaurante-highlight-icon">
+                <img src={h.img.src} alt={h.title} />
+              </span>
+              <span class="restaurante-highlight-dot"></span>
+              <strong>{h.title}</strong>
+              <span>{h.sub}</span>
+            </div>
+          ))}
+        </div>
+        <button type="button" class="audience-nav restaurante-audience-nav" aria-label="Siguiente" data-carousel-next>›</button>
       </div>
     </div>
   </div>
@@ -457,8 +462,9 @@ const restaurantePlanProfesional = {
 
   <div class="container">
     <div class="catalogo-cta-banner reveal">
-      <img src={restauranteCtaBanner.src} alt="Empieza a digitalizar tu restaurante hoy mismo" class="catalogo-cta-banner-img" />
-      <a href="https://wa.link/s6p6ci" class="catalogo-cta-banner-btn restaurante-cta-banner-btn hover-pop pulse-ring whatsapp">Solicitar información aquí→</a>
+      <img src={restauranteCtaBanner.src} alt="Empieza a digitalizar tu restaurante hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-desktop" />
+      <img src={restauranteCtaBannerMobile.src} alt="Empieza a digitalizar tu restaurante hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-mobile" />
+      <a href="https://wa.link/s6p6ci" class="catalogo-cta-banner-btn restaurante-cta-banner-btn hover-pop pulse-ring whatsapp">Solicitar demostración aquí→</a>
     </div>
   </div>
 </section>
@@ -587,11 +593,7 @@ const restaurantePlanProfesional = {
   }
 
   .restaurante-highlights {
-    background: linear-gradient(160deg, #f5f3ff, #ffffff);
-    border: 1px solid #ede9fe;
-    border-radius: 20px;
     padding: 2rem 2.5rem 2.25rem;
-    box-shadow: 0 12px 32px rgba(124, 58, 237, 0.08);
   }
 
   .restaurante-highlights-title {
@@ -602,7 +604,7 @@ const restaurantePlanProfesional = {
     font-size: clamp(2rem, 2.8vw, 2.3rem);
     font-weight: 800;
     color: #0f172a;
-    margin: 0 0 2rem;
+    margin: 0 0 1.5rem;
   }
 
   .restaurante-dash { background: #7c3aed; }
@@ -614,23 +616,63 @@ const restaurantePlanProfesional = {
     border-radius: 2px;
   }
 
-  .restaurante-highlights-row {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+  .restaurante-highlights-carousel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
+  .restaurante-audience-nav {
+    color: #7c3aed;
+    border-color: #ede9fe;
+  }
+
+  .restaurante-audience-nav:hover { border-color: #7c3aed; }
+
+  .audience-nav {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #2563eb;
+    font-size: 1.4rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+  }
+
+  .restaurante-highlights-row {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    flex: 1;
+    scrollbar-width: none;
+  }
+
+  .restaurante-highlights-row::-webkit-scrollbar { display: none; }
+
   .restaurante-highlight-item {
+    flex: 0 0 190px;
+    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 0.5rem;
-    padding: 0 0.75rem;
-    border-right: 1px solid #ede9fe;
+    padding: 1rem 0.75rem;
+    background: white;
+    border: 1px solid #ede9fe;
+    border-radius: 16px;
   }
 
-  .restaurante-highlight-item:last-child { border-right: none; }
-  .restaurante-highlight-icon img { width: 180px; height: 180px; object-fit: contain; }
+  .restaurante-highlight-icon img { width: 150px; height: 150px; object-fit: contain; }
   .restaurante-highlight-dot {
     width: 6px;
     height: 6px;
@@ -701,7 +743,8 @@ const restaurantePlanProfesional = {
   }
 
   .restaurante-billing-toggle { margin-top: 1rem; }
-  .restaurante-toggle-btn.is-active { background: #7c3aed; }
+  .restaurante-toggle-btn.is-active { background: #7c3aed; color: white; }
+  .restaurante-toggle-btn:not(.is-active) { color: #0f172a; }
 
   .billing-savings-note {
     text-align: center;
@@ -942,13 +985,55 @@ const restaurantePlanProfesional = {
     .restaurante-plans-grid { grid-template-columns: 1fr; }
   }
 
-  @media (max-width: 900px) {
-    .restaurante-highlights-row { grid-template-columns: repeat(3, 1fr); row-gap: 1.5rem; }
-    .restaurante-highlight-item { border-right: none; }
+  @media (max-width: 560px) {
+    .restaurante-highlight-item { flex-basis: 150px; }
+    .restaurante-highlight-icon img { width: 110px; height: 110px; }
   }
 
-  @media (max-width: 560px) {
-    .restaurante-highlights-row { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 480px) {
+    .restaurante-highlights-title {
+      display: block;
+      text-align: center;
+      font-size: 1.1rem;
+      margin: 0 0 1rem;
+    }
+
+    .restaurante-plan-card:not(.restaurante-plan-card-featured) {
+      display: none;
+    }
+
+    .rc-basico {
+      display: none;
+    }
+
+    .restaurante-compare {
+      display: none;
+    }
+    .restaurante-highlights{
+      padding: 0.5rem;
+    }
+
+    .restaurante-highlights-carousel {
+      gap: 0.5rem;
+    }
+
+    .restaurante-highlights-row {
+      flex: 1;
+    }
+
+    .restaurante-highlight-item {
+      flex: 0 0 120%;
+      scroll-snap-align: center;
+      padding: 1.5rem 1rem;
+    }
+
+    .restaurante-highlight-icon img {
+      width: 150px;
+      height: 150px;
+      margin-right: 1rem;
+
+    }
+
   }
 
   .catalogo-compare.container {
@@ -1039,6 +1124,15 @@ const restaurantePlanProfesional = {
   }
 
   .rc-cta .plan-cta-btn { width: 100%; padding: 0.6rem 1rem; font-size: 0.85rem; }
+
+  .rc-cta .restaurante-cta-btn {
+    background: #7c3aed;
+    color: white;
+  }
+
+  .rc-profesional .restaurante-cta-btn-filled {
+    font-weight: 800;
+  }
 
   .rc-profesional {
     flex: 1;
@@ -1172,6 +1266,24 @@ const restaurantePlanProfesional = {
     display: block;
   }
 
+  .catalogo-cta-banner-desktop {
+    display: block;
+  }
+
+  .catalogo-cta-banner-mobile {
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    .catalogo-cta-banner-desktop {
+      display: none;
+    }
+
+    .catalogo-cta-banner-mobile {
+      display: block;
+    }
+  }
+
   .catalogo-cta-banner-btn {
     position: absolute;
     right: 6%;
@@ -1203,6 +1315,21 @@ const restaurantePlanProfesional = {
       justify-content: center;
       margin: 0.75rem auto 0;
       width: max-content;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .catalogo-cta-banner-btn {
+      position: absolute;
+      right: auto;
+      top: auto;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      width: calc(80% - 3rem);
+      justify-content: center;
+      text-align: center;
     }
   }
 
@@ -1277,15 +1404,9 @@ const restaurantePlanProfesional = {
     
   }
   .restaurante-highlights{
-    background: linear-gradient(160deg, #f5f3ff, #fff);
-    border: 1px solid #ede9fe;
-    border-radius: 20px;
     padding: 2rem 2.5rem 2.25rem;
-    box-shadow: 0 12px 32px #7c3aed14;
     width: 110%;
     margin-left: -3.6rem;
-
-    
 }
 .erp-detail {
     padding: 0 2rem;

@@ -84,7 +84,12 @@ import PlanesModulesExtra from '../components/PlanesModulesExtra.astro';
       if (!wrapper) return;
       const prevBtn = wrapper.querySelector<HTMLButtonElement>("[data-carousel-prev]");
       const nextBtn = wrapper.querySelector<HTMLButtonElement>("[data-carousel-next]");
-      const scrollAmount = () => track.clientWidth * 0.8;
+      const scrollAmount = () => {
+        const item = track.querySelector<HTMLElement>(":scope > *");
+        if (!item) return track.clientWidth * 0.8;
+        const gap = parseFloat(getComputedStyle(track).columnGap || "0");
+        return item.getBoundingClientRect().width + gap;
+      };
 
       prevBtn?.addEventListener("click", () => {
         track.scrollBy({ left: -scrollAmount(), behavior: "smooth" });

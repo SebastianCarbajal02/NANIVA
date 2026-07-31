@@ -12,6 +12,7 @@ import iconNegocioImportadores from '../assets/image/planes/tipo-negocio/iconoca
 import iconNegocioMinimarkets from '../assets/image/planes/tipo-negocio/iconocatgg-07.jpg.jpeg';
 import iconNegocioMayoristas from '../assets/image/planes/tipo-negocio/iconocatgg-08.jpg.jpeg';
 import catalogoCtaBanner from '../assets/image/planes/catalogo/banner-plan.png';
+import catalogoCtaBannerMobile from '../assets/image/planes/catalogo/banner-catalogo.png';
 import iconRestauranteExtra15 from '../assets/image/planes/tipo-negocio/icons cayg-15 (1).png';
 import iconRestauranteExtra16 from '../assets/image/planes/tipo-negocio/icons cayg-16 (1).png';
 
@@ -237,6 +238,58 @@ const negociosCategories = [
     </div>
 
     <div class="compare-layout">
+      <div class="compare-mobile-cards">
+        <div class="compare-mobile-card">
+          <div class="compare-mobile-card-head">
+            <span class="compare-mobile-plan-name">{catalogoPlans[0].name}</span>
+            <div class="compare-mobile-plan-price"><span class="plan-price-S">S/</span> {catalogoPlans[0].monthly}<span class="plan-price-unit">/mes</span></div>
+            <span class="plan-products-pill">{catalogoPlans[0].productsNote}</span>
+          </div>
+          <ul class="compare-mobile-list">
+            {compareFeatures.map((f) => (
+              <li class={f.negocio ? "" : "is-dash"}>
+                {f.negocio ? (
+                  <span class="compare-check" set:html={icon("check", "#2563eb", 16)} />
+                ) : (
+                  <span class="compare-dash">—</span>
+                )}
+                <span>
+                  {f.label}
+                  {f.sub && <span class="compare-label-sub">{f.sub}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <a href={catalogoPlans[0].href} class="plan-cta-btn hover-pop compare-mobile-btn">Elegir plan</a>
+        </div>
+
+        <div class="compare-mobile-card compare-mobile-card-featured">
+          <span class="compare-mobile-badge">Recomendado</span>
+          <div class="compare-mobile-card-head">
+            <span class="compare-mobile-plan-name">{catalogoPlans[1].name}</span>
+            <div class="compare-mobile-plan-price"><span class="plan-price-S">S/</span> {catalogoPlans[1].monthly}<span class="plan-price-unit">/mes</span></div>
+            <span class="plan-products-pill">{catalogoPlans[1].productsNote}</span>
+          </div>
+          <ul class="compare-mobile-list">
+            {compareFeatures.map((f) => (
+              <li class={f.empresa ? "" : "is-dash"}>
+                {f.empresa ? (
+                  <span class="compare-check" set:html={icon("check", "#2563eb", 16)} />
+                ) : (
+                  <span class="compare-dash">—</span>
+                )}
+                <span>
+                  {f.label}
+                  {f.sub && <span class="compare-label-sub">{f.sub}</span>}
+                  {f.empresa && f.empresaTag && <span class="plan-tag-badge compare-mobile-tag">{f.empresaTag}</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <a href={catalogoPlans[1].href} class="plan-cta-btn plan-cta-btn-filled hover-pop compare-mobile-btn">Elegir plan</a>
+        </div>
+      </div>
+
       <div class="compare-table">
         <div class="compare-row compare-row-head">
           <div class="compare-cell compare-cell-label">
@@ -348,7 +401,9 @@ const negociosCategories = [
 
   <div class="container">
     <div class="catalogo-cta-banner reveal">
-      <img src={catalogoCtaBanner.src} alt="Empieza a vender por WhatsApp hoy mismo" class="catalogo-cta-banner-img" />
+      
+      <img src={catalogoCtaBanner.src} alt="Empieza a vender por WhatsApp hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-desktop" />
+      <img src={catalogoCtaBannerMobile.src} alt="Empieza a vender por WhatsApp hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-mobile" />
       <a href="https://wa.link/4n11hv" class="catalogo-cta-banner-btn hover-pop pulse-ring whatsapp">Solicitar demostración aquí→</a>
     </div>
   </div>
@@ -905,6 +960,100 @@ const negociosCategories = [
 
   .compare-side-btn { width: 100%; text-align: center; }
 
+  .compare-mobile-cards {
+    display: none;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .compare-mobile-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 1.75rem;
+    position: relative;
+  }
+
+  .compare-mobile-card-featured {
+    background: #f0fdf4;
+    border-color: #16a34a;
+  }
+
+  .compare-mobile-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #16a34a;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .compare-mobile-card-head {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .compare-mobile-plan-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+
+  .compare-mobile-plan-price {
+    color: #0f172a;
+    font-size: 2.4rem;
+    font-weight: 800;
+  }
+
+  .compare-mobile-list {
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .compare-mobile-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.88rem;
+    color: #334155;
+  }
+
+  .compare-mobile-list li.is-dash {
+    color: #94a3b8;
+  }
+
+  .compare-mobile-list .compare-dash {
+    flex-shrink: 0;
+  }
+
+  .compare-mobile-list .compare-check {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .compare-mobile-tag {
+    margin-left: 0.4rem;
+  }
+
+  .compare-mobile-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
   .trust-badges-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1027,6 +1176,14 @@ const negociosCategories = [
     display: block;
   }
 
+  .catalogo-cta-banner-desktop {
+    display: block;
+  }
+
+  .catalogo-cta-banner-mobile {
+    display: none;
+  }
+
   .catalogo-cta-banner-btn {
     position: absolute;
     right: 6%;
@@ -1057,8 +1214,13 @@ const negociosCategories = [
     }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1024px) {
     .compare-layout { grid-template-columns: 1fr; }
+    .compare-table { display: none; }
+    .compare-mobile-cards { display: flex; }
+  }
+
+  @media (max-width: 900px) {
     .trust-badges-row { grid-template-columns: repeat(2, 1fr); }
   }
 
@@ -1081,5 +1243,160 @@ const negociosCategories = [
 
   .product-detail.is-active {
     display: block;
+  }
+
+  @media (max-width: 480px) {
+    .erp-detail .container {
+      padding: 0 1rem;
+    }
+
+    .catalogo-features {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .catalogo-feature-img {
+      width: 100px;
+      height: 112px;
+    }
+
+    .catalogo-feature-img:nth-child(2),
+    .catalogo-feature-img:nth-child(3) {
+      transform: scale(1);
+    }
+
+    .catalogo-feature-img:nth-child(2) {
+      transform: scale(1);
+    }
+
+    .erp-hero-sub {
+      font-size: 1.1rem;
+    }
+
+    .catalogo-plans-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      max-width: 100%;
+      margin: 1.5rem auto 0;
+    }
+
+    .plan-card {
+      padding: 1.5rem;
+    }
+
+    .plan-name {
+      font-size: 1rem;
+    }
+
+    .plan-price {
+      font-size: 2rem;
+    }
+
+    .plan-items {
+      gap: 0.5rem;
+      margin: 0 0 1rem;
+    }
+
+    .plan-items li {
+      font-size: 0.82rem;
+    }
+
+    .billing-toggle {
+      gap: 0;
+    }
+
+    .billing-toggle-btn {
+      padding: 0.5rem 1.2rem;
+      font-size: 0.9rem;
+    }
+
+    .trust-badges-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .trust-badge {
+      gap: 0.6rem;
+    }
+
+    .trust-badge-text strong {
+      font-size: 0.8rem;
+    }
+
+    .compare-layout {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .compare-mobile-card {
+      padding: 1.25rem;
+    }
+
+    .compare-mobile-plan-price {
+      font-size: 2rem;
+    }
+
+    .compare-mobile-list li {
+      font-size: 0.82rem;
+    }
+
+    .compare-side {
+      min-height: auto;
+      padding: 1.5rem;
+    }
+
+    .compare-side-icon {
+      width: 80px;
+      height: 80px;
+    }
+
+    .compare-side h3 {
+      font-size: 1.3rem;
+    }
+
+    .audience-card {
+      flex: 0 0 150px;
+      padding: 2rem 1.25rem;
+    }
+
+    .audience-card-icon {
+      width: 80px;
+      height: 80px;
+    }
+
+    .audience-dash {
+      display: none;
+    }
+
+    .audience-title {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .catalogo-compare {
+      display: none;
+    }
+
+    .catalogo-cta-banner-desktop {
+      display: none;
+    }
+
+    .catalogo-cta-banner-mobile {
+      display: block;
+    }
+
+    .catalogo-cta-banner-btn {
+      position: absolute;
+      right: auto;
+      top: auto;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-55%);
+      margin: 1rem;
+      width: calc(80% - 3rem);
+      justify-content: center;
+      text-align: center;
+    }
   }
 </style>

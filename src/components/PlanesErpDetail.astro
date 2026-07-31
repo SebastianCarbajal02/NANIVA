@@ -242,6 +242,9 @@ const extraModules = [
     <div class="banner-plan-cta-overlay">
       <span class="banner-plan-sub">Sin compromiso. En menos de 30 minutos.</span>
     </div>
+    <div class="banner-plan-mobile-btn">
+      <a href="https://wa.link/c32qo2" class="btn-primary hover-pop">Solicitar demostración</a>
+    </div>
   </div>
 </section>
 
@@ -801,6 +804,21 @@ const extraModules = [
     gap: 0.6rem;
   }
 
+  .banner-plan-mobile-btn {
+    display: none;
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 3rem);
+    max-width: 100%;
+  }
+
+  .banner-plan-mobile-btn a {
+    width: 100%;
+    text-align: center;
+  }
+
   .banner-plan-sub {
     color: rgba(255, 255, 255, 0.85);
     font-size: 0.8rem;
@@ -888,6 +906,14 @@ const extraModules = [
 
     .banner-plan-mobile {
       display: block;
+    }
+
+    .banner-plan-mobile-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 70%;
+      margin-bottom: 1.5rem;
     }
   }
 </style>
