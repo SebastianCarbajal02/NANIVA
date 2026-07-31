@@ -6,7 +6,6 @@ import PlanesProductSwitcher from '../components/PlanesProductSwitcher.astro';
 import PlanesErpDetail from '../components/PlanesErpDetail.astro';
 import PlanesCatalogoDetail from '../components/PlanesCatalogoDetail.astro';
 import PlanesRestauranteDetail from '../components/PlanesRestauranteDetail.astro';
-import PlanesModulesExtra from '../components/PlanesModulesExtra.astro';
 ---
 
 <BaseLayout title="Planes - NANIVA" description="Elige el plan NANIVA ideal para tu negocio.">
@@ -16,7 +15,6 @@ import PlanesModulesExtra from '../components/PlanesModulesExtra.astro';
   <PlanesErpDetail />
   <PlanesCatalogoDetail />
   <PlanesRestauranteDetail />
-  <PlanesModulesExtra />
 </BaseLayout>
 
 <script>
@@ -42,6 +40,7 @@ import PlanesModulesExtra from '../components/PlanesModulesExtra.astro';
         const target = card.dataset.target;
         if (!target) return;
         e.preventDefault();
+        if (!document.getElementById(target)) return;
         if (showDetail(target)) {
           history.replaceState(null, "", `#${target}`);
           document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -50,7 +49,7 @@ import PlanesModulesExtra from '../components/PlanesModulesExtra.astro';
     });
 
     const initialHash = window.location.hash.replace("#", "");
-    if (initialHash && showDetail(initialHash)) {
+    if (initialHash && document.getElementById(initialHash) && showDetail(initialHash)) {
       requestAnimationFrame(() => {
         document.getElementById(initialHash)?.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start" });
       });

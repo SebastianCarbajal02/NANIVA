@@ -57,7 +57,11 @@ const benefits = [
     <h2>Implementar Naniva es <span class="highlight">más fácil</span> de lo que imaginas</h2>
     <p class="subtitle">Nos encargamos de todo el proceso para que empieces a vender desde el primer día.<br />Nuestro equipo configura, migra tus datos y te acompaña hasta que tu empresa esté operando al 100%.</p>
 
-    <div class="steps-grid">
+    <div class="steps-carousel-wrap">
+      <button type="button" class="step-arrow-btn step-arrow-btn-prev" aria-label="Paso anterior">‹</button>
+      <button type="button" class="step-arrow-btn step-arrow-btn-next" aria-label="Siguiente paso">›</button>
+
+      <div class="steps-grid">
       {steps.map((s, i) => (
         <div class={`step-card reveal hover-lift ${s.done ? "step-done" : ""}`} style={`transition-delay:${i * 0.08}s`}>
           <span class="step-num" style={`background:${s.color}`}>{s.num}</span>
@@ -74,6 +78,7 @@ const benefits = [
           {i < steps.length - 1 && <span class="step-arrow">→</span>}
         </div>
       ))}
+      </div>
     </div>
 
     <div class="benefits-bar">
@@ -226,4 +231,85 @@ const benefits = [
     .steps-grid { grid-template-columns: 1fr; }
     .benefits-bar { grid-template-columns: 1fr; }
   }
+
+  .step-arrow-btn {
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    .steps-carousel-wrap {
+      position: relative;
+      padding: 0 1.75rem;
+    }
+
+    .steps-grid {
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 1rem;
+      padding-bottom: 0.5rem;
+    }
+    .steps-grid::-webkit-scrollbar { display: none; }
+
+    .step-card {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+      padding-top: 3.5rem;
+    }
+
+    .step-num {
+      top: 2rem;
+    }
+
+    .step-arrow-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(15, 23, 42, 0.85);
+      color: white;
+      font-size: 1.4rem;
+      line-height: 1;
+      z-index: 3;
+      cursor: pointer;
+    }
+    .step-arrow-btn-prev { left: 0; }
+    .step-arrow-btn-next { right: 0; }
+  }
 </style>
+
+<script>
+  function initStepsCarousel() {
+    const wrap = document.querySelector<HTMLElement>(".steps-carousel-wrap");
+    const track = document.querySelector<HTMLElement>(".steps-grid");
+    if (!wrap || !track) return;
+
+    const prevBtn = wrap.querySelector<HTMLButtonElement>(".step-arrow-btn-prev");
+    const nextBtn = wrap.querySelector<HTMLButtonElement>(".step-arrow-btn-next");
+
+    const scrollAmount = () => {
+      const item = track.querySelector<HTMLElement>(":scope > *");
+      if (!item) return track.clientWidth;
+      const gap = parseFloat(getComputedStyle(track).columnGap || "0");
+      return item.getBoundingClientRect().width + gap;
+    };
+
+    prevBtn?.addEventListener("click", () => {
+      track.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+    });
+    nextBtn?.addEventListener("click", () => {
+      track.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+    });
+  }
+
+  initStepsCarousel();
+</script>

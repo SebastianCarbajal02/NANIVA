@@ -74,6 +74,8 @@ const barItems = [
       align-items: center;
       gap: 0.75rem;
       margin-bottom: 1.5rem;
+      text-decoration: none;
+      cursor: pointer;
     }
 
     .hero-logo img {
@@ -471,16 +473,77 @@ const barItems = [
         font-size: 0.95rem;
       }
     }
+
+    @media (max-width: 480px) {
+      .hero-banner {
+        padding: 2rem 1.25rem;
+      }
+
+      .hero-image {
+        display: none;
+      }
+
+      .hero-logo {
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero-logo img {
+        width: 60px;
+        height: 60px;
+      }
+
+      .logo-text {
+        font-size: 1.8rem;
+      }
+
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero-content .subtitle {
+        font-size: 0.9rem;
+      }
+
+      .main-container {
+        padding: 1.5rem 1rem;
+      }
+
+      .card {
+        padding: 1.25rem;
+      }
+
+      .card-header {
+        gap: 0.75rem;
+      }
+
+      .card-title {
+        font-size: 1.05rem;
+      }
+
+      .form-grid.three-col {
+        grid-template-columns: 1fr;
+      }
+
+      .button-container {
+        margin-top: 2rem;
+      }
+
+      .submit-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   </style>
 
   <!-- HERO BANNER -->
   <section class="hero-banner" style={`background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.75), rgba(37, 99, 235, 0.55)), url('${fondoBg.src}');`}>
     <div class="hero-inner">
       <div class="hero-content">
-        <div class="hero-logo">
+        <a href="/" class="hero-logo">
           <img src={logoImg.src} alt="Naniva Logo" />
           <span class="logo-text">NANIVA</span>
-        </div>
+        </a>
         <h1>Libro de <span class="text-primary">Reclamaciones</span></h1>
         <p class="subtitle">Tu opinión nos ayuda a mejorar. Estamos para escucharte.</p>
       </div>
@@ -812,17 +875,52 @@ const barItems = [
   </div>
 
   <script>
-    const form2 = document.getElementById('reclamacionForm2');
+    const form1 = document.getElementById('reclamacionForm') as HTMLFormElement | null;
+    const form2 = document.getElementById('reclamacionForm2') as HTMLFormElement | null;
+    const submitBtn = document.querySelector<HTMLButtonElement>('.submit-btn');
 
-    form2?.addEventListener('submit', (e) => {
+    form2?.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!form1 || !form2) return;
 
-      const formData = new FormData(form2);
-      const data = Object.fromEntries(formData);
+      if (!form1.reportValidity() || !form2.reportValidity()) return;
 
-      console.log('Formulario de Reclamación:', data);
-      alert('Gracias por tu reclamo. Nos pondremos en contacto pronto.');
-      form2.reset();
+      const data = {
+        ...Object.fromEntries(new FormData(form1)),
+        ...Object.fromEntries(new FormData(form2)),
+      };
+
+      const originalText = submitBtn?.innerHTML;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Enviando...</span>';
+      }
+
+      try {
+        const response = await fetch('/api/reclamo', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Error al enviar el reclamo');
+        }
+
+        alert('Gracias por tu reclamo. Nos pondremos en contacto pronto.');
+        form1.reset();
+        form2.reset();
+      } catch (error) {
+        console.error('Error al enviar reclamo:', error);
+        alert('Hubo un error al enviar tu reclamo. Por favor intenta nuevamente.');
+      } finally {
+        if (submitBtn && originalText) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+      }
     });
   </script>
 </BaseLayout>

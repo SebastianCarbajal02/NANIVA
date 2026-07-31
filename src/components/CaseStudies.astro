@@ -114,7 +114,11 @@ const stats = [
     <p class="subtitle-strong" set:html={`${iconSvg('users','#2563eb',18)} Más de 250 empresas ya transformaron su operación con Naniva.`} />
     <p class="subtitle">Descubre cómo empresas de distintos sectores aumentaron ventas,<br />redujeron costos y tomaron mejores decisiones con Naniva.</p>
 
-    <div class="cases-grid">
+    <div class="cases-carousel-wrap">
+      <button type="button" class="case-arrow case-arrow-prev" aria-label="Caso anterior">‹</button>
+      <button type="button" class="case-arrow case-arrow-next" aria-label="Siguiente caso">›</button>
+
+      <div class="cases-grid">
       {cases.map((c, i) => (
         <article class="case-card reveal hover-lift" style={`transition-delay:${i * 0.15}s`}>
           <div class="case-header">
@@ -162,6 +166,7 @@ const stats = [
           </div>
         </article>
       ))}
+      </div>
     </div>
 
     <div class="stats-bar">
@@ -664,6 +669,56 @@ const stats = [
     .case-header { flex-direction: column; }
     .stats-grid { grid-template-columns: 1fr; }
   }
+
+  .case-arrow {
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    .cases-carousel-wrap {
+      position: relative;
+      padding: 0 1.75rem;
+    }
+
+    .cases-grid {
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 1rem;
+      padding-bottom: 0.5rem;
+    }
+    .cases-grid::-webkit-scrollbar { display: none; }
+
+    .case-card {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .case-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(15, 23, 42, 0.85);
+      color: white;
+      font-size: 1.4rem;
+      line-height: 1;
+      z-index: 3;
+      cursor: pointer;
+    }
+    .case-arrow-prev { left: 0; }
+    .case-arrow-next { right: 0; }
+  }
 </style>
 
 <script>
@@ -681,4 +736,30 @@ const stats = [
   );
 
   document.querySelectorAll(".case-card").forEach((el) => cardObserver.observe(el));
+
+  // Carousel arrows for mobile (480px)
+  function initCasesCarousel() {
+    const wrap = document.querySelector<HTMLElement>(".cases-carousel-wrap");
+    const track = document.querySelector<HTMLElement>(".cases-grid");
+    if (!wrap || !track) return;
+
+    const prevBtn = wrap.querySelector<HTMLButtonElement>(".case-arrow-prev");
+    const nextBtn = wrap.querySelector<HTMLButtonElement>(".case-arrow-next");
+
+    const scrollAmount = () => {
+      const item = track.querySelector<HTMLElement>(":scope > *");
+      if (!item) return track.clientWidth;
+      const gap = parseFloat(getComputedStyle(track).columnGap || "0");
+      return item.getBoundingClientRect().width + gap;
+    };
+
+    prevBtn?.addEventListener("click", () => {
+      track.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+    });
+    nextBtn?.addEventListener("click", () => {
+      track.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+    });
+  }
+
+  initCasesCarousel();
 </script>
