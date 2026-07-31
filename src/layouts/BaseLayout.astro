@@ -1,5 +1,6 @@
 ---
 import Footer from '../components/Footer.astro';
+import logoIcon from '../assets/image/shared/logos/logo-inicio.webp';
 
 export interface Props {
   title?: string;
@@ -13,6 +14,7 @@ const { title = "Spiffy Shepherd", description = "Landing page" } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    <link rel="icon" type="image/webp" href={logoIcon.src} />
     <title>{title}</title>
   </head>
   <body>
