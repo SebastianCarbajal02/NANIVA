@@ -32,7 +32,7 @@ const partners = [
 ---
 <section class="hero" style="background-image: url('/fondo-hero.webp');">
   <div class="content reveal">
-    <span class="tag">PLATAFORMA TODO EN UNO</span>
+    <span class="tag">★ PLATAFORMA TODO EN UNO</span>
     <h1>La plataforma <span class="highlight">inteligente</span><br />para hacer crecer<br />tu empresa.</h1>
     <p>Administra ventas, inventario, facturación electrónica,<br />ecommerce e inteligencia artificial <span class="p-highlight">desde una sola plataforma</span>.</p>
     <div class="hero-actions">
@@ -49,6 +49,7 @@ const partners = [
       {features.map((f, i) => (
         <div class={`feature ${i === 2 ? 'feature-third' : ''} ${i === 4 ? 'feature-fifth' : ''}`}>
           <span class="feature-icon"><img src={f.icon.src} alt={f.label} /></span>
+          <span class="feature-label">{f.label}</span>
         </div>
       ))}
     </div>
@@ -222,6 +223,9 @@ const partners = [
     height: 75px;
     object-fit: contain;
     mix-blend-mode: multiply;
+  }
+  .feature-label {
+    display: none;
   }
   .partners {
     margin-top: 1.9rem;
@@ -431,5 +435,125 @@ const partners = [
 
   }
 
+  @media (max-width: 480px) {
+    .hero {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 6rem 1rem 2rem;
+      min-height: auto;
+      background-size: cover;
+      background-position: center bottom;
+      overflow-x: hidden;
+      gap: 0;
+    }
+
+    /* "Desarma" el contenedor .content para poder reordenar sus hijos
+       junto con .hero-visual usando flex order en .hero */
+    .content {
+      display: contents;
+    }
+
+    .tag,
+    h1,
+    p {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .tag {
+      transform: none;
+      font-size: 0.7rem;
+    }
+
+    h1 {
+      transform: none;
+      font-size: clamp(1.8rem, 8vw, 2.3rem);
+      margin-top: 0.5rem;
+    }
+
+    p {
+      transform: none;
+      font-size: 0.95rem;
+      max-width: 100%;
+      margin-top: 0.4rem;
+    }
+
+    .hero-actions {
+      order: 1;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+      width: 100%;
+    }
+
+    .btn-primary,
+    .btn-outline {
+      width: 100%;
+      justify-content: center;
+      padding: 0.85rem 1.5rem;
+      transform: none;
+    }
+
+    /* Composición visual: dashboard + personas, visible y estable en mobile */
+    .hero-visual {
+      order: 2;
+      display: block;
+      position: static;
+      width: 100%;
+      height: auto;
+      margin: 1.5rem auto 0;
+      pointer-events: none;
+    }
+
+    .hero-people {
+      position: relative;
+      width: 110%;
+      max-width: 560px;
+      height: auto;
+      object-fit: contain;
+      transform: translateX(-1.9rem);
+      margin: 0 auto;
+      display: block;
+      -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 110%);
+      mask-image: linear-gradient(to bottom, black 75%, transparent 80%);
+    }
+
+    /* Grid de módulos: solo ícono + etiqueta, sin fondo */
+    .features {
+      order: 3;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem 0.6rem;
+      width: 100%;
+      position: static;
+      top: auto;
+      transform: none;
+      margin-top: 1.5rem;
+    }
+
+    .feature {
+      width: 100%;
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      justify-content: center;
+      gap: 0.45rem;
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      padding: 0;
+      border: none;
+    }
+
+    .feature-icon img {
+      width: 80px;
+      height: 80px;
+      mix-blend-mode: normal;
+    }
+
+  }
 </style>
 
