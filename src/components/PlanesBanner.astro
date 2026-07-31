@@ -354,4 +354,40 @@ const planFeatures = [
       filter: brightness(0) saturate(100%) invert(25%) sepia(86%) saturate(2057%) hue-rotate(208deg) brightness(104%) contrast(106%);
     }
   }
+
+  @media (max-width: 480px) {
+    .banner {
+      flex-direction: column;
+      align-items: stretch;
+      height: 100vh;
+    }
+
+    .banner-persona {
+      display: block;
+      position: static;
+      width: 145%;
+      max-width: 560px;
+      height: 65vh;
+      margin: 1.5rem auto 0;
+      transform: translatex(-4rem);
+      -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+    }
+    .content h1 {
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #0f172a;
+    transform: translateY(2rem);
+  }
+  .content p {
+    font-size: 1rem;
+    font-weight: 650;
+    color: #334155;
+    line-height: 1;
+    margin-bottom: 2rem;
+    transform: translateY(2rem);
+    width: 120%;
+  }
+  }
 </style>
