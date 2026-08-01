@@ -216,7 +216,9 @@ const extraModules = [
     <div class="extra-modules reveal">
       <h3>Conoce nuestros módulos adicionales</h3>
       <p>Añade los módulos que tu negocio necesita</p>
-      <div class="extra-modules-grid">
+      <div class="extra-modules-carousel">
+        <button type="button" class="extra-modules-nav extra-modules-prev" aria-label="Anterior" data-extra-modules-prev>‹</button>
+        <div class="extra-modules-grid" data-extra-modules-track>
         {extraModules.map((m) => (
           <div class="extra-module-card">
             <div class="extra-module-header">
@@ -230,6 +232,8 @@ const extraModules = [
             </div>
           </div>
         ))}
+        </div>
+        <button type="button" class="extra-modules-nav extra-modules-next" aria-label="Siguiente" data-extra-modules-next>›</button>
       </div>
     </div>
   </div>
@@ -739,6 +743,12 @@ const extraModules = [
 
   .extra-modules > p { color: #64748b; margin: 0 0 1.5rem; }
 
+  .extra-modules-carousel {
+    position: relative;
+  }
+  .extra-modules-nav {
+    display: none;
+  }
   .extra-modules-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -915,5 +925,74 @@ const extraModules = [
       width: 70%;
       margin-bottom: 1.5rem;
     }
+
+    .integration-banner {
+      display: none;
+    }
+
+    .extra-modules-carousel { padding: 0 2.25rem; }
+    .extra-modules-grid {
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 1rem;
+      padding-bottom: 0.5rem;
+      scrollbar-width: none;
+    }
+    .extra-modules-grid::-webkit-scrollbar { display: none; }
+    .extra-module-card {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+    }
+    .extra-modules-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid #e2e8f0;
+      background: white;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
+      color: #2563eb;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .extra-modules-prev { left: 0; }
+    .extra-modules-next { right: 0; }
   }
 </style>
+
+<script>
+  function initExtraModulesCarousel() {
+    const track = document.querySelector<HTMLElement>("[data-extra-modules-track]");
+    const wrap = track?.closest(".extra-modules-carousel");
+    if (!track || !wrap) return;
+
+    const prevBtn = wrap.querySelector<HTMLButtonElement>("[data-extra-modules-prev]");
+    const nextBtn = wrap.querySelector<HTMLButtonElement>("[data-extra-modules-next]");
+
+    const scrollAmount = () => {
+      const item = track.querySelector<HTMLElement>(":scope > *");
+      if (!item) return track.clientWidth;
+      const gap = parseFloat(getComputedStyle(track).columnGap || "0");
+      return item.getBoundingClientRect().width + gap;
+    };
+
+    prevBtn?.addEventListener("click", () => {
+      track.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+    });
+    nextBtn?.addEventListener("click", () => {
+      track.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+    });
+  }
+
+  initExtraModulesCarousel();
+</script>

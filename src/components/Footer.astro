@@ -59,17 +59,21 @@ const complianceBadges = [
         </div>
       </div>
 
-      <details class="links-col">
-        <summary><h4>Producto</h4><span class="links-col-chevron">⌄</span></summary>
+      <div class="links-col">
+        <button type="button" class="links-col-toggle" data-footer-toggle aria-expanded="false">
+          <h4>Producto</h4><span class="links-col-chevron">⌄</span>
+        </button>
         <div class="links-col-body">
           {productLinks.map((link) => (
             <a href={productLinkHrefs[link] ?? "#"} set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
           ))}
         </div>
-      </details>
+      </div>
 
-      <details class="links-col">
-        <summary><h4>Recursos</h4><span class="links-col-chevron">⌄</span></summary>
+      <div class="links-col">
+        <button type="button" class="links-col-toggle" data-footer-toggle aria-expanded="false">
+          <h4>Recursos</h4><span class="links-col-chevron">⌄</span>
+        </button>
         <div class="links-col-body">
           {resourceLinks.map((link) => {
             const href = link === "Términos y condiciones" ? "/terminos%20y%20condiciones%20fffff.pdf" : link === "Precios" ? "/planes" : link === "Casos de éxito" ? "/#casos-exito" : "#";
@@ -81,16 +85,18 @@ const complianceBadges = [
           })}
           <a href="/libro-reclamaciones" set:html={`${iconSvg('book', '#2563eb')} <span>Libro de Reclamaciones</span>`} />
         </div>
-      </details>
+      </div>
 
-      <details class="links-col">
-        <summary><h4>Empresa</h4><span class="links-col-chevron">⌄</span></summary>
+      <div class="links-col">
+        <button type="button" class="links-col-toggle" data-footer-toggle aria-expanded="false">
+          <h4>Empresa</h4><span class="links-col-chevron">⌄</span>
+        </button>
         <div class="links-col-body">
           {companyLinks.map((link) => (
             <a href="/contacto" set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
           ))}
         </div>
-      </details>
+      </div>
 
       <div class="contact-col">
         <h4>¿Hablemos de tu proyecto?</h4>
@@ -193,16 +199,19 @@ footer .container {
   color: #0f172a;
   margin-bottom: 1rem;
 }
-.links-col summary {
+.links-col-toggle {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
   cursor: default;
   pointer-events: none;
-  list-style: none;
+  font: inherit;
 }
-.links-col summary::-webkit-details-marker { display: none; }
 .links-col-chevron { display: none; }
-@media (min-width: 481px) {
-  .links-col-body { display: block !important; }
-}
+.links-col-body { display: block; }
 .links-col a {
   display: flex;
   align-items: center;
@@ -315,7 +324,7 @@ footer .container {
     border-bottom: 1px solid #e2e8f0;
     padding-bottom: 0.75rem;
   }
-  .links-col summary {
+  .links-col-toggle {
     cursor: pointer;
     pointer-events: auto;
     display: flex;
@@ -333,11 +342,31 @@ footer .container {
     transition: transform 0.2s ease;
     flex-shrink: 0;
   }
-  .links-col[open] .links-col-chevron {
+  .links-col-toggle.is-open .links-col-chevron {
     transform: rotate(180deg);
   }
   .links-col-body {
+    display: none;
     padding-top: 1rem;
+  }
+  .links-col-body.is-open {
+    display: block;
   }
 }
 </style>
+
+<script>
+  function initFooterAccordion() {
+    document.querySelectorAll<HTMLButtonElement>("[data-footer-toggle]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const body = btn.nextElementSibling as HTMLElement | null;
+        if (!body) return;
+        const isOpen = body.classList.toggle("is-open");
+        btn.classList.toggle("is-open", isOpen);
+        btn.setAttribute("aria-expanded", String(isOpen));
+      });
+    });
+  }
+
+  initFooterAccordion();
+</script>
