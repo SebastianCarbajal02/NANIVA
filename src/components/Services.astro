@@ -158,7 +158,9 @@ const stats = [
     <h2>Todo lo que tu negocio necesita <span class="highlight">en un solo lugar</span></h2>
     <p class="subtitle">Soluciones diseñadas para impulsar tu crecimiento y simplificar tu gestión diaria.</p>
 
-    <div class="main-grid">
+    <div class="main-carousel">
+      <button type="button" class="main-nav main-prev" aria-label="Anterior" data-main-prev>‹</button>
+      <div class="main-grid" data-main-track>
       {mainServices.map((s, i) => (
         <article class="main-card reveal hover-lift" style={`transition-delay:${i * 0.1}s`}>
           <div class="main-card-body">
@@ -210,10 +212,14 @@ const stats = [
           </div>
         </article>
       ))}
+      </div>
+      <button type="button" class="main-nav main-next" aria-label="Siguiente" data-main-next>›</button>
     </div>
 
     <h3 class="modules-title">Complementa tu plataforma con módulos especializados</h3>
-    <div class="modules-grid">
+    <div class="modules-carousel">
+      <button type="button" class="modules-nav modules-prev" aria-label="Anterior" data-modules-prev>‹</button>
+      <div class="modules-grid" data-modules-track>
       {modules.map((m, i) => (
         <article class="module-card reveal hover-lift" style={`transition-delay:${i * 0.08}s`}>
           <div class="module-header">
@@ -239,6 +245,8 @@ const stats = [
           </a>
         </article>
       ))}
+      </div>
+      <button type="button" class="modules-nav modules-next" aria-label="Siguiente" data-modules-next>›</button>
     </div>
 
   </div>
@@ -272,6 +280,12 @@ const stats = [
     margin-bottom: 3rem;
   }
 
+  .main-carousel {
+    position: relative;
+  }
+  .main-nav {
+    display: none;
+  }
   .main-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -484,6 +498,12 @@ const stats = [
     color: #0f172a;
     margin-bottom: 1.5rem;
   }
+  .modules-carousel {
+    position: relative;
+  }
+  .modules-nav {
+    display: none;
+  }
   .modules-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -587,4 +607,151 @@ const stats = [
     .modules-grid { grid-template-columns: 1fr; }
     .stats-grid { grid-template-columns: 1fr; }
   }
+  @media (max-width: 480px) {
+    .main-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 1rem;
+      padding-bottom: 0.75rem;
+      scrollbar-width: none;
+    }
+    .main-grid::-webkit-scrollbar { display: none; }
+    .main-carousel { padding: 0 2.25rem; }
+    .main-card {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      padding: 1.25rem;
+    }
+    .main-card-visual {
+      max-width: 78%;
+      margin: 0 auto;
+    }
+    .mockup-ia-image,
+    .mockup-erp-image,
+    .mockup-ecommerce-image {
+      width: 100%;
+    }
+    .main-nav {
+      display: flex;
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 999px;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
+      color: #2563eb;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .main-prev { left: 0; }
+    .main-next { right: 0; }
+    .modules-carousel { padding: 0 2.25rem; }
+    .modules-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 1rem;
+      padding-bottom: 0.75rem;
+      scrollbar-width: none;
+    }
+    .modules-grid::-webkit-scrollbar { display: none; }
+    .module-card {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      padding: 1.25rem 1.25rem 1rem;
+    }
+    .module-mockup {
+      max-width: 78%;
+      margin: 0.5rem auto 0 0;
+      transform: none;
+    }
+    .module-mockup-facturacion {
+      max-width: 78%;
+      margin: 0.5rem auto 0 1.5rem;
+      transform: none;
+    }
+    .module-mockup-catalogo {
+      max-width: 92%;
+      margin: 0.5rem auto 0 0;
+      transform: none;
+    }
+    .module-mockup-restaurante {
+      max-width: 92%;
+      margin: 0.5rem auto 0 0;
+      transform: none;
+    }
+    .module-mockup-integraciones {
+      max-width: 78%;
+      margin: -0.5rem auto 0 0;
+      transform: none;
+    }
+    .module-mockup-software {
+      max-width: 78%;
+      margin: -0.5rem auto 0 0;
+      transform: none;
+    }
+    .modules-nav {
+      display: flex;
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 999px;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
+      color: #2563eb;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .modules-prev { left: 0; }
+    .modules-next { right: 0; }
+  }
 </style>
+
+<script>
+  function initScrollCarousel(trackAttr: string, wrapperClass: string, prevAttr: string, nextAttr: string) {
+    document.querySelectorAll<HTMLElement>(`[${trackAttr}]`).forEach((track) => {
+      const wrapper = track.closest(`.${wrapperClass}`);
+      if (!wrapper) return;
+      const prevBtn = wrapper.querySelector<HTMLButtonElement>(`[${prevAttr}]`);
+      const nextBtn = wrapper.querySelector<HTMLButtonElement>(`[${nextAttr}]`);
+      const scrollAmount = () => {
+        const item = track.querySelector<HTMLElement>(":scope > *");
+        if (!item) return track.clientWidth * 0.8;
+        const gap = parseFloat(getComputedStyle(track).columnGap || "0");
+        return item.getBoundingClientRect().width + gap;
+      };
+
+      prevBtn?.addEventListener("click", () => {
+        track.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+      });
+      nextBtn?.addEventListener("click", () => {
+        track.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+      });
+    });
+  }
+
+  function initCarousels() {
+    initScrollCarousel("data-main-track", "main-carousel", "data-main-prev", "data-main-next");
+    initScrollCarousel("data-modules-track", "modules-carousel", "data-modules-prev", "data-modules-next");
+  }
+
+  initCarousels();
+  document.addEventListener("astro:after-swap", initCarousels);
+</script>

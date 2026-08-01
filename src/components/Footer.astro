@@ -59,32 +59,38 @@ const complianceBadges = [
         </div>
       </div>
 
-      <div class="links-col">
-        <h4>Producto</h4>
-        {productLinks.map((link) => (
-          <a href={productLinkHrefs[link] ?? "#"} set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
-        ))}
-      </div>
+      <details class="links-col">
+        <summary><h4>Producto</h4><span class="links-col-chevron">⌄</span></summary>
+        <div class="links-col-body">
+          {productLinks.map((link) => (
+            <a href={productLinkHrefs[link] ?? "#"} set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
+          ))}
+        </div>
+      </details>
 
-      <div class="links-col">
-        <h4>Recursos</h4>
-        {resourceLinks.map((link) => {
-          const href = link === "Términos y condiciones" ? "/terminos%20y%20condiciones%20fffff.pdf" : link === "Precios" ? "/planes" : link === "Casos de éxito" ? "/#casos-exito" : "#";
-          const target = link === "Términos y condiciones" ? "_blank" : undefined;
-          const rel = link === "Términos y condiciones" ? "noopener noreferrer" : undefined;
-          return (
-            <a href={href} target={target} rel={rel} set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
-          );
-        })}
-        <a href="/libro-reclamaciones" set:html={`${iconSvg('book', '#2563eb')} <span>Libro de Reclamaciones</span>`} />
-      </div>
+      <details class="links-col">
+        <summary><h4>Recursos</h4><span class="links-col-chevron">⌄</span></summary>
+        <div class="links-col-body">
+          {resourceLinks.map((link) => {
+            const href = link === "Términos y condiciones" ? "/terminos%20y%20condiciones%20fffff.pdf" : link === "Precios" ? "/planes" : link === "Casos de éxito" ? "/#casos-exito" : "#";
+            const target = link === "Términos y condiciones" ? "_blank" : undefined;
+            const rel = link === "Términos y condiciones" ? "noopener noreferrer" : undefined;
+            return (
+              <a href={href} target={target} rel={rel} set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
+            );
+          })}
+          <a href="/libro-reclamaciones" set:html={`${iconSvg('book', '#2563eb')} <span>Libro de Reclamaciones</span>`} />
+        </div>
+      </details>
 
-      <div class="links-col">
-        <h4>Empresa</h4>
-        {companyLinks.map((link) => (
-          <a href="/contacto" set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
-        ))}
-      </div>
+      <details class="links-col">
+        <summary><h4>Empresa</h4><span class="links-col-chevron">⌄</span></summary>
+        <div class="links-col-body">
+          {companyLinks.map((link) => (
+            <a href="/contacto" set:html={`${iconSvg('chevron', '#2563eb')} <span>${link}</span>`} />
+          ))}
+        </div>
+      </details>
 
       <div class="contact-col">
         <h4>¿Hablemos de tu proyecto?</h4>
@@ -186,6 +192,16 @@ footer .container {
   font-weight: 700;
   color: #0f172a;
   margin-bottom: 1rem;
+}
+.links-col summary {
+  cursor: default;
+  pointer-events: none;
+  list-style: none;
+}
+.links-col summary::-webkit-details-marker { display: none; }
+.links-col-chevron { display: none; }
+@media (min-width: 481px) {
+  .links-col-body { display: block !important; }
 }
 .links-col a {
   display: flex;
@@ -293,5 +309,35 @@ footer .container {
   .top-grid { grid-template-columns: 1fr; }
   .compliance-bar { grid-template-columns: 1fr; }
   .bottom-inner { flex-direction: column; text-align: center; }
+}
+@media (max-width: 480px) {
+  .links-col {
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.75rem;
+  }
+  .links-col summary {
+    cursor: pointer;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
+  .links-col h4 {
+    margin-bottom: 0;
+  }
+  .links-col-chevron {
+    display: inline-block;
+    color: #94a3b8;
+    font-size: 1.1rem;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .links-col[open] .links-col-chevron {
+    transform: rotate(180deg);
+  }
+  .links-col-body {
+    padding-top: 1rem;
+  }
 }
 </style>
