@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import banner from '../assets/image/contacto/fondo contactanos-01.webp';
 import personaImg from '../assets/image/contacto/contactanos persona-02.webp';
 import logo from '../assets/image/shared/logos/logo.webp';
@@ -15,7 +16,7 @@ const bannerFeatures = [
 ];
 ---
 <section class="banner" style={`background-image: url('${banner.src}');`}>
-  <img src={personaImg.src} alt="Contacto persona" class="banner-persona" aria-hidden="true" />
+  <Image src={personaImg} alt="Contacto persona" class="banner-persona" aria-hidden="true" loading="eager" widths={[600, 1200, 1800, 2400]} sizes="60vw" />
   <div class="content reveal">
     <h1>Contáctanos y<br /><span class="highlight">Digitaliza</span> tu Negocio</h1>
     <p class="banner-subtitle">Nuestro equipo de expertos está listo para responder todas tus dudas y ayudar a implementar la mejor solución para tu empresa.</p>
@@ -25,22 +26,22 @@ const bannerFeatures = [
     </div>
     <div class="banner-features">
       <div class="banner-feature">
-        <span class="banner-feature-icon banner-feature-icon-1 icon-bounce"><img src={bannerFeatures[0].icon.src} alt={bannerFeatures[0].title} /></span>
+        <span class="banner-feature-icon banner-feature-icon-1 icon-bounce"><Image src={bannerFeatures[0].icon} alt={bannerFeatures[0].title} /></span>
         <h4>{bannerFeatures[0].title}</h4>
         <p class="feature-desc">{bannerFeatures[0].desc}</p>
       </div>
       <div class="banner-feature">
-        <span class="banner-feature-icon banner-feature-icon-2 icon-bounce"><img src={bannerFeatures[1].icon.src} alt={bannerFeatures[1].title} /></span>
+        <span class="banner-feature-icon banner-feature-icon-2 icon-bounce"><Image src={bannerFeatures[1].icon} alt={bannerFeatures[1].title} /></span>
         <h4>{bannerFeatures[1].title}</h4>
         <p class="feature-desc">{bannerFeatures[1].desc}</p>
       </div>
       <div class="banner-feature">
-        <span class="banner-feature-icon banner-feature-icon-3 icon-bounce"><img src={bannerFeatures[2].icon.src} alt={bannerFeatures[2].title} /></span>
+        <span class="banner-feature-icon banner-feature-icon-3 icon-bounce"><Image src={bannerFeatures[2].icon} alt={bannerFeatures[2].title} /></span>
         <h4>{bannerFeatures[2].title}</h4>
         <p class="feature-desc">{bannerFeatures[2].desc}</p>
       </div>
       <div class="banner-feature">
-        <span class="banner-feature-icon banner-feature-icon-4 icon-bounce"><img src={bannerFeatures[3].icon.src} alt={bannerFeatures[3].title} /></span>
+        <span class="banner-feature-icon banner-feature-icon-4 icon-bounce"><Image src={bannerFeatures[3].icon} alt={bannerFeatures[3].title} /></span>
         <h4>{bannerFeatures[3].title}</h4>
         <p class="feature-desc">{bannerFeatures[3].desc}</p>
       </div>

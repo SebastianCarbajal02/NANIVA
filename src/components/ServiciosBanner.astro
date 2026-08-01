@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import fondoImg from '../assets/image/servicios/fondo-contactanos-01.webp';
 import personasImg from '../assets/image/servicios/servicios personas-02.webp';
 
@@ -12,7 +13,7 @@ const stats = [
 ---
 
 <section class="banner" style={`background-image: url('${fondoImg.src}');`}>
-  <img src={personasImg.src} alt="Personas usando servicios" class="personas-img" />
+  <Image src={personasImg} alt="Personas usando servicios" class="personas-img" loading="eager" widths={[600, 1200, 1800, 2400]} sizes="60vw" />
   <div class="content reveal">
     <h1>Impulsa tu negocio<br />con nuestas<br /><span class="highlight">Soluciones</span></h1>
     <p>Te asesoramos para que tengas el mejor<br />sistema que se adecue para tu NEGOCIO.</p>

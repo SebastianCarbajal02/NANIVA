@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import iconFactura from '../assets/image/servicios/full/factura.webp';
 import iconCatalogo from '../assets/image/servicios/full/icon-plan-catalogo.webp';
 import iconRestaurante from '../assets/image/servicios/full/icon-plan-restaurante.webp';
@@ -75,11 +76,11 @@ const whyChoose = [
       <div class="services-track">
         {services.map((s, i) => (
           <div class="service-row reveal hover-lift" style={`background:${s.bg}`} data-index={i}>
-            <img src={s.mockImg.src} alt={s.title} class="row-bg-img" />
+            <Image src={s.mockImg} alt={s.title} class="row-bg-img" widths={[400, 800, 1200, 1600]} sizes="(max-width: 700px) 100vw, 50vw" />
             <div class="row-text">
               <div class="row-header">
                 <div class="row-icon icon-bounce" style={`background:${s.iconBg}`}>
-                  <img src={s.icon.src} alt={s.title} />
+                  <Image src={s.icon} alt={s.title} />
                 </div>
                 <h3>{s.title}</h3>
               </div>

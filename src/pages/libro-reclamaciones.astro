@@ -534,94 +534,6 @@ const barItems = [
         justify-content: center;
       }
     }
-
-    .form-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.55);
-      backdrop-filter: blur(4px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      padding: 1rem;
-    }
-
-    .form-modal-backdrop[hidden] {
-      display: none;
-    }
-
-    .form-modal {
-      position: relative;
-      background: white;
-      border-radius: 18px;
-      padding: 2.5rem 2rem 2rem;
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.25);
-      animation: modal-pop 0.25s ease;
-    }
-
-    @keyframes modal-pop {
-      from { opacity: 0; transform: scale(0.92); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .form-modal-close {
-      position: absolute;
-      top: 0.85rem;
-      right: 0.85rem;
-      width: 32px;
-      height: 32px;
-      border: none;
-      background: #f1f5f9;
-      color: #475569;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-
-    .form-modal-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 56px;
-      height: 56px;
-      margin: 0 auto 1.25rem;
-      border-radius: 999px;
-      font-size: 1.6rem;
-      font-weight: 800;
-    }
-
-    .form-modal-icon-success {
-      background: #dcfce7;
-      color: #16a34a;
-    }
-
-    .form-modal-icon-error {
-      background: #fee2e2;
-      color: #dc2626;
-    }
-
-    .form-modal h3 {
-      font-size: 1.3rem;
-      color: var(--text-dark);
-      margin-bottom: 0.6rem;
-    }
-
-    .form-modal p {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 1.5rem;
-    }
-
-    .form-modal-btn {
-      width: 100%;
-      justify-content: center;
-      display: inline-flex;
-    }
   </style>
 
   <!-- HERO BANNER -->
@@ -833,7 +745,7 @@ const barItems = [
                   value="Producto"
                   required
                 />
-                <label htmlFor="bien_producto">Producto</label>
+                <label for="bien_producto">Producto</label>
               </div>
               <div class="radio-option">
                 <input
@@ -842,7 +754,7 @@ const barItems = [
                   name="tipobien"
                   value="Servicio"
                 />
-                <label htmlFor="bien_servicio">Servicio</label>
+                <label for="bien_servicio">Servicio</label>
               </div>
             </div>
           </div>
@@ -858,7 +770,7 @@ const barItems = [
                   value="Reclamo"
                   required
                 />
-                <label htmlFor="reclamacion_reclamo">Reclamo</label>
+                <label for="reclamacion_reclamo">Reclamo</label>
               </div>
               <div class="radio-option">
                 <input
@@ -867,7 +779,7 @@ const barItems = [
                   name="tipoReclamacion"
                   value="Queja"
                 />
-                <label htmlFor="reclamacion_queja">Queja</label>
+                <label for="reclamacion_queja">Queja</label>
               </div>
             </div>
           </div>
@@ -964,45 +876,25 @@ const barItems = [
 
   <div id="formModal" class="form-modal-backdrop" hidden>
     <div class="form-modal" role="dialog" aria-modal="true" aria-labelledby="formModalTitle">
-      <button type="button" class="form-modal-close" id="formModalClose" aria-label="Cerrar">✕</button>
-      <span class="form-modal-icon form-modal-icon-success">✓</span>
+      <div class="form-modal-progress"></div>
+      <button type="button" class="form-modal-close" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <span class="form-modal-icon"></span>
       <h3 id="formModalTitle">Reclamación enviada</h3>
-      <p id="formModalMessage">Gracias por tu reclamo. Nos pondremos en contacto pronto.</p>
-      <button type="button" class="btn-primary hover-pop form-modal-btn" id="formModalOk">Entendido</button>
+      <p>Gracias por tu reclamo. Nos pondremos en contacto pronto.</p>
+      <button type="button" class="form-modal-btn hover-pop">Entendido</button>
     </div>
   </div>
 
   <script>
+    import { initFormModal } from '../scripts/form-modal';
+
     const form1 = document.getElementById('reclamacionForm') as HTMLFormElement | null;
     const form2 = document.getElementById('reclamacionForm2') as HTMLFormElement | null;
     const submitBtn = document.querySelector<HTMLButtonElement>('.submit-btn');
 
-    const modal = document.getElementById('formModal') as HTMLElement | null;
-    const modalIcon = modal?.querySelector<HTMLElement>('.form-modal-icon');
-    const modalTitle = document.getElementById('formModalTitle');
-    const modalMessage = document.getElementById('formModalMessage');
-    const modalClose = document.getElementById('formModalClose');
-    const modalOk = document.getElementById('formModalOk');
-
-    function showModal(kind: 'success' | 'error', title: string, message: string) {
-      if (!modal || !modalIcon || !modalTitle || !modalMessage) return;
-      modalIcon.classList.toggle('form-modal-icon-success', kind === 'success');
-      modalIcon.classList.toggle('form-modal-icon-error', kind === 'error');
-      modalIcon.textContent = kind === 'success' ? '✓' : '✕';
-      modalTitle.textContent = title;
-      modalMessage.textContent = message;
-      modal.hidden = false;
-    }
-
-    function hideModal() {
-      if (modal) modal.hidden = true;
-    }
-
-    modalClose?.addEventListener('click', hideModal);
-    modalOk?.addEventListener('click', hideModal);
-    modal?.addEventListener('click', (e) => {
-      if (e.target === modal) hideModal();
-    });
+    const { show: showModal } = initFormModal();
 
     function buildMessage(d: Record<string, string>) {
       return `

@@ -309,8 +309,8 @@ assets/image/
 - ✅ Nueva página **/servicios** (`servicios.astro`): refactorizada con componentes (`ServiciosBanner`, `ServicesFull`) siguiendo patrón de ia.astro. Banner con stats (+10,000 comprobantes, +1,500 negocios, 99.9% disponibilidad, soporte 24/7)
 - ✅ Nueva página **/planes** (`planes.astro`): refactorizada con 6 componentes siguiendo patrón ia.astro. Reducida de 3049 a 109 líneas. Incluye banner + selector de productos (ERP, Catálogo Digital, Restaurante, IA) + detalles de cada producto
 - ✅ Nueva página **/ia** (`ia.astro` + `HeroIA.astro`): solo Hero por ahora (badge, título, 4 iconos de features, 2 CTAs, mockup dashboard+persona a la derecha). Fondo reutiliza `fondo final1-01.webp` (el mismo del Hero de inicio) y el layout está acotado por `.container` igual que `erp-hero` de planes.astro (no full-bleed 100vh), para que la imagen no crezca desproporcionadamente al hacer zoom. Íconos fuente en `assets/image/IA/` (PNG originales); pendiente: sección de beneficios con los íconos restantes (bombilla, diana, personas, gráfico, check, monitor, cerebro) — falta diseño/copy
-- ✅ Nueva página **/contacto** (`contacto.astro`): banner con datos de contacto (teléfono, email, horario, dirección) + formulario que postea a `/api/contact`
-- ✅ Endpoint **`/api/contact.js`**: valida campos, sanitiza input, reenvía el mensaje a Web3Forms (requiere `WEB3FORMS_KEY` en variables de entorno)
+- ✅ Nueva página **/contacto** (`contacto.astro`): banner con datos de contacto (teléfono, email, horario, dirección) + formulario que postea directo a Web3Forms desde el cliente
+- ⚠️ El envío es **client-side directo a Web3Forms** (`PUBLIC_WEB3FORMS_KEY`), no vía endpoint propio: se probó un endpoint server-side (`/api/contact.js`) que validaba/sanitizaba antes de reenviar, pero el plan gratuito de Web3Forms rechaza peticiones que no se originen en el navegador ("Use our API in client side... Pro plan is required" para IPs de servidor). El endpoint se eliminó.
 
 ### Banner de /planes (Última actualización)
 - ✅ Fondo (`fondfo1-01.webp`) y persona (`persona2f-02.webp`) reemplazados por nuevas imágenes; ambas llegaron a resolución de impresión (25 575×11 983 y 17 979×12 299 px, 3.4 MB y 6.8 MB) y se redimensionaron con `sharp` (2400px / 1600px de ancho) antes de convertir a WebP — quedaron en ~100 KB cada una
@@ -485,7 +485,7 @@ Sección completa de productos con:
 ## 🔄 Próximos Pasos (Opcionales)
 
 - [ ] Agregar más testimonios
-- [x] Integrar formulario demo → formulario de contacto en `/contacto` + endpoint `/api/contact.js` (Web3Forms)
+- [x] Integrar formulario demo → formulario de contacto en `/contacto`, envío client-side directo a Web3Forms (`PUBLIC_WEB3FORMS_KEY`)
 - [ ] Lazy loading imágenes
 - [ ] Animaciones scroll more prominent
 - [ ] Dark mode support

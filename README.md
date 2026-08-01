@@ -19,19 +19,20 @@ Todos los comandos se ejecutan desde la raíz del proyecto, en una terminal:
 
 ## 🔑 Variables de entorno
 
-El formulario de contacto (`/contacto`) envía los mensajes a través de [Web3Forms](https://web3forms.com). Se necesita una clave de acceso configurada como variable de entorno:
+El formulario de contacto (`/contacto`) envía los mensajes directamente desde el navegador a [Web3Forms](https://web3forms.com) (el plan gratuito de Web3Forms requiere que la petición se origine en el cliente, no en un servidor). Se necesita una clave de acceso configurada como variable de entorno **pública** (con prefijo `PUBLIC_` para que Astro la exponga al navegador):
 
 ```
-WEB3FORMS_KEY=tu_clave_de_web3forms
+PUBLIC_WEB3FORMS_KEY=tu_clave_de_web3forms
 ```
 
 - Crea un archivo `.env` en la raíz del proyecto (no se sube al repositorio) para desarrollo local:
 
   ```
-  WEB3FORMS_KEY=tu_clave_de_web3forms
+  PUBLIC_WEB3FORMS_KEY=tu_clave_de_web3forms
   ```
 
 - Obtén tu clave gratuita en [web3forms.com](https://web3forms.com).
+- Como esta clave viaja al navegador, no es un secreto: es el modelo esperado por Web3Forms (equivalente a una site-key), que controla el abuso por dominio permitido en vez de ocultar la clave.
 
 ## 🚀 Despliegue en Vercel
 
@@ -43,7 +44,7 @@ El proyecto ya incluye el adaptador `@astrojs/vercel` configurado en `astro.conf
 2. En Vercel, click en **Add New → Project** e importa el repositorio.
 3. Vercel detectará Astro automáticamente (Framework Preset: **Astro**).
 4. En **Environment Variables**, agrega:
-   - `WEB3FORMS_KEY` = tu clave de Web3Forms
+   - `PUBLIC_WEB3FORMS_KEY` = tu clave de Web3Forms
 5. Click en **Deploy**.
 
 ### Opción 2: Desde la CLI de Vercel
@@ -57,7 +58,7 @@ vercel
 Sigue las instrucciones interactivas. Para configurar la variable de entorno desde la CLI:
 
 ```bash
-vercel env add WEB3FORMS_KEY
+vercel env add PUBLIC_WEB3FORMS_KEY
 ```
 
 Para desplegar a producción:
