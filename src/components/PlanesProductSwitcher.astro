@@ -5,10 +5,10 @@ import iconEcommerce from '../assets/image/planes/compartido/icondd-07.webp';
 import iconIA from '../assets/image/planes/compartido/icondd-08.webp';
 
 const products = [
-  { icon: iconERP, title: "ERP", desc: "Sistema principal", anchor: "erp" },
-  { icon: iconCatalogo, title: "Catálogo Digital", desc: "Catálogo en WhatsApp", anchor: "catalogo-digital" },
-  { icon: iconEcommerce, title: "Restaurante", desc: "Sistema de gestión", anchor: "ecommerce" },
-  { icon: iconIA, title: "IA", desc: "Inteligencia de negocio", anchor: "ia" },
+  { icon: iconERP, title: "ERP", desc: "Sistema principal", href: "#erp", target: "erp" },
+  { icon: iconCatalogo, title: "Catálogo Digital", desc: "Catálogo en WhatsApp", href: "#catalogo-digital", target: "catalogo-digital" },
+  { icon: iconEcommerce, title: "Restaurante", desc: "Sistema de gestión", href: "#ecommerce", target: "ecommerce" },
+  { icon: iconIA, title: "IA", desc: "Inteligencia de negocio", href: "/ia" },
 ];
 ---
 
@@ -22,9 +22,9 @@ const products = [
     <div class="products-grid">
       {products.map((product, i) => (
         <a
-          href={`#${product.anchor}`}
+          href={product.href}
           class={`product-card reveal${i === 0 ? " is-active" : ""}`}
-          data-target={product.anchor}
+          data-target={product.target}
           style={`transition-delay:${i * 0.1}s`}
         >
           <img src={product.icon.src} alt={product.title} class="product-icon" />
