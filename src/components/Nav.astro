@@ -42,6 +42,17 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
           </a>
         );
       })}
+
+      <div class="mobile-menu-actions">
+        <a href="https://wa.link/x4dnva" target="_blank" rel="noopener noreferrer" class="mobile-menu-btn mobile-menu-btn-primary">Solicitar demostración</a>
+      </div>
+
+      <div class="mobile-menu-footer">
+        <div class="mobile-menu-brand">
+          <img src={logo.src} alt="Naniva" />
+          <span>NANIVA</span>
+        </div>
+      </div>
     </nav>
 
     <a href="https://wa.link/x4dnva" target="_blank" rel="noopener noreferrer" class="demo-btn hover-pop">
@@ -187,6 +198,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
     .links a span { display: none; }
   }
 
+  .mobile-menu-footer { display: none; }
+
   @media (max-width: 768px) {
     .nav-inner { padding-left: 1rem; }
     .demo-btn { display: none; }
@@ -207,6 +220,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
       transition: transform 0.35s ease;
       padding-top: 6rem;
       justify-content: flex-start;
+      overflow-y: auto;
       z-index: 1;
     }
     .links.open {
@@ -223,6 +237,60 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
     .links a span { display: inline; }
     .links a:last-child { border-bottom: none; }
     .links a.active { border-bottom-color: #e2e8f0; }
+
+    .mobile-menu-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+      width: 100%;
+      padding: 1.5rem 1.75rem 4rem;
+    }
+
+    .mobile-menu-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: auto;
+      padding: 1rem 1.75rem 0;
+    }
+
+    .links .mobile-menu-btn {
+      width: auto;
+      text-align: center;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: none !important;
+      margin-top: 0;
+    }
+
+    .links .mobile-menu-btn-primary {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: white;
+    }
+
+    .mobile-menu-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .mobile-menu-brand img {
+      height: 80px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .mobile-menu-brand span {
+      color: #0f172a;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+    }
   }
 </style>
 
