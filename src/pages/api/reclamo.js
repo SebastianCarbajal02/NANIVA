@@ -21,10 +21,41 @@ export async function POST({ request }) {
       }
     }
 
+    if (!/^\d{6,15}$/.test(String(numeroDocumento))) {
+      return new Response(JSON.stringify({ error: 'El número de documento solo debe contener números (6 a 15 dígitos)' }), { status: 400 });
+    }
+
+    if (!/^\d{6,9}$/.test(String(telefono))) {
+      return new Response(JSON.stringify({ error: 'El teléfono solo debe contener números (6 a 9 dígitos)' }), { status: 400 });
+    }
+
     if (correo) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(correo)) {
-        return new Response(JSON.stringify({ error: 'Email inválido' }), { status: 400 });
+      const ALLOWED_EMAIL_DOMAINS = [
+        'gmail.com', 'hotmail.com', 'outlook.com', 'yahoo.com', 'live.com',
+        'icloud.com', 'protonmail.com', 'aol.com', 'msn.com',
+        'hotmail.es', 'outlook.es', 'yahoo.es',
+      ];
+      const emailMatch = /^[^\s@]+@([^\s@]+)$/.exec(String(correo).trim());
+      const domain = emailMatch?.[1]?.toLowerCase();
+      if (!emailMatch || !ALLOWED_EMAIL_DOMAINS.includes(domain)) {
+        return new Response(JSON.stringify({ error: 'Ingresa un correo de un proveedor válido (Gmail, Hotmail, Outlook, Yahoo, etc.)' }), { status: 400 });
+      }
+    }
+
+    if (!/^\d+(\.\d{1,2})?$/.test(String(monto)) || Number(monto) <= 0) {
+      return new Response(JSON.stringify({ error: 'El monto reclamado debe ser un número válido mayor a 0' }), { status: 400 });
+    }
+
+    const SQL_INJECTION_PATTERN = /('|"|;|--|\/\*|\*\/|\bxp_\w+\b|\bunion\b|\bselect\b|\binsert\b|\bupdate\b|\bdelete\b|\bdrop\b|\balter\b|\bexec\b|\bor\b\s+1\s*=\s*1)/i;
+    const allFields = {
+      tipoDocumento, numeroDocumento, nombreCompleto, telefono, correo,
+      domicilio, departamento, provincia, distrito,
+      ordenCompra, producto, tipobien, tipoReclamacion,
+      monto, submotivo, motivo, detalle, pedido,
+    };
+    for (const [key, value] of Object.entries(allFields)) {
+      if (value && SQL_INJECTION_PATTERN.test(String(value))) {
+        return new Response(JSON.stringify({ error: `El campo "${key}" contiene caracteres o palabras no permitidas` }), { status: 400 });
       }
     }
 
