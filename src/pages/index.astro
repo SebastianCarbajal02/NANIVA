@@ -12,9 +12,14 @@ import CaseStudies from '../components/CaseStudies.astro';
 import TransformBanner from '../components/TransformBanner.astro';
 import Testimonials from '../components/Testimonials.astro';
 import Faq from '../components/Faq.astro';
+import { faqSchema } from '../data/faqs';
 ---
 
-<BaseLayout title="Spiffy Shepherd - Landing Page con Astro" description="Landing page moderna construida con Astro. Rápida, responsive y sin JavaScript innecesario.">
+<BaseLayout
+  title="NANIVA | Facturación Electrónica, ERP y Software con IA en Perú"
+  description="Gestiona ventas, inventario, compras y facturación electrónica SUNAT en una sola plataforma con inteligencia artificial. Solicita tu demo gratis."
+  schema={faqSchema}
+>
   <Nav />
   <Hero />
   <ClientsTrust />
