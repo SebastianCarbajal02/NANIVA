@@ -23,6 +23,9 @@ import RestaurantDetail from '@components/planes/RestaurantDetail.astro';
     const details = document.querySelectorAll<HTMLElement>(".product-detail");
 
     function showDetail(target: string) {
+      // Solo cambiar de pestaña si el destino es una sección de producto;
+      // con otras anclas (p. ej. #erp-planes) se desactivaban todas las secciones
+      if (!document.querySelector(`.product-detail#${CSS.escape(target)}`)) return false;
       let matched = false;
       details.forEach((detail) => {
         const isMatch = detail.id === target;

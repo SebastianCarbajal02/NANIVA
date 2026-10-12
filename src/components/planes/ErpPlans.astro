@@ -125,8 +125,9 @@ const whatsappHref = (plan: string) =>
 const checkIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>`;
 ---
 
-<div class="container erp-plans reveal" id="erp-planes" data-erp-plans data-active="intermedio">
-  <div class="erp-plans-head">
+<!-- Sin .reveal en el bloque: es muy alto y nunca llegaba al 15% visible que exige la animación -->
+<div class="container erp-plans" id="erp-planes" data-erp-plans data-active="intermedio">
+  <div class="erp-plans-head reveal">
     <span class="erp-plans-badge">PLANES DEL ERP</span>
     <h3>Compara los planes y elige <span class="erp-plans-highlight">el ideal para tu negocio</span></h3>
     <p>Todos los planes incluyen facturación electrónica con comprobantes ilimitados, POS, ventas, compras, caja e inventario. Crece de plan cuando tu negocio lo necesite.</p>
