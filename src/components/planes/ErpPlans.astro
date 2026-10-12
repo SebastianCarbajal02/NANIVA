@@ -1,13 +1,27 @@
 ---
-// Tabla comparativa de los planes del ERP.
+// Planes del ERP: tarjetas resumen + tabla comparativa completa (desplegable).
 // Valores: true = incluido, false = no incluido, string = valor concreto (límite o complemento).
 type Value = boolean | string;
 
 const plans = [
-  { id: "basico", name: "Básico", price: 49 },
-  { id: "intermedio", name: "Intermedio", price: 79, featured: true },
-  { id: "avanzado", name: "Avanzado", price: 129 },
+  { id: "basico", name: "Básico", price: 49, tagline: "Para empezar a ordenar tu negocio" },
+  { id: "intermedio", name: "Intermedio", price: 79, featured: true, tagline: "Para negocios en crecimiento" },
+  { id: "avanzado", name: "Avanzado", price: 129, tagline: "Para equipos con varios almacenes" },
 ] as const;
+
+// Resumen de cada tarjeta: texto (igual o por plan) y si está incluido en cada plan
+const cardFeatures: { text: string | [string, string, string]; included: [boolean, boolean, boolean] }[] = [
+  { text: ["2 usuarios", "4 usuarios", "6 usuarios"], included: [true, true, true] },
+  { text: "Comprobantes electrónicos ilimitados", included: [true, true, true] },
+  { text: ["Hasta 500 productos", "Hasta 2,000 productos", "Hasta 5,000 productos"], included: [true, true, true] },
+  { text: ["1 almacén", "2 almacenes", "3 almacenes"], included: [true, true, true] },
+  { text: "POS inteligente", included: [true, true, true] },
+  { text: "Kardex y ajuste de inventario", included: [false, true, true] },
+  { text: "Catálogo digital", included: [false, true, true] },
+  { text: "Cotizaciones y cuentas por cobrar", included: [false, true, true] },
+  { text: "Seguimiento de envíos", included: [false, false, true] },
+  { text: "Carga inteligente de productos", included: [false, false, true] },
+];
 
 const categories: { title: string; rows: [string, Value, Value, Value][] }[] = [
   {
@@ -122,6 +136,8 @@ const categories: { title: string; rows: [string, Value, Value, Value][] }[] = [
 const whatsappHref = (plan: string) =>
   `https://wa.me/51908644190?text=${encodeURIComponent(`Hola, me interesa el plan ${plan} del ERP NANIVA`)}`;
 
+const crossIcon = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
+const smallCheckIcon = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>`;
 const checkIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>`;
 ---
 
@@ -132,6 +148,62 @@ const checkIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" s
     <h3>Compara los planes y elige <span class="erp-plans-highlight">el ideal para tu negocio</span></h3>
     <p>Todos los planes incluyen facturación electrónica con comprobantes ilimitados, POS, ventas, compras, caja e inventario. Crece de plan cuando tu negocio lo necesite.</p>
   </div>
+
+  <!-- Tarjetas de planes -->
+  <div class="erp-plan-cards">
+    {plans.map((p, pi) => (
+      <article class:list={["erp-plan-card", { featured: "featured" in p && p.featured }]}>
+        {"featured" in p && p.featured && <span class="erp-plan-card-flag">Recomendado</span>}
+        <h4 class="erp-plan-card-name">{p.name}</h4>
+        <p class="erp-plan-card-tagline">{p.tagline}</p>
+        <p class="erp-plan-card-price">
+          <span class="erp-plan-card-amount">S/{p.price}</span>
+          <span class="erp-plan-card-period">/ mes (inc. IGV)</span>
+        </p>
+        <ul class="erp-plan-card-list">
+          {cardFeatures.map((feat) => {
+            const text = typeof feat.text === "string" ? feat.text : feat.text[pi];
+            const ok = feat.included[pi];
+            return (
+              <li class:list={{ off: !ok }}>
+                <span class="erp-plan-card-icon" set:html={ok ? smallCheckIcon : crossIcon} />
+                <span>{text}</span>
+                {!ok && <span class="sr-only">(no incluido)</span>}
+              </li>
+            );
+          })}
+        </ul>
+        <a href={whatsappHref(p.name)} target="_blank" rel="noopener noreferrer" class="erp-plan-card-cta">Elegir plan</a>
+        <details class="erp-plan-card-all">
+          <summary>Ver todas las funciones</summary>
+          {categories.filter((cat) => cat.title !== "Lo esencial del plan").map((cat) => (
+            <div class="erp-plan-card-group">
+              <h5>{cat.title}</h5>
+              <ul>
+                {cat.rows.map(([label, ...values]) => {
+                  const v = values[pi];
+                  return (
+                    <li class:list={{ off: v === false }}>
+                      <span class="erp-plan-card-icon" set:html={v === false ? crossIcon : smallCheckIcon} />
+                      <span>
+                        {label}
+                        {typeof v === "string" && <strong class:list={["erp-plan-card-value", { "value-store": v === "NANIVA Store" }]}>{v}</strong>}
+                      </span>
+                      {v === false && <span class="sr-only">(no incluido)</span>}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </details>
+      </article>
+    ))}
+  </div>
+
+  <!-- Comparación completa: desplegable (el contenido sigue en el HTML para Google) -->
+  <details class="erp-plans-details" id="erp-comparacion">
+    <summary>Ver comparación completa de funcionalidades</summary>
 
   <!-- Selector de plan: solo visible en móvil, donde la tabla muestra un plan a la vez -->
   <div class="erp-plans-switch" role="group" aria-label="Elegir plan para comparar">
@@ -186,6 +258,8 @@ const checkIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" s
       ))}
     </table>
   </div>
+  </details>
+
   <p class="erp-plans-note">
     Precios mensuales en soles, IGV incluido.<br />
     <span class="value-store">NANIVA Store</span> es la tienda de aplicaciones dentro de la plataforma, donde puedes solicitar ampliaciones para tu plan.
@@ -205,8 +279,9 @@ const checkIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" s
 </script>
 
 <style>
+  /* Va al inicio de la sección del ERP, que ya tiene su propio espacio superior */
   .erp-plans {
-    padding-top: 4rem;
+    padding-top: 0;
     padding-bottom: 2rem;
   }
   .erp-plans-head {
@@ -238,6 +313,230 @@ const checkIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" s
     color: #475569;
     font-size: 1rem;
   }
+
+  /* ---------- Tarjetas de planes ---------- */
+  .erp-plan-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    max-width: 1120px;
+    margin: 0 auto 2.5rem;
+    /* start: al desplegar una tarjeta, las demás no se estiran con espacio vacío */
+    align-items: start;
+  }
+  .erp-plan-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 2.25rem 1.75rem 1.75rem;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .erp-plan-card:hover,
+  .erp-plan-card:focus-within {
+    transform: translateY(-8px);
+    border-color: #2563eb;
+    box-shadow: 0 24px 50px rgba(37, 99, 235, 0.18);
+  }
+  .erp-plan-card.featured {
+    border: 2px solid #2563eb;
+    box-shadow: 0 18px 40px rgba(37, 99, 235, 0.14);
+  }
+  .erp-plan-card-flag {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .erp-plan-card-name {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #1e3a8a;
+    margin-bottom: 0.4rem;
+  }
+  .erp-plan-card-tagline {
+    color: #475569;
+    font-size: 0.95rem;
+    min-height: 1.5em;
+  }
+  .erp-plan-card-price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.75rem 0 1.5rem;
+  }
+  .erp-plan-card-amount {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #1e3a8a;
+    line-height: 1;
+  }
+  .erp-plan-card-period {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+  }
+  .erp-plan-card-list {
+    list-style: none;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    text-align: left;
+    width: fit-content;
+    flex: 1;
+  }
+  .erp-plan-card-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+    color: #334155;
+  }
+  .erp-plan-card-list li.off { color: #64748b; }
+  .erp-plan-card-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    color: #16a34a;
+  }
+  .erp-plan-card-list li.off .erp-plan-card-icon { color: #94a3b8; }
+  .erp-plan-card-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 170px;
+    min-height: 48px;
+    padding: 0.7rem 1.75rem;
+    border-radius: 999px;
+    border: 1.5px solid #2563eb;
+    color: #1d4ed8;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .erp-plan-card-cta:hover { background: #eff6ff; }
+  .erp-plan-card.featured .erp-plan-card-cta { background: #2563eb; color: #ffffff; }
+  .erp-plan-card.featured .erp-plan-card-cta:hover { background: #1d4ed8; }
+  .erp-plan-card-all {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .erp-plan-card-all > summary {
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 36px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1d4ed8;
+    cursor: pointer;
+  }
+  .erp-plan-card-all > summary::-webkit-details-marker { display: none; }
+  .erp-plan-card-all > summary::after {
+    content: "⌄";
+    line-height: 1;
+    transform: translateY(-0.15em);
+    transition: transform 0.2s ease;
+  }
+  .erp-plan-card-all[open] > summary::after { transform: rotate(180deg) translateY(-0.1em); }
+  .erp-plan-card-all > summary:hover { text-decoration: underline; }
+  .erp-plan-card-all[open] > summary { margin-bottom: 0.5rem; }
+
+  .erp-plan-card-group {
+    text-align: left;
+    border-top: 1px solid #f1f5f9;
+    padding: 0.9rem 0 0.4rem;
+  }
+  .erp-plan-card-group h5 {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1d4ed8;
+    margin-bottom: 0.6rem;
+  }
+  .erp-plan-card-group ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .erp-plan-card-group li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.88rem;
+    color: #334155;
+  }
+  .erp-plan-card-group li .erp-plan-card-icon { margin-top: 0.15rem; }
+  .erp-plan-card-group li.off { color: #64748b; }
+  .erp-plan-card-group li.off .erp-plan-card-icon { color: #94a3b8; }
+  .erp-plan-card-value {
+    margin-left: 0.35rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .erp-plan-card-value.value-store {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: #6d28d9;
+    background: #f3e8ff;
+    border-radius: 999px;
+    padding: 0.1rem 0.55rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .erp-plan-card { transition: none; }
+    .erp-plan-card:hover,
+    .erp-plan-card:focus-within { transform: none; }
+  }
+
+  /* ---------- Comparación completa (desplegable) ---------- */
+  .erp-plans-details { scroll-margin-top: 100px; }
+  .erp-plans-details > summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: fit-content;
+    min-height: 48px;
+    margin: 0 auto 1.5rem;
+    padding: 0.7rem 1.5rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #0f172a;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .erp-plans-details > summary::-webkit-details-marker { display: none; }
+  .erp-plans-details > summary::after {
+    content: "⌄";
+    font-size: 1.1rem;
+    line-height: 1;
+    transform: translateY(-0.15em);
+    transition: transform 0.2s ease;
+  }
+  .erp-plans-details[open] > summary::after { transform: rotate(180deg) translateY(-0.1em); }
+  .erp-plans-details > summary:hover { border-color: #2563eb; color: #1d4ed8; }
 
   .sr-only {
     position: absolute;
@@ -428,7 +727,13 @@ const checkIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" s
 
   /* ---------- Móvil: un plan a la vez ---------- */
   @media (max-width: 900px) {
-    .erp-plans { padding-top: 3rem; }
+    .erp-plan-cards {
+      grid-template-columns: minmax(0, 420px);
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .erp-plans { padding-top: 0; }
     .erp-plans-switch {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
