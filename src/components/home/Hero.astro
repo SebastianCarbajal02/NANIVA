@@ -1,6 +1,8 @@
 ﻿---
+import { Image } from 'astro:assets';
 import heroPeople from '@assets/image/home/hero/hompersonas fin1-02.webp';
-import heroDashboard from '@assets/image/home/hero/banner33-03.png';
+// Versión de 1800 px generada a partir de banner33-03.png (14401 px, 3.4 MB)
+import heroDashboard from '@assets/image/home/hero/hero-dashboard.webp';
 import logo from '@assets/image/shared/logos/logo.webp';
 import iconPos from '@assets/image/home/hero/icono-iniicio-punto_venta.webp';
 import iconEcommerce from '@assets/image/home/hero/icono-inicio-ecomerce.webp';
@@ -31,7 +33,7 @@ const partners = [
 ];
 ---
 <section class="hero" style="background-image: url('/fondo-hero.webp');">
-  <div class="content reveal">
+  <div class="content">
     <span class="tag">★ PLATAFORMA TODO EN UNO</span>
     <h1>La plataforma <span class="highlight">inteligente</span><br />para hacer crecer<br />tu empresa.</h1>
     <p>Administra ventas, inventario, facturación electrónica,<br />ecommerce e inteligencia artificial <span class="p-highlight">desde una sola plataforma</span>.</p>
@@ -55,9 +57,16 @@ const partners = [
     </div>
   </div>
 
-  <div class="hero-visual reveal">
-
-    <img src={heroDashboard.src} alt="" class="hero-people" />
+  <div class="hero-visual">
+    <Image
+      src={heroDashboard}
+      alt="Equipo revisando el dashboard de ventas de NANIVA"
+      class="hero-people"
+      widths={[560, 900, 1300, 1800]}
+      sizes="(max-width: 480px) 110vw, 52vw"
+      loading="eager"
+      fetchpriority="high"
+    />
   </div>
 </section>
 

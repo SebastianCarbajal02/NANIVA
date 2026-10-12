@@ -116,14 +116,13 @@ const previewCards = [
       </div>
 
       <div class="demo-video-wrap">
-        <iframe
-          class="demo-screen"
-          src="https://www.youtube.com/embed/eQp_nwda4wY?si=gIZuqpOHQGTJ9Gz2"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen></iframe>
+        <!-- Fachada: el iframe de YouTube (~1 MB de JS) solo se carga al hacer clic -->
+        <button type="button" class="demo-screen demo-facade" data-youtube-id="eQp_nwda4wY" aria-label="Reproducir video de demostración de NANIVA">
+          <img src="https://i.ytimg.com/vi/eQp_nwda4wY/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async" />
+          <span class="demo-play" aria-hidden="true">
+            <svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.5 7.7a8.6 8.6 0 0 0-6-6C55.2.3 34 .3 34 .3s-21.2 0-26.5 1.4a8.6 8.6 0 0 0-6 6C.2 13 .2 24 .2 24s0 11 1.3 16.3a8.6 8.6 0 0 0 6 6C12.8 47.7 34 47.7 34 47.7s21.2 0 26.5-1.4a8.6 8.6 0 0 0 6-6C67.8 35 67.8 24 67.8 24s0-11-1.3-16.3Z" fill="#f00"/><path d="M45 24 27 14v20z" fill="#fff"/></svg>
+          </span>
+        </button>
       </div>
     </div>
 
@@ -338,6 +337,30 @@ const previewCards = [
     display: block;
     border: 0;
   }
+  .demo-facade {
+    position: relative;
+    padding: 0;
+    background: #0f172a;
+    cursor: pointer;
+  }
+  .demo-facade img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .demo-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+  .demo-facade:hover .demo-play,
+  .demo-facade:focus-visible .demo-play {
+    transform: scale(1.1);
+  }
 
   .stats-bar {
     background: white;
@@ -419,3 +442,22 @@ const previewCards = [
   }
   }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".demo-facade[data-youtube-id]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const iframe = document.createElement("iframe");
+      iframe.className = "demo-screen";
+      iframe.src = `https://www.youtube-nocookie.com/embed/${btn.dataset.youtubeId}?autoplay=1`;
+      iframe.title = "Video de demostración de NANIVA";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      iframe.allowFullscreen = true;
+      // Copia el atributo data-astro-cid-* para que apliquen los estilos scoped de .demo-screen
+      for (const attr of btn.attributes) {
+        if (attr.name.startsWith("data-astro-cid")) iframe.setAttribute(attr.name, attr.value);
+      }
+      btn.replaceWith(iframe);
+    });
+  });
+</script>

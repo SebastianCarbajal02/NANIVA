@@ -43,6 +43,10 @@ const organizationSchema = {
   ],
 };
 const schemas = [organizationSchema, ...(schema ? [schema].flat() : [])];
+
+// Google Analytics 4: solo en producción, para no registrar visitas de desarrollo
+const gaMeasurementId = "G-6JK2T780MX";
+const loadAnalytics = import.meta.env.PROD;
 ---
 <!doctype html>
 <html lang="es">
@@ -77,6 +81,51 @@ const schemas = [organizationSchema, ...(schema ? [schema].flat() : [])];
     {schemas.map((s) => (
       <script type="application/ld+json" set:html={JSON.stringify(s)} />
     ))}
+    <slot name="head" />
+
+    {loadAnalytics && (
+      <script is:inline define:vars={{ gaMeasurementId }}>
+        // gtag se define ya para que los eventos se encolen; el script de Google
+        // se descarga después de la carga (o en la primera interacción) para no afectar LCP/INP.
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { dataLayer.push(arguments); };
+        gtag("js", new Date());
+        gtag("config", gaMeasurementId);
+
+        let gaLoaded = false;
+        function loadGa() {
+          if (gaLoaded) return;
+          gaLoaded = true;
+          const s = document.createElement("script");
+          s.async = true;
+          s.src = "https://www.googletagmanager.com/gtag/js?id=" + gaMeasurementId;
+          document.head.appendChild(s);
+        }
+        ["pointerdown", "keydown", "scroll"].forEach((ev) =>
+          window.addEventListener(ev, loadGa, { once: true, passive: true })
+        );
+        window.addEventListener("load", () => {
+          if ("requestIdleCallback" in window) requestIdleCallback(loadGa, { timeout: 3000 });
+          else setTimeout(loadGa, 2000);
+        });
+
+        // Evento de conversión: cualquier clic a WhatsApp (wa.me, wa.link, api.whatsapp.com)
+        document.addEventListener("click", (e) => {
+          const link = e.target.closest && e.target.closest("a[href]");
+          if (!link) return;
+          let host;
+          try { host = new URL(link.href).hostname; } catch { return; }
+          if (!/(^|\.)(wa\.me|wa\.link|api\.whatsapp\.com)$/.test(host)) return;
+          const section = link.closest("section[id], nav, footer, header");
+          gtag("event", "whatsapp_click", {
+            link_url: link.href,
+            link_text: (link.textContent || "").trim().replace(/\s+/g, " ").slice(0, 100),
+            link_location: section ? (section.id || section.tagName.toLowerCase()) : "body",
+            page_path: location.pathname,
+          });
+        }, { capture: true });
+      </script>
+    )}
   </head>
   <body>
     <div id="page-loader" class="page-loader">
