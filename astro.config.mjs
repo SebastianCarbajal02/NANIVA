@@ -8,6 +8,10 @@ export default defineConfig({
   site: 'https://www.naniva.pe',
   adapter: vercel(),
   integrations: [sitemap()],
+  build: {
+    // CSS dentro del HTML: evita las solicitudes que bloqueaban el renderizado (~490 ms en PageSpeed)
+    inlineStylesheets: 'always',
+  },
   vite: {
     server: {
       // Evita que el dev server vigile la salida del build (EBUSY en Windows con archivos grandes)

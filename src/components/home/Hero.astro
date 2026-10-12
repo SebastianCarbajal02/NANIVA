@@ -50,7 +50,7 @@ const partners = [
     <div class="features">
       {features.map((f, i) => (
         <div class={`feature ${i === 2 ? 'feature-third' : ''} ${i === 4 ? 'feature-fifth' : ''}`}>
-          <span class="feature-icon"><img src={f.icon.src} alt={f.label} /></span>
+          <span class="feature-icon"><Image src={f.icon} alt={f.label}  widths={[140, 280, 420]} sizes="140px" loading="eager" /></span>
           <span class="feature-label">{f.label}</span>
         </div>
       ))}

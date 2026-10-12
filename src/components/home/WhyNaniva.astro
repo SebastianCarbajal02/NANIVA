@@ -1,10 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import banerImg from '@assets/image/home/why-naniva/baner1-02-02.webp';
 ---
 <section id="por-que-naniva" class="why-naniva">
   <div class="container">
     <a href="https://wa.link/x4dnva" target="_blank" class="why-naniva-link">
-      <img src={banerImg.src} alt="¿Por qué elegir Naniva? Una plataforma diseñada para que tu empresa sea más eficiente, segura y rentable." class="why-naniva-img reveal hover-lift" />
+      <Image src={banerImg} alt="¿Por qué elegir Naniva? Una plataforma diseñada para que tu empresa sea más eficiente, segura y rentable." class="why-naniva-img reveal hover-lift"  widths={[640, 1024, 1440, 1920]} sizes="100vw" />
     </a>
   </div>
 </section>

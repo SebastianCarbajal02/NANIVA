@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import iconBrainImg from "@assets/image/home/demo-video/icomvid-15.webp";
 import iconClockImg from "@assets/image/home/demo-video/icomvid-16.webp";
 import iconCartImg from "@assets/image/home/demo-video/icomvid-17.webp";
@@ -106,7 +107,7 @@ const previewCards = [
           {
             features.map((f) => (
               <li>
-                <img src={f.iconImg.src} alt="" class="feature-icon-img" />
+                <Image src={f.iconImg} alt="" class="feature-icon-img"  widths={[80, 160, 240]} sizes="80px" />
                 <span class="feature-label">{f.label}</span>
               </li>
             ))
@@ -134,7 +135,7 @@ const previewCards = [
               class="stat-item reveal"
               style={`transition-delay:${i * 0.08}s`}
             >
-              <img src={st.iconImg.src} alt="" class="stat-icon-img" />
+              <Image src={st.iconImg} alt="" class="stat-icon-img"  widths={[130, 260, 390]} sizes="130px" />
               <div>
                 <h4>{st.value}</h4>
                 <p>{st.desc}</p>

@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import bgFacturacion from '@assets/image/home/servicios-home/FACTURA5-05.webp';
 import bgErpNaniva   from '@assets/image/home/servicios-home/ERP-03.webp';
 import bgCatalogo from '@assets/image/home/servicios-home/plan-catalogo.webp';
@@ -167,7 +168,7 @@ const stats = [
             <div class="main-card-content">
               <div class="icon-row">
                 {s.iconImg ? (
-                  <img src={s.iconImg.src} alt="" class="icon icon-bounce icon-plain" />
+                  <Image src={s.iconImg} alt="" class="icon icon-bounce icon-plain"  widths={[200, 400, 600]} sizes="200px" />
                 ) : (
                   <div class="icon icon-bounce" style={`background:${s.accent}`} set:html={iconSvg(s.icon, "white", 30)} />
                 )}
@@ -195,17 +196,17 @@ const stats = [
             <div class="main-card-visual">
               {s.mockup === "ia" && (
                 <div class="mockup mockup-ia-img">
-                  <img src={imgNaniviaIa3.src} alt="Naniva IA" class="mockup-ia-image" />
+                  <Image src={imgNaniviaIa3} alt="Naniva IA" class="mockup-ia-image"  widths={[400, 800, 1200]} sizes="(max-width: 768px) 90vw, 420px" />
                 </div>
               )}
               {s.mockup === "erp" && (
                 <div class="mockup mockup-erp-img">
-                  <img src={bgErpNaniva.src} alt="ERP Naniva" class="mockup-erp-image" />
+                  <Image src={bgErpNaniva} alt="ERP Naniva" class="mockup-erp-image"  widths={[400, 800, 1200]} sizes="(max-width: 768px) 90vw, 420px" />
                 </div>
               )}
               {s.mockup === "ecommerce" && (
                 <div class="mockup mockup-ecommerce-img">
-                  <img src={imgEcomerce4.src} alt="Naniva Ecommerce" class="mockup-ecommerce-image" />
+                  <Image src={imgEcomerce4} alt="Naniva Ecommerce" class="mockup-ecommerce-image"  widths={[400, 800, 1200]} sizes="(max-width: 768px) 90vw, 420px" />
                 </div>
               )}
             </div>
@@ -224,7 +225,7 @@ const stats = [
         <article class="module-card reveal hover-lift" style={`transition-delay:${i * 0.08}s`}>
           <div class="module-header">
             {m.iconImg ? (
-              <img src={m.iconImg.src} alt="" class="icon icon-sm icon-bounce icon-plain" />
+              <Image src={m.iconImg} alt="" class="icon icon-sm icon-bounce icon-plain"  widths={[120, 240, 360]} sizes="120px" />
             ) : (
               <div class="icon icon-sm icon-bounce" style={`background:${m.accent}1a`} set:html={iconSvg(m.icon, m.accent, 26)} />
             )}
@@ -239,7 +240,7 @@ const stats = [
               </li>
             ))}
           </ul>
-          {m.mockupImg && <img src={m.mockupImg.src} alt="" class={`module-mockup ${m.mockupClass ?? ""}`} />}
+          {m.mockupImg && <Image src={m.mockupImg} alt="" class={`module-mockup ${m.mockupClass ?? ""}`}  widths={[440, 880, 1300]} sizes="(max-width: 768px) 90vw, 440px" />}
           <a href={m.href} target="_blank" class="ver-planes hover-pop" style={`color:${m.accent}; border-color:${m.accent}`}>
             {m.cta}
           </a>

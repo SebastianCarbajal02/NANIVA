@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { faqs } from '@data/faqs';
 import iconAsesoriaImg from '@assets/image/shared/iconos-comunes/ICOMS1-07.webp';
 import iconCompromisoImg from '@assets/image/home/faq/ICOMS1-08.webp';
@@ -63,7 +64,7 @@ const trustMini = [
 
       <div class="faq-side reveal">
         <div class="faq-side-icon-wrap">
-          <img src={iconHeadsetImg.src} alt="" class="faq-side-icon-img" />
+          <Image src={iconHeadsetImg} alt="" class="faq-side-icon-img"  widths={[120, 240, 360]} sizes="120px" />
           <span class="sparkle">✦</span>
         </div>
         <h3>¿No encontraste<br />tu respuesta?</h3>
@@ -72,7 +73,7 @@ const trustMini = [
         <div class="faq-mini-list">
           {trustMini.map((t) => (
             <div class="faq-mini-item">
-              <img src={t.iconImg.src} alt="" class="faq-mini-icon-img" />
+              <Image src={t.iconImg} alt="" class="faq-mini-icon-img"  widths={[32, 64, 96]} sizes="32px" />
               <span>{t.label}</span>
             </div>
           ))}

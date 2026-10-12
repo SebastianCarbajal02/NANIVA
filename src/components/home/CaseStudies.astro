@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import iconChart from '@assets/image/home/casos-exito/iconbffin1-26.webp';
 import iconShieldImg from '@assets/image/home/casos-exito/iconbffin1-27.webp';
 import iconStarImg from '@assets/image/home/casos-exito/iconbffin1-28.webp';
@@ -285,7 +286,7 @@ const stats = [
         <article class="case-card reveal hover-lift" style={`transition-delay:${(i % 3) * 0.15}s`}>
           <div class="case-header">
             <div class="case-logo-wrap">
-               <img src={c.avatar.src} alt={c.logo} class="logoicon" loading="lazy" />
+               <Image src={c.avatar} alt={c.logo} class="logoicon"  widths={[300, 600]} sizes="300px" />
               <div class="case-logo-text">
               </div>
             </div>
@@ -337,7 +338,7 @@ const stats = [
       <div class="stats-grid">
         {stats.map((st, i) => (
           <div class="stat-item reveal" style={`transition-delay:${i * 0.12}s`}>
-            <img src={st.iconImg.src} alt="" class="stat-icon-img" />
+            <Image src={st.iconImg} alt="" class="stat-icon-img"  widths={[100, 200, 300]} sizes="100px" />
             <div>
               <h3>{st.value}</h3>
               <p>{st.desc}</p>
@@ -957,8 +958,10 @@ const stats = [
     const maxScroll = () => track.scrollWidth - track.clientWidth;
 
     function buildDots() {
+      // Medir antes de modificar el DOM: leer el layout dentro del bucle forzaba un reflow por punto
+      const count = pageCount();
       dotsWrap!.innerHTML = "";
-      for (let i = 0; i < pageCount(); i++) {
+      for (let i = 0; i < count; i++) {
         const dot = document.createElement("button");
         dot.type = "button";
         dot.setAttribute("aria-label", `Ir a la página ${i + 1}`);
@@ -967,7 +970,7 @@ const stats = [
         });
         dotsWrap!.appendChild(dot);
       }
-      update();
+      requestAnimationFrame(update);
     }
 
     function update() {

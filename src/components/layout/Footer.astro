@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import brandLogo from '@assets/image/shared/logos/logo-inicio.webp';
 
 const year = new Date().getFullYear();
@@ -59,7 +60,7 @@ const complianceBadges = [
     <div class="top-grid">
       <div class="brand">
         <div class="brand-row">
-          <img src={brandLogo.src} alt="" class="brand-logo" />
+          <Image src={brandLogo} alt="" class="brand-logo"  widths={[100, 200, 300]} sizes="100px" />
           <strong>Naniva</strong>
         </div>
         <p>La plataforma inteligente<br />para hacer crecer<br />tu empresa.</p>

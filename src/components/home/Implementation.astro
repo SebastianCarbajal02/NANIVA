@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import iconDiagnostico from '@assets/image/home/implementacion/icons2-07.webp';
 import iconConfiguracion from '@assets/image/home/implementacion/icons2-08.webp';
 import iconCapacitacion from '@assets/image/home/implementacion/icons2-09.webp';
@@ -65,7 +66,7 @@ const benefits = [
       {steps.map((s, i) => (
         <div class={`step-card reveal hover-lift ${s.done ? "step-done" : ""}`} style={`transition-delay:${i * 0.08}s`}>
           <span class="step-num" style={`background:${s.color}`}>{s.num}</span>
-          <img src={s.iconImg.src} alt="" class="step-icon-img" />
+          <Image src={s.iconImg} alt="" class="step-icon-img"  widths={[350, 700, 1050]} sizes="350px" />
           <h3>{s.title}</h3>
           <ul>
             {s.items.map((item) => (
@@ -84,7 +85,7 @@ const benefits = [
     <div class="benefits-bar">
       {benefits.map((b, i) => (
         <div class="benefit-item reveal" style={`transition-delay:${i * 0.08}s`}>
-          <img src={b.iconImg.src} alt="" class="benefit-icon-img" />
+          <Image src={b.iconImg} alt="" class="benefit-icon-img"  widths={[100, 200, 300]} sizes="100px" />
           <div>
             <h4>{b.title}</h4>
             <p>{b.desc}</p>

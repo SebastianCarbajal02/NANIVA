@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import dashboardImg from '@assets/image/home/showcase/dashfin1_Mesa de trabajo 1.webp';
 import dashboardZoom1Img from '@assets/image/home/showcase/dashboardff1-01.webp';
 import dashboardZoom2Img from '@assets/image/home/showcase/dashboardff1-02.webp';
@@ -24,12 +25,13 @@ const features = [
       <p class="section-sub">Descubre cómo Naniva puede transformar la gestión de tu empresa.</p>
     </div>
     <div class="panel reveal">
+      <!-- Capturas del dashboard sin recomprimir: tienen texto pequeño y se amplían con la animación de zoom -->
       <button type="button" class="mockup" id="dashboard-zoom-trigger" aria-label="Ampliar imagen del dashboard">
-        <img src={dashboardImg.src} alt="Dashboard NANIVA" class="img-default" />
-        <img src={dashboardZoom1Img.src} alt="Dashboard NANIVA detalle" class="img-zoom-1" />
-        <img src={dashboardZoom3Img.src} alt="Dashboard NANIVA detalle 3" class="img-zoom-2" />
-        <img src={dashboardZoom4Img.src} alt="Dashboard NANIVA detalle 4" class="img-zoom-3" />
-        <img src={dashboardZoom2Img.src} alt="Dashboard NANIVA detalle 2" class="img-zoom-4" />
+        <img src={dashboardImg.src} width={dashboardImg.width} height={dashboardImg.height} alt="Dashboard NANIVA" class="img-default" loading="lazy" decoding="async" />
+        <img src={dashboardZoom1Img.src} width={dashboardZoom1Img.width} height={dashboardZoom1Img.height} alt="Dashboard NANIVA detalle" class="img-zoom-1" loading="lazy" decoding="async" />
+        <img src={dashboardZoom3Img.src} width={dashboardZoom3Img.width} height={dashboardZoom3Img.height} alt="Dashboard NANIVA detalle 3" class="img-zoom-2" loading="lazy" decoding="async" />
+        <img src={dashboardZoom4Img.src} width={dashboardZoom4Img.width} height={dashboardZoom4Img.height} alt="Dashboard NANIVA detalle 4" class="img-zoom-3" loading="lazy" decoding="async" />
+        <img src={dashboardZoom2Img.src} width={dashboardZoom2Img.width} height={dashboardZoom2Img.height} alt="Dashboard NANIVA detalle 2" class="img-zoom-4" loading="lazy" decoding="async" />
       </button>
       <div class="info">
         <span class="badge">• DASHBOARD INTELIGENTE</span>
@@ -38,7 +40,7 @@ const features = [
         <ul>
           {features.map((f) => (
             <li>
-              <span class="feature-icon-wrap"><img src={f.icon.src} alt="" class="feature-icon" /></span>
+              <span class="feature-icon-wrap"><Image src={f.icon} alt="" class="feature-icon"  widths={[120, 240, 360]} sizes="120px" /></span>
               <span class="feature-text">{f.title} {f.sub}</span>
             </li>
           ))}
