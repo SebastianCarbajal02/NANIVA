@@ -24,6 +24,7 @@ const imageURL = new URL(image, Astro.site);
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": new URL("/#organization", Astro.site).href,
   name: "NANIVA Technologies",
   url: Astro.site?.href,
   logo: new URL(logoIcon.src, Astro.site).href,
@@ -42,7 +43,23 @@ const organizationSchema = {
     "https://www.youtube.com/@NanivaTechnologies",
   ],
 };
-const schemas = [organizationSchema, ...(schema ? [schema].flat() : [])];
+// WebSite solo en la home: le indica a Google el nombre del sitio ("NANIVA") en los resultados
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": new URL("/#website", Astro.site).href,
+  name: "NANIVA",
+  alternateName: ["NANIVA Technologies", "naniva.pe"],
+  url: new URL("/", Astro.site).href,
+  inLanguage: "es-PE",
+  publisher: { "@id": organizationSchema["@id"] },
+};
+const isHome = Astro.url.pathname === "/";
+const schemas = [
+  organizationSchema,
+  ...(isHome ? [websiteSchema] : []),
+  ...(schema ? [schema].flat() : []),
+];
 
 // Google Analytics 4: solo en producción, para no registrar visitas de desarrollo
 const gaMeasurementId = "G-6JK2T780MX";
