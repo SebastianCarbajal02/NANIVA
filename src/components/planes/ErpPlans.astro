@@ -1,0 +1,528 @@
+---
+// Tabla comparativa de los planes del ERP.
+// Valores: true = incluido, false = no incluido, string = valor concreto (límite o complemento).
+type Value = boolean | string;
+
+const plans = [
+  { id: "basico", name: "Básico", price: 49 },
+  { id: "intermedio", name: "Intermedio", price: 79, featured: true },
+  { id: "avanzado", name: "Avanzado", price: 129 },
+] as const;
+
+const categories: { title: string; rows: [string, Value, Value, Value][] }[] = [
+  {
+    title: "Lo esencial del plan",
+    rows: [
+      ["Usuarios", "2", "4", "6"],
+      ["Comprobantes electrónicos SUNAT", "Ilimitados", "Ilimitados", "Ilimitados"],
+      ["Productos registrados", "Hasta 500", "Hasta 2,000", "Hasta 5,000"],
+      ["Almacenes", "1", "2", "3"],
+      ["Inventario", "Esencial", "Avanzado", "Avanzado"],
+      ["Gestión masiva de productos", "Básica", "Avanzada", "Avanzada"],
+    ],
+  },
+  {
+    title: "Inventario",
+    rows: [
+      ["Entradas / salidas", true, true, true],
+      ["Traspasos", true, true, true],
+      ["Ajuste de inventario", false, true, true],
+      ["Kardex", false, true, true],
+      ["Stock", true, true, true],
+      ["Registro masivo", false, true, true],
+      ["Edición masiva", false, true, true],
+      ["Importar Excel", true, true, true],
+      ["Carga inteligente de productos", false, false, true],
+      ["Imágenes masivas", false, true, true],
+      ["Generador de códigos", false, true, true],
+    ],
+  },
+  {
+    title: "Catálogo digital",
+    rows: [
+      ["Catálogo digital", false, true, true],
+      ["Productos publicados", false, "Hasta 100", "Hasta 200"],
+      ["Imágenes por producto", false, "1", "1"],
+      ["Ampliar catálogo", false, "NANIVA Store", "NANIVA Store"],
+      ["Más imágenes por producto", false, "NANIVA Store", "NANIVA Store"],
+    ],
+  },
+  {
+    title: "Logística y envíos",
+    rows: [["Seguimiento de envíos", false, false, true]],
+  },
+  {
+    title: "Reportes",
+    rows: [
+      ["Resumen de ventas", true, true, true],
+      ["Productos más vendidos", false, true, true],
+      ["Inventario valorizado", false, true, true],
+      ["Kardex valorizado", false, true, true],
+      ["Resumen de compras", false, true, true],
+      ["Ventas por vendedor", false, false, true],
+    ],
+  },
+  {
+    title: "Finanzas",
+    rows: [
+      ["Control de caja", true, true, true],
+      ["Control financiero", false, true, true],
+      ["Caja", true, true, true],
+      ["Gastos", false, true, true],
+      ["Movimientos financieros", false, true, true],
+      ["Bancos y cuentas", false, true, true],
+    ],
+  },
+  {
+    title: "Categorización",
+    rows: [
+      ["Categorías", true, true, true],
+      ["Unidades de medida", true, true, true],
+      ["Marcas", true, true, true],
+      ["Familias", true, true, true],
+      ["Líneas", true, true, true],
+      ["Tallas", false, true, true],
+      ["Colores", false, true, true],
+    ],
+  },
+  {
+    title: "Ventas y clientes",
+    rows: [
+      ["POS inteligente", true, true, true],
+      ["Realizar venta", true, true, true],
+      ["Historial de ventas", true, true, true],
+      ["Etiquetas de despacho", false, true, true],
+      ["Ventas abiertas", false, false, true],
+      ["Gestión de entregas", false, false, true],
+      ["Ventas inteligentes", false, false, true],
+      ["Ofertas enviadas", false, false, true],
+      ["Clientes", true, true, true],
+      ["Cuentas por cobrar", false, true, true],
+      ["Nueva cotización", false, true, true],
+      ["Historial de cotizaciones", false, true, true],
+    ],
+  },
+  {
+    title: "Compras",
+    rows: [
+      ["Registrar compra", true, true, true],
+      ["Consultar compras", true, true, true],
+      ["Solicitudes", false, true, true],
+      ["Consultar cotizaciones", false, true, true],
+      ["Registrar orden", false, true, true],
+      ["Consultar órdenes", false, true, true],
+      ["Inteligencia de compra", false, false, true],
+      ["Proveedores", true, true, true],
+      ["Cuentas por pagar", true, true, true],
+      ["Gestión de órdenes de compra", false, true, true],
+    ],
+  },
+];
+
+const whatsappHref = (plan: string) =>
+  `https://wa.me/51908644190?text=${encodeURIComponent(`Hola, me interesa el plan ${plan} del ERP NANIVA`)}`;
+
+const checkIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>`;
+---
+
+<div class="container erp-plans reveal" id="erp-planes" data-erp-plans data-active="intermedio">
+  <div class="erp-plans-head">
+    <span class="erp-plans-badge">PLANES DEL ERP</span>
+    <h3>Compara los planes y elige <span class="erp-plans-highlight">el ideal para tu negocio</span></h3>
+    <p>Todos los planes incluyen facturación electrónica con comprobantes ilimitados, POS, ventas, compras, caja e inventario. Crece de plan cuando tu negocio lo necesite.</p>
+  </div>
+
+  <!-- Selector de plan: solo visible en móvil, donde la tabla muestra un plan a la vez -->
+  <div class="erp-plans-switch" role="group" aria-label="Elegir plan para comparar">
+    {plans.map((p) => (
+      <button type="button" data-plan={p.id} aria-pressed={p.id === "intermedio" ? "true" : "false"}>
+        <span>{p.name}</span>
+        <strong>S/ {p.price}</strong>
+      </button>
+    ))}
+  </div>
+
+  <div class="erp-plans-table-wrap">
+    <table class="erp-plans-table">
+      <caption class="sr-only">Comparación de funcionalidades de los planes Básico, Intermedio y Avanzado del ERP NANIVA</caption>
+      <thead>
+        <tr>
+          <th scope="col" class="col-label">Funcionalidades</th>
+          {plans.map((p) => (
+            <th scope="col" class:list={["col-plan", `col-${p.id}`, { featured: "featured" in p && p.featured }]}>
+              {"featured" in p && p.featured && <span class="plan-flag">Recomendado</span>}
+              <span class="plan-name">{p.name}</span>
+              <span class="plan-price"><span class="plan-currency">S/</span>{p.price}<span class="plan-period">/mes</span></span>
+              <a href={whatsappHref(p.name)} target="_blank" rel="noopener noreferrer" class="plan-cta">Elegir plan</a>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      {categories.map((cat) => (
+        <tbody>
+          <tr class="row-category">
+            <th scope="colgroup" colspan="4">{cat.title}</th>
+          </tr>
+          {cat.rows.map(([label, ...values]) => (
+            <tr>
+              <th scope="row" class="col-label">{label}</th>
+              {values.map((v, i) => (
+                <td class:list={["col-plan", `col-${plans[i].id}`, { featured: "featured" in plans[i] && plans[i].featured }]}>
+                  {v === true && (
+                    <span class="value-yes"><Fragment set:html={checkIcon} /><span class="sr-only">Incluido</span></span>
+                  )}
+                  {v === false && (
+                    <><span class="value-no" aria-hidden="true">—</span><span class="sr-only">No incluido</span></>
+                  )}
+                  {typeof v === "string" && (
+                    <span class:list={["value-text", { "value-store": v === "NANIVA Store" }]}>{v}</span>
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      ))}
+    </table>
+  </div>
+  <p class="erp-plans-note">
+    Precios mensuales en soles, IGV incluido.<br />
+    <span class="value-store">NANIVA Store</span> es la tienda de aplicaciones dentro de la plataforma, donde puedes solicitar ampliaciones para tu plan.
+  </p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-erp-plans]").forEach((root) => {
+    const buttons = root.querySelectorAll<HTMLButtonElement>(".erp-plans-switch button");
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        root.dataset.active = btn.dataset.plan;
+        buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      });
+    });
+  });
+</script>
+
+<style>
+  .erp-plans {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+  .erp-plans-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 2.5rem;
+  }
+  .erp-plans-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #1d4ed8;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    margin-bottom: 1rem;
+  }
+  .erp-plans-head h3 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+  }
+  .erp-plans-highlight { color: #2563eb; }
+  .erp-plans-head p {
+    color: #475569;
+    font-size: 1rem;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ---------- Tabla (escritorio) ---------- */
+  .erp-plans-table-wrap {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+    overflow: clip;
+  }
+  .erp-plans-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    font-size: 0.95rem;
+  }
+  .erp-plans-table .col-label {
+    width: 40%;
+    text-align: left;
+    font-weight: 600;
+    color: #334155;
+    padding: 0.8rem 1.5rem;
+  }
+  .erp-plans-table td,
+  .erp-plans-table tbody th {
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .erp-plans-table td {
+    text-align: center;
+    padding: 0.8rem 0.75rem;
+    color: #0f172a;
+  }
+  .erp-plans-table tbody tr:not(.row-category):hover td,
+  .erp-plans-table tbody tr:not(.row-category):hover th {
+    background: #f8fafc;
+  }
+
+  /* Encabezado de planes, fijo al hacer scroll */
+  /* top = alto del menú fijo (~80 px) para que no lo tape */
+  .erp-plans-table thead th {
+    position: sticky;
+    top: 80px;
+    z-index: 2;
+    background: #ffffff;
+    border-bottom: 2px solid #e2e8f0;
+    vertical-align: bottom;
+    padding: 1.5rem 0.75rem 1.25rem;
+  }
+  .erp-plans-table thead .col-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748b;
+    padding-left: 1.5rem;
+  }
+  .col-plan { text-align: center; }
+  .plan-flag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #2563eb;
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+  .plan-name {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .plan-price {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+    margin: 0.25rem 0 0.9rem;
+  }
+  .plan-currency {
+    font-size: 1rem;
+    margin-right: 0.15rem;
+    vertical-align: 0.6em;
+  }
+  .plan-period {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+  .plan-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0.55rem 1.25rem;
+    border-radius: 999px;
+    border: 1.5px solid #2563eb;
+    color: #1d4ed8;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .plan-cta:hover { background: #eff6ff; }
+
+  /* Columna destacada */
+  .erp-plans-table .featured {
+    background: #f5f9ff;
+  }
+  .erp-plans-table thead th.featured {
+    background: #eff6ff;
+    border-top: 3px solid #2563eb;
+  }
+  .erp-plans-table thead th.featured .plan-cta {
+    background: #2563eb;
+    color: #ffffff;
+  }
+  .erp-plans-table thead th.featured .plan-cta:hover { background: #1d4ed8; }
+
+  /* Filas de categoría */
+  .row-category th {
+    text-align: left;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1d4ed8;
+    background: #f1f5f9;
+    padding: 0.65rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  /* Valores */
+  .value-yes {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: #dcfce7;
+    color: #15803d;
+  }
+  .value-no {
+    color: #94a3b8;
+    font-weight: 700;
+  }
+  .value-text {
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .value-store {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #6d28d9;
+    background: #f3e8ff;
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+  }
+
+  .erp-plans-note {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: #64748b;
+  }
+
+  /* Selector de plan: oculto en escritorio */
+  .erp-plans-switch { display: none; }
+
+  /* ---------- Móvil: un plan a la vez ---------- */
+  @media (max-width: 900px) {
+    .erp-plans { padding-top: 3rem; }
+    .erp-plans-switch {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      position: sticky;
+      top: 88px;
+      z-index: 3;
+      background: rgba(248, 250, 252, 0.95);
+      padding: 0.4rem;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+    }
+    .erp-plans-switch button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.1rem;
+      min-height: 52px;
+      border: 1.5px solid transparent;
+      border-radius: 12px;
+      background: transparent;
+      color: #334155;
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .erp-plans-switch button strong {
+      font-size: 1rem;
+      color: #0f172a;
+    }
+    .erp-plans-switch button[aria-pressed="true"] {
+      background: #ffffff;
+      border-color: #2563eb;
+      color: #1d4ed8;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    }
+
+    /* La tabla pasa a filas en grid: así las columnas ocultas no dejan huecos
+       (las filas de categoría con colspan="4" reservaban su espacio) */
+    .erp-plans-table,
+    .erp-plans-table thead,
+    .erp-plans-table tbody,
+    .erp-plans-table tr,
+    .erp-plans-table th,
+    .erp-plans-table td {
+      display: block;
+    }
+    .erp-plans-table tr {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      column-gap: 1rem;
+    }
+    .erp-plans-table .col-label { width: auto; padding: 0.8rem 1rem; }
+    .erp-plans-table td,
+    .erp-plans-table td.featured {
+      padding: 0.8rem 1rem 0.8rem 0;
+      text-align: right;
+      white-space: nowrap;
+      background: transparent;
+    }
+    /* Separador en la fila completa (en grid, el borde por celda quedaba cortado) */
+    .erp-plans-table td,
+    .erp-plans-table tbody th { border-bottom: none; }
+    .erp-plans-table tbody tr { border-bottom: 1px solid #f1f5f9; }
+    .erp-plans-table tbody tr:not(.row-category):hover td,
+    .erp-plans-table tbody tr:not(.row-category):hover th { background: transparent; }
+
+    /* Encabezado: tarjeta del plan elegido */
+    .erp-plans-table thead tr { grid-template-columns: 1fr; }
+    .erp-plans-table thead .col-label { display: none; }
+    .erp-plans-table thead th {
+      position: static;
+      text-align: center;
+      padding: 1.5rem 1rem 1.25rem;
+    }
+    .erp-plans-table thead th.featured { border-top-width: 4px; }
+    .plan-name { font-size: 1.25rem; }
+    .plan-price { font-size: 2.4rem; margin: 0.15rem 0 1rem; }
+    .plan-cta { display: flex; width: 100%; min-height: 46px; }
+
+    /* Categorías a todo el ancho */
+    .erp-plans-table tr.row-category { grid-template-columns: 1fr; border-bottom: 1px solid #e2e8f0; }
+    .row-category th { padding: 0.65rem 1rem; }
+
+    /* Oculta las columnas de los planes no seleccionados */
+    [data-active="basico"] .col-intermedio,
+    [data-active="basico"] .col-avanzado,
+    [data-active="intermedio"] .col-basico,
+    [data-active="intermedio"] .col-avanzado,
+    [data-active="avanzado"] .col-basico,
+    [data-active="avanzado"] .col-intermedio {
+      display: none;
+    }
+  }
+</style>
