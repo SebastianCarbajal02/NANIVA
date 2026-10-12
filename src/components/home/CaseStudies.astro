@@ -6,6 +6,13 @@ import iconUsersImg from '@assets/image/home/casos-exito/iconbffin1-29.webp';
 import elohimColor from '@assets/image/shared/clientes/elohim-color.webp';
 import zurielColor from '@assets/image/shared/clientes/zuriel-color.webp';
 import wilsonColor from '@assets/image/shared/clientes/wilson-color.webp';
+import jfColor from '@assets/image/shared/clientes/jf-color.webp';
+import taburColor from '@assets/image/shared/clientes/tabur-color.webp';
+import alaluColor from '@assets/image/shared/clientes/alalu-color.webp';
+import eltreeColor from '@assets/image/shared/clientes/eltree-color.webp';
+import geeokpointColor from '@assets/image/shared/clientes/geeokpoint-color.webp';
+import petstoreColor from '@assets/image/shared/clientes/petstore-color.webp';
+import toyColor from '@assets/image/shared/clientes/toy-color.webp';
 
 
 function iconSvg(name: string, color: string = "currentColor", size = 18) {
@@ -98,6 +105,161 @@ const cases = [
     name: "Luis M.",
     role: "Gerente de Operaciones",
   },
+  // TODO: datos de relleno — reemplazar rubro, métricas, cita y autor por los reales de cada cliente.
+  {
+    logo: "JF FARMA",
+    avatar: jfColor,
+    meta: [
+      { icon: "tag", text: "Farmacia" },
+      { icon: "box", text: "2,500 productos" },
+      { icon: "users", text: "6 usuarios" },
+      { icon: "calendar", text: "Desde 2023" },
+    ],
+    achievements: [
+      "Control de lotes y fechas de vencimiento",
+      "Facturación electrónica sin errores",
+      "Alertas de stock mínimo por producto",
+    ],
+    results: [
+      { icon: "trend", value: "+25%", label: "Más ventas" },
+      { icon: "clock", value: "-40%", label: "Productos vencidos" },
+    ],
+    quote: "Ahora sabemos qué productos vencen y cuándo reponer, sin revisar todo a mano.",
+    name: "Cliente JF Farma",
+    role: "Administración",
+  },
+  {
+    logo: "GRUPO TAUVIR",
+    avatar: taburColor,
+    meta: [
+      { icon: "tag", text: "Distribución" },
+      { icon: "box", text: "1,500 productos" },
+      { icon: "users", text: "10 usuarios" },
+      { icon: "calendar", text: "Desde 2022" },
+    ],
+    achievements: [
+      "Inventario sincronizado entre almacenes",
+      "Pedidos y despachos en un solo sistema",
+      "Reportes de ventas por vendedor",
+    ],
+    results: [
+      { icon: "trend", value: "+30%", label: "Más pedidos atendidos" },
+      { icon: "clock", value: "15 h", label: "Menos trabajo semanal" },
+    ],
+    quote: "Tenemos todos los almacenes en una sola pantalla y los despachos salen más rápido.",
+    name: "Cliente Grupo Tauvir",
+    role: "Gerencia",
+  },
+  {
+    logo: "ALALU",
+    avatar: alaluColor,
+    meta: [
+      { icon: "tag", text: "Retail" },
+      { icon: "box", text: "600 productos" },
+      { icon: "users", text: "4 usuarios" },
+      { icon: "calendar", text: "Desde 2024" },
+    ],
+    achievements: [
+      "Punto de venta rápido y sencillo",
+      "Cierre de caja diario sin descuadres",
+      "Seguimiento de productos más vendidos",
+    ],
+    results: [
+      { icon: "trend", value: "+20%", label: "Más ventas" },
+      { icon: "clock", value: "10 h", label: "Menos trabajo semanal" },
+    ],
+    quote: "El cierre de caja pasó de ser un dolor de cabeza a algo de cinco minutos.",
+    name: "Cliente Alalu",
+    role: "Administración",
+  },
+  {
+    logo: "EL TREE",
+    avatar: eltreeColor,
+    meta: [
+      { icon: "tag", text: "Comercio" },
+      { icon: "box", text: "900 productos" },
+      { icon: "users", text: "5 usuarios" },
+      { icon: "calendar", text: "Desde 2023" },
+    ],
+    achievements: [
+      "Compras planificadas con datos reales",
+      "Menos stock inmovilizado",
+      "Indicadores del negocio en tiempo real",
+    ],
+    results: [
+      { icon: "trend", value: "+18%", label: "Más rentabilidad" },
+      { icon: "clock", value: "-30%", label: "Stock inmovilizado" },
+    ],
+    quote: "Compramos lo que realmente se vende y ya no tenemos dinero parado en el almacén.",
+    name: "Cliente El Tree",
+    role: "Gerencia",
+  },
+  {
+    logo: "GEEOKPOINT",
+    avatar: geeokpointColor,
+    meta: [
+      { icon: "tag", text: "Tecnología" },
+      { icon: "box", text: "1,100 productos" },
+      { icon: "users", text: "7 usuarios" },
+      { icon: "calendar", text: "Desde 2023" },
+    ],
+    achievements: [
+      "Control de series y garantías",
+      "Ventas en tienda y online integradas",
+      "Inventario actualizado al instante",
+    ],
+    results: [
+      { icon: "trend", value: "+32%", label: "Más ventas" },
+      { icon: "clock", value: "12 h", label: "Menos trabajo semanal" },
+    ],
+    quote: "Integramos la tienda física y la online, y el stock siempre está al día.",
+    name: "Cliente Geeokpoint",
+    role: "Gerencia",
+  },
+  {
+    logo: "PETSTORE",
+    avatar: petstoreColor,
+    meta: [
+      { icon: "tag", text: "Mascotas" },
+      { icon: "box", text: "700 productos" },
+      { icon: "users", text: "4 usuarios" },
+      { icon: "calendar", text: "Desde 2024" },
+    ],
+    achievements: [
+      "Reposición automática de alimentos",
+      "Historial de compras por cliente",
+      "Facturación electrónica integrada",
+    ],
+    results: [
+      { icon: "trend", value: "+22%", label: "Más ventas" },
+      { icon: "clock", value: "-50%", label: "Quiebres de stock" },
+    ],
+    quote: "Nuestros clientes ya no se van sin su alimento: siempre hay stock.",
+    name: "Cliente Petstore",
+    role: "Administración",
+  },
+  {
+    logo: "TOY",
+    avatar: toyColor,
+    meta: [
+      { icon: "tag", text: "Juguetería" },
+      { icon: "box", text: "1,300 productos" },
+      { icon: "users", text: "6 usuarios" },
+      { icon: "calendar", text: "Desde 2023" },
+    ],
+    achievements: [
+      "Preparación de campañas de temporada",
+      "Control de inventario por categorías",
+      "Reportes de ventas diarios",
+    ],
+    results: [
+      { icon: "trend", value: "+40%", label: "Ventas en temporada" },
+      { icon: "clock", value: "8 h", label: "Menos trabajo semanal" },
+    ],
+    quote: "En campaña navideña sabemos exactamente qué pedir y cuánto.",
+    name: "Cliente Toy",
+    role: "Gerencia",
+  },
 ];
 
 const stats = [
@@ -120,10 +282,10 @@ const stats = [
 
       <div class="cases-grid">
       {cases.map((c, i) => (
-        <article class="case-card reveal hover-lift" style={`transition-delay:${i * 0.15}s`}>
+        <article class="case-card reveal hover-lift" style={`transition-delay:${(i % 3) * 0.15}s`}>
           <div class="case-header">
             <div class="case-logo-wrap">
-               <img src={c.avatar.src} alt={c.name} class="logoicon" />
+               <img src={c.avatar.src} alt={c.logo} class="logoicon" loading="lazy" />
               <div class="case-logo-text">
               </div>
             </div>
@@ -169,6 +331,8 @@ const stats = [
       </div>
     </div>
 
+    <div class="case-dots" aria-label="Paginación de casos"></div>
+
     <div class="stats-bar">
       <div class="stats-grid">
         {stats.map((st, i) => (
@@ -196,7 +360,7 @@ const stats = [
     text-align: center;
     color: var(--color-primary);
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     letter-spacing: 0.05em;
     margin-bottom: 0.75rem;
   }
@@ -226,13 +390,24 @@ const stats = [
     line-height: 1.6;
   }
 
-  .cases-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
-    margin-bottom: 2rem;
+  .cases-carousel-wrap {
+    --per-view: 3;
+    position: relative;
+    padding: 0 3.5rem;
   }
+  .cases-grid {
+    display: flex;
+    gap: 1.2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0.5rem 0 1rem;
+  }
+  .cases-grid::-webkit-scrollbar { display: none; }
   .case-card {
+    flex: 0 0 calc((100% - (var(--per-view) - 1) * 1.2rem) / var(--per-view));
+    scroll-snap-align: start;
     background: white;
     border: 1px solid #e5e7eb;
     border-radius: var(--radius);
@@ -661,63 +836,74 @@ const stats = [
     }
   }
 
+  .case-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #334155;
+    font-size: 1.6rem;
+    line-height: 1;
+    z-index: 3;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  }
+  .case-arrow:hover { background: #eef4ff; border-color: #2563eb; }
+  .case-arrow:disabled { opacity: 0.35; cursor: default; }
+  .case-arrow-prev { left: 0; }
+  .case-arrow-next { right: 0; }
+
+  .case-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0 2rem;
+  }
+  .case-dots button {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    border: none;
+    background: #cbd5e1;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .case-dots button.active { background: #2563eb; transform: scale(1.2); }
+
   @media (max-width: 1100px) {
-    .cases-grid { grid-template-columns: 1fr; }
+    .cases-carousel-wrap { --per-view: 2; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 700px) {
+    .cases-carousel-wrap { --per-view: 1; }
   }
   @media (max-width: 600px) {
     .case-header { flex-direction: column; }
     .stats-grid { grid-template-columns: 1fr; }
   }
 
-  .case-arrow {
-    display: none;
-  }
-
   @media (max-width: 480px) {
-    .cases-carousel-wrap {
-      position: relative;
-      padding: 0 1.75rem;
-    }
-
-    .cases-grid {
-      display: flex;
-      grid-template-columns: none;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      gap: 1rem;
-      padding-bottom: 0.5rem;
-    }
-    .cases-grid::-webkit-scrollbar { display: none; }
-
-    .case-card {
-      flex: 0 0 100%;
-      scroll-snap-align: center;
-      padding: 2rem 1.5rem;
-    }
-
+    .cases-carousel-wrap { padding: 0 1.75rem; }
+    .case-card { padding: 2rem 1.5rem; }
     .case-arrow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
       top: 40%;
-      transform: translateY(-50%);
       width: 36px;
       height: 36px;
-      border-radius: 999px;
       border: none;
       background: rgba(15, 23, 42, 0.85);
       color: white;
       font-size: 1.4rem;
-      line-height: 1;
-      z-index: 3;
-      cursor: pointer;
     }
-    .case-arrow-prev { left: 0; }
-    .case-arrow-next { right: 0; }
+    .case-arrow:hover { background: rgba(15, 23, 42, 0.85); }
 
     .stats-bar {
       display: none;
@@ -741,28 +927,59 @@ const stats = [
 
   document.querySelectorAll(".case-card").forEach((el) => cardObserver.observe(el));
 
-  // Carousel arrows for mobile (480px)
+  // Carrusel de casos: flechas avanzan una tarjeta, puntos por página
   function initCasesCarousel() {
     const wrap = document.querySelector<HTMLElement>(".cases-carousel-wrap");
     const track = document.querySelector<HTMLElement>(".cases-grid");
-    if (!wrap || !track) return;
+    const dotsWrap = document.querySelector<HTMLElement>(".case-dots");
+    if (!wrap || !track || !dotsWrap) return;
 
     const prevBtn = wrap.querySelector<HTMLButtonElement>(".case-arrow-prev");
     const nextBtn = wrap.querySelector<HTMLButtonElement>(".case-arrow-next");
+    const cards = Array.from(track.querySelectorAll<HTMLElement>(".case-card"));
 
-    const scrollAmount = () => {
-      const item = track.querySelector<HTMLElement>(":scope > *");
-      if (!item) return track.clientWidth;
+    const step = () => {
+      if (!cards[0]) return track.clientWidth;
       const gap = parseFloat(getComputedStyle(track).columnGap || "0");
-      return item.getBoundingClientRect().width + gap;
+      return cards[0].getBoundingClientRect().width + gap;
     };
+    const perView = () => Math.max(1, Math.round((track.clientWidth + 1) / step()));
+    const pageCount = () => Math.ceil(cards.length / perView());
+    const maxScroll = () => track.scrollWidth - track.clientWidth;
 
-    prevBtn?.addEventListener("click", () => {
-      track.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
-    });
-    nextBtn?.addEventListener("click", () => {
-      track.scrollBy({ left: scrollAmount(), behavior: "smooth" });
-    });
+    function buildDots() {
+      dotsWrap!.innerHTML = "";
+      for (let i = 0; i < pageCount(); i++) {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.setAttribute("aria-label", `Ir a la página ${i + 1}`);
+        dot.addEventListener("click", () => {
+          track!.scrollTo({ left: Math.min(i * perView() * step(), maxScroll()) });
+        });
+        dotsWrap!.appendChild(dot);
+      }
+      update();
+    }
+
+    function update() {
+      const atEnd = track!.scrollLeft >= maxScroll() - 2;
+      const page = atEnd ? pageCount() - 1 : Math.round(track!.scrollLeft / (perView() * step()));
+      dotsWrap!.querySelectorAll("button").forEach((d, i) => d.classList.toggle("active", i === page));
+      if (prevBtn) prevBtn.disabled = track!.scrollLeft <= 2;
+      if (nextBtn) nextBtn.disabled = atEnd;
+    }
+
+    prevBtn?.addEventListener("click", () => track.scrollBy({ left: -step() }));
+    nextBtn?.addEventListener("click", () => track.scrollBy({ left: step() }));
+
+    let frame = 0;
+    track.addEventListener("scroll", () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    }, { passive: true });
+    window.addEventListener("resize", buildDots);
+
+    buildDots();
   }
 
   initCasesCarousel();
