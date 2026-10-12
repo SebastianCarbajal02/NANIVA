@@ -1,0 +1,216 @@
+---
+import personasIcon from '@assets/image/libro-reclamaciones/personas.png';
+import chequeIcon from '@assets/image/libro-reclamaciones/cheque.png';
+import meGustaIcon from '@assets/image/libro-reclamaciones/me-gusta (1).png';
+import estrellaIcon from '@assets/image/libro-reclamaciones/estrella-blanca.png';
+import fondoBg from '@assets/image/libro-reclamaciones/fondod11-01.webp';
+import laptopImg from '@assets/image/libro-reclamaciones/laptopp33-03.webp';
+import logoImg from '@assets/image/libro-reclamaciones/logo-inicio.webp';
+
+const barItems = [
+  { icon: personasIcon, text: "Escuchamos" },
+  { icon: chequeIcon, text: "Atendemos" },
+  { icon: meGustaIcon, text: "Mejoramos" },
+  { icon: estrellaIcon, text: "Tu experiencia es importante" }
+];
+---
+
+<!-- HERO BANNER -->
+<section class="hero-banner" style={`background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.75), rgba(37, 99, 235, 0.55)), url('${fondoBg.src}');`}>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <a href="/" class="hero-logo">
+        <img src={logoImg.src} alt="Naniva Logo" />
+        <span class="logo-text">NANIVA</span>
+      </a>
+      <h1>Libro de <span class="text-primary">Reclamaciones</span></h1>
+      <p class="subtitle">Tu opinión nos ayuda a mejorar. Estamos para escucharte.</p>
+    </div>
+    <div class="hero-image">
+      <img src={laptopImg.src} alt="Laptop Dashboard" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- HERO BAR -->
+<div class="hero-bar">
+  {barItems.map((item) => (
+    <div class="bar-item">
+      <img src={item.icon.src} alt={item.text} class="bar-item-icon" />
+      <span>{item.text}</span>
+    </div>
+  ))}
+</div>
+
+<style>
+  /* HERO BANNER */
+  .hero-banner {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 3.5rem 2rem;
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .hero-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .hero-logo img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+  }
+
+  .logo-text {
+    color: white;
+    font-size: 4rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(4rem, 3vw, 3.2rem);
+    color: white;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+  }
+
+  .text-primary {
+    color: var(--primary);
+  }
+
+  .hero-content .subtitle {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .hero-image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-image img {
+    width: 140%;
+    height: auto;
+    max-width: 140%;
+    object-fit: contain;
+    margin-left: auto;
+    transform: translateX(6rem);
+  }
+
+  /* HERO BOTTOM BAR */
+  .hero-bar {
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    padding: 1.5rem 2rem;
+    flex-wrap: wrap;
+  }
+
+  .bar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0 1.5rem;
+    border-right: 1px solid var(--border-light);
+  }
+
+  .bar-item:last-child {
+    border-right: none;
+  }
+
+  .bar-item-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: brightness(0) saturate(100%) invert(26%) sepia(86%) saturate(850%) hue-rotate(200deg);
+  }
+
+  @media (max-width: 768px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .hero-banner {
+      padding: 2rem 1rem;
+      min-height: auto;
+    }
+
+    .hero-bar {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .bar-item {
+      border-right: none;
+      border-bottom: 1px solid var(--border-light);
+      padding: 1rem;
+      width: 100%;
+    }
+
+    .bar-item:last-child {
+      border-bottom: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-banner {
+      padding: 2rem 1.25rem;
+    }
+
+    .hero-image {
+      display: none;
+    }
+
+    .hero-logo {
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-logo img {
+      width: 60px;
+      height: 60px;
+    }
+
+    .logo-text {
+      font-size: 1.8rem;
+    }
+
+    .hero-content h1 {
+      font-size: 2.2rem;
+    }
+
+    .hero-content .subtitle {
+      font-size: 0.9rem;
+    }
+  }
+</style>

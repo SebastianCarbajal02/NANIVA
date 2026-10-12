@@ -1,12 +1,12 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Nav from '../components/Nav.astro';
-import ServiciosBanner from '../components/ServiciosBanner.astro';
-import ServicesFull from '../components/ServicesFull.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Banner from '@components/servicios/Banner.astro';
+import ServicesList from '@components/servicios/ServicesList.astro';
 ---
 
 <BaseLayout title="Servicios: Facturación Electrónica, Catálogo y Restaurantes | NANIVA" description="Conoce todos los servicios de NANIVA: Facturación Electrónica, Catálogo Digital, Sistema Restaurante e Implementación a Medida.">
   <Nav />
-  <ServiciosBanner />
-  <ServicesFull />
+  <Banner />
+  <ServicesList />
 </BaseLayout>

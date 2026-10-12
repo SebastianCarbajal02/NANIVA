@@ -1,22 +1,22 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Nav from '../components/Nav.astro';
-import HeroIA from '../components/HeroIA.astro';
-import BenefitsIA from '../components/BenefitsIA.astro';
-import ComparisonIA from '../components/ComparisonIA.astro';
-import FeaturesIA from '../components/FeaturesIA.astro';
-import ImplementacionIA from '../components/ImplementacionIA.astro';
-import CtaBannerIA from '../components/CtaBannerIA.astro';
-import ResultadosClientes from '../components/ResultadosClientes.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Hero from '@components/ia/Hero.astro';
+import Benefits from '@components/ia/Benefits.astro';
+import Comparison from '@components/ia/Comparison.astro';
+import Features from '@components/ia/Features.astro';
+import Implementation from '@components/ia/Implementation.astro';
+import CtaBanner from '@components/ia/CtaBanner.astro';
+import ClientResults from '@components/ia/ClientResults.astro';
 ---
 
 <BaseLayout title="Inteligencia Artificial para tu Negocio | NANIVA" description="Descubre cómo la Inteligencia Artificial de Naniva convierte tus datos de ventas, compras e inventario en decisiones para hacer crecer tu negocio.">
   <Nav />
-  <HeroIA />
-  <BenefitsIA />
-  <ComparisonIA />
-  <FeaturesIA />
-   <ResultadosClientes />
-  <ImplementacionIA />
-  <CtaBannerIA />
+  <Hero />
+  <Benefits />
+  <Comparison />
+  <Features />
+   <ClientResults />
+  <Implementation />
+  <CtaBanner />
 </BaseLayout>

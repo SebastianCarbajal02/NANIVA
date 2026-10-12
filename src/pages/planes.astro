@@ -1,20 +1,20 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Nav from '../components/Nav.astro';
-import PlanesBanner from '../components/PlanesBanner.astro';
-import PlanesProductSwitcher from '../components/PlanesProductSwitcher.astro';
-import PlanesErpDetail from '../components/PlanesErpDetail.astro';
-import PlanesCatalogoDetail from '../components/PlanesCatalogoDetail.astro';
-import PlanesRestauranteDetail from '../components/PlanesRestauranteDetail.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Banner from '@components/planes/Banner.astro';
+import ProductSwitcher from '@components/planes/ProductSwitcher.astro';
+import ErpDetail from '@components/planes/ErpDetail.astro';
+import CatalogDetail from '@components/planes/CatalogDetail.astro';
+import RestaurantDetail from '@components/planes/RestaurantDetail.astro';
 ---
 
 <BaseLayout title="Planes y Precios | NANIVA" description="Compara los planes de NANIVA: ERP, catálogo digital por WhatsApp y sistema para restaurantes. Elige el plan ideal para tu negocio y empieza hoy.">
   <Nav />
-  <PlanesBanner />
-  <PlanesProductSwitcher />
-  <PlanesErpDetail />
-  <PlanesCatalogoDetail />
-  <PlanesRestauranteDetail />
+  <Banner />
+  <ProductSwitcher />
+  <ErpDetail />
+  <CatalogDetail />
+  <RestaurantDetail />
 </BaseLayout>
 
 <script>
