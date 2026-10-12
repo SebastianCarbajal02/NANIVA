@@ -65,7 +65,7 @@ const steps = [
         <div class={`step-card reveal hover-lift ${step.isDone ? 'step-done' : ''}`} style={`transition-delay:${i * 0.08}s`}>
           <span class={`step-num ${step.isDone ? 'step-done-color' : ''}`}>{step.num}</span>
           <img src={step.icon.src} alt={step.title} class="step-icon-img" />
-          <h4>{step.title}</h4>
+          <h3>{step.title}</h3>
           <ul>
             {step.items.map((item) => (
               <li>
@@ -208,7 +208,7 @@ const steps = [
     margin-bottom: 1rem;
   }
 
-  .step-card h4 {
+  .step-card h3 {
     font-size: 1.15rem;
     font-weight: 700;
     color: #0f172a;

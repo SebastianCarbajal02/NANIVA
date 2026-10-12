@@ -131,7 +131,9 @@ const loadAnalytics = import.meta.env.PROD;
     <div id="page-loader" class="page-loader">
       <div class="spinner"></div>
     </div>
-    <slot />
+    <main>
+      <slot />
+    </main>
     <Footer />
   </body>
 </html>
