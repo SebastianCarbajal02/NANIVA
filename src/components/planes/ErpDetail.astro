@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import ErpPlans from '@components/planes/ErpPlans.astro';
 import erpMockup from '@assets/image/planes/compartido/cel y laptop-01.webp';
 import erpMockupMobile from '@assets/image/planes/compartido/plan-erp-movil.png';
@@ -93,7 +94,7 @@ const extraModules = [
           <div class="extra-module-card">
             <div class="extra-module-header">
               <span class="module-icon-extra">
-                <img src={m.iconImg.src} alt={m.title} class="module-icon-img-sm" />
+                <Image src={m.iconImg} alt={m.title} class="module-icon-img-sm" widths={[80, 160, 240]} sizes="80px" />
               </span>
               <div class="extra-module-info">
                 <strong>{m.title}</strong>
@@ -147,7 +148,7 @@ const extraModules = [
     </div>
 
     <div class="erp-hero-media reveal">
-      <img src={erpMockup.src} alt="Dashboard ERP Naniva" class="erp-mockup-img erp-mockup-desktop" />
+      <Image src={erpMockup} alt="Dashboard ERP Naniva" class="erp-mockup-img erp-mockup-desktop" widths={[640, 1000, 1400, 2000]} sizes="(max-width: 900px) 100vw, 60vw" />
     </div>
   </div>
 
@@ -236,7 +237,7 @@ const extraModules = [
   <div class="container">
     <div class="integration-banner reveal">
       <span class="integration-icon">
-        <img src={logoInicio.src} alt="Naniva" class="integration-icon-img" />
+        <Image src={logoInicio} alt="Naniva" class="integration-icon-img" widths={[80, 160, 240]} sizes="80px" />
       </span>
       <div class="integration-copy">
         <strong>Todos los módulos trabajan juntos en perfecta integración</strong>
@@ -257,8 +258,8 @@ const extraModules = [
 
   <div class="banner-plan-cta">
     <a href="https://wa.link/c32qo2" target="_blank">
-      <img src={bannerPlan.src} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="banner-plan-img banner-plan-desktop" />
-      <img src={erpMockupMobile.src} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="banner-plan-img banner-plan-mobile" />
+      <Image src={bannerPlan} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="banner-plan-img banner-plan-desktop" widths={[800, 1280, 1920, 2800]} sizes="95vw" />
+      <Image src={erpMockupMobile} alt="¿Listo para transformar tu empresa? Solicita una demostración personalizada." class="banner-plan-img banner-plan-mobile" widths={[480, 800, 1200]} sizes="100vw" />
     </a>
     <div class="banner-plan-cta-overlay">
       <span class="banner-plan-sub">Sin compromiso. En menos de 30 minutos.</span>

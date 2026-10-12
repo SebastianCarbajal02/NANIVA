@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import iconERP from '@assets/image/planes/compartido/icondd-05.webp';
 import iconCatalogo from '@assets/image/planes/compartido/icondd-06.webp';
 import iconEcommerce from '@assets/image/planes/compartido/icondd-07.webp';
@@ -27,7 +28,7 @@ const products = [
           data-target={product.target}
           style={`transition-delay:${i * 0.1}s`}
         >
-          <img src={product.icon.src} alt="" class="product-icon" />
+          <Image src={product.icon} alt="" class="product-icon" widths={[100, 200, 300]} sizes="100px" loading="eager" />
           <h3>{product.title}</h3>
           <p>{product.desc}</p>
         </a>

@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import banner from '@assets/image/planes/compartido/fondfo1-01.webp';
 import bannerPersona from '@assets/image/planes/compartido/persona2f-02.webp';
 import estrella from '@assets/image/planes/compartido/estrella.webp';
@@ -24,17 +25,17 @@ const planFeatures = [
       {planFeatures.map((f) => (
         <div class="plan-feature">
           <span class="plan-feature-icon icon-bounce">
-            <img src={f.iconImg.src} alt={f.title} class="plan-feature-icon-img" />
+            <Image src={f.iconImg} alt={f.title} class="plan-feature-icon-img" widths={[100, 200, 300]} sizes="100px" loading="eager" />
           </span>
         </div>
       ))}
     </div>
     <div class="banner-note">
-      <img src={estrella.src} alt="Estrella" class="note-icon" />
+      <Image src={estrella} alt="Estrella" class="note-icon" widths={[48, 96, 144]} sizes="48px" loading="eager" />
       <span>Elige el plan ideal y lleva tu negocio<br /><strong>al siguiente nivel ↗</strong></span>
     </div>
   </div>
-  <img src={bannerPersona.src} alt="" class="banner-persona" aria-hidden="true" />
+  <Image src={bannerPersona} alt="" class="banner-persona" aria-hidden="true" widths={[640, 1000, 1600]} sizes="(max-width: 900px) 90vw, 60vw" loading="eager" fetchpriority="high" />
 </section>
 
 <style>

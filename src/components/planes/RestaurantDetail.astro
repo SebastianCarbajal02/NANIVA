@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import restauranteMockup from '@assets/image/planes/restaurante/chef2232-03.webp';
 import restauranteFeatureVentas from '@assets/image/planes/restaurante/iconrestaur-16.png';
 import restauranteFeatureComandas from '@assets/image/planes/restaurante/iconrestaur-17.png';
@@ -116,7 +117,7 @@ const restaurantePlanProfesional = {
 
       <div class="catalogo-features">
         {restauranteFeatures.map((f) => (
-          <img src={f.img.src} alt={f.alt} class={`catalogo-feature-img ${f.className ?? ""}`} />
+          <Image src={f.img} alt={f.alt} class={`catalogo-feature-img ${f.className ?? ""}`} widths={[160, 320, 640, 900]} sizes="(max-width: 720px) 90vw, 160px" />
         ))}
       </div>
 
@@ -127,7 +128,7 @@ const restaurantePlanProfesional = {
     </div>
 
     <div class="erp-hero-media reveal">
-      <img src={restauranteMockup.src} alt="Sistema Restaurantes Naniva" class="erp-mockup-img restaurante-mockup-img" />
+      <Image src={restauranteMockup} alt="Sistema Restaurantes Naniva" class="erp-mockup-img restaurante-mockup-img" widths={[640, 1000, 1400, 2000]} sizes="(max-width: 900px) 100vw, 60vw" />
     </div>
   </div>
 
@@ -142,7 +143,7 @@ const restaurantePlanProfesional = {
           {restauranteHighlights.map((h) => (
             <div class="restaurante-highlight-item">
               <span class="restaurante-highlight-icon">
-                <img src={h.img.src} alt={h.title} />
+                <Image src={h.img} alt={h.title} widths={[150, 300, 450]} sizes="150px" />
               </span>
               <span class="restaurante-highlight-dot"></span>
               <strong>{h.title}</strong>
@@ -452,7 +453,7 @@ const restaurantePlanProfesional = {
       </div>
 
       <aside class="compare-side restaurante-compare-side">
-        <img src={mensajeroIcon.src} alt="Mensajero" class="compare-side-icon restaurante-compare-side-icon" />
+        <Image src={mensajeroIcon} alt="Mensajero" class="compare-side-icon restaurante-compare-side-icon" widths={[120, 240, 360]} sizes="120px" />
         <h3>¿Necesitas más productos?</h3>
         <p>Puedes ampliar la cantidad de productos cuando tu negocio lo necesite.</p>
         <a href="/contacto" class="btn-primary restaurante-btn-primary hover-pop compare-side-btn">Más información</a>
@@ -462,8 +463,8 @@ const restaurantePlanProfesional = {
 
   <div class="container">
     <div class="catalogo-cta-banner reveal">
-      <img src={restauranteCtaBanner.src} alt="Empieza a digitalizar tu restaurante hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-desktop" />
-      <img src={restauranteCtaBannerMobile.src} alt="Empieza a digitalizar tu restaurante hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-mobile" />
+      <Image src={restauranteCtaBanner} alt="Empieza a digitalizar tu restaurante hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-desktop" widths={[800, 1280, 1920, 2800]} sizes="95vw" />
+      <Image src={restauranteCtaBannerMobile} alt="Empieza a digitalizar tu restaurante hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-mobile" widths={[480, 800, 1200]} sizes="100vw" />
       <a href="https://wa.link/s6p6ci" class="catalogo-cta-banner-btn restaurante-cta-banner-btn hover-pop pulse-ring whatsapp">Solicitar demostración aquí→</a>
     </div>
   </div>

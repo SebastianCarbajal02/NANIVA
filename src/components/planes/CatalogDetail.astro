@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import catalogoMockup from '@assets/image/planes/catalogo/catgbb-15.webp';
 import catFeatureShare from '@assets/image/planes/catalogo/iconcatgl-18.png';
 import catFeatureWhatsapp from '@assets/image/planes/catalogo/iconcatgl-19.png';
@@ -130,7 +131,7 @@ const negociosCategories = [
 
       <div class="catalogo-features">
         {catalogoFeatures.map((f) => (
-          <img src={f.img.src} alt={f.alt} class="catalogo-feature-img" />
+          <Image src={f.img} alt={f.alt} class="catalogo-feature-img" widths={[160, 320, 640, 900]} sizes="(max-width: 720px) 90vw, 160px" />
         ))}
       </div>
 
@@ -141,7 +142,7 @@ const negociosCategories = [
     </div>
 
     <div class="erp-hero-media reveal">
-      <img src={catalogoMockup.src} alt="Catálogo Digital Naniva - pedidos por WhatsApp" class="erp-mockup-img catalogo-mockup-img" />
+      <Image src={catalogoMockup} alt="Catálogo Digital Naniva - pedidos por WhatsApp" class="erp-mockup-img catalogo-mockup-img" widths={[640, 1000, 1400, 2000]} sizes="(max-width: 900px) 100vw, 60vw" />
     </div>
   </div>
 
@@ -348,7 +349,7 @@ const negociosCategories = [
       </div>
 
       <aside class="compare-side">
-        <img src={mensajeroIcon.src} alt="Mensajero" class="compare-side-icon" />
+        <Image src={mensajeroIcon} alt="Mensajero" class="compare-side-icon" widths={[120, 240, 360]} sizes="120px" />
         <h3>¿Necesitas más productos?</h3>
         <p>Puedes ampliar la cantidad de productos cuando tu negocio lo necesite.</p>
         <a href="/contacto" class="btn-primary hover-pop compare-side-btn">Más información</a>
@@ -379,18 +380,18 @@ const negociosCategories = [
       <div class="audience-track" data-carousel-track>
         {negociosCategories.map((c) => (
           <div class="audience-card">
-            <img src={c.img.src} alt={c.label} class="audience-card-icon" />
+            <Image src={c.img} alt={c.label} class="audience-card-icon" widths={[120, 240, 360]} sizes="120px" />
             <span class="audience-card-label">{c.label}</span>
             <span class="audience-card-underline"></span>
           </div>
         ))}
         <div class="audience-card catalogo-extra-audience-card">
-          <img src={iconRestauranteExtra15.src} alt="Farmacias" class="audience-card-icon" />
+          <Image src={iconRestauranteExtra15} alt="Farmacias" class="audience-card-icon" widths={[120, 240, 360]} sizes="120px" />
           <span class="audience-card-label">Farmacias</span>
           <span class="audience-card-underline"></span>
         </div>
         <div class="audience-card catalogo-extra-audience-card">
-          <img src={iconRestauranteExtra16.src} alt="Jugueterías" class="audience-card-icon" />
+          <Image src={iconRestauranteExtra16} alt="Jugueterías" class="audience-card-icon" widths={[120, 240, 360]} sizes="120px" />
           <span class="audience-card-label">Jugueterías</span>
           <span class="audience-card-underline"></span>
         </div>
@@ -402,8 +403,8 @@ const negociosCategories = [
   <div class="container">
     <div class="catalogo-cta-banner reveal">
       
-      <img src={catalogoCtaBanner.src} alt="Empieza a vender por WhatsApp hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-desktop" />
-      <img src={catalogoCtaBannerMobile.src} alt="Empieza a vender por WhatsApp hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-mobile" />
+      <Image src={catalogoCtaBanner} alt="Empieza a vender por WhatsApp hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-desktop" widths={[800, 1280, 1920, 2800]} sizes="95vw" />
+      <Image src={catalogoCtaBannerMobile} alt="Empieza a vender por WhatsApp hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-mobile" widths={[480, 800, 1200]} sizes="100vw" />
       <a href="https://wa.link/4n11hv" class="catalogo-cta-banner-btn hover-pop pulse-ring whatsapp">Solicitar demostración aquí→</a>
     </div>
   </div>
