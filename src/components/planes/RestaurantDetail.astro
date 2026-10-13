@@ -28,6 +28,7 @@ function icon(name: string, color: string = "#2563eb", size = 22) {
     search: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>`,
     headset: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14v-3a9 9 0 0 1 18 0v3"/><path d="M21 15a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h3Zm-18 0a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H3Z"/><path d="M21 15v1a4 4 0 0 1-4 4h-4"/></svg>`,
     rocket: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>`,
+    cart: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L22 7H6"/></svg>`,
     checkcolor: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`,
     help: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9a4 4 0 1 1 5.5 3.7c-.9.4-1.5 1.3-1.5 2.3v.5"/><path d="M12 18.5h.01"/></svg>`,
   };
@@ -40,6 +41,22 @@ function annualPricing(monthly: number) {
   const discounted = Math.round(fullYear * (1 - CATALOGO_ANNUAL_DISCOUNT));
   return { fullYear, discounted, savings: fullYear - discounted };
 }
+
+function planPrice(monthly: number, anual: boolean) {
+  if (!anual) return { amount: monthly, unit: "por mes" };
+  const p = annualPricing(monthly);
+  return {
+    strike: p.fullYear.toLocaleString("es-PE"),
+    amount: p.discounted.toLocaleString("es-PE"),
+    unit: "por año",
+    savings: p.savings.toLocaleString("es-PE"),
+  };
+}
+
+const billingPanels = [
+  { key: "mensual", basicoHref: "https://wa.link/64jjx7", profesionalHref: "https://wa.link/57fb8p" },
+  { key: "anual", basicoHref: "https://wa.link/57fb8p", profesionalHref: "/contacto" },
+];
 
 const restauranteFeatures = [
   { img: restauranteFeatureVentas, alt: "Registro de Ventas" },
@@ -168,181 +185,106 @@ const restaurantePlanProfesional = {
     </div>
     <p class="billing-savings-note restaurante-savings-note" data-billing-note="anual">Ahorra {Math.round(CATALOGO_ANNUAL_DISCOUNT * 100)}% pagando anual</p>
 
-    <div class="restaurante-plans-grid billing-panel is-active" data-billing-panel="mensual">
-      <div class="restaurante-plan-card">
-        <span class="restaurante-plan-icon" set:html={icon("cloche", "#7c3aed", 26)} />
-        <h3 class="restaurante-plan-name">{restaurantePlanBasico.name}</h3>
-        <p class="restaurante-plan-subtitle">{restaurantePlanBasico.subtitle}</p>
+    {billingPanels.map((panel) => {
+      const anual = panel.key === "anual";
+      const basicoPrice = planPrice(restaurantePlanBasico.monthly, anual);
+      const profesionalPrice = planPrice(restaurantePlanProfesional.monthly, anual);
+      return (
+        <div class={`restaurante-plans-grid billing-panel${anual ? "" : " is-active"}`} data-billing-panel={panel.key}>
+          <div class="restaurante-plan-card">
+            <h3 class="restaurante-plan-name">{restaurantePlanBasico.name}</h3>
+            <p class="restaurante-plan-subtitle">{restaurantePlanBasico.subtitle}</p>
 
-        <div class="restaurante-highlight-box">
-          <span set:html={icon(restaurantePlanBasico.highlight.icon, "#7c3aed", 18)} />
-          <span>{restaurantePlanBasico.highlight.text} <strong>{restaurantePlanBasico.highlight.strong}</strong></span>
-        </div>
+            <div class="restaurante-plan-hook restaurante-highlight-box">
+              <span class="restaurante-item-icon" set:html={icon(restaurantePlanBasico.highlight.icon, "#7c3aed", 18)} />
+              <span>{restaurantePlanBasico.highlight.text} <strong>{restaurantePlanBasico.highlight.strong}</strong></span>
+            </div>
 
-        <div class="restaurante-plan-price-block">
-          <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span> {restaurantePlanBasico.monthly}<span class="plan-price-unit">por mes</span></div>
-        </div>
+            <div class="restaurante-plan-price-block">
+              {basicoPrice.strike && <span class="plan-price-strike">S/ {basicoPrice.strike}</span>}
+              <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span>{basicoPrice.amount}<span class="plan-price-unit">{basicoPrice.unit}</span></div>
+              {basicoPrice.savings && <span class="plan-savings-note restaurante-plan-savings">Ahorra S/ {basicoPrice.savings} al año</span>}
+            </div>
 
-        <div class="restaurante-note-box">
-          {restaurantePlanBasico.productsNote.text} <strong>{restaurantePlanBasico.productsNote.strong}</strong> {restaurantePlanBasico.productsNote.suffix}
-        </div>
+            <div class="restaurante-plan-note restaurante-note-box">
+              {restaurantePlanBasico.productsNote.text} <strong>{restaurantePlanBasico.productsNote.strong}</strong> {restaurantePlanBasico.productsNote.suffix}
+            </div>
 
-        <ul class="restaurante-plan-items">
-          {restaurantePlanBasico.items.map((it) => (
-            <li>
-              <span class="restaurante-item-icon" set:html={icon(it.icon, "#7c3aed", 17)} />
+            <ul class="restaurante-plan-items">
+              {restaurantePlanBasico.items.map((it) => (
+                <li>
+                  <span class="restaurante-item-icon" set:html={icon(it.icon, "#7c3aed", 17)} />
+                  <span>
+                    {it.text}
+                    {it.sub && <span class="plan-item-sub restaurante-item-sub">{it.sub}</span>}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="restaurante-support-row">
+              <span class="restaurante-item-icon" set:html={icon("headset", "#7c3aed", 18)} />
               <span>
-                {it.text}
-                {it.sub && <span class="plan-item-sub restaurante-item-sub">{it.sub}</span>}
+                <strong>{restaurantePlanBasico.support.text}</strong>
+                <span class="restaurante-support-sub">{restaurantePlanBasico.support.sub}</span>
               </span>
-            </li>
-          ))}
-        </ul>
+            </div>
 
-        <div class="restaurante-support-row">
-          <span set:html={icon("headset", "#7c3aed", 18)} />
-          <span>
-            <strong>{restaurantePlanBasico.support.text}</strong>
-            <span class="restaurante-support-sub">{restaurantePlanBasico.support.sub}</span>
-          </span>
-        </div>
+            <a href={panel.basicoHref} class="plan-cta-btn restaurante-cta-btn hover-pop">
+              <span set:html={icon(restaurantePlanBasico.ctaIcon, "currentColor", 16)} /> {restaurantePlanBasico.cta}
+            </a>
+          </div>
 
-        <a href="https://wa.link/64jjx7" class="plan-cta-btn restaurante-cta-btn hover-pop">
-          <span set:html={icon(restaurantePlanBasico.ctaIcon, "currentColor", 16)} /> {restaurantePlanBasico.cta}
-        </a>
-      </div>
+          <div class="restaurante-plan-card restaurante-plan-card-featured">
+            <span class="plan-badge restaurante-plan-badge">★ {restaurantePlanProfesional.badge}</span>
+            <h3 class="restaurante-plan-name">{restaurantePlanProfesional.name}</h3>
+            <p class="restaurante-plan-subtitle">
+              {restaurantePlanProfesional.subtitleParts[0]}<br />
+              {restaurantePlanProfesional.subtitleParts[1]}<strong>{restaurantePlanProfesional.subtitleParts[2]}</strong>
+            </p>
 
-      <div class="restaurante-plan-card restaurante-plan-card-featured">
-        <span class="plan-badge restaurante-plan-badge">★ {restaurantePlanProfesional.badge}</span>
-        <h3 class="restaurante-plan-name">{restaurantePlanProfesional.name}</h3>
-        <p class="restaurante-plan-subtitle">
-          {restaurantePlanProfesional.subtitleParts[0]}<br />
-          {restaurantePlanProfesional.subtitleParts[1]}<strong>{restaurantePlanProfesional.subtitleParts[2]}</strong>
-        </p>
+            <div class="restaurante-plan-hook restaurante-tagline">
+              <span class="audience-dash restaurante-dash"></span>
+              <span class="restaurante-item-icon" set:html={icon("rocket", "#7c3aed", 16)} />
+              {restaurantePlanProfesional.tagline}
+              <span class="restaurante-item-icon" set:html={icon("rocket", "#7c3aed", 16)} />
+              <span class="audience-dash restaurante-dash"></span>
+            </div>
 
-        <div class="restaurante-tagline">
-          <span class="audience-dash restaurante-dash"></span>
-          <span set:html={icon("rocket", "#7c3aed", 16)} /> {restaurantePlanProfesional.tagline} <span set:html={icon("rocket", "#7c3aed", 16)} />
-          <span class="audience-dash restaurante-dash"></span>
-        </div>
+            <div class="restaurante-plan-price-block">
+              {profesionalPrice.strike && <span class="plan-price-strike">S/ {profesionalPrice.strike}</span>}
+              <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span>{profesionalPrice.amount}<span class="plan-price-unit">{profesionalPrice.unit}</span></div>
+              {profesionalPrice.savings && <span class="plan-savings-note restaurante-plan-savings">Ahorra S/ {profesionalPrice.savings} al año</span>}
+            </div>
 
-        <div class="restaurante-plan-price-block">
-          <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span> {restaurantePlanProfesional.monthly}<span class="plan-price-unit">por mes</span></div>
-        </div>
+            <p class="restaurante-plan-note restaurante-includes-note">{restaurantePlanProfesional.includesNote}</p>
 
-        <p class="restaurante-includes-note">{restaurantePlanProfesional.includesNote}</p>
+            <ul class="restaurante-plan-items restaurante-plan-items-check">
+              {restaurantePlanProfesional.items.map((it) => (
+                <li>
+                  <span class="restaurante-item-icon" set:html={icon("checkcolor", "#7c3aed", 17)} />
+                  <span>
+                    {typeof it === "string" ? it : (<>{it.text}<span class="plan-item-sub restaurante-item-sub">{it.sub}</span></>)}
+                  </span>
+                </li>
+              ))}
+            </ul>
 
-        <ul class="restaurante-plan-items restaurante-plan-items-check">
-          {restaurantePlanProfesional.items.map((it) => (
-            <li>
-              <span class="restaurante-item-icon" set:html={icon("checkcolor", "#7c3aed", 16)} />
+            <div class="restaurante-support-row">
+              <span class="restaurante-item-icon" set:html={icon("headset", "#7c3aed", 18)} />
               <span>
-                {typeof it === "string" ? it : (<>{it.text}<span class="plan-item-sub restaurante-item-sub">{it.sub}</span></>)}
+                <strong>{restaurantePlanProfesional.support.text}</strong>
+                <span class="restaurante-support-sub">{restaurantePlanProfesional.support.sub}</span>
               </span>
-            </li>
-          ))}
-        </ul>
+            </div>
 
-        <div class="restaurante-support-row">
-          <strong>{restaurantePlanProfesional.support.text}</strong>
-          <span class="restaurante-support-sub">{restaurantePlanProfesional.support.sub}</span>
+            <a href={panel.profesionalHref} class="plan-cta-btn plan-cta-btn-filled restaurante-cta-btn restaurante-cta-btn-filled hover-pop">
+              <span set:html={icon(restaurantePlanProfesional.ctaIcon, "white", 16)} /> {restaurantePlanProfesional.cta}
+            </a>
+          </div>
         </div>
-
-        <a href="https://wa.link/57fb8p" class="plan-cta-btn plan-cta-btn-filled restaurante-cta-btn restaurante-cta-btn-filled hover-pop">
-          <span set:html={icon(restaurantePlanProfesional.ctaIcon, "white", 16)} /> {restaurantePlanProfesional.cta}
-        </a>
-      </div>
-    </div>
-
-    <div class="restaurante-plans-grid billing-panel" data-billing-panel="anual">
-      <div class="restaurante-plan-card">
-        <span class="restaurante-plan-icon" set:html={icon("cloche", "#7c3aed", 26)} />
-        <h3 class="restaurante-plan-name">{restaurantePlanBasico.name}</h3>
-        <p class="restaurante-plan-subtitle">{restaurantePlanBasico.subtitle}</p>
-
-        <div class="restaurante-highlight-box">
-          <span set:html={icon(restaurantePlanBasico.highlight.icon, "#7c3aed", 18)} />
-          <span>{restaurantePlanBasico.highlight.text} <strong>{restaurantePlanBasico.highlight.strong}</strong></span>
-        </div>
-
-        <div class="restaurante-plan-price-block">
-          <span class="plan-price-strike">S/ {annualPricing(restaurantePlanBasico.monthly).fullYear.toLocaleString("es-PE")}</span>
-          <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span> {annualPricing(restaurantePlanBasico.monthly).discounted.toLocaleString("es-PE")}<span class="plan-price-unit">por año</span></div>
-          <span class="plan-savings-note restaurante-plan-savings">Ahorra S/ {annualPricing(restaurantePlanBasico.monthly).savings.toLocaleString("es-PE")} al año</span>
-        </div>
-
-        <div class="restaurante-note-box">
-          {restaurantePlanBasico.productsNote.text} <strong>{restaurantePlanBasico.productsNote.strong}</strong> {restaurantePlanBasico.productsNote.suffix}
-        </div>
-
-        <ul class="restaurante-plan-items">
-          {restaurantePlanBasico.items.map((it) => (
-            <li>
-              <span class="restaurante-item-icon" set:html={icon(it.icon, "#7c3aed", 17)} />
-              <span>
-                {it.text}
-                {it.sub && <span class="plan-item-sub restaurante-item-sub">{it.sub}</span>}
-              </span>
-            </li>
-          ))}
-        </ul>
-
-        <div class="restaurante-support-row">
-          <span set:html={icon("headset", "#7c3aed", 18)} />
-          <span>
-            <strong>{restaurantePlanBasico.support.text}</strong>
-            <span class="restaurante-support-sub">{restaurantePlanBasico.support.sub}</span>
-          </span>
-        </div>
-
-        <a href="https://wa.link/57fb8p" class="plan-cta-btn restaurante-cta-btn hover-pop">
-          <span set:html={icon(restaurantePlanBasico.ctaIcon, "currentColor", 16)} /> {restaurantePlanBasico.cta}
-        </a>
-      </div>
-
-      <div class="restaurante-plan-card restaurante-plan-card-featured">
-        <span class="plan-badge restaurante-plan-badge">★ {restaurantePlanProfesional.badge}</span>
-        <h3 class="restaurante-plan-name">{restaurantePlanProfesional.name}</h3>
-        <p class="restaurante-plan-subtitle">
-          {restaurantePlanProfesional.subtitleParts[0]}<br />
-          {restaurantePlanProfesional.subtitleParts[1]}<strong>{restaurantePlanProfesional.subtitleParts[2]}</strong>
-        </p>
-
-        <div class="restaurante-tagline">
-          <span class="audience-dash restaurante-dash"></span>
-          <span set:html={icon("rocket", "#7c3aed", 16)} /> {restaurantePlanProfesional.tagline} <span set:html={icon("rocket", "#7c3aed", 16)} />
-          <span class="audience-dash restaurante-dash"></span>
-        </div>
-
-        <div class="restaurante-plan-price-block">
-          <span class="plan-price-strike">S/ {annualPricing(restaurantePlanProfesional.monthly).fullYear.toLocaleString("es-PE")}</span>
-          <div class="plan-price restaurante-plan-price"><span class="plan-price-S">S/</span> {annualPricing(restaurantePlanProfesional.monthly).discounted.toLocaleString("es-PE")}<span class="plan-price-unit">por año</span></div>
-          <span class="plan-savings-note restaurante-plan-savings">Ahorra S/ {annualPricing(restaurantePlanProfesional.monthly).savings.toLocaleString("es-PE")} al año</span>
-        </div>
-
-        <p class="restaurante-includes-note">{restaurantePlanProfesional.includesNote}</p>
-
-        <ul class="restaurante-plan-items restaurante-plan-items-check">
-          {restaurantePlanProfesional.items.map((it) => (
-            <li>
-              <span class="restaurante-item-icon" set:html={icon("checkcolor", "#7c3aed", 16)} />
-              <span>
-                {typeof it === "string" ? it : (<>{it.text}<span class="plan-item-sub restaurante-item-sub">{it.sub}</span></>)}
-              </span>
-            </li>
-          ))}
-        </ul>
-
-        <div class="restaurante-support-row">
-          <strong>{restaurantePlanProfesional.support.text}</strong>
-          <span class="restaurante-support-sub">{restaurantePlanProfesional.support.sub}</span>
-        </div>
-
-        <a href="/contacto" class="plan-cta-btn plan-cta-btn-filled restaurante-cta-btn restaurante-cta-btn-filled hover-pop">
-          <span set:html={icon(restaurantePlanProfesional.ctaIcon, "white", 16)} /> {restaurantePlanProfesional.cta}
-        </a>
-      </div>
-    </div>
+      );
+    })}
   </div>
 
   <div class="container catalogo-compare restaurante-compare reveal">
@@ -353,9 +295,15 @@ const restaurantePlanProfesional = {
             <span class="compare-label-title restaurante-compare-label-title">CARACTERÍSTICAS</span>
           </div>
           <div class="rc-plan-head">
-            <span class="restaurante-compare-icon" set:html={icon("cloche", "#7c3aed", 20)} />
+            <!-- Espaciadores invisibles: replican el badge y el tagline del Profesional para alinear los precios -->
+            <span class="plan-badge restaurante-plan-badge rc-placeholder" aria-hidden="true">★ {restaurantePlanProfesional.badge}</span>
             <span class="compare-plan-name">{restaurantePlanBasico.name}</span>
             <p class="restaurante-compare-plan-sub">{restaurantePlanBasico.subtitle}</p>
+            <div class="restaurante-tagline rc-placeholder" aria-hidden="true">
+              <span class="audience-dash restaurante-dash"></span>
+              <span set:html={icon("rocket", "#7c3aed", 16)} /> {restaurantePlanProfesional.tagline} <span set:html={icon("rocket", "#7c3aed", 16)} />
+              <span class="audience-dash restaurante-dash"></span>
+            </div>
             <div class="restaurante-compare-price-pill"><span class="plan-price-S">S/</span> {restaurantePlanBasico.monthly}<span class="plan-price-unit">por mes</span></div>
           </div>
 
@@ -413,7 +361,6 @@ const restaurantePlanProfesional = {
 
         <div class="rc-profesional">
           <span class="plan-badge restaurante-plan-badge">★ {restaurantePlanProfesional.badge}</span>
-          <span class="restaurante-compare-icon" set:html={icon("rocket", "#7c3aed", 20)} />
           <span class="compare-plan-name">{restaurantePlanProfesional.name}</span>
           <p class="restaurante-compare-plan-sub">
             {restaurantePlanProfesional.subtitleParts[0]}<br />
@@ -768,15 +715,32 @@ const restaurantePlanProfesional = {
 
   .restaurante-plans-grid.is-active { display: grid; }
 
+  /* Subgrid: cada fila de la tarjeta (nombre, subtítulo, recuadro,
+     precio, nota, lista, soporte, botón) se alinea entre ambas tarjetas. */
   .restaurante-plan-card {
     background: white;
     border: 1px solid #e2e8f0;
     border-radius: 20px;
     padding: 2rem 1.75rem;
     position: relative;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-row: span 8;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+    align-items: start;
   }
+
+  .restaurante-plan-hook,
+  .restaurante-plan-note {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    box-sizing: border-box;
+  }
+
+  .restaurante-plan-card > .plan-cta-btn { align-self: end; }
 
   .restaurante-plan-card-featured {
     border-color: #7c3aed;
@@ -798,30 +762,18 @@ const restaurantePlanProfesional = {
     white-space: nowrap;
   }
 
-  .restaurante-plan-icon {
-    align-self: center;
-    background: #f5f3ff;
-    border-radius: 14px;
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0.75rem;
-  }
-
   .restaurante-plan-name {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.75rem;
     font-weight: 800;
-    color: #0f172a;
-    margin: 0 0 0.3rem;
+    color: #4c1d95;
+    margin: 0.5rem 0 0.4rem;
   }
 
   .restaurante-plan-subtitle {
     text-align: center;
-    color: #64748b;
-    font-size: 0.88rem;
+    color: #475569;
+    font-size: 0.95rem;
     margin: 0 0 1.25rem;
     line-height: 1.4;
   }
@@ -829,8 +781,7 @@ const restaurantePlanProfesional = {
   .restaurante-plan-subtitle strong { color: #7c3aed; }
 
   .restaurante-highlight-box {
-    display: flex;
-    align-items: flex-start;
+    justify-content: flex-start;
     gap: 0.6rem;
     background: #f5f3ff;
     border-radius: 12px;
@@ -853,7 +804,22 @@ const restaurantePlanProfesional = {
     margin-bottom: 1rem;
   }
 
-  .restaurante-plan-price-block { text-align: center; margin-bottom: 1rem; }
+  .restaurante-plan-card .restaurante-tagline {
+    background: #f5f3ff;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .restaurante-plan-price-block {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
 
   .plan-price {
     color: #16a34a;
@@ -861,7 +827,14 @@ const restaurantePlanProfesional = {
     font-weight: 800;
   }
 
-  .restaurante-plan-price { color: #7c3aed; }
+  .restaurante-plan-price {
+    color: #7c3aed;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.3rem;
+    line-height: 1.1;
+  }
   .plan-price-S { font-size: 1.3rem; font-weight: 700; }
   .plan-price-unit { font-size: 1rem; font-weight: 600; color: #64748b; }
 
@@ -900,6 +873,12 @@ const restaurantePlanProfesional = {
     font-weight: 700;
     font-size: 0.88rem;
     margin: 0 0 1.25rem;
+  }
+
+  .restaurante-plan-card .restaurante-includes-note {
+    background: #f5f3ff;
+    border-radius: 12px;
+    padding: 0.7rem 1rem;
   }
 
   .restaurante-plan-items {
@@ -1087,7 +1066,6 @@ const restaurantePlanProfesional = {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.2rem;
   }
 
   .rc-row-label {
@@ -1139,7 +1117,13 @@ const restaurantePlanProfesional = {
     position: relative;
   }
 
-  .rc-profesional .plan-badge { position: static; transform: none; margin-bottom: 0.5rem; }
+  .rc-profesional .plan-badge,
+  .rc-plan-head .plan-badge { position: static; transform: none; margin-bottom: 0.5rem; }
+
+  .rc-placeholder { visibility: hidden; }
+
+  .rc-wrap .restaurante-tagline { height: 1.5rem; }
+  .rc-plan-head .restaurante-tagline { overflow: hidden; }
   .rc-profesional .restaurante-plan-items { width: 100%; text-align: left; }
   .rc-profesional .restaurante-support-row { width: 100%; text-align: left; }
   .rc-profesional .plan-cta-btn { width: 100%; }
@@ -1159,24 +1143,14 @@ const restaurantePlanProfesional = {
 
   .restaurante-compare-label-sub { color: #7c3aed; }
 
-  .restaurante-compare-icon {
-    background: #f5f3ff;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0.3rem;
-  }
-
-  .compare-plan-name { font-size: 0.85rem; font-weight: 800; color: #0f172a; }
+  .compare-plan-name { font-size: 1.5rem; font-weight: 800; color: #4c1d95; margin-bottom: 0.2rem; }
 
   .restaurante-compare-plan-sub {
-    color: #64748b;
-    font-size: 0.82rem;
+    color: #475569;
+    font-size: 0.9rem;
     margin: 0 0 0.5rem;
     line-height: 1.4;
+    min-height: 2.8em;
   }
 
   .restaurante-compare-plan-sub strong { color: #7c3aed; }
@@ -1189,6 +1163,9 @@ const restaurantePlanProfesional = {
     font-size: 1.6rem;
     font-weight: 800;
     color: #7c3aed;
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
   }
 
   .restaurante-compare-price-pill .plan-price-S,
@@ -1333,6 +1310,7 @@ const restaurantePlanProfesional = {
   @media (max-width: 720px) {
     .rc-wrap { flex-direction: column; }
     .rc-profesional { border-left: none; border-top: 1px solid #ede9fe; }
+    .rc-placeholder { display: none; }
   }
 
   @media (max-width: 900px) {
