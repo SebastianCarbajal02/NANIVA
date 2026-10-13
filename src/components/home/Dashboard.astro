@@ -1,5 +1,6 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import dashboardImg from '@assets/image/home/showcase/dashfin1_Mesa de trabajo 1.webp';
 import dashboardZoom1Img from '@assets/image/home/showcase/dashboardff1-01.webp';
 import dashboardZoom2Img from '@assets/image/home/showcase/dashboardff1-02.webp';
@@ -16,6 +17,29 @@ const features = [
   { icon: iconConectada, title: "Toda tu empresa", sub: "conectada" },
   { icon: iconInformacion, title: "Información clara", sub: "para decidir mejor" },
 ];
+
+// Las capturas tienen texto pequeño: el original se mantiene como variante más grande
+// y solo se generan versiones reducidas (calidad alta) para pantallas pequeñas.
+async function captureSrcset(img: ImageMetadata, widths: number[]) {
+  const variants = await Promise.all(
+    widths
+      .filter((w) => w < img.width)
+      .map(async (w) => `${(await getImage({ src: img, width: w, quality: 90, format: 'webp' })).src} ${w}w`)
+  );
+  return [...variants, `${encodeURI(img.src)} ${img.width}w`].join(', ');
+}
+
+const defaultSizes = '(max-width: 900px) 100vw, 75vw';
+const zoomSizes = '(max-width: 900px) 60vw, 45vw';
+const zoomWidths = [480, 800];
+
+const [dashboardSrcset, zoom1Srcset, zoom2Srcset, zoom3Srcset, zoom4Srcset] = await Promise.all([
+  captureSrcset(dashboardImg, [640, 960, 1280]),
+  captureSrcset(dashboardZoom1Img, zoomWidths),
+  captureSrcset(dashboardZoom2Img, zoomWidths),
+  captureSrcset(dashboardZoom3Img, zoomWidths),
+  captureSrcset(dashboardZoom4Img, zoomWidths),
+]);
 ---
 <section class="showcase">
   <div class="container">
@@ -25,13 +49,13 @@ const features = [
       <p class="section-sub">Descubre cómo Naniva puede transformar la gestión de tu empresa.</p>
     </div>
     <div class="panel reveal">
-      <!-- Capturas del dashboard sin recomprimir: tienen texto pequeño y se amplían con la animación de zoom -->
+      <!-- Capturas del dashboard: el original sigue en el srcset para pantallas grandes porque tienen texto pequeño y se amplían con la animación de zoom -->
       <button type="button" class="mockup" id="dashboard-zoom-trigger" aria-label="Ampliar imagen del dashboard">
-        <img src={dashboardImg.src} width={dashboardImg.width} height={dashboardImg.height} alt="Dashboard NANIVA" class="img-default" loading="lazy" decoding="async" />
-        <img src={dashboardZoom1Img.src} width={dashboardZoom1Img.width} height={dashboardZoom1Img.height} alt="Dashboard NANIVA detalle" class="img-zoom-1" loading="lazy" decoding="async" />
-        <img src={dashboardZoom3Img.src} width={dashboardZoom3Img.width} height={dashboardZoom3Img.height} alt="Dashboard NANIVA detalle 3" class="img-zoom-2" loading="lazy" decoding="async" />
-        <img src={dashboardZoom4Img.src} width={dashboardZoom4Img.width} height={dashboardZoom4Img.height} alt="Dashboard NANIVA detalle 4" class="img-zoom-3" loading="lazy" decoding="async" />
-        <img src={dashboardZoom2Img.src} width={dashboardZoom2Img.width} height={dashboardZoom2Img.height} alt="Dashboard NANIVA detalle 2" class="img-zoom-4" loading="lazy" decoding="async" />
+        <img src={dashboardImg.src} srcset={dashboardSrcset} sizes={defaultSizes} width={dashboardImg.width} height={dashboardImg.height} alt="Dashboard NANIVA" class="img-default" loading="lazy" decoding="async" />
+        <img src={dashboardZoom1Img.src} srcset={zoom1Srcset} sizes={zoomSizes} width={dashboardZoom1Img.width} height={dashboardZoom1Img.height} alt="Dashboard NANIVA detalle" class="img-zoom-1" loading="lazy" decoding="async" />
+        <img src={dashboardZoom3Img.src} srcset={zoom3Srcset} sizes={zoomSizes} width={dashboardZoom3Img.width} height={dashboardZoom3Img.height} alt="Dashboard NANIVA detalle 3" class="img-zoom-2" loading="lazy" decoding="async" />
+        <img src={dashboardZoom4Img.src} srcset={zoom4Srcset} sizes={zoomSizes} width={dashboardZoom4Img.width} height={dashboardZoom4Img.height} alt="Dashboard NANIVA detalle 4" class="img-zoom-3" loading="lazy" decoding="async" />
+        <img src={dashboardZoom2Img.src} srcset={zoom2Srcset} sizes={zoomSizes} width={dashboardZoom2Img.width} height={dashboardZoom2Img.height} alt="Dashboard NANIVA detalle 2" class="img-zoom-4" loading="lazy" decoding="async" />
       </button>
       <div class="info">
         <span class="badge">• DASHBOARD INTELIGENTE</span>
