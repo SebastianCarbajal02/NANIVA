@@ -1,0 +1,105 @@
+---
+// Tarjeta de precio "Planes desde S/ X al mes" (o "Precio a tu medida")
+import { themeStyle, whatsappHref, type Producto } from '@data/productos';
+import './producto.css';
+import { arrowIcon, icons } from './icons';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+const price = p.price;
+---
+<section class="producto-section pricing" style={themeStyle(p)}>
+  <div class="container">
+    <div class="pricing-card reveal">
+      <div class="pricing-info">
+        {price.from !== null ? (
+          <>
+            <p class="pricing-label">Planes desde</p>
+            <p class="pricing-amount">S/ {price.from}<span> al mes</span></p>
+          </>
+        ) : (
+          <p class="pricing-amount pricing-quote">Precio a tu medida</p>
+        )}
+        <span class="pricing-rule" aria-hidden="true"></span>
+        <p class="pricing-note"><span set:html={icons.file} />{price.note}</p>
+      </div>
+      <div class="pricing-actions">
+        {price.from !== null ? (
+          <a href={price.href} class="btn btn-primary btn-raised">{price.cta} <span set:html={arrowIcon} /></a>
+        ) : (
+          <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-raised">{price.cta} <span set:html={arrowIcon} /></a>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Mismo fondo blanco que "Ideal para"; si antes va la comparativa, recupera su margen superior */
+  .pricing { background: #fff; padding-top: 0; padding-bottom: 5rem; }
+  :global(.compare) + .pricing { padding-top: 5rem; }
+  .pricing-card {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    background: linear-gradient(135deg, #ffffff, var(--accent-soft));
+    border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+    border-radius: 22px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 18px 40px rgba(37, 99, 235, 0.08);
+    position: relative;
+  }
+  /* "Gusano" de luz que recorre el borde de la tarjeta */
+  @property --worm-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+  .pricing-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 24px;
+    padding: 3px;
+    background: conic-gradient(
+      from var(--worm-angle),
+      transparent 0deg 220deg,
+      color-mix(in srgb, var(--accent) 25%, transparent) 270deg,
+      color-mix(in srgb, var(--accent) 70%, transparent) 320deg,
+      var(--accent) 352deg,
+      transparent 360deg
+    );
+    /* Solo se pinta el aro del borde, no el interior */
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 60%, transparent));
+    animation: worm 4s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes worm { to { --worm-angle: 360deg; } }
+  @media (prefers-reduced-motion: reduce) {
+    .pricing-card::before { animation: none; opacity: 0; }
+  }
+  .pricing-label { color: var(--muted); font-weight: 500; font-size: 1.05rem; }
+  .pricing-amount { font-size: clamp(2.6rem, 4.5vw, 3.4rem); font-weight: 800; color: var(--accent-strong); line-height: 1.05; letter-spacing: -0.02em; }
+  .pricing-amount span { font-size: 1.05rem; font-weight: 600; letter-spacing: 0; color: var(--accent-strong); }
+  .pricing-quote { font-size: clamp(1.8rem, 3vw, 2.2rem); }
+  .pricing-rule { display: block; width: 48px; height: 2px; border-radius: 2px; background: color-mix(in srgb, var(--accent) 30%, transparent); margin: 0.9rem 0; }
+  .pricing-note { display: flex; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.92rem; }
+  .pricing-note :global(svg) { width: 18px; height: 18px; color: var(--accent); flex-shrink: 0; }
+  .btn-raised { box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 35%, transparent); }
+  .btn-raised:hover { box-shadow: 0 14px 30px color-mix(in srgb, var(--accent) 45%, transparent); }
+
+  @media (max-width: 600px) {
+    .pricing-card { padding: 1.6rem 1.25rem; }
+    .pricing { padding-bottom: 3.5rem; }
+    .pricing-actions, .pricing-actions .btn { width: 100%; }
+  }
+</style>

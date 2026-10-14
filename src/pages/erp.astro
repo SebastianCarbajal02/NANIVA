@@ -1,0 +1,25 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Hero from '@components/producto/Hero.astro';
+import Features from '@components/producto/Features.astro';
+import Steps from '@components/producto/Steps.astro';
+import Audience from '@components/producto/Audience.astro';
+import Pricing from '@components/producto/Pricing.astro';
+import Faq from '@components/producto/Faq.astro';
+import Cta from '@components/producto/Cta.astro';
+import { productos, productoSchema } from '@data/productos';
+
+const p = productos.erp;
+---
+
+<BaseLayout title={p.title} description={p.description} schema={productoSchema(p, Astro.site)}>
+  <Nav />
+  <Hero producto={p} />
+  <Features producto={p} />
+  <Steps producto={p} />
+  <Audience producto={p} />
+  <Pricing producto={p} />
+  <Faq producto={p} />
+  <Cta producto={p} />
+</BaseLayout>

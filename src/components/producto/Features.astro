@@ -1,0 +1,63 @@
+---
+// Funciones del producto en tarjetas con icono
+import { themeStyle, type Producto } from '@data/productos';
+import './producto.css';
+import { icons } from './icons';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+---
+<section class="producto-section features" style={themeStyle(p)}>
+  <div class="container">
+    <div class="section-head">
+      <h2 class="reveal">{p.features.title}</h2>
+      <p class="reveal" style="--d: 80ms">{p.features.intro}</p>
+    </div>
+    <div class="feature-grid">
+      {p.features.items.map((f, i) => (
+        <article class="feature-card reveal" style={`--d: ${(i % 4) * 120}ms`}>
+          <span class="feature-icon" set:html={icons[f.icon]} />
+          <h3>{f.title}</h3>
+          <p>{f.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features { background: #fff; }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.25rem;
+  }
+  .feature-card {
+    background: #f8fafc;
+    border-radius: 18px;
+    padding: 1.6rem 1.4rem;
+    transition: background-color 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .feature-card:hover { background: var(--accent-soft); transform: translateY(-3px); }
+  .feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-bottom: 1rem;
+    transition: background-color 0.45s ease, color 0.45s ease;
+  }
+  .feature-card:hover .feature-icon { background: var(--accent); color: #fff; }
+  .feature-card h3 { font-size: 1.08rem; color: var(--ink); line-height: 1.35; margin-bottom: 0.45rem; }
+  .feature-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .feature-card:hover { transform: none; }
+  }
+</style>

@@ -1,0 +1,161 @@
+---
+// Pasos: tarjetas con número, icono y flechas entre ellas
+import { themeStyle, type Producto } from '@data/productos';
+import './producto.css';
+import { arrowIcon, icons } from './icons';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+const steps = p.steps!;
+
+const stepLabels = ['PRIMER PASO', 'SEGUNDO PASO', 'TERCER PASO', 'CUARTO PASO'];
+// Título con la palabra resaltada en el color del producto
+const { title, highlight } = steps;
+const hi = highlight ? title.indexOf(highlight) : -1;
+const titleParts =
+  hi < 0 || !highlight
+    ? { before: title, mark: '', after: '' }
+    : { before: title.slice(0, hi), mark: highlight, after: title.slice(hi + highlight.length) };
+---
+<section class="producto-section steps" style={themeStyle(p)}>
+  <div class="container">
+    <div class="steps-head">
+      <p class="steps-eyebrow reveal">{steps.eyebrow}</p>
+      <h2 class="reveal" style="--d: 60ms">{titleParts.before}<span class="highlight">{titleParts.mark}</span>{titleParts.after}</h2>
+      <p class="steps-intro reveal" style="--d: 120ms">{steps.intro}</p>
+    </div>
+    <ol class="step-list">
+      {steps.items.map((st, i) => (
+        <>
+          {i > 0 && (
+            <li class="step-arrow reveal" style={`--d: ${i * 180 + 90}ms`} aria-hidden="true">
+              <span set:html={arrowIcon} />
+            </li>
+          )}
+          <li class="step reveal" style={`--d: ${i * 180}ms`}>
+            <span class="step-num" aria-hidden="true">{i + 1}</span>
+            <span class="step-icon" set:html={icons[st.icon]} />
+            <span class="step-label">{stepLabels[i]}</span>
+            <h3>{st.title}</h3>
+            <p>{st.desc}</p>
+          </li>
+        </>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps { background: linear-gradient(180deg, #f8fafc, #eef4ff); }
+  .steps-head { text-align: center; max-width: 720px; margin: 0 auto 3.5rem; }
+  .steps-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    color: var(--accent-strong);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+  .steps-eyebrow::before, .steps-eyebrow::after {
+    content: '';
+    width: 36px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .steps-head h2 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .steps-intro { margin: 0.9rem auto 0; color: var(--muted); font-size: 1.05rem; line-height: 1.6; max-width: 560px; }
+  .step-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+  }
+  .step {
+    position: relative;
+    align-self: stretch;
+    background: #fff;
+    border-radius: 18px;
+    padding: 2.4rem 1.6rem 1.8rem;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
+    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.45s ease;
+  }
+  .step:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(15, 23, 42, 0.12); }
+  .step-num {
+    position: absolute;
+    top: -18px;
+    left: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: var(--accent-strong);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.05rem;
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .step:global(.in-view) .step-num { animation: step-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; animation-delay: calc(var(--d, 0ms) + 250ms); }
+  @keyframes step-pop { from { transform: scale(0); } to { transform: scale(1); } }
+  .step-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    transition: transform 0.45s ease, background-color 0.3s ease, color 0.3s ease;
+  }
+  .step-icon :global(svg) { width: 28px; height: 28px; }
+  .step:hover .step-icon { transform: rotate(-6deg) scale(1.06); background: var(--accent); color: #fff; }
+  .step-label {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .step h3 { margin-top: 0.7rem; font-size: 1.12rem; color: var(--ink); }
+  .step p { margin-top: 0.5rem; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+  .step-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--accent);
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+  }
+  .step-arrow:global(.in-view) :global(svg) { animation: step-nudge 1.8s ease-in-out 1s infinite; }
+  @keyframes step-nudge { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(3px); } }
+
+  @media (max-width: 900px) {
+    .step-list { grid-template-columns: 1fr; gap: 1.6rem; }
+    .step-arrow { justify-self: center; transform: rotate(90deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .step:hover, .step:hover .step-icon { transform: none; }
+    .step:global(.in-view) .step-num, .step-arrow:global(.in-view) :global(svg) { animation: none; }
+  }
+</style>

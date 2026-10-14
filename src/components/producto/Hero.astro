@@ -1,0 +1,110 @@
+---
+// Banner del producto: etiqueta, título, ventajas, botones e imagen
+import { Image } from 'astro:assets';
+import heroBg from '@assets/image/home/hero/fondo final1-01.webp';
+import { themeStyle, whatsappHref, type Producto } from '@data/productos';
+import './producto.css';
+import { arrowIcon, checkIcon } from './icons';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+---
+<section class="producto-section hero" style={`${themeStyle(p)}background-image: url('${heroBg.src}');`}>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <span class="tag reveal">{p.eyebrow}</span>
+      <h1 class="reveal" style="--d: 60ms">{p.h1.before}<span class="highlight">{p.h1.highlight}</span></h1>
+      <p class="intro reveal" style="--d: 120ms">{p.intro}</p>
+      <ul class="chips reveal" style="--d: 180ms">
+        {p.heroChips.map((c) => <li><span class="chip-check" set:html={checkIcon} />{c}</li>)}
+      </ul>
+      <div class="actions reveal" style="--d: 240ms">
+        <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          Solicitar demo gratis <span set:html={arrowIcon} />
+        </a>
+        {p.price.from !== null && (
+          <a href={p.price.href} class="btn btn-outline">Planes desde S/ {p.price.from} al mes</a>
+        )}
+      </div>
+    </div>
+    <Image
+      src={p.heroImg}
+      alt={p.heroAlt}
+      widths={[360, 560, 760, 1000]}
+      sizes="(max-width: 900px) 90vw, 46vw"
+      loading="eager"
+      fetchpriority="high"
+      class="hero-img"
+    />
+  </div>
+</section>
+
+<style>
+  .hero {
+    background-size: cover;
+    background-position: center;
+    padding: 7.5rem clamp(1.5rem, 4vw, 4rem) 4rem;
+  }
+  .hero-inner {
+    max-width: 1380px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 2rem;
+  }
+  .hero-content { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .tag {
+    display: inline-flex;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+  }
+  h1 {
+    font-size: clamp(2.1rem, 3.6vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    max-width: 14em;
+  }
+  .intro { font-size: 1.08rem; color: var(--muted); line-height: 1.7; max-width: 560px; }
+  /* Las 4 ventajas en una sola fila en escritorio */
+  .chips { list-style: none; display: flex; flex-wrap: nowrap; gap: 0.45rem; }
+  .chips li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 999px;
+    padding: 0.42rem 0.65rem;
+    font-size: clamp(0.74rem, 0.42rem + 0.36vw, 0.85rem);
+    font-weight: 600;
+    color: #1e293b;
+  }
+  .chip-check { display: inline-flex; color: var(--accent); }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 0.5rem; }
+  .hero-img { justify-self: end; width: 100%; height: auto; max-height: 520px; object-fit: contain; object-position: right center; }
+
+  /* Laptops pequeñas: si no caben en una fila sin tocar la imagen, van 2 y 2 */
+  @media (max-width: 1300px) and (min-width: 901px) {
+    .chips { display: grid; grid-template-columns: repeat(2, max-content); }
+  }
+  @media (max-width: 900px) {
+    .hero { padding: 6.5rem 1rem 3rem; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .chips { flex-wrap: wrap; }
+    .chips li { font-size: 0.85rem; }
+    .hero-img { justify-self: center; object-position: center; max-height: 380px; }
+  }
+  @media (max-width: 600px) {
+    .actions, .actions .btn { width: 100%; }
+  }
+</style>

@@ -1,0 +1,137 @@
+---
+// Cierre (taste-skill): campo plano del color del producto, sin ornamentos.
+// Izquierda: texto en blanco y botón de WhatsApp. Derecha: un tono más claro con la chica
+// anclada al borde inferior y el dashboard. Movimiento: el panel derecho se abre al entrar.
+import { Image } from 'astro:assets';
+import { themeStyle, whatsappHref, type Producto } from '@data/productos';
+import imgChica from '@assets/image/producto/cta-chica.webp';
+import imgDashboard from '@assets/image/producto/cta-dashboard.webp';
+import './producto.css';
+import { arrowIcon } from './icons';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+
+const whatsappIcon = `<svg viewBox="0 0 24 24" width="20" height="20" fill="#fff" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>`;
+---
+<section class="producto-section cta" style={themeStyle(p)}>
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2 class="reveal">¿Listo para empezar <span class="cta-mark">con {p.nombre}?</span></h2>
+      <p class="reveal" style="--d: 100ms">Te mostramos cómo funciona con ejemplos de tu negocio, sin compromiso.</p>
+      <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="wa-btn reveal" style="--d: 200ms">
+        <span class="wa-icon" set:html={whatsappIcon} />
+        Escríbenos por WhatsApp
+        <span class="wa-arrow" set:html={arrowIcon} />
+      </a>
+    </div>
+
+    <div class="cta-panel reveal" aria-hidden="true">
+      <Image src={imgDashboard} alt="" widths={[260, 420, 620]} sizes="(max-width: 900px) 55vw, 24vw" class="cta-dashboard" />
+      <Image src={imgChica} alt="" widths={[360, 560, 760]} sizes="(max-width: 900px) 85vw, 34vw" class="cta-chica" />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Campo plano del color fuerte del producto, a todo el ancho */
+  .cta {
+    padding: 0;
+    background: var(--accent-strong);
+    color: #fff;
+    overflow: hidden;
+  }
+  .cta-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: clamp(400px, 34vw, 520px);
+  }
+
+  /* Texto: alineado con el contenido de la página */
+  .cta-text {
+    align-self: center;
+    padding: 4rem clamp(1.5rem, 4vw, 4rem) 4rem max(clamp(1.5rem, 4vw, 4rem), calc((100vw - 1380px) / 2 + 4rem));
+  }
+  .cta-text h2 {
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+    max-width: 11em;
+  }
+  .cta-mark { color: color-mix(in srgb, var(--accent) 30%, #fff); }
+  .cta-text p { margin-top: 1.25rem; font-size: clamp(1.1rem, 1.35vw, 1.3rem); line-height: 1.5; max-width: 34ch; }
+
+  /* Botón blanco plano con el logo de WhatsApp */
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 2.25rem;
+    padding: 0.75rem 1.6rem 0.75rem 0.8rem;
+    border-radius: 999px;
+    background: #fff;
+    color: #0f172a;
+    font-size: 1.08rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  .wa-btn:hover { transform: translateY(-2px); background: #f1f5f9; }
+  .wa-btn:active { transform: scale(0.98); }
+  .wa-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .wa-icon { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: #22c55e; }
+  .wa-arrow { display: inline-flex; transition: transform 0.2s ease; }
+  .wa-btn:hover .wa-arrow { transform: translateX(3px); }
+
+  /* Panel derecho: un tono más claro del mismo color, con la chica anclada abajo */
+  .cta-panel {
+    position: relative;
+    background: color-mix(in srgb, var(--accent) 22%, #fff);
+  }
+  .cta-chica {
+    position: absolute;
+    bottom: 0;
+    left: -12%;
+    width: auto;
+    height: 94%;
+    max-width: 92%;
+    object-fit: contain;
+    object-position: left bottom;
+  }
+  .cta-dashboard {
+    position: absolute;
+    top: 10%;
+    right: clamp(1.5rem, 4vw, 4rem);
+    width: 46%;
+    height: auto;
+  }
+
+  /* Movimiento: el panel se abre desde la derecha y la chica se asienta */
+  .cta-panel:global(.reveal) { opacity: 1; transform: none; clip-path: inset(0 0 0 100%); transition: clip-path 1.1s cubic-bezier(0.7, 0, 0.2, 1); }
+  .cta-panel:global(.reveal.in-view) { clip-path: inset(0 0 0 0); }
+  .cta-panel :global(.cta-chica) { transform: scale(1.06); transform-origin: left bottom; transition: transform 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s; }
+  .cta-panel:global(.in-view) :global(.cta-chica) { transform: none; }
+  .cta-dashboard { animation: dash-float 6s ease-in-out 1.4s infinite; }
+  @keyframes dash-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+
+  @media (max-width: 900px) {
+    .cta-inner { grid-template-columns: 1fr; min-height: 0; }
+    .cta-text { padding: 3.5rem 1.5rem 2.5rem; }
+    .cta-panel { min-height: 340px; }
+    .cta-chica { left: 0; height: 92%; }
+    .cta-dashboard { width: 50%; top: 8%; right: 1rem; }
+  }
+  @media (max-width: 480px) {
+    .wa-btn { width: 100%; justify-content: center; white-space: nowrap; font-size: 0.95rem; gap: 0.6rem; padding-right: 1rem; }
+    .wa-icon { width: 34px; height: 34px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cta-panel:global(.reveal) { clip-path: none; transition: none; }
+    .cta-panel :global(.cta-chica) { transform: none; transition: none; }
+    .cta-dashboard { animation: none; }
+    .wa-btn:hover, .wa-btn:hover .wa-arrow { transform: none; }
+  }
+</style>

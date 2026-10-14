@@ -1,0 +1,72 @@
+---
+// Tabla Catálogo Digital vs Tienda Online (solo en esas dos páginas)
+import { themeStyle, type Producto } from '@data/productos';
+import './producto.css';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+const slug = p.slug;
+
+const rows = [
+  { label: '¿Cómo compra tu cliente?', catalogo: 'Te envía su pedido por WhatsApp', tienda: 'Compra en tu web con carrito' },
+  { label: '¿Cómo te paga?', catalogo: 'El pago se coordina fuera de la web', tienda: 'Paga en línea con pasarela de pago' },
+  { label: 'Comisiones por venta', catalogo: 'No hay comisiones', tienda: 'Las de la pasarela de pago' },
+  { label: 'Ideal para', catalogo: 'Ventas mayoristas y cotizaciones', tienda: 'Ventas al consumidor final' },
+];
+const isCatalogo = slug === 'catalogo-digital';
+const isTienda = slug === 'tienda-online';
+---
+<section class="producto-section compare" style={themeStyle(p)}>
+  <div class="container">
+    <div class="section-head">
+      <h2 class="reveal">¿Catálogo Digital o Tienda Online?</h2>
+      <p class="reveal" style="--d: 80ms">Los dos te ayudan a vender por internet. La diferencia está en cómo te compra y te paga tu cliente.</p>
+    </div>
+    <div class="compare-wrap reveal" style="--d: 140ms">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th scope="col"><span class="visually-hidden">Característica</span></th>
+            <th scope="col" class={isCatalogo ? 'is-current' : ''}>
+              {isCatalogo ? 'Catálogo Digital' : <a href="/catalogo-digital">Catálogo Digital</a>}
+            </th>
+            <th scope="col" class={isTienda ? 'is-current' : ''}>
+              {isTienda ? 'Tienda Online' : <a href="/tienda-online">Tienda Online</a>}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr>
+              <th scope="row">{row.label}</th>
+              <td class={isCatalogo ? 'is-current' : ''}>{row.catalogo}</td>
+              <td class={isTienda ? 'is-current' : ''}>{row.tienda}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .compare { background: var(--color-bg); }
+  .compare-wrap { overflow-x: auto; max-width: 900px; margin: 0 auto; border-radius: 18px; background: #fff; }
+  .compare-table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  .compare-table th, .compare-table td { padding: 1rem 1.2rem; text-align: left; font-size: 0.95rem; }
+  .compare-table thead th { font-size: 1.02rem; color: var(--ink); }
+  .compare-table thead th.is-current { color: var(--accent-strong); }
+  .compare-table thead a { color: var(--ink); }
+  .compare-table thead a:hover { color: var(--accent); }
+  .compare-table tbody tr:nth-child(odd) { background: #f8fafc; }
+  .compare-table tbody th { color: #334155; font-weight: 600; width: 32%; }
+  .compare-table td { color: var(--muted); }
+  .compare-table td.is-current { background: var(--accent-soft); color: var(--ink); }
+
+  @media (max-width: 600px) {
+    .compare-table { min-width: 0; }
+    .compare-table th, .compare-table td { padding: 0.8rem 0.7rem; font-size: 0.86rem; }
+  }
+</style>

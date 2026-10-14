@@ -1,0 +1,65 @@
+---
+// "Ideal para…": rubros con icono sobre fondo suave
+import { themeStyle, type Producto } from '@data/productos';
+import './producto.css';
+import { icons } from './icons';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+const audience = p.audience;
+---
+<section class="producto-section audience" style={themeStyle(p)}>
+  <div class="container">
+    <span class="title-mark reveal" aria-hidden="true"></span>
+    <h2 class="section-title reveal" style="--d: 60ms">{audience.title}</h2>
+    <ul class="audience-list">
+      {audience.items.map((a, i) => (
+        <li class="reveal" style={`--d: ${120 + i * 70}ms`}>
+          <span class="audience-icon" set:html={icons[a.icon]} />
+          {a.label}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .audience { background: #fff; text-align: center; }
+  .title-mark { display: inline-flex; gap: 6px; align-items: center; margin-bottom: 1rem; }
+  .title-mark::before { content: ''; width: 36px; height: 3px; border-radius: 3px; background: var(--accent); }
+  .title-mark::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .audience-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .audience-list li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-weight: 500;
+    padding: 0.8rem 1.5rem 0.8rem 1.2rem;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.06);
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s ease;
+  }
+  .audience-list li:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(37, 99, 235, 0.12); }
+  .audience-icon { display: inline-flex; color: var(--accent); transition: transform 0.35s ease; }
+  .audience-icon :global(svg) { width: 22px; height: 22px; }
+  .audience-list li:hover .audience-icon { transform: scale(1.12) rotate(-6deg); }
+
+  @media (max-width: 600px) {
+    .audience-list li { padding: 0.7rem 1.1rem 0.7rem 0.95rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .audience-list li:hover, .audience-list li:hover .audience-icon { transform: none; }
+  }
+</style>

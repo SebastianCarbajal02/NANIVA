@@ -1,0 +1,13 @@
+---
+// Preguntas frecuentes del producto: mismo diseño que en el inicio (home/Faq.astro),
+// con las preguntas, el WhatsApp y los colores del producto.
+// Los datos estructurados FAQPage los genera productoSchema.
+import HomeFaq from '@components/home/Faq.astro';
+import { themeStyle, whatsappHref, type Producto } from '@data/productos';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+---
+<HomeFaq faqs={p.faqs} whatsappHref={whatsappHref(p)} style={themeStyle(p)} />
