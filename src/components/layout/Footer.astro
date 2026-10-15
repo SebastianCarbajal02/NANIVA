@@ -20,11 +20,12 @@ function iconSvg(name: string, color: string = "#2563eb", size = 20) {
   return icons[name] ?? "";
 }
 
-const productLinks = ["ERP", "Sistema de Restaurante", "Catálogo digital", "Inteligencia Artificial"];
+const productLinks = ["ERP", "Sistema de Restaurante", "Catálogo digital", "Tienda Online", "Inteligencia Artificial"];
 const productLinkHrefs: Record<string, string> = {
-  "ERP": "/planes#erp",
-  "Sistema de Restaurante": "/planes#restaurante",
-  "Catálogo digital": "/planes#catalogo-digital",
+  "ERP": "/erp",
+  "Sistema de Restaurante": "/sistema-para-restaurantes",
+  "Catálogo digital": "/catalogo-digital",
+  "Tienda Online": "/tienda-online",
   "Inteligencia Artificial": "/ia",
 };
 const resourceLinks = ["Casos de éxito", "Términos y condiciones", "Precios"];

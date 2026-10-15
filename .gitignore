@@ -26,3 +26,8 @@ pnpm-debug.log*
 .vercel
 .env*
 public/video/
+
+# skills locales de Claude (taste-skill)
+.claude/skills/
+skills-lock.json
+.taste-skill/

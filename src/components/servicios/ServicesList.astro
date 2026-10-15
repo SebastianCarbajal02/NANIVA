@@ -3,67 +3,50 @@ import { Image } from 'astro:assets';
 import iconFactura from '@assets/image/servicios/full/factura.webp';
 import iconCatalogo from '@assets/image/servicios/full/icon-plan-catalogo.webp';
 import iconRestaurante from '@assets/image/servicios/full/icon-plan-restaurante.webp';
-import iconSoftware from '@assets/image/servicios/full/icon-plan-software.webp';
 import imgFacturacion from '@assets/image/servicios/full/img-services1.webp';
 import imgCatalogo from '@assets/image/servicios/full/img-services2.webp';
 import imgRestaurante from '@assets/image/servicios/full/img-services3.webp';
-import imgMedida from '@assets/image/servicios/full/img-services4.webp';
 
+// 3 líneas de producto: ERP, Restaurante (POS) y Ecommerce (Catálogo Digital + Tienda Online)
 const services = [
   {
     icon: iconFactura,
     iconBg: "#2563eb",
-    bg: "linear-gradient(135deg, #dbeaff, #eef4ff)",
+    bg: "#e6efff",
     accent: "#2563eb",
-    title: "Sistema de Facturación Electrónica",
-    desc: "Emite facturas, boletas y notas de crédito electrónicas de forma segura y 100% válida ante SUNAT. Ahorra tiempo en tu contabilidad con nuestro sistema en la nube.",
-    items: ["Facturas y Boletas SUNAT", "Guías de Remisión", "Cotizaciones automáticas", "Reportes financieros en tiempo real"],
+    title: "Sistema ERP con Facturación Electrónica",
+    desc: "Controla ventas, inventario, compras, clientes y finanzas en un solo sistema en la nube. Emite facturas, boletas y guías de remisión electrónicas SUNAT y decide con inteligencia artificial.",
+    items: ["Ventas, POS y facturación SUNAT", "Inventario y varios almacenes", "Compras, clientes y cobranzas", "Reportes en tiempo real e IA"],
     mockImg: imgFacturacion,
-    href: "/planes#erp",
+    links: [{ label: "Conocer el ERP →", href: "/erp" }],
+  },
+  {
+    icon: iconRestaurante,
+    iconBg: "#9333ea", // taste-skill-ignore: color de marca del sistema para restaurantes
+    bg: "#f1e9fd",
+    accent: "#9333ea", // taste-skill-ignore: color de marca del sistema para restaurantes
+    title: "Sistema POS para Restaurantes",
+    desc: "Gestiona tu restaurante desde una sola plataforma: toma pedidos desde el celular, imprime comandas, controla tu caja y emite comprobantes electrónicos.",
+    items: ["Punto de venta (POS)", "Pedidos desde el celular del mozo", "Comandas y pre-cuentas", "Boletas y facturas electrónicas"],
+    mockImg: imgRestaurante,
+    links: [{ label: "Conocer el sistema →", href: "/sistema-para-restaurantes" }],
   },
   {
     icon: iconCatalogo,
     iconBg: "#16a34a",
-    bg: "linear-gradient(135deg, #d7f5df, #eefdf1)",
+    bg: "#e3f6e8",
     accent: "#16a34a",
-    title: "Catálogo Digital con WhatsApp",
-    desc: "Crea tu catálogo digital y muestra tus productos a través de un enlace de WhatsApp. Recibe pedidos 24/7 sin necesidad de una página web compleja.",
-    items: ["Catálogo interactivo", "Pedidos por WhatsApp", "Códigos QR para compartir", "Fotos ilimitadas de productos"],
+    title: "Ecommerce: Catálogo Digital y Tienda Online",
+    desc: "Vende por internet a tu manera: con un catálogo digital que recibe pedidos por WhatsApp o con una tienda online que cobra en línea. Todo conectado a tu inventario.",
+    items: ["Catálogo online y PDF para WhatsApp", "Cotizaciones y precios mayoristas", "Tienda online con pasarela de pago", "Stock sincronizado con tu ERP"],
     mockImg: imgCatalogo,
-    href: "/planes#catalogo-digital",
-  },
-  {
-    icon: iconRestaurante,
-    iconBg: "#9333ea",
-    bg: "linear-gradient(135deg, #ece3fb, #f6f1fe)",
-    accent: "#9333ea",
-    title: "Sistema POS para Restaurantes",
-    desc: "Gestiona tu restaurante de forma eficiente. Controla mesas, toma órdenes desde la cocina y entrega a delivery desde una sola plataforma.",
-    items: ["Punto de Venta (POS)", "Gestión de mesas", "Delivery y comandas", "Inventario de insumos"],
-    mockImg: imgRestaurante,
-    href: "/planes#restaurante",
-  },
-  {
-    icon: iconSoftware,
-    iconBg: "#f59e0b",
-    bg: "linear-gradient(135deg, #fdecc8, #fff6e5)",
-    accent: "#f59e0b",
-    title: "Implementación a Medida para tu Negocio",
-    desc: "Desarrollamos soluciones personalizadas que se adaptan exactamente a las necesidades de tu empresa. Integramos, automatizamos y hacemos crecer tu negocio.",
-    items: ["Desarrollo personalizado", "Integraciones con terceros", "Automatización de procesos", "Soporte y mantenimiento continuo"],
-    mockImg: imgMedida,
-    href: "https://wa.link/dma1jx", // TODO: reemplazar con el link definitivo
+    links: [
+      { label: "Catálogo Digital →", href: "/catalogo-digital" },
+      { label: "Tienda Online →", href: "/tienda-online" },
+    ],
   },
 ];
 
-const whyChoose = [
-  { icon: "👆", title: "Fácil e intuitivo", desc: "Diseñado para que cualquiera pueda usarlo sin complicaciones." },
-  { icon: "☁️", title: "100% en la nube", desc: "Accede desde cualquier lugar, en cualquier momento y dispositivo." },
-  { icon: "🛡️", title: "Seguro y confiable", desc: "Tu información siempre protegida con encriptación de nivel empresarial." },
-  { icon: "🔄", title: "Actualizaciones constantes", desc: "Mejoras continuas sin costo adicional para tu negocio." },
-  { icon: "🎧", title: "Soporte 24/7", desc: "Estamos siempre disponibles para ayudarte cuando lo necesites." },
-  { icon: "💰", title: "Precios accesibles", desc: "Planes diseñados para emprendedores y empresas." },
-];
 ---
 <section id="servicios" class="services-full">
   <div class="container">
@@ -87,10 +70,14 @@ const whyChoose = [
               <p>{s.desc}</p>
               <ul>
                 {s.items.map((item) => (
-                  <li><span class="check" style={`color:${s.accent}`}>✓</span>{item}</li>
+                  <li>{/* taste-skill-ignore: diseño existente del sitio */}<span class="check" style={`color:${s.accent}`}>✓</span>{item}</li>
                 ))}
               </ul>
-              <a href={s.href} class="row-btn hover-pop" style={`background:${s.accent}`}>Ver Planes →</a>
+              <div class="row-actions">
+                {s.links.map((l, j) => (
+                  <a href={l.href} class:list={["row-btn", "hover-pop", { "row-btn-outline": j > 0 }]} style={j === 0 ? `background:${s.accent}` : `color:${s.accent};border-color:${s.accent}`}>{l.label}</a>
+                ))}
+              </div>
             </div>
           </div>
         ))}
@@ -279,26 +266,9 @@ const whyChoose = [
     text-decoration: none;
     font-weight: 600;
   }
+  .row-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .row-btn-outline { background: #fff; border: 2px solid; padding: calc(0.75rem - 2px) calc(1.5rem - 2px); }
 
-  .why-section { background: #f8fafc; padding: 4rem 0; margin-top: 2rem; }
-  .why-section h3 { text-align: center; font-size: 1.5rem; color: #0f172a; margin-bottom: 0.5rem; }
-  .brand { color: #2563eb; }
-  .why-sub { text-align: center; color: #64748b; margin-bottom: 2.5rem; }
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1.25rem;
-  }
-  .why-card {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 14px;
-    padding: 1.5rem 1.25rem;
-    text-align: center;
-  }
-  .why-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
-  .why-card h4 { font-size: 0.95rem; margin-bottom: 0.4rem; color: #0f172a; }
-  .why-card p { font-size: 0.8rem; color: #64748b; line-height: 1.4; }
   @media (max-width: 1368px) and (min-width: 606px) {
     .service-row { min-height: 480px; }
   }

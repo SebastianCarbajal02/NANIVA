@@ -1,5 +1,5 @@
 export const faqs = [
-  { q: "¿Cuánto demora implementar Naniva?", a: "La implementación completa toma entre 3 y 7 días, dependiendo del tamaño de tu empresa y los módulos que necesites." },
+  { q: "¿Cuánto demora implementar Naniva?", a: "Aproximadamente 24 horas desde el día y la hora en que contratas. Puede tomar algo más según el tamaño de tu empresa y los módulos que necesites." },
   { q: "¿Puedo conectar WhatsApp?", a: "Sí, Naniva se integra directamente con WhatsApp Business para catálogo, pedidos y notificaciones a tus clientes." },
   { q: "¿Puedo migrar mis datos?", a: "Sí, nuestro equipo te ayuda a importar y validar tu información existente (productos, clientes, inventario) sin perder nada." },
   { q: "¿La información está segura?", a: "Toda tu información se almacena cifrada en la nube con respaldos automáticos y los más altos estándares de seguridad." },
