@@ -11,7 +11,7 @@ export type IconName =
   | 'receipt' | 'box' | 'cart' | 'users' | 'wallet' | 'chart' | 'cloud' | 'sparkles' | 'whatsapp'
   | 'file' | 'image' | 'upload' | 'tag' | 'truck' | 'card' | 'store' | 'printer' | 'split'
   | 'phone' | 'search' | 'refresh' | 'warehouse' | 'school' | 'link' | 'monitor' | 'settings'
-  | 'hammer' | 'utensils' | 'coffee' | 'pizza' | 'fish' | 'shirt' | 'laptop' | 'home' | 'book' | 'watch';
+  | 'clock' | 'shield' | 'globe' | 'user' | 'rocket' | 'trend' | 'hammer' | 'utensils' | 'coffee' | 'pizza' | 'fish' | 'shirt' | 'laptop' | 'home' | 'book' | 'watch';
 
 export interface Producto {
   slug: string;
@@ -30,9 +30,25 @@ export interface Producto {
   heroImg: ImageMetadata;
   heroAlt: string;
   heroChips: string[];
+  /** Banner sin chips: etiqueta en texto plano y botón de WhatsApp en lugar del precio */
+  heroSimple?: boolean;
   whatsappText: string;
   features: { title: string; intro: string; items: { icon: IconName; title: string; desc: string }[] };
   /** Pasos: `highlight` es la palabra del título que va en color */
+  /** Ventajas de usarlo hoy y oportunidades que abre (opcional, sección "Ventajas y oportunidades") */
+  benefits?: {
+    eyebrow: string;
+    /** `highlight`: palabra del título que va en color */
+    title: string;
+    highlight: string;
+    intro: string;
+    items: { icon: IconName; title: string; desc: string }[];
+    opportunitiesEyebrow: string;
+    opportunitiesTitle: string;
+    opportunitiesHighlight: string;
+    opportunities: { icon: IconName; title: string; desc: string; href?: string }[];
+    tagline?: string;
+  };
   steps?: { eyebrow: string; title: string; highlight?: string; intro: string; items: { icon: IconName; title: string; desc: string }[] };
   audience: { title: string; items: { label: string; icon: IconName }[] };
   /** Precio "desde" en soles al mes; null = se cotiza */
@@ -50,13 +66,14 @@ const erp: Producto = {
     'Controla ventas, inventario y compras, y emite facturas y boletas electrónicas SUNAT desde un solo sistema con inteligencia artificial. Ideal para pymes. Pide tu demo.',
   accent: '#2563eb',
   accentSoft: '#eaf1ff',
-  eyebrow: 'SISTEMA ERP PARA PYMES',
-  h1: { before: 'Sistema ERP con ', highlight: 'facturación SUNAT' },
+  eyebrow: 'ERP NANIVA',
+  h1: { before: 'Controla tu negocio desde un ', highlight: 'solo lugar' },
   intro:
-    'Centraliza ventas, inventario, compras, clientes y finanzas en un solo sistema en la nube. Emite facturas y boletas electrónicas SUNAT y toma decisiones con inteligencia artificial.',
+    'Integra ventas, inventario, compras, clientes y reportes en un sistema fácil de usar. Toma mejores decisiones, optimiza tus procesos y haz crecer tu negocio.',
   heroImg: imgErp,
   heroAlt: 'Sistema ERP NANIVA en laptop y celular con ventas, inventario y facturación',
-  heroChips: ['Comprobantes ilimitados', 'Varios almacenes', '100% en la nube', 'Inteligencia artificial'],
+  heroChips: [],
+  heroSimple: true,
   whatsappText: 'Hola, quiero una demo del ERP NANIVA',
   features: {
     title: 'Toda tu empresa en un sistema',
@@ -72,9 +89,34 @@ const erp: Producto = {
       { icon: 'upload', title: 'Importa tus datos desde Excel', desc: 'Sube tus productos, clientes e inventario desde Excel sin empezar de cero.' },
     ],
   },
+  benefits: {
+    eyebrow: 'Tu negocio, más simple',
+    title: 'Ventajas de usar el ERP',
+    highlight: 'ERP',
+    intro: 'Lo que cambia en tu negocio desde el primer mes.',
+    items: [
+      { icon: 'clock', title: 'Ahorras tiempo', desc: 'Vendes y emites la boleta o factura en el mismo paso, sin volver a digitar nada.' },
+      { icon: 'refresh', title: 'Todo en un solo lugar', desc: 'Ventas, stock, caja y compras conectados: cada movimiento se refleja al instante.' },
+      { icon: 'shield', title: 'Cumples con SUNAT', desc: 'Tus comprobantes electrónicos se envían a SUNAT de forma automática.' },
+      { icon: 'box', title: 'Menos errores de inventario', desc: 'Stock en tiempo real, kardex y traspasos entre almacenes.' },
+      { icon: 'chart', title: 'Decides con datos', desc: 'Reportes en tiempo real e inteligencia artificial que te dice qué atender primero.' },
+      { icon: 'cloud', title: 'Desde cualquier lugar', desc: '100% en la nube: entras desde la PC, la tablet o el celular, sin instalar nada.' },
+    ],
+    opportunitiesEyebrow: 'Haz crecer tu negocio',
+    opportunitiesTitle: 'Oportunidades para tu negocio',
+    opportunitiesHighlight: 'tu negocio',
+    tagline: 'Más control, más crecimiento',
+    opportunities: [
+      { icon: 'store', title: 'Abrir más locales o almacenes', desc: 'Controla el stock de cada almacén y crece sin cambiar de sistema.' },
+      { icon: 'globe', title: 'Vender por internet', desc: 'Suma el catálogo digital o una tienda online conectados a tu inventario.', href: '/catalogo-digital' },
+      { icon: 'users', title: 'Venderle a empresas', desc: 'Emite facturas electrónicas y envía cotizaciones profesionales a clientes con RUC.' },
+      { icon: 'search', title: 'Comprar mejor', desc: 'La IA detecta quiebres de stock y recomienda qué reponer.' },
+      { icon: 'user', title: 'Cobrar a tiempo', desc: 'Lleva tus cuentas por cobrar y el estado de cuenta de cada cliente.' },
+    ],
+  },
   steps: {
     eyebrow: 'IMPLEMENTACIÓN SIMPLE',
-    title: 'Tu ERP listo en pocos días',
+    title: 'Tu ERP listo en 24 horas',
     highlight: 'ERP',
     intro: 'Te acompañamos desde la primera demostración hasta la puesta en marcha de tu sistema, de forma rápida y segura.',
     items: [
@@ -96,13 +138,15 @@ const erp: Producto = {
   },
   price: { from: 49, note: 'Comprobantes electrónicos ilimitados en todos los planes.', href: '/planes#erp', cta: 'Ver planes del ERP' },
   faqs: [
-    { q: '¿Cuánto cuesta el sistema ERP de NANIVA?', a: 'Los planes empiezan desde S/ 49 al mes e incluyen comprobantes electrónicos ilimitados. El precio depende de la cantidad de usuarios, productos y almacenes que necesites. Puedes ver y comparar todos los planes en la página de planes.' },
     { q: '¿El ERP emite facturas y boletas electrónicas SUNAT?', a: 'Sí. Emites facturas, boletas, notas de crédito y guías de remisión electrónicas directamente desde el sistema, y se envían a SUNAT de forma automática.' },
-    { q: '¿Puedo manejar varios almacenes o locales?', a: 'Sí. Puedes controlar el stock de cada almacén por separado y hacer traspasos entre ellos. La cantidad de almacenes depende del plan.' },
-    { q: '¿Puedo importar mis productos y clientes desde Excel?', a: 'Sí. Todos los planes permiten importar tu información desde Excel, y nuestro equipo te ayuda a validarla para no perder nada.' },
-    { q: '¿Funciona sin internet?', a: 'No. NANIVA es un sistema 100% en la nube: necesitas conexión a internet. A cambio, no instalas nada, tus datos tienen respaldo y puedes entrar desde la PC, la tablet o el celular, estés donde estés.' },
+    { q: '¿Necesito instalar algo?', a: 'No. NANIVA funciona 100% desde el navegador, así que no instalas ningún programa. Solo necesitas conexión a internet; a cambio, tus datos tienen respaldo y puedes entrar desde la PC, la tablet o el celular.' },
+    { q: '¿Puedo migrar mis datos?', a: 'Sí. Puedes importar tus productos, clientes e inventario desde Excel, y nuestro equipo te ayuda a validar la información para no perder nada.' },
+    { q: '¿Puedo manejar varias empresas, locales o almacenes?', a: 'Sí. Puedes administrar varias empresas o sucursales desde una sola cuenta, controlar el stock de cada almacén por separado y hacer traspasos entre ellos. La cantidad de almacenes depende del plan.' },
+    { q: '¿La información está segura?', a: 'Sí. Tu información se almacena cifrada en la nube, con respaldos automáticos, permisos por rol y registro de cada movimiento.' },
+    { q: '¿Cuánto demora la implementación?', a: 'Aproximadamente 24 horas desde el día y la hora en que contratas. Puede tomar algo más según el tamaño de tu empresa y la información que haya que migrar.' },
     { q: '¿Incluye capacitación?', a: 'Sí. La capacitación virtual es gratuita. Si prefieres una capacitación presencial en tu local, tiene un costo adicional.' },
-    { q: '¿Cuánto demora la implementación?', a: 'Normalmente entre 3 y 7 días, según el tamaño de tu empresa y la información que haya que migrar.' },
+    { q: '¿Tiene aplicación móvil?', a: 'Sí. NANIVA cuenta con una app móvil para que gestiones tu negocio desde cualquier lugar.' },
+    { q: '¿Cómo solicito una demostración?', a: 'Haz clic en "Solicitar demo gratuita" o escríbenos por WhatsApp y coordinamos una sesión personalizada sin compromiso.' },
   ],
 };
 
