@@ -1,0 +1,224 @@
+---
+// Ventajas de usar el producto (tarjetas a la izquierda) y oportunidades que abre (panel azul a la derecha)
+import { themeStyle, type Producto } from '@data/productos';
+import './producto.css';
+import { arrowIcon, icons } from './icons';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+const b = p.benefits!;
+
+// Separa el título para pintar en color la palabra resaltada
+const split = (text: string, mark: string) => {
+  const i = text.indexOf(mark);
+  return i < 0 ? { before: text, mark: '', after: '' } : { before: text.slice(0, i), mark, after: text.slice(i + mark.length) };
+};
+const title = split(b.title, b.highlight);
+const oppTitle = split(b.opportunitiesTitle, b.opportunitiesHighlight);
+
+// Un color distinto para el icono de cada ventaja y de cada oportunidad
+const benefitColors = ['#2563eb', '#16a34a', '#7c3aed', '#f97316', '#2563eb', '#9333ea'];
+const oppColors = ['#3b82f6', '#14b8a6', '#8b5cf6', '#f59e0b', '#60a5fa'];
+---
+<section class="producto-section benefits" style={themeStyle(p)}>
+  <div class="container benefits-grid">
+    <div class="benefits-main">
+      <span class="pill reveal"><span set:html={icons.rocket} />{b.eyebrow}</span>
+      <h2 class="reveal" style="--d: 60ms">{title.before}<span class="highlight">{title.mark}</span>{title.after}</h2>
+      <p class="benefits-intro reveal" style="--d: 120ms">{b.intro}</p>
+      <span class="title-bar reveal" style="--d: 160ms" aria-hidden="true"></span>
+      <ul class="benefit-list">
+        {b.items.map((it, i) => (
+          <li class="benefit reveal" style={`--d: ${180 + i * 80}ms; --c: ${benefitColors[i % benefitColors.length]};`}>
+            <span class="benefit-icon" set:html={icons[it.icon]} />
+            <div>
+              <h3>{it.title}</h3>
+              <p>{it.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <aside class="opportunities reveal" style="--d: 150ms">
+      <div class="opp-content">
+        <span class="pill pill-dark"><span set:html={icons.trend} />{b.opportunitiesEyebrow}</span>
+        <h2>{oppTitle.before}<span class="opp-mark">{oppTitle.mark}</span>{oppTitle.after}</h2>
+        <ul class="opp-list">
+          {b.opportunities.map((o, i) => {
+            const inner = (
+              <>
+                <span class="opp-icon" style={`--c: ${oppColors[i % oppColors.length]};`} set:html={icons[o.icon]} />
+                <div class="opp-text">
+                  <h3>{o.title}</h3>
+                  <p>{o.desc}</p>
+                </div>
+                <span class="opp-arrow" aria-hidden="true" set:html={arrowIcon} />
+              </>
+            );
+            return (
+              <li class="opp reveal" style={`--d: ${300 + i * 90}ms`}>
+                {o.href ? <a href={o.href} class="opp-row">{inner}</a> : <div class="opp-row">{inner}</div>}
+              </li>
+            );
+          })}
+        </ul>
+        {b.tagline && <p class="opp-tagline">{b.tagline}</p>}
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .benefits { background: linear-gradient(180deg, #f8faff, #f1f5ff); color: var(--ink); }
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    align-items: stretch;
+  }
+
+  /* Etiqueta tipo píldora con icono */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 14%, #fff);
+    color: var(--accent-strong);
+    font-weight: 700;
+    font-size: 0.88rem;
+  }
+  .pill :global(svg) { width: 18px; height: 18px; }
+  .pill-dark { background: rgba(255, 255, 255, 0.14); color: #fff; }
+
+  /* Columna izquierda */
+  .benefits-main h2 {
+    margin-top: 1rem;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .benefits-intro { margin-top: 0.6rem; color: var(--muted); font-size: 1.02rem; }
+  .title-bar { display: block; width: 64px; height: 4px; border-radius: 4px; background: var(--accent); margin-top: 1.1rem; }
+
+  .benefit-list {
+    list-style: none;
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .benefit {
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+    background: #fff;
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s ease;
+  }
+  .benefit:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(15, 23, 42, 0.1); }
+  .benefit-icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--c) 12%, #fff);
+    color: var(--c);
+    transition: transform 0.35s ease;
+  }
+  .benefit-icon :global(svg) { width: 24px; height: 24px; }
+  .benefit:hover .benefit-icon { transform: rotate(-6deg) scale(1.08); }
+  .benefit h3 { font-size: 0.98rem; line-height: 1.3; color: var(--ink); }
+  .benefit p { margin-top: 0.3rem; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
+
+  /* Panel de oportunidades */
+  .opportunities {
+    position: relative;
+    overflow: hidden;
+    align-self: start;
+    border-radius: 24px;
+    background: linear-gradient(150deg, var(--accent-strong), color-mix(in srgb, var(--accent-strong) 70%, #0b1b4d));
+    color: #fff;
+  }
+  .opp-content { padding: clamp(1.4rem, 2.2vw, 2rem); }
+  .opportunities h2 {
+    margin-top: 0.9rem;
+    font-size: clamp(1.5rem, 2.3vw, 2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .opp-mark { display: block; color: color-mix(in srgb, var(--accent) 35%, #7dd3fc); }
+  .opp-list { list-style: none; margin-top: 1.1rem; }
+  .opp + .opp { border-top: 1px solid rgba(255, 255, 255, 0.14); }
+  .opp-row {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.7rem 0;
+    color: #fff;
+    text-decoration: none;
+  }
+  .opp-icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--c);
+    color: #fff;
+    transition: transform 0.3s ease;
+  }
+  .opp-icon :global(svg) { width: 20px; height: 20px; }
+  .opp-text { flex: 1; min-width: 0; }
+  .opp h3 { font-size: 0.97rem; line-height: 1.3; }
+  .opp p { margin-top: 0.2rem; color: rgba(255, 255, 255, 0.82); font-size: 0.86rem; line-height: 1.45; }
+  .opp-arrow {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #3b82f6;
+    color: #fff;
+    transition: transform 0.3s ease;
+  }
+  .opp-row:hover .opp-arrow { transform: translateX(4px); }
+  .opp-row:hover .opp-icon { transform: scale(1.08); }
+  a.opp-row:focus-visible { outline: 3px solid #fff; outline-offset: 2px; border-radius: 12px; }
+
+  /* Frase escrita a mano al pie del panel */
+  .opp-tagline {
+    margin: 1rem 0 0;
+    font-family: 'Segoe Script', 'Brush Script MT', 'Comic Sans MS', cursive;
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: right;
+    transform: rotate(-3deg);
+  }
+
+  @media (max-width: 1100px) {
+    .benefits-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .benefit-list { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .benefit:hover, .benefit:hover .benefit-icon, .opp-row:hover .opp-arrow, .opp-row:hover .opp-icon { transform: none; }
+  }
+</style>

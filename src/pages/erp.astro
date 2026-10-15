@@ -1,25 +1,777 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Nav from '@components/layout/Nav.astro';
 import Hero from '@components/producto/Hero.astro';
 import Features from '@components/producto/Features.astro';
+import Benefits from '@components/producto/Benefits.astro';
 import Steps from '@components/producto/Steps.astro';
 import Audience from '@components/producto/Audience.astro';
-import Pricing from '@components/producto/Pricing.astro';
+import ErpPlans from '@components/planes/ErpPlans.astro';
 import Faq from '@components/producto/Faq.astro';
 import Cta from '@components/producto/Cta.astro';
 import { productos, productoSchema } from '@data/productos';
+import ventaPosImage from '@assets/image/producto/VENTA-POS.png';
+import kardexImage from '@assets/image/producto/KARDEX.png';
+import iaImage from '@assets/image/producto/IA.png';
+import { icons } from '@components/producto/icons';
 
 const p = productos.erp;
+
+const vistas = [
+  {
+    id: 'pos',
+    tag: 'POS',
+    title: 'Punto de venta',
+    desc: 'Catálogo visual, búsqueda por SKU y cobro con boleta, factura o nota de venta.',
+    img: ventaPosImage,
+    alt: 'Punto de venta de NANIVA ERP con catálogo de productos y carrito de cobro',
+  },
+  {
+    id: 'kardex',
+    tag: 'Kardex',
+    title: 'Inventario y kardex',
+    desc: 'Entradas, salidas y traspasos por almacén con saldo actualizado al instante.',
+    img: kardexImage,
+    alt: 'Kardex de inventario de NANIVA ERP con movimientos por almacén',
+  },
+  {
+    id: 'ia',
+    tag: 'IA',
+    title: 'Compras con IA',
+    desc: 'Recomendaciones de reposición según la rotación real de tus productos.',
+    img: iaImage,
+    alt: 'Inteligencia artificial de NANIVA ERP recomendando compras',
+  },
+];
+
+const lineIcon = (paths: string, size = 24) =>
+  `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+const slidersIcon = (size?: number) =>
+  lineIcon('<path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/>', size);
+const gaugeIcon = lineIcon('<path d="M3.5 17a9 9 0 1 1 17 0"/><path d="m12 13 4-4"/><circle cx="12" cy="13" r="1.3"/><path d="M6.5 13H5M19 13h-1.5M12 6.5V5"/>');
+const yesIcon = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>`;
+const noIcon = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
+
+const solidIcon = (body: string) =>
+  `<svg viewBox="0 0 48 48" width="52" height="52" aria-hidden="true">${body}</svg>`;
+const whiteCheck = (d: string) =>
+  `<path d="${d}" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+
+const shieldBadge = `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 2 4 5v6.5c0 5 3.4 8.9 8 10.5 4.6-1.6 8-5.5 8-10.5V5Z" fill="currentColor" opacity=".9"/><path d="m8.8 12 2.2 2.2 4.3-4.4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+const seguridad = [
+  {
+    title: 'Permisos por rol',
+    desc: 'Define quién puede vender, ver reportes, aprobar compras o modificar precios.',
+    tone: '#2563eb',
+    soft: '#eaf1ff',
+    icon: solidIcon(
+      `<path d="M14 21v-6a9.5 9.5 0 0 1 19 0v6" fill="none" stroke="currentColor" stroke-width="4.5"/><rect x="8" y="19" width="31" height="23" rx="5" fill="currentColor"/><circle cx="23.5" cy="28.5" r="3.2" fill="#fff"/><rect x="22" y="29" width="3" height="6.5" rx="1.5" fill="#fff"/><circle cx="37" cy="37" r="9" fill="#1d4ed8" stroke="#fff" stroke-width="3"/>${whiteCheck('m32.8 37 3 3 5.5-5.6')}`,
+    ),
+  },
+  {
+    title: 'Auditoría y trazabilidad',
+    desc: 'Todo movimiento queda registrado para evitar errores, fraudes o cambios no autorizados.',
+    tone: '#10b981',
+    soft: '#e6f8f1',
+    icon: solidIcon(
+      `<rect x="7" y="3" width="29" height="38" rx="5" fill="currentColor"/><path d="M14 13h15M14 20h15M14 27h8" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="m39.5 39.5 5 5" stroke="#047857" stroke-width="5" stroke-linecap="round"/><circle cx="33" cy="33" r="8" fill="#fff" stroke="#047857" stroke-width="4"/>`,
+    ),
+  },
+  {
+    title: 'Compatibilidad de hardware',
+    desc: 'Funciona con laptops, tablets, impresoras y terminales POS compatibles con tu operación.',
+    tone: '#8b5cf6',
+    soft: '#f1ebff',
+    icon: solidIcon(
+      `<rect x="5" y="7" width="34" height="24" rx="3.5" fill="currentColor"/><path d="m22 11.5 5.5 7-5.5 7-5.5-7Z" fill="#fff"/><path d="M1 34h42v1.5a3.5 3.5 0 0 1-3.5 3.5h-35A3.5 3.5 0 0 1 1 35.5Z" fill="currentColor"/><circle cx="38" cy="35" r="9" fill="#6d28d9" stroke="#fff" stroke-width="3"/><path d="M38 28.6v1.6M38 39.8v1.6M31.6 35h1.6M42.8 35h1.6M33.5 30.5l1.1 1.1M41.4 38.4l1.1 1.1M33.5 39.5l1.1-1.1M41.4 31.6l1.1-1.1" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><circle cx="38" cy="35" r="3.9" fill="none" stroke="#fff" stroke-width="2.6"/>`,
+    ),
+  },
+  {
+    title: 'Acceso seguro en la nube',
+    desc: 'Consulta, vende y gestiona desde cualquier lugar con respaldos automáticos y control centralizado.',
+    tone: '#3b82f6',
+    soft: '#e8f1ff',
+    icon: solidIcon(
+      `<path d="M13.5 37a10 10 0 0 1-1.4-19.9A12.5 12.5 0 0 1 36.4 15 10 10 0 0 1 35 37Z" fill="currentColor"/><path d="m36 22.5 9 3.5v6.5c0 5.6-3.8 9.1-9 11.1-5.2-2-9-5.5-9-11.1V26Z" fill="#1d4ed8" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>${whiteCheck('m31.8 33 3 3 5.5-5.6')}`,
+    ),
+  },
+];
+
+const comparacion: { funcion: string; icon: string; valores: [boolean, string][] }[] = [
+  {
+    funcion: 'Control de inventario en tiempo real',
+    icon: icons.clock,
+    valores: [[false, 'Manual y con errores'], [false, 'No incluye o es básico'], [true, 'Kardex y alertas automáticas']],
+  },
+  {
+    funcion: 'Velocidad de emisión de comprobantes',
+    icon: gaugeIcon,
+    valores: [[false, 'Lento (portal se cae)'], [true, 'Rápido'], [true, 'En 3 clics y directo a WhatsApp']],
+  },
+  {
+    funcion: 'Múltiples almacenes o sucursales',
+    icon: icons.store,
+    valores: [[false, 'Imposible coordinar'], [false, 'Cobro extra por local'], [true, 'Sincronizado en la nube']],
+  },
+  {
+    funcion: 'Seguridad y permisos de cajeros',
+    icon: icons.shield,
+    valores: [[false, 'Cualquiera puede alterar'], [false, 'Limitado'], [true, 'Roles antifraude y auditoría']],
+  },
+  {
+    funcion: 'Predicción de compras y rotación',
+    icon: icons.chart,
+    valores: [[false, 'Cero análisis'], [false, 'Reportes planos'], [true, 'Motor de Inteligencia Artificial']],
+  },
+];
 ---
 
 <BaseLayout title={p.title} description={p.description} schema={productoSchema(p, Astro.site)}>
   <Nav />
   <Hero producto={p} />
   <Features producto={p} />
+
+  <section class="erp-product-showcase">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">VISTAS REALES DEL SOFTWARE</span>
+        <h2>Así se ve la operación real de tu negocio en <span class="highlight">NANIVA ERP</span></h2>
+      </div>
+
+      <div class="viewer reveal" style="--d: 120ms" data-viewer>
+        <div class="viewer-tabs" role="tablist" aria-label="Vistas del software">
+          {vistas.map((v, i) => (
+            <button
+              type="button"
+              role="tab"
+              id={`tab-${v.id}`}
+              class="viewer-tab"
+              aria-selected={i === 0 ? 'true' : 'false'}
+              aria-controls={`vista-${v.id}`}
+              tabindex={i === 0 ? 0 : -1}
+            >
+              <span class="viewer-tab-tag">{v.tag}</span>
+              <span class="viewer-tab-title">{v.title}</span>
+              <span class="viewer-tab-desc">{v.desc}</span>
+            </button>
+          ))}
+        </div>
+
+        <div class="browser">
+          <div class="browser-bar" aria-hidden="true">
+            <span class="browser-dots"><i></i><i></i><i></i></span>
+            <span class="browser-address">NANIVA ERP</span>
+          </div>
+          <div class="browser-screen">
+            {vistas.map((v, i) => (
+              <figure
+                id={`vista-${v.id}`}
+                role="tabpanel"
+                aria-labelledby={`tab-${v.id}`}
+                class:list={['viewer-panel', { 'is-active': i === 0 }]}
+              >
+                <Image
+                  src={v.img}
+                  alt={v.alt}
+                  widths={[640, 960, 1280, 1920]}
+                  sizes="(max-width: 1240px) 100vw, 1200px"
+                />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Benefits producto={p} />
+
+  <section class="erp-product-compare">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow eyebrow-icon"><Fragment set:html={slidersIcon(16)} />Comparación</span>
+        <h2>Portal SUNAT / Excel vs. <span class="highlight">NANIVA ERP</span></h2>
+        <p class="compare-sub">Más control, menos errores, <strong>mayor eficiencia</strong>.</p>
+        <span class="compare-rule" aria-hidden="true"></span>
+      </div>
+
+      <div class="compare-wrap reveal" style="--d: 120ms">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th scope="col">
+                <span class="col-head">
+                  <span class="col-icon plain"><Fragment set:html={slidersIcon()} /></span>
+                  Función
+                </span>
+              </th>
+              <th scope="col">
+                <span class="col-head">
+                  <span class="col-icon"><Fragment set:html={icons.file} /></span>
+                  Portal SUNAT / Excel
+                </span>
+              </th>
+              <th scope="col">
+                <span class="col-head">
+                  <span class="col-icon"><Fragment set:html={icons.cloud} /></span>
+                  Software de facturación simple
+                </span>
+              </th>
+              <th scope="col" class="col-naniva">
+                <span class="col-head">
+                  <span class="col-icon brand" aria-hidden="true">N</span>
+                  NANIVA ERP con IA
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparacion.map((fila) => (
+              <tr>
+                <th scope="row">
+                  <span class="row-head">
+                    <span class="row-icon"><Fragment set:html={fila.icon} /></span>
+                    {fila.funcion}
+                  </span>
+                </th>
+                {fila.valores.map(([ok, texto], i) => (
+                  <td class:list={{ 'col-naniva': i === 2 }}>
+                    <span class="cell">
+                      <span class:list={['mark', ok ? 'yes' : 'no']}>
+                        <Fragment set:html={ok ? yesIcon : noIcon} />
+                        <span class="sr-only">{ok ? 'Sí:' : 'No:'}</span>
+                      </span>
+                      {texto}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <Steps producto={p} />
-  <Audience producto={p} />
-  <Pricing producto={p} />
-  <Faq producto={p} />
+  <section class="erp-pricing">
+    <ErpPlans />
+  </section>
+
+  <section class="erp-security">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow eyebrow-with-icon"><Fragment set:html={shieldBadge} />SEGURIDAD Y CONTROL</span>
+        <h2>Tu operación protegida y operando <span class="highlight">sin fricción</span></h2>
+        <p class="compare-sub">Accede a herramientas que te dan control, seguridad y tranquilidad en cada proceso.</p>
+        <span class="compare-rule" aria-hidden="true"></span>
+      </div>
+
+      <div class="security-grid">
+        {seguridad.map((s, i) => (
+          <article class="security-card reveal" style={`--d: ${i * 80}ms; --tone: ${s.tone}; --tone-soft: ${s.soft};`}>
+            <div class="security-icon"><Fragment set:html={s.icon} /></div>
+            <div class="security-head">
+              <h3>{s.title}</h3>
+              <span class="security-bar" aria-hidden="true"></span>
+            </div>
+            <p>{s.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
   <Cta producto={p} />
+  <Faq producto={p} />
+
+  <style>
+    /* Secciones alternas: blanco / azul claro, con línea en cada cambio */
+    .erp-product-showcase,
+    .erp-product-compare {
+      padding: 4rem 0;
+    }
+
+    .erp-product-showcase,
+    .erp-product-compare,
+    .erp-pricing,
+    :global(.producto-section.cta.cta) {
+      background: #f0f5ff;
+      border-top: 1px solid #dbe4f3;
+    }
+
+    :global(.producto-section.benefits.benefits),
+    :global(.producto-section.steps.steps),
+    .erp-security,
+    :global(#faq.faq) {
+      background: #fff;
+      border-top: 1px solid #dbe4f3;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(37, 99, 235, 0.08);
+      color: #2563eb;
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin-top: 0.85rem;
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--ink, #0f172a);
+    }
+
+    .highlight { color: #2563eb; }
+
+    .viewer {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .viewer-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .viewer-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.3rem;
+      text-align: left;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      background: #fff;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 16px;
+      padding: 1rem 1.15rem;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    }
+
+    .viewer-tab:hover { transform: translateY(-2px); }
+
+    .viewer-tab:focus-visible {
+      outline: 2px solid #2563eb;
+      outline-offset: 3px;
+    }
+
+    .viewer-tab[aria-selected='true'] {
+      border-color: #2563eb;
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.14);
+    }
+
+    .viewer-tab-tag {
+      background: rgba(37, 99, 235, 0.08);
+      color: #2563eb;
+      border-radius: 999px;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .viewer-tab[aria-selected='true'] .viewer-tab-tag {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .viewer-tab-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink, #0f172a);
+    }
+
+    .viewer-tab-desc {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--muted, #475569);
+    }
+
+    .browser {
+      background: #fff;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px -20px rgba(15, 23, 42, 0.22), 0 12px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.7rem 1rem;
+      background: #f1f5f9;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .browser-dots {
+      display: inline-flex;
+      gap: 0.4rem;
+    }
+
+    .browser-dots i {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #ef4444;
+    }
+
+    .browser-dots i:nth-child(2) { background: #fbbf24; }
+    .browser-dots i:nth-child(3) { background: #22c55e; }
+
+    .browser-address {
+      flex: 1;
+      max-width: 360px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+      text-align: center;
+    }
+
+    .browser-screen {
+      display: grid;
+    }
+
+    .viewer-panel {
+      grid-area: 1 / 1;
+      margin: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s;
+    }
+
+    .viewer-panel.is-active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .viewer-panel img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .eyebrow-icon {
+      gap: 0.55rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .compare-sub {
+      margin: 0.75rem 0 0;
+      font-size: clamp(1rem, 1.4vw, 1.25rem);
+      color: #475569;
+    }
+
+    .compare-sub strong { color: #2563eb; }
+
+    .compare-rule {
+      display: block;
+      width: 80px;
+      height: 3px;
+      margin: 1.25rem auto 0;
+      border-radius: 3px;
+      background: #2563eb;
+    }
+
+    .compare-wrap {
+      max-width: 1560px;
+      margin: 0 auto;
+      overflow-x: auto;
+      background: white;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 22px;
+      box-shadow: 0 30px 60px -20px rgba(15, 23, 42, 0.12), 0 8px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .erp-pricing {
+      padding: 4.5rem 0 3.5rem;
+    }
+
+    .erp-security {
+      padding: 4.5rem 0;
+    }
+
+    .eyebrow-with-icon {
+      gap: 0.6rem;
+      padding: 0.6rem 1.25rem;
+      font-size: 0.9rem;
+    }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.25rem;
+      width: min(1680px, calc(100vw - 3rem));
+      margin: 2.5rem 0 0 50%;
+      transform: translateX(-50%);
+    }
+
+    .security-card {
+      display: grid;
+      grid-template-columns: 80px minmax(0, 1fr);
+      grid-template-areas:
+        'icon head'
+        '. body';
+      column-gap: 1.1rem;
+      row-gap: 1rem;
+      background: #fff;
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: 20px;
+      padding: 1.4rem 1.4rem 1.8rem 1.3rem;
+      box-shadow: 0 20px 45px -18px rgba(15, 23, 42, 0.14);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .security-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 55px -18px color-mix(in srgb, var(--tone) 30%, transparent);
+    }
+
+    .security-icon {
+      grid-area: icon;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 20px;
+      background: var(--tone-soft);
+      color: var(--tone);
+    }
+
+    .security-icon :global(svg) { width: 54px; height: 54px; }
+
+    .security-head {
+      grid-area: head;
+      align-self: center;
+    }
+
+    .security-card h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.3;
+      color: var(--ink, #0f172a);
+    }
+
+    .security-bar {
+      display: block;
+      width: 36px;
+      height: 3px;
+      margin-top: 0.85rem;
+      border-radius: 3px;
+      background: var(--tone);
+    }
+
+    .security-card p {
+      grid-area: body;
+      margin: 0;
+      color: var(--muted, #475569);
+      line-height: 1.7;
+      font-size: 0.97rem;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 1.1rem 1.4rem;
+      border-bottom: 1px solid #edf1f7;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .compare-table th + th,
+    .compare-table th + td,
+    .compare-table td + td {
+      border-left: 1px solid #edf1f7;
+    }
+
+    .compare-table thead th {
+      background: #f8fbff;
+      color: #0f172a;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      padding-top: 1.35rem;
+      padding-bottom: 1.35rem;
+    }
+
+    .compare-table thead th:first-child { width: 30%; }
+
+    .col-head,
+    .row-head,
+    .cell {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .col-icon {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #eef3ff;
+      color: #2563eb;
+    }
+
+    .col-icon :global(svg) { width: 20px; height: 20px; }
+
+    .col-icon.plain {
+      background: none;
+      width: auto;
+    }
+
+    .col-icon.plain :global(svg) { width: 30px; height: 30px; }
+
+    .col-icon.brand {
+      background: #2563eb;
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.3);
+    }
+
+    .compare-table tbody th {
+      color: #0f172a;
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .row-icon {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: #eef3ff;
+      color: #2563eb;
+    }
+
+    .compare-table td {
+      color: #475569;
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    .compare-table td.col-naniva { color: #334155; }
+
+    .mark {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      color: #fff;
+    }
+
+    .mark.yes { background: #22c55e; box-shadow: 0 4px 10px rgba(34, 197, 94, 0.25); }
+    .mark.no { background: #f43f5e; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.22); }
+
+    .compare-table tbody tr { transition: background-color 0.2s ease; }
+    .compare-table tbody tr:hover { background: #fafcff; }
+
+    .compare-table tbody tr:last-child th,
+    .compare-table tbody tr:last-child td { border-bottom: none; }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 1300px) {
+      .security-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 1000px; }
+    }
+
+    @media (max-width: 1024px) {
+      .viewer-tab-desc { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .security-grid { grid-template-columns: 1fr; width: 100%; margin-left: 0; transform: none; }
+      .security-card { grid-template-columns: 64px minmax(0, 1fr); column-gap: 1rem; padding: 1.25rem; }
+      .security-icon { width: 64px; height: 64px; border-radius: 16px; }
+      .security-icon :global(svg) { width: 40px; height: 40px; }
+      .viewer-tabs { gap: 0.5rem; margin-bottom: 1rem; }
+      .viewer-tab { align-items: center; padding: 0.7rem 0.5rem; }
+      .viewer-tab-title { font-size: 0.8rem; text-align: center; }
+      .browser { border-radius: 12px; }
+      .browser-bar { padding: 0.5rem 0.75rem; }
+      .browser-address { display: none; }
+    }
+  </style>
+
+  <script>
+    document.querySelectorAll<HTMLElement>('[data-viewer]').forEach((viewer) => {
+      const tabs = Array.from(viewer.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+
+      const select = (tab: HTMLButtonElement) => {
+        tabs.forEach((t) => {
+          const active = t === tab;
+          t.setAttribute('aria-selected', String(active));
+          t.tabIndex = active ? 0 : -1;
+          document.getElementById(t.getAttribute('aria-controls')!)?.classList.toggle('is-active', active);
+        });
+      };
+
+      tabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => select(tab));
+        tab.addEventListener('keydown', (e) => {
+          if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+          const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
+          select(next);
+          next.focus();
+        });
+      });
+    });
+  </script>
 </BaseLayout>
