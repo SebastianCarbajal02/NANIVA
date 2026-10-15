@@ -165,6 +165,14 @@ const loadAnalytics = import.meta.env.PROD;
     --color-text-muted: #6b7280;
     --max-width: 1200px;
     --radius: 12px;
+    /* Regla única para todos los H1 del sitio: 32px en celular hasta 56px en escritorio */
+    --h1-size: clamp(2rem, 1.25rem + 2.5vw, 3.5rem);
+    --h1-weight: 700;
+  }
+  h1 {
+    font-size: var(--h1-size);
+    font-weight: var(--h1-weight);
+    line-height: 1.15;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }

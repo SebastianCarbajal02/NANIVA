@@ -12,6 +12,7 @@ import Faq from '@components/producto/Faq.astro';
 import Cta from '@components/producto/Cta.astro';
 import { productos, productoSchema } from '@data/productos';
 import ventaPosImage from '@assets/image/producto/VENTA-POS.png';
+import demoErpImage from '@assets/image/producto/demo.erp.naniva.cloud_.png';
 import kardexImage from '@assets/image/producto/KARDEX.png';
 import iaImage from '@assets/image/producto/IA.png';
 import { icons } from '@components/producto/icons';
@@ -42,6 +43,24 @@ const vistas = [
     desc: 'Recomendaciones de reposición según la rotación real de tus productos.',
     img: iaImage,
     alt: 'Inteligencia artificial de NANIVA ERP recomendando compras',
+  },
+];
+
+const desafios = [
+  {
+    title: 'Descontrol de inventario',
+    desc: 'Stock desactualizado, productos faltantes o en exceso, y poca visibilidad de lo que realmente tienes.',
+    icon: icons.box,
+  },
+  {
+    title: 'Información dispersa',
+    desc: 'Datos en diferentes archivos y sistemas que dificultan la toma de decisiones y generan errores.',
+    icon: icons.file,
+  },
+  {
+    title: 'Tareas manuales',
+    desc: 'Procesos repetitivos que consumen tiempo, aumentan los errores y afectan la productividad.',
+    icon: icons.clock,
   },
 ];
 
@@ -123,7 +142,17 @@ const comparacion: { funcion: string; icon: string; valores: [boolean, string][]
   {
     funcion: 'Predicción de compras y rotación',
     icon: icons.chart,
-    valores: [[false, 'Cero análisis'], [false, 'Reportes planos'], [true, 'Motor de Inteligencia Artificial']],
+    valores: [[false, 'Cero análisis'], [false, 'Reportes planos'], [true, 'Motor de análisis para tu negocio']],
+  },
+  {
+    funcion: 'Ventas, compras, caja y cobranzas conectadas',
+    icon: icons.refresh,
+    valores: [[false, 'Hojas sueltas sin conexión'], [false, 'Solo facturación'], [true, 'Todo en un solo sistema']],
+  },
+  {
+    funcion: 'Migración de tus datos actuales',
+    icon: icons.upload,
+    valores: [[false, 'Copias a mano'], [false, 'Empiezas de cero'], [true, 'Importamos tu Excel']],
   },
 ];
 ---
@@ -131,7 +160,82 @@ const comparacion: { funcion: string; icon: string; valores: [boolean, string][]
 <BaseLayout title={p.title} description={p.description} schema={productoSchema(p, Astro.site)}>
   <Nav />
   <Hero producto={p} />
+
+  <section class="erp-challenge">
+    <div class="container">
+      <div class="challenge-head">
+        <span class="challenge-eyebrow reveal">El desafío</span>
+        <h1 class="reveal" style="--d: 60ms">¿Te suena familiar?</h1>
+        <p class="reveal" style="--d: 120ms">
+          Muchos negocios pierden tiempo, dinero y oportunidades por procesos desordenados y falta de información en tiempo real.
+        </p>
+      </div>
+
+      <div class="challenge-grid">
+        {desafios.map((d, i) => (
+          <article class="challenge-card reveal" style={`--d: ${i * 100}ms`}>
+            <span class="challenge-icon"><Fragment set:html={d.icon} /></span>
+            <h3>{d.title}</h3>
+            <p>{d.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <Features producto={p} />
+
+  <section class="erp-migration">
+    <div class="container">
+      <div class="migration-panel">
+        <div class="migration-text">
+          <span class="migration-eyebrow reveal">Migración de datos</span>
+          <h2 class="reveal" style="--d: 60ms">Cambia de sistema sin empezar de cero</h2>
+          <p class="reveal" style="--d: 120ms">
+            Adaptamos la migración de tu información a las plantillas de Excel que ya usas.
+            Así, puedes continuar con tu operación sin complicaciones y sin perder tus datos.
+          </p>
+          <a href="https://wa.link/x4dnva" target="_blank" rel="noopener noreferrer" class="migration-btn reveal" style="--d: 180ms">
+            Conoce más sobre la migración
+          </a>
+        </div>
+
+        <div class="migration-visual reveal" style="--d: 120ms">
+          <div class="excel-file" aria-hidden="true">
+            <svg class="excel-logo" viewBox="0 0 64 56" width="78" height="68">
+              <rect x="26" y="4" width="36" height="48" rx="3" fill="#fff" stroke="#1d6f42" stroke-width="2.5"/>
+              <path d="M34 14h20M34 22h20M34 30h20M34 38h20M44 10v36" stroke="#1d6f42" stroke-width="2.5"/>
+              <path d="M2 8 36 2v52L2 48Z" fill="#1d6f42"/>
+              <path d="m11 18 14 20M25 18 11 38" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <span class="excel-bar"></span>
+            <span class="excel-rows"><i></i><i></i><i></i><i></i></span>
+          </div>
+
+          <svg class="migration-arrow" viewBox="0 0 40 24" width="40" height="24" fill="none" aria-hidden="true">
+            <path d="M3 12h32M25 3l10 9-10 9" stroke="#1d6ff2" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <div class="migration-shot">
+            <Image
+              src={demoErpImage}
+              alt="NANIVA ERP con la información migrada desde Excel"
+              widths={[480, 720, 960, 1440]}
+              sizes="(max-width: 900px) 90vw, 720px"
+              loading="lazy"
+            />
+            <span class="migration-badge">
+              <svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true">
+                <circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="2"/>
+                <path d="m6.5 10 2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Tus datos, en un nuevo sistema
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="erp-product-showcase">
     <div class="container">
@@ -192,7 +296,19 @@ const comparacion: { funcion: string; icon: string; valores: [boolean, string][]
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow eyebrow-icon"><Fragment set:html={slidersIcon(16)} />Comparación</span>
-        <h2>Portal SUNAT / Excel vs. <span class="highlight">NANIVA ERP</span></h2>
+        <h2 class="compare-title">
+          Portal SUNAT / Excel vs.{' '}
+          <span class="compare-brand">
+            NANIVA ERP
+            <svg class="brand-sparks" viewBox="0 0 40 44" width="40" height="44" fill="none" aria-hidden="true">
+              <path d="M6 16 20 4M10 26l20-4M8 36l16 6" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <svg class="brand-swoosh" viewBox="0 0 220 24" preserveAspectRatio="none" fill="none" aria-hidden="true">
+              <path d="M4 18C60 6 140 2 216 8" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+              <path d="M40 22c50-8 110-11 150-9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
+            </svg>
+          </span>
+        </h2>
         <p class="compare-sub">Más control, menos errores, <strong>mayor eficiencia</strong>.</p>
         <span class="compare-rule" aria-hidden="true"></span>
       </div>
@@ -222,7 +338,7 @@ const comparacion: { funcion: string; icon: string; valores: [boolean, string][]
               <th scope="col" class="col-naniva">
                 <span class="col-head">
                   <span class="col-icon brand" aria-hidden="true">N</span>
-                  NANIVA ERP con IA
+                  NANIVA ERP
                 </span>
               </th>
             </tr>
@@ -307,6 +423,282 @@ const comparacion: { funcion: string; icon: string; valores: [boolean, string][]
     :global(#faq.faq) {
       background: #fff;
       border-top: 1px solid #dbe4f3;
+    }
+
+    /* Migración de datos: tarjeta azul clara con Excel → NANIVA ERP */
+    .erp-migration {
+      padding: 3.5rem 0;
+      background: #fff;
+      border-top: 1px solid #dbe4f3;
+    }
+
+    .migration-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 0.68fr) minmax(0, 1.32fr);
+      align-items: center;
+      gap: 2.5rem;
+      width: min(1480px, calc(100vw - 3rem));
+      margin-left: 50%;
+      transform: translateX(-50%);
+      padding: 5rem 3rem 5.5rem 5rem;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #eaf3ff 0%, #f3f8ff 55%, #eaf2fd 100%);
+    }
+
+    .migration-eyebrow {
+      display: inline-block;
+      color: #1d6ff2;
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .migration-text h2 {
+      margin: 0.5rem 0 1.25rem;
+      max-width: 13em;
+      font-size: clamp(1.9rem, 3vw, 2.9rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: #0f2a5c;
+    }
+
+    .migration-text p {
+      margin: 0 0 2rem;
+      max-width: 30em;
+      color: #475569;
+      font-size: 1.15rem;
+      line-height: 1.75;
+    }
+
+    .migration-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 1.1rem 2.3rem;
+      border-radius: 10px;
+      background: #1d6ff2;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.08rem;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .migration-btn:hover { background: #1558c9; transform: translateY(-2px); }
+
+    .migration-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+    }
+
+    /* Mancha suave de fondo detrás del Excel y la flecha */
+    .migration-visual::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 70%;
+      aspect-ratio: 1;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(191, 219, 254, 0.55), transparent 70%);
+      pointer-events: none;
+    }
+
+    .excel-file {
+      position: relative;
+      flex: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.7rem;
+      width: 128px;
+      padding: 1.2rem 0.9rem 1rem;
+      background: #fff;
+      border-radius: 10px;
+      clip-path: polygon(0 0, 86% 0, 100% 10%, 100% 100%, 0 100%);
+      box-shadow: 0 14px 30px -14px rgba(15, 42, 92, 0.22);
+    }
+
+    .excel-bar {
+      width: 100%;
+      height: 7px;
+      border-radius: 2px;
+      background: #1d8a4e;
+    }
+
+    .excel-rows {
+      display: grid;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .excel-rows i {
+      display: block;
+      height: 7px;
+      border-radius: 2px;
+      background: #e5e9ef;
+    }
+
+    .migration-arrow { position: relative; flex: none; }
+
+    .migration-shot {
+      position: relative;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .migration-shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 2px solid #1d6ff2;
+      border-radius: 12px;
+      box-shadow: 0 24px 50px -20px rgba(15, 42, 92, 0.35);
+    }
+
+    .migration-badge {
+      position: absolute;
+      right: 1.25rem;
+      bottom: -1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.85rem 1.3rem;
+      background: #fff;
+      border-radius: 10px;
+      color: #16a34a;
+      font-size: 1rem;
+      font-weight: 600;
+      white-space: nowrap;
+      box-shadow: 0 12px 30px -10px rgba(15, 42, 92, 0.25);
+    }
+
+    @media (max-width: 1100px) {
+      .migration-panel { padding: 3rem; gap: 2rem; }
+      .excel-file { width: 130px; }
+    }
+
+    @media (max-width: 900px) {
+      .migration-panel {
+        grid-template-columns: 1fr;
+        width: 100%;
+        margin-left: 0;
+        transform: none;
+        padding: 2.25rem 1.5rem 3rem;
+      }
+      .migration-visual { justify-content: center; gap: 1rem; }
+      .excel-file { width: 96px; padding: 1rem 0.75rem; }
+      .excel-logo { width: 56px; height: 50px; }
+      .migration-badge { right: 0.5rem; font-size: 0.8rem; padding: 0.6rem 0.9rem; }
+    }
+
+    @media (max-width: 520px) {
+      .excel-file, .migration-arrow { display: none; }
+    }
+
+    /* "¿Te suena familiar?": los problemas que resuelve el ERP */
+    .erp-challenge {
+      padding: 4.5rem 0;
+      background: linear-gradient(180deg, #f5f9ff 0%, #fbfdff 100%);
+      border-top: 1px solid #dbe4f3;
+    }
+
+    .challenge-head {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 2.75rem;
+    }
+
+    .challenge-eyebrow {
+      display: inline-block;
+      color: #2563eb;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .challenge-head h1 {
+      margin: 0.4rem 0 0;
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: #0f2a5c;
+    }
+
+    .challenge-head p {
+      margin: 0.6rem 0 0;
+      color: #475569;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    /* Más ancha que el .container (1200px), como en el diseño */
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.25rem;
+      width: min(1290px, calc(100vw - 3rem));
+      margin: 0 0 0 50%;
+      transform: translateX(-50%);
+    }
+
+    .challenge-card {
+      background: #fff;
+      border: 1px solid #e1ebf7;
+      border-radius: 12px;
+      padding: 1rem 2rem 2.1rem;
+      box-shadow: 0 8px 24px -18px rgba(15, 42, 92, 0.16);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .challenge-card:hover {
+      transform: translateY(-4px);
+      border-color: #bfd3f2;
+      box-shadow: 0 20px 40px -20px rgba(37, 99, 235, 0.28);
+    }
+
+    .challenge-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 68px;
+      height: 68px;
+      border-radius: 14px;
+      background: #e8f1ff;
+      color: #1d6ff2;
+      box-shadow: 0 6px 18px -4px rgba(37, 99, 235, 0.22);
+      margin-bottom: 1.5rem;
+    }
+
+    .challenge-icon :global(svg) { width: 32px; height: 32px; }
+
+    .challenge-card h3 {
+      margin: 0 0 0.6rem;
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #0f2a5c;
+    }
+
+    .challenge-card p {
+      margin: 0;
+      color: #475569;
+      font-size: 0.97rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .challenge-grid { grid-template-columns: 1fr; gap: 1rem; width: 100%; max-width: 520px; margin: 0 auto; transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .challenge-card:hover { transform: none; }
     }
 
     .section-head {
@@ -502,9 +894,10 @@ const comparacion: { funcion: string; icon: string; valores: [boolean, string][]
       background: #2563eb;
     }
 
+    /* Más ancha que el .container; con márgenes (no transform) para no chocar con .reveal */
     .compare-wrap {
-      max-width: 1560px;
-      margin: 0 auto;
+      width: min(1440px, calc(100vw - 3rem));
+      margin-left: calc(50% - min(720px, 50vw - 1.5rem));
       overflow-x: auto;
       background: white;
       border: 1px solid rgba(148, 163, 184, 0.2);
@@ -671,6 +1064,79 @@ const comparacion: { funcion: string; icon: string; valores: [boolean, string][]
       letter-spacing: 0;
       box-shadow: 0 8px 18px rgba(37, 99, 235, 0.3);
     }
+
+    /* Título: "NANIVA ERP" destacado con trazos decorativos */
+    .section-head h2.compare-title {
+      font-size: clamp(2rem, 3.6vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: #0b1f4d;
+    }
+
+    .compare-brand {
+      position: relative;
+      display: inline-block;
+      color: #1d6ff2;
+      font-size: 1.22em;
+      white-space: nowrap;
+    }
+
+    .brand-sparks {
+      position: absolute;
+      top: -0.35em;
+      right: -0.85em;
+      width: 0.6em;
+      height: auto;
+      color: #1d6ff2;
+    }
+
+    .brand-swoosh {
+      position: absolute;
+      left: 30%;
+      right: 2%;
+      bottom: -0.32em;
+      width: 68%;
+      height: 0.32em;
+      color: #1d6ff2;
+    }
+
+    .erp-product-compare .compare-sub { color: #1e2f55; }
+    .erp-product-compare .compare-sub strong { font-weight: 800; }
+
+    /* Columna NANIVA: cabecera azul elevada y celdas con fondo celeste */
+    .compare-table { border-collapse: separate; border-spacing: 0; }
+
+    .compare-table thead th.col-naniva {
+      position: relative;
+      background: linear-gradient(135deg, #1d6ff2, #2f5bea);
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: none;
+      border-radius: 18px 18px 0 0;
+      border-left: none;
+      box-shadow: 0 -6px 24px -6px rgba(29, 111, 242, 0.55);
+    }
+
+    .compare-table thead th.col-naniva .col-icon.brand {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.18);
+      font-size: 1.9rem;
+      box-shadow: none;
+    }
+
+    .compare-table td.col-naniva {
+      background: #f1f6ff;
+      color: #1e2f55;
+      font-weight: 500;
+    }
+
+    .compare-table tbody tr:hover td.col-naniva { background: #e9f1ff; }
+
+    .compare-table tbody tr:last-child td.col-naniva { border-bottom-right-radius: 22px; }
 
     .compare-table tbody th {
       color: #0f172a;
