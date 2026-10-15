@@ -3,6 +3,9 @@
 // Valores: true = incluido, false = no incluido, string = valor concreto (límite o complemento).
 type Value = boolean | string;
 
+// "Ver todas las funciones" en cada tarjeta: oculto por el momento, cambiar a true para mostrarlo
+const SHOW_ALL_FEATURES = false;
+
 const plans = [
   { id: "basico", name: "Básico", price: 49, tagline: "Para empezar a ordenar tu negocio" },
   { id: "intermedio", name: "Intermedio", price: 79, featured: true, tagline: "Para negocios en crecimiento" },
@@ -174,6 +177,7 @@ const checkIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" s
           })}
         </ul>
         <a href={whatsappHref(p.name)} target="_blank" rel="noopener noreferrer" class="erp-plan-card-cta">Elegir plan</a>
+        {SHOW_ALL_FEATURES && (
         <details class="erp-plan-card-all">
           <summary>Ver todas las funciones</summary>
           {categories.filter((cat) => cat.title !== "Lo esencial del plan").map((cat) => (
@@ -197,6 +201,7 @@ const checkIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" s
             </div>
           ))}
         </details>
+        )}
       </article>
     ))}
   </div>
