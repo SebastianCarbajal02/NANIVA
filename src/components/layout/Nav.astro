@@ -10,21 +10,22 @@ const links = [
   { label: "Contáctanos", href: "/contacto", icon: "mail" },
 ];
 
-// Submenú de "Servicios": las 3 líneas de producto (Ecommerce agrupa Catálogo y Tienda Online)
+// Submenú de "Servicios": las 3 líneas de producto (Tiendas Digitales agrupa Catálogo Smart y Tienda Online)
 const serviceGroups = [
   { title: "ERP", items: [{ label: "Sistema ERP", desc: "Ventas, inventario y facturación", href: "/erp", badge: null }] },
   { title: "Restaurantes", items: [{ label: "Sistema POS para Restaurantes", desc: "Mesas, comandas y caja", href: null, badge: "Próximamente" }] },
   {
-    title: "Ecommerce",
+    title: "Tiendas Digitales",
+    href: "/tiendas-digitales",
     items: [
-      { label: "Catálogo Digital", desc: "Vende por WhatsApp", href: null, badge: "Próximamente" },
-      { label: "Tienda Online", desc: "Vende y cobra en línea", href: null, badge: "Próximamente" },
+      { label: "Catálogo Smart", desc: "Vende por WhatsApp", href: "/catalogo-digital", badge: null },
+      { label: "Tienda Online", desc: "Vende y cobra en línea", href: "/tienda-online", badge: null },
     ],
   },
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
-const servicePaths = ["/servicios", ...serviceGroups.flatMap((g) => g.items.map((i) => i.href))];
+const servicePaths = ["/servicios", ...serviceGroups.flatMap((g) => ["href" in g ? g.href : null, ...g.items.map((i) => i.href)])];
 ---
 <header class="nav">
   <div class="nav-inner">
@@ -69,18 +70,34 @@ const servicePaths = ["/servicios", ...serviceGroups.flatMap((g) => g.items.map(
               </button>
             </div>
             <div class="submenu" id="submenu-servicios">
-              {serviceGroups.flatMap((group) => group.items).map((item) =>
-                item.href ? (
-                  <a href={item.href} class:list={["submenu-link", { active: currentPath === item.href }]}>
-                    <strong>{item.label}</strong>
-                  </a>
-                ) : (
-                  <div class="submenu-link submenu-link-disabled">
-                    <strong>{item.label}</strong>
-                    <span class="coming-soon-badge">{item.badge}</span>
+              {serviceGroups.map((group) => {
+                const renderItem = (item: (typeof group.items)[number]) =>
+                  item.href ? (
+                    <a href={item.href} class:list={["submenu-link", { active: currentPath === item.href }]}>
+                      <strong>{item.label}</strong>
+                    </a>
+                  ) : (
+                    <div class="submenu-link submenu-link-disabled">
+                      <strong>{item.label}</strong>
+                      <span class="coming-soon-badge">{item.badge}</span>
+                    </div>
+                  );
+                if (group.items.length === 1) return renderItem(group.items[0]);
+                // Grupos con varias páginas: fila con flecha que abre sus páginas a la derecha
+                const groupHref = "href" in group ? group.href : undefined;
+                const groupActive = [groupHref, ...group.items.map((i) => i.href)].includes(currentPath);
+                return (
+                  <div class="submenu-flyout">
+                    <a href={groupHref} class:list={["submenu-link", "submenu-flyout-trigger", { active: groupActive }]}>
+                      <strong>{group.title}</strong>
+                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+                    </a>
+                    <div class="submenu-flyout-panel">
+                      {group.items.map(renderItem)}
+                    </div>
                   </div>
-                )
-              )}
+                );
+              })}
             </div>
           </div>
         );
@@ -244,6 +261,49 @@ const servicePaths = ["/servicios", ...serviceGroups.flatMap((g) => g.items.map(
     cursor: not-allowed;
   }
   .submenu-link-disabled strong { color: #94a3b8; }
+  /* Grupo con páginas anidadas: se abre a la derecha al pasar el mouse */
+  .submenu-flyout { position: relative; }
+  .submenu-flyout-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.5rem 0.65rem;
+    border-radius: 8px;
+    color: #64748b;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .submenu-flyout:hover .submenu-flyout-trigger,
+  .submenu-flyout:focus-within .submenu-flyout-trigger,
+  .submenu-flyout-trigger.active { background: #eff6ff; color: #2563eb; }
+  .submenu-flyout:hover .submenu-flyout-trigger strong,
+  .submenu-flyout:focus-within .submenu-flyout-trigger strong,
+  .submenu-flyout-trigger.active strong { color: #2563eb; }
+  .submenu-flyout-panel {
+    position: absolute;
+    top: -0.4rem;
+    left: 100%;
+    display: grid;
+    width: 220px;
+    margin-left: 0.6rem;
+    padding: 0.4rem;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-6px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  }
+  /* Puente invisible para no perder el hover al cruzar hacia el panel */
+  .submenu-flyout-panel::before { content: ""; position: absolute; top: 0; bottom: 0; left: -0.75rem; width: 0.75rem; }
+  .submenu-flyout:hover .submenu-flyout-panel,
+  .submenu-flyout:focus-within .submenu-flyout-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+  }
   .coming-soon-badge {
     display: inline-flex;
     align-items: center;
@@ -388,6 +448,24 @@ const servicePaths = ["/servicios", ...serviceGroups.flatMap((g) => g.items.map(
     .submenu::before { display: none; }
     .has-submenu.open .submenu { display: grid; transform: none; }
     .links a.submenu-link { width: 100%; padding: 0.6rem 0.75rem; font-size: 1rem; }
+
+    /* En el menú lateral el grupo se muestra abierto, con sus páginas debajo */
+    .submenu-flyout-trigger { padding: 0.6rem 0.75rem; background: none; }
+    .submenu-flyout-trigger svg { display: none; }
+    .submenu-flyout-panel {
+      position: static;
+      width: 100%;
+      margin: 0;
+      padding: 0 0 0 0.75rem;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      background: none;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+    .submenu-flyout-panel::before { display: none; }
 
     .mobile-menu-footer {
       display: flex;

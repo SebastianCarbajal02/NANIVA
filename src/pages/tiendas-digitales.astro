@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Hero from '@components/producto/Hero.astro';
+import Options from '@components/producto/Options.astro';
+import Why from '@components/producto/Why.astro';
+import Faq from '@components/producto/Faq.astro';
+import CtaBanner from '@components/producto/CtaBanner.astro';
+import { productos, productoSchema } from '@data/productos';
+
+const p = productos.tiendas;
+---
+
+<BaseLayout title={p.title} description={p.description} schema={productoSchema(p, Astro.site)}>
+  <Nav />
+  <Hero producto={p} />
+  <Options producto={p} />
+  <Why producto={p} />
+  <CtaBanner producto={p} />
+  <Faq producto={p} />
+</BaseLayout>

@@ -6,12 +6,13 @@ import imgErp from '@assets/image/planes/compartido/cel y laptop-01.webp';
 import imgRestaurante from '@assets/image/planes/restaurante/chef2232-03.webp';
 import imgCatalogo from '@assets/image/planes/catalogo/catgbb-15.webp';
 import imgTienda from '@assets/image/home/servicios-home/ECOMERC-04.webp';
+import imgTiendasHero from '@assets/image/tiendas-digitales/hero-tiendas.webp';
 
 export type IconName =
   | 'receipt' | 'box' | 'cart' | 'users' | 'wallet' | 'chart' | 'cloud' | 'sparkles' | 'whatsapp'
   | 'file' | 'image' | 'upload' | 'tag' | 'truck' | 'card' | 'store' | 'printer' | 'split'
   | 'phone' | 'search' | 'refresh' | 'warehouse' | 'school' | 'link' | 'monitor' | 'settings'
-  | 'clock' | 'shield' | 'globe' | 'user' | 'rocket' | 'trend' | 'hammer' | 'utensils' | 'coffee' | 'pizza' | 'fish' | 'shirt' | 'laptop' | 'home' | 'book' | 'watch';
+  | 'clock' | 'shield' | 'globe' | 'user' | 'rocket' | 'trend' | 'hammer' | 'utensils' | 'coffee' | 'pizza' | 'fish' | 'shirt' | 'laptop' | 'home' | 'book' | 'watch' | 'headset';
 
 export interface Producto {
   slug: string;
@@ -24,14 +25,17 @@ export interface Producto {
   /** Tono más oscuro del color para fondos con texto blanco (contraste 4.5:1) */
   accentStrong?: string;
   eyebrow: string;
-  /** H1 corto (dos líneas): la parte en `highlight` se pinta con el color del producto */
-  h1: { before: string; highlight: string };
+  /** H1 corto (dos líneas): la parte en `highlight` se pinta con el color del producto.
+      Opcional: `after` + `highlight2` para una segunda palabra en color */
+  h1: { before: string; highlight: string; after?: string; highlight2?: string };
   intro: string;
   heroImg: ImageMetadata;
   heroAlt: string;
   heroChips: string[];
   /** Banner sin chips: etiqueta en texto plano y botón de WhatsApp en lugar del precio */
   heroSimple?: boolean;
+  /** Fondo del banner: 'mint' = verde claro liso en lugar de la foto de la ciudad */
+  heroBg?: 'mint';
   whatsappText: string;
   features: { title: string; intro: string; items: { icon: IconName; title: string; desc: string }[] };
   /** Pasos: `highlight` es la palabra del título que va en color */
@@ -327,7 +331,49 @@ const tienda: Producto = {
   ],
 };
 
-export const productos = { erp, restaurante, catalogo, tienda };
+// Página que agrupa las dos formas de vender por internet: Catálogo Smart y Tienda Online
+const tiendas: Producto = {
+  slug: 'tiendas-digitales',
+  nombre: 'Tiendas Digitales',
+  title: 'Tiendas Digitales: Catálogo Smart y Tienda Online | NANIVA',
+  description:
+    'Vende por internet a tu manera: con un catálogo smart que recibe pedidos por WhatsApp o con una tienda online que cobra en línea. Todo conectado a tu inventario.',
+  accent: '#16a34a',
+  accentSoft: '#eafaf0',
+  accentStrong: '#15803d',
+  eyebrow: 'TIENDAS DIGITALES',
+  h1: { before: 'Vende tus productos en línea, de forma ', highlight: 'fácil', after: ' y ', highlight2: 'segura' },
+  intro:
+    'Crea tu tienda digital y llega a más clientes con un catálogo de productos, carrito de compras y dos formas de recibir tus pedidos.',
+  heroImg: imgTiendasHero,
+  heroAlt: 'Tienda digital NANIVA en laptop y celular con pago por tarjeta, Yape y Plin',
+  heroChips: [],
+  heroSimple: true,
+  heroBg: 'mint',
+  whatsappText: 'Hola, quiero información sobre las Tiendas Digitales NANIVA',
+  // En esta página se muestra con el diseño de columnas de Why.astro, no con Features.astro
+  features: {
+    title: '¿Por qué elegir NANIVA Tiendas Digitales?',
+    intro: 'Una solución completa, fácil de usar y pensada para que tu negocio crezca.',
+    items: [
+      { icon: 'rocket', title: 'Aumenta tus ventas', desc: 'Llega a más clientes y vende sin límites.' },
+      { icon: 'phone', title: 'Gestiona desde cualquier lugar', desc: 'Tu tienda siempre contigo, en todos tus dispositivos.' },
+      { icon: 'shield', title: 'Seguro y confiable', desc: 'Tus datos y transacciones están protegidos.' },
+      { icon: 'settings', title: 'Fácil de usar', desc: 'No necesitas conocimientos técnicos para empezar.' },
+      { icon: 'headset', title: 'Soporte y acompañamiento', desc: 'Te ayudamos en cada paso del proceso.' },
+    ],
+  },
+  audience: { title: '', items: [] },
+  price: { from: null, note: '', href: '', cta: '' },
+  faqs: [
+    { q: '¿Qué diferencia hay entre el Catálogo Smart y la Tienda Online?', a: 'Con el Catálogo Smart el cliente te pide por WhatsApp y el pago se coordina fuera de la web. Con la Tienda Online el cliente compra y paga directamente en tu web con pasarela de pago.' },
+    { q: '¿Cuál me conviene?', a: 'Si vendes al por mayor, cotizas o atiendes por WhatsApp, el Catálogo Smart. Si vendes al consumidor final y quieres cobrar en línea, la Tienda Online.' },
+    { q: '¿Cuánto cuestan?', a: 'El Catálogo Smart tiene planes desde S/ 79 al mes. La Tienda Online se cotiza según tus productos y tu forma de vender.' },
+    { q: '¿Se conectan con mi inventario?', a: 'Sí. Las dos opciones se conectan con el ERP de NANIVA, así tus productos, precios y stock se mantienen al día.' },
+  ],
+};
+
+export const productos = { erp, restaurante, catalogo, tienda, tiendas };
 
 
 /** Enlace de WhatsApp con el mensaje del producto */

@@ -13,11 +13,14 @@ const { producto: p } = Astro.props;
 
 const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.870 9.870 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.860 9.860 0 0 1-1.510-5.260c.001-5.450 4.436-9.884 9.888-9.884 2.640 0 5.122 1.030 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.450-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.050 0C5.495 0 .160 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.480-8.413Z"/></svg>`;
 ---
-<section class="producto-section hero" style={`${themeStyle(p)}background-image: url('${heroBg.src}');`}>
+<section
+  class:list={['producto-section hero', { 'hero-mint': p.heroBg === 'mint' }]}
+  style={p.heroBg === 'mint' ? themeStyle(p) : `${themeStyle(p)}background-image: url('${heroBg.src}');`}
+>
   <div class="hero-inner">
     <div class="hero-content">
       <span class:list={['tag reveal', { 'tag-plain': p.heroSimple }]}>{p.eyebrow}</span>
-      <h1 class="reveal" style="--d: 60ms">{p.h1.before}<span class="highlight">{p.h1.highlight}</span></h1>
+      <h1 class="reveal" style="--d: 60ms">{p.h1.before}<span class="highlight">{p.h1.highlight}</span>{p.h1.after}{p.h1.highlight2 && <span class="highlight">{p.h1.highlight2}</span>}</h1>
       <p class="intro reveal" style="--d: 120ms">{p.intro}</p>
       {p.heroChips.length > 0 && (
         <ul class="chips reveal" style="--d: 180ms">
@@ -71,7 +74,7 @@ const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="curr
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
     align-items: center;
-    gap: 2rem;
+    gap: 3rem;
   }
   .hero-content { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
   .tag {
@@ -127,6 +130,26 @@ const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="curr
   .wa-icon { display: inline-flex; color: #22c55e; }
   .actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 0.5rem; }
   .hero-img { justify-self: end; width: 100%; height: auto; max-height: 520px; object-fit: contain; object-position: right center; }
+
+  /* Fondo verde menta (Tiendas Digitales): manchas suaves, título azul marino y botón azul */
+  .hero-mint {
+    --ink: #0b2559;
+    background:
+      radial-gradient(38rem 26rem at 72% 45%, rgba(134, 239, 172, 0.28), transparent 70%),
+      radial-gradient(26rem 20rem at 98% 85%, rgba(94, 234, 212, 0.22), transparent 70%),
+      linear-gradient(180deg, #f3fcf7 0%, #eefaf4 100%);
+  }
+  .hero-mint .intro { color: #475569; }
+  /* Mockup de laptop y celular más grande: le damos más ancho a la columna de la imagen */
+  .hero-mint .hero-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+  .hero-mint .hero-img { max-height: 640px; }
+  /* En escritorio el mockup se corre a la derecha, ocupando parte del margen lateral */
+  @media (min-width: 901px) {
+    .hero-mint .hero-img { margin-right: calc(-1 * clamp(1rem, 3vw, 3rem)); }
+  }
+  .hero-mint .actions .btn-primary { background: #0b6cf5; }
+  .hero-mint .actions .btn-primary:hover { background: #0a5fd8; }
+  .hero-mint .actions .btn-whatsapp { border-color: #bbf7d0; }
 
   /* Laptops pequeñas: si no caben en una fila sin tocar la imagen, van 2 y 2 */
   @media (max-width: 1300px) and (min-width: 901px) {

@@ -1,0 +1,59 @@
+---
+// Motivos para elegir el producto: columnas con icono, título y texto, sin tarjetas
+import { themeStyle, type Producto } from '@data/productos';
+import './producto.css';
+import { icons } from './icons';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+---
+<section class="producto-section why" style={themeStyle(p)}>
+  <div class="container">
+    <div class="section-head">
+      <h2 class="reveal">{p.features.title}</h2>
+      <p class="reveal" style="--d: 80ms">{p.features.intro}</p>
+    </div>
+    <ul class="why-grid">
+      {p.features.items.map((f, i) => (
+        <li class="why-item reveal" style={`--d: ${i * 90}ms`}>
+          <span class="why-icon" set:html={icons[f.icon]} />
+          <h3>{f.title}</h3>
+          <p>{f.desc}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .why { background: #f0f7fb; }
+  .why .container { max-width: 1400px; }
+  .why .section-head { max-width: 900px; }
+  .why .section-head h2 { color: #0b2559; }
+  .why-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  .why-item { text-align: center; padding: 0 0.5rem; }
+  .why-icon {
+    display: inline-flex;
+    color: #0b6cf5;
+    margin-bottom: 1rem;
+  }
+  .why-icon :global(svg) { width: 34px; height: 34px; }
+  .why-item h3 { font-size: 1rem; font-weight: 700; color: #0b2559; margin-bottom: 0.5rem; }
+  .why-item p { color: #475569; font-size: 0.92rem; line-height: 1.55; max-width: 230px; margin: 0 auto; }
+
+  @media (max-width: 1000px) {
+    .why-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 2.25rem; }
+  }
+  @media (max-width: 600px) {
+    .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1rem; }
+    .why-item h3 { font-size: 0.95rem; }
+    .why-item p { font-size: 0.86rem; }
+  }
+</style>

@@ -1,0 +1,162 @@
+---
+// Cierre en banner (Tiendas Digitales): texto y botones a la izquierda, decoración verde a la derecha
+import { Image } from 'astro:assets';
+import { themeStyle, whatsappHref, type Producto } from '@data/productos';
+import imgPersona from '@assets/image/tiendas-digitales/persona-tienda-digital.webp';
+import './producto.css';
+import { icons } from './icons';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+
+const whatsappIcon = `<svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>`;
+---
+<section class="producto-section cta-banner" style={themeStyle(p)}>
+  <div class="container">
+    <div class="banner">
+      <div class="banner-text">
+        <span class="banner-eyebrow reveal">LA MEJOR OPCIÓN PARA TU NEGOCIO</span>
+        <h2 class="reveal" style="--d: 60ms">¿Por qué elegir <span class="banner-mark">NANIVA</span>?</h2>
+        <p class="reveal" style="--d: 120ms">La plataforma todo en uno que transforma tu manera de vender y hacer crecer tu negocio.</p>
+        <div class="banner-actions reveal" style="--d: 180ms">
+          <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="banner-btn banner-btn-primary">Solicitar demo gratuita</a>
+          <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="banner-btn banner-btn-outline">
+            <span class="banner-wa" set:html={whatsappIcon} />
+            Hablar por WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Persona dentro de un círculo, con formas verdes, carritos, destellos y flecha de crecimiento -->
+      <div class="banner-art">
+        <span class="blob blob-1" aria-hidden="true"></span>
+        <span class="blob blob-2" aria-hidden="true"></span>
+        <span class="blob blob-3" aria-hidden="true"></span>
+        <div class="persona">
+          <Image src={imgPersona} alt="Emprendedora con delantal NANIVA revisando pedidos en su celular" widths={[300, 450, 700]} sizes="300px" class="persona-img" />
+        </div>
+        <span class="cart cart-1" aria-hidden="true" set:html={icons.cart} />
+        <span class="cart cart-2" aria-hidden="true" set:html={icons.cart} />
+        <span class="cart cart-3" aria-hidden="true" set:html={icons.cart} />
+        <span class="spark spark-1" aria-hidden="true">✦</span>
+        <span class="spark spark-2" aria-hidden="true">✦</span>
+        <svg class="arrow" viewBox="0 0 220 160" fill="none" aria-hidden="true">
+          <path d="M8 150 C 60 140, 80 95, 115 100 S 160 70, 196 26" stroke="url(#ctaArrow)" stroke-width="14" stroke-linecap="round" />
+          <path d="M168 22 L 204 14 L 198 50" stroke="url(#ctaArrow)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+          <defs>
+            <linearGradient id="ctaArrow" x1="0" y1="160" x2="220" y2="0" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#34d399" />
+              <stop offset="1" stop-color="#16a34a" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-banner { background: #fff; padding: 4rem 0; }
+  .cta-banner .container { max-width: 1400px; }
+  .banner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: center;
+    min-height: 300px;
+    border-radius: 24px;
+    overflow: hidden;
+    background: linear-gradient(100deg, #f1fbf5 0%, #ecfaf2 55%, #dcf7e8 100%);
+    border: 1px solid #d1fae5;
+  }
+  .banner-text { position: relative; z-index: 1; padding: 2.75rem clamp(1.5rem, 4vw, 3.5rem); }
+  .banner-eyebrow { display: inline-block; color: #15803d; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+  .banner h2 { font-size: clamp(1.9rem, 1.2rem + 2.4vw, 3rem); font-weight: 800; line-height: 1.12; color: #0b2559; letter-spacing: -0.01em; }
+  .banner-mark { color: #16a34a; }
+  .banner p { color: #334155; font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem); line-height: 1.5; max-width: 440px; margin: 0.9rem 0 1.6rem; }
+  .banner-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+  .banner-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+  }
+  .banner-btn:hover { transform: translateY(-2px); }
+  .banner-btn-primary { background: #15803d; color: #fff; }
+  .banner-btn-primary:hover { background: #166534; }
+  .banner-btn-outline { background: #fff; color: #0f172a; border: 1.5px solid #86efac; }
+  .banner-btn-outline:hover { background: #f0fdf4; }
+  .banner-wa { display: inline-flex; color: #16a34a; }
+
+  /* --- Decoración --- */
+  .banner-art { position: relative; align-self: stretch; min-height: 300px; }
+  .blob { position: absolute; border-radius: 50%; }
+  .blob-1 { width: 340px; height: 340px; right: -60px; top: -40px; background: radial-gradient(circle at 35% 35%, #bbf7d0, #86efac 70%); opacity: 0.55; }
+  .blob-2 { width: 220px; height: 220px; right: 140px; bottom: -110px; background: radial-gradient(circle, #a7f3d0, #6ee7b7); opacity: 0.45; }
+  .blob-3 { width: 120px; height: 120px; right: 260px; top: 30px; background: #d1fae5; opacity: 0.8; }
+  .cart {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.7);
+    color: #16a34a;
+    box-shadow: 0 8px 20px rgba(22, 163, 74, 0.12);
+  }
+  .cart-1 { right: 330px; top: 70px; }
+  .cart-2 { right: 70px; top: 40px; }
+  .cart-3 { right: 40px; bottom: 40px; width: 44px; height: 44px; }
+  .spark { position: absolute; color: #4ade80; font-size: 1.1rem; }
+  .spark-1 { right: 250px; top: 24px; }
+  .spark-2 { right: 24px; top: 150px; font-size: 0.9rem; }
+  .arrow { position: absolute; right: 40px; bottom: 26px; width: 200px; height: auto; z-index: 2; filter: drop-shadow(0 8px 14px rgba(22, 163, 74, 0.25)); }
+
+  /* Persona recortada dentro de un círculo con borde blanco */
+  .persona {
+    position: absolute;
+    z-index: 1;
+    right: 150px;
+    top: 50%;
+    width: 270px;
+    height: 270px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: 6px solid #fff;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 35%, #ffffff, #d1fae5 75%);
+    box-shadow: 0 16px 36px rgba(22, 163, 74, 0.18);
+  }
+  /* -40%: la persona se corre a la derecha dentro del círculo */
+  .persona-img { position: absolute; left: 50%; top: 14px; width: 92%; height: auto; transform: translateX(-40%); }
+  .cart-1 { right: 440px; }
+
+  @media (max-width: 1100px) {
+    .persona { right: 90px; width: 240px; height: 240px; }
+    .cart-1, .spark-1 { display: none; }
+  }
+  @media (max-width: 900px) {
+    .banner { grid-template-columns: 1fr; }
+    .banner-art { min-height: 300px; }
+    .persona { right: 50%; transform: translate(50%, -50%); }
+    .arrow { right: calc(50% - 190px); }
+  }
+  @media (max-width: 560px) {
+    .cta-banner { padding: 3rem 0; }
+    .banner-text { padding: 2rem 1.25rem; }
+    .banner-btn { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .banner-btn:hover { transform: none; }
+  }
+</style>
