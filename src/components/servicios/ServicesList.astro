@@ -175,7 +175,9 @@ const services = [
     let scrollStart = 0;
 
     track.addEventListener("pointerdown", (e) => {
-      if (e.pointerType !== "mouse") return;
+      // Solo arrastrar en modo carrusel y nunca sobre botones/enlaces, para no robarles el clic
+      if (e.pointerType !== "mouse" || !active) return;
+      if ((e.target as HTMLElement).closest("a, button")) return;
       isDragging = true;
       track.classList.add("is-dragging");
       dragStartX = e.clientX;
