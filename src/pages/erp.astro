@@ -183,6 +183,59 @@ const comparacion: { funcion: string; icon: string; valores: [boolean, string][]
     </div>
   </section>
 
+  <section class="erp-product-showcase">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">VISTAS REALES DEL SOFTWARE</span>
+        <h2>Así se ve la operación real de tu negocio en <span class="highlight">NANIVA ERP</span></h2>
+      </div>
+
+      <div class="viewer reveal" style="--d: 120ms" data-viewer>
+        <div class="viewer-tabs" role="tablist" aria-label="Vistas del software">
+          {vistas.map((v, i) => (
+            <button
+              type="button"
+              role="tab"
+              id={`tab-${v.id}`}
+              class="viewer-tab"
+              aria-selected={i === 0 ? 'true' : 'false'}
+              aria-controls={`vista-${v.id}`}
+              tabindex={i === 0 ? 0 : -1}
+            >
+              <span class="viewer-tab-tag">{v.tag}</span>
+              <span class="viewer-tab-title">{v.title}</span>
+              <span class="viewer-tab-desc">{v.desc}</span>
+            </button>
+          ))}
+        </div>
+
+        <div class="browser">
+          <div class="browser-bar" aria-hidden="true">
+            <span class="browser-dots"><i></i><i></i><i></i></span>
+            
+          </div>
+          <div class="browser-screen">
+            {vistas.map((v, i) => (
+              <figure
+                id={`vista-${v.id}`}
+                role="tabpanel"
+                aria-labelledby={`tab-${v.id}`}
+                class:list={['viewer-panel', { 'is-active': i === 0 }]}
+              >
+                <Image
+                  src={v.img}
+                  alt={v.alt}
+                  widths={[640, 960, 1280, 1920]}
+                  sizes="(max-width: 1240px) 100vw, 1200px"
+                />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <Features producto={p} />
 
   <section class="erp-migration">
@@ -231,59 +284,6 @@ const comparacion: { funcion: string; icon: string; valores: [boolean, string][]
               </svg>
               Tus datos, en un nuevo sistema
             </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="erp-product-showcase">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">VISTAS REALES DEL SOFTWARE</span>
-        <h2>Así se ve la operación real de tu negocio en <span class="highlight">NANIVA ERP</span></h2>
-      </div>
-
-      <div class="viewer reveal" style="--d: 120ms" data-viewer>
-        <div class="viewer-tabs" role="tablist" aria-label="Vistas del software">
-          {vistas.map((v, i) => (
-            <button
-              type="button"
-              role="tab"
-              id={`tab-${v.id}`}
-              class="viewer-tab"
-              aria-selected={i === 0 ? 'true' : 'false'}
-              aria-controls={`vista-${v.id}`}
-              tabindex={i === 0 ? 0 : -1}
-            >
-              <span class="viewer-tab-tag">{v.tag}</span>
-              <span class="viewer-tab-title">{v.title}</span>
-              <span class="viewer-tab-desc">{v.desc}</span>
-            </button>
-          ))}
-        </div>
-
-        <div class="browser">
-          <div class="browser-bar" aria-hidden="true">
-            <span class="browser-dots"><i></i><i></i><i></i></span>
-            
-          </div>
-          <div class="browser-screen">
-            {vistas.map((v, i) => (
-              <figure
-                id={`vista-${v.id}`}
-                role="tabpanel"
-                aria-labelledby={`tab-${v.id}`}
-                class:list={['viewer-panel', { 'is-active': i === 0 }]}
-              >
-                <Image
-                  src={v.img}
-                  alt={v.alt}
-                  widths={[640, 960, 1280, 1920]}
-                  sizes="(max-width: 1240px) 100vw, 1200px"
-                />
-              </figure>
-            ))}
           </div>
         </div>
       </div>
