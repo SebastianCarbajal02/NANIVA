@@ -1,0 +1,141 @@
+---
+// Banner "Tu tienda online, siempre activa": laptop y celular a la izquierda, título y
+// recuadros con los medios de pago a la derecha. Usa `producto.payBanner`.
+import { Image } from 'astro:assets';
+import { themeStyle, type Producto } from '@data/productos';
+import './producto.css';
+import { icons } from './icons';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+const b = p.payBanner!;
+---
+<section class="producto-section pay" style={themeStyle(p)}>
+  <div class="container">
+    <div class="pay-panel">
+      <!-- Manchas verdes en las esquinas -->
+      <div class="pay-deco" aria-hidden="true">
+        <span class="pay-blob pay-blob-1"></span>
+        <span class="pay-blob pay-blob-2"></span>
+      </div>
+
+      <div class="pay-art reveal">
+        <Image
+          src={b.img}
+          alt={b.imgAlt}
+          widths={[420, 640, 900, 1200]}
+          sizes="(max-width: 1000px) 90vw, 640px"
+          class="pay-img"
+        />
+      </div>
+
+      <div class="pay-text">
+        <h2 class="reveal" style="--d: 60ms">
+          {b.title}
+          <span class="pay-highlight">{b.highlight}</span>
+        </h2>
+        <p class="pay-intro reveal" style="--d: 120ms">{b.intro}</p>
+        <ul class="pay-methods">
+          {b.methods.map((m, i) => (
+            <li class="pay-method reveal" style={`--d: ${180 + i * 80}ms`}>
+              {m.img ? (
+                <Image src={m.img} alt="" widths={[120, 240]} sizes="64px" class="pay-logo" />
+              ) : (
+                <span class="pay-icon" set:html={icons[m.icon ?? 'card']} />
+              )}
+              <span class="pay-label">{m.label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pay { --navy: #0b2559; }
+  .pay .container { max-width: 1560px; }
+  .pay-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: 3rem;
+    padding: 2.5rem 3.5rem;
+    background: linear-gradient(120deg, #f5fcf8 0%, #f0faf4 55%, #e6f7ed 100%);
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+  }
+  .pay-deco { position: absolute; inset: 0; pointer-events: none; }
+  .pay-blob { position: absolute; border-radius: 50%; }
+  .pay-blob-1 { left: -6%; bottom: -40%; width: 46%; height: 90%; background: #dcf7e7; }
+  .pay-blob-2 { right: -5%; top: -30%; width: 18%; height: 70%; background: #e3f8ec; }
+
+  .pay-art { position: relative; }
+  .pay-img { display: block; width: 100%; height: auto; filter: drop-shadow(0 24px 30px rgba(15, 23, 42, 0.16)); }
+
+  .pay-text { position: relative; }
+  .pay h2 {
+    font-size: clamp(2rem, 1.1rem + 2.3vw, 3.3rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+  }
+  .pay-highlight { display: block; color: var(--accent); }
+  .pay-intro { margin-top: 0.9rem; max-width: 34em; color: #475569; font-size: clamp(1.02rem, 0.9rem + 0.4vw, 1.25rem); line-height: 1.55; }
+
+  /* Medios de pago: tarjetas blancas con el logo o un icono */
+  .pay-methods {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+  .pay-method {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.4rem 0.75rem 1.2rem;
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .pay-method:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+  .pay-logo { display: block; width: 64px; height: 64px; object-fit: contain; }
+  .pay-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+  }
+  .pay-icon :global(svg) { width: 34px; height: 34px; }
+  .pay-label { color: var(--navy); font-size: 1rem; font-weight: 700; }
+
+  @media (max-width: 1000px) {
+    .pay-panel { grid-template-columns: 1fr; padding: 2.25rem 1.5rem; gap: 2rem; }
+    .pay-art { max-width: 620px; width: 100%; margin: 0 auto; }
+    .pay-blob-1 { width: 90%; height: 50%; left: -20%; top: -10%; bottom: auto; }
+  }
+  @media (max-width: 600px) {
+    .pay-panel { padding: 2rem 1.1rem; }
+    .pay-methods { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+    .pay-logo, .pay-icon { width: 54px; height: 54px; }
+    .pay-icon :global(svg) { width: 28px; height: 28px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pay-method:hover { transform: none; }
+  }
+</style>

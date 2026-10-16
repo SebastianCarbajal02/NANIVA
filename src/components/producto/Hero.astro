@@ -213,7 +213,10 @@ const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="curr
   @media (min-width: 901px) {
     .hero-mint .hero-media .hero-img { max-height: none; margin-right: 0; }
     /* Título en dos líneas, como el diseño de referencia */
-    .hero-with-card h1 { max-width: 14em; font-size: clamp(2rem, 0.9rem + 2.1vw, 3rem); }
+    .hero-mint.hero-with-card .hero-inner { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.2fr); }
+    .hero-with-card h1 { max-width: 14em; font-size: clamp(2.3rem, 1rem + 2.6vw, 3.6rem); }
+    .hero-with-card .tag-plain { font-size: 1rem; }
+    .hero-with-card .intro { font-size: 1.15rem; }
   }
 
   /* Laptops pequeñas: si no caben en una fila sin tocar la imagen, van 2 y 2 */

@@ -7,7 +7,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://www.naniva.pe',
   adapter: vercel(),
-  integrations: [sitemap()],
+  // /tienda-online queda fuera del sitemap mientras siga en "Próximamente"
+  integrations: [sitemap({ filter: (page) => !page.includes('/tienda-online') })],
   build: {
     // CSS dentro del HTML: evita las solicitudes que bloqueaban el renderizado (~490 ms en PageSpeed)
     inlineStylesheets: 'always',

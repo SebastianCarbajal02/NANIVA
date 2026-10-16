@@ -16,13 +16,15 @@ import imgTiendaCarrito from '@assets/image/tiendas-digitales/tienda-online/carr
 import imgTiendaPasos from '@assets/image/tiendas-digitales/tienda-online/pasos-tienda-online.webp';
 import imgTiendaBannerLaptop from '@assets/image/tiendas-digitales/tienda-online/banner-laptop.webp';
 import imgTiendaBannerCelular from '@assets/image/tiendas-digitales/tienda-online/banner-celular.webp';
+import imgLogoYape from '@assets/image/tiendas-digitales/tienda-online/logo-yape.webp';
+import imgLogoPlin from '@assets/image/tiendas-digitales/tienda-online/logo-plin.webp';
 import imgTiendasHero from '@assets/image/tiendas-digitales/hero-tiendas.webp';
 
 export type IconName =
   | 'receipt' | 'box' | 'cart' | 'users' | 'wallet' | 'chart' | 'cloud' | 'sparkles' | 'whatsapp'
   | 'file' | 'image' | 'upload' | 'tag' | 'truck' | 'card' | 'store' | 'printer' | 'split'
   | 'phone' | 'search' | 'refresh' | 'warehouse' | 'school' | 'link' | 'monitor' | 'settings'
-  | 'clock' | 'shield' | 'globe' | 'user' | 'rocket' | 'trend' | 'hammer' | 'utensils' | 'coffee' | 'pizza' | 'fish' | 'shirt' | 'laptop' | 'home' | 'book' | 'watch' | 'headset' | 'bag' | 'circleCheck' | 'seal' | 'pdf' | 'clipboard';
+  | 'clock' | 'shield' | 'globe' | 'user' | 'rocket' | 'trend' | 'hammer' | 'utensils' | 'coffee' | 'pizza' | 'fish' | 'shirt' | 'laptop' | 'home' | 'book' | 'watch' | 'headset' | 'bag' | 'circleCheck' | 'seal' | 'pdf' | 'clipboard' | 'bank';
 
 export interface Producto {
   slug: string;
@@ -118,6 +120,16 @@ export interface Producto {
     laptop: ImageMetadata;
     phone: ImageMetadata;
     imgAlt: string;
+  };
+  /** Banner de medios de pago (PayBanner.astro): imagen a la izquierda, título (`highlight` en color)
+      y recuadros con el logo (`img`) o un icono de cada medio */
+  payBanner?: {
+    title: string;
+    highlight: string;
+    intro: string;
+    img: ImageMetadata;
+    imgAlt: string;
+    methods: { label: string; img?: ImageMetadata; icon?: IconName }[];
   };
   /** Precio "desde" en soles al mes; null = se cotiza */
   price: { from: number | null; note: string; href: string; cta: string };
@@ -483,10 +495,48 @@ const tienda: Producto = {
     phone: imgTiendaBannerCelular,
     imgAlt: 'Tienda online NANIVA de productos tecnológicos en laptop y celular',
   },
-  price: { from: null, note: 'Te armamos una propuesta según tus productos y tu forma de vender.', href: '', cta: 'Cotizar mi tienda online' },
+  payBanner: {
+    title: 'Tu tienda online,',
+    highlight: 'siempre activa',
+    intro: 'Recibe pagos de forma segura y brinda a tus clientes una mejor experiencia de compra.',
+    img: imgTiendasHero,
+    imgAlt: 'Tienda online NANIVA en laptop y celular con el pago por tarjeta, Yape y Plin',
+    methods: [
+      { label: 'Yape', img: imgLogoYape },
+      { label: 'Plin', img: imgLogoPlin },
+      { label: 'Tarjetas', icon: 'card' },
+      { label: 'Transferencia', icon: 'bank' },
+    ],
+  },
+  plans: {
+    badge: 'PLANES DE LA TIENDA ONLINE',
+    title: 'Vende y cobra en línea con tu propia tienda',
+    highlight: 'cobra en línea',
+    intro: 'Todos los planes incluyen carrito de compras, pagos online, gestión de pedidos y stock, y logística de envíos.',
+    note: 'Precios mensuales en soles.',
+    items: [
+      { name: 'Básico', tagline: 'Ideal para empezar', price: 79 },
+      { name: 'Pro', tagline: 'Potencia tus ventas', price: 129, featured: true },
+      { name: 'Premium', tagline: 'Todo en un solo lugar', price: 159 },
+    ],
+    features: [
+      { text: ['100 productos publicados', '300 productos publicados', '500 productos publicados'], included: [true, true, true] },
+      { text: 'Carrito de compras', included: [true, true, true] },
+      { text: 'Pagos online', included: [true, true, true] },
+      { text: 'Gestión de pedidos y stock', included: [true, true, true] },
+      { text: 'Logística de envíos', included: [true, true, true] },
+      { text: 'Personalización de tienda virtual', included: [false, true, true] },
+      { text: 'Cupones de descuento', included: [false, true, true] },
+      { text: 'Combos o packs', included: [false, true, true] },
+      { text: 'Reportes de ventas', included: [false, true, true] },
+      { text: 'Soporte personalizado', included: [false, true, true] },
+      { text: 'Preventas', included: [false, false, true] },
+    ],
+  },
+  price: { from: 79, note: 'Planes de 100, 300 y 500 productos publicados.', href: '/tienda-online#planes', cta: 'Ver planes de la tienda' },
   showEcommerceCompare: true,
   faqs: [
-    { q: '¿Cuánto cuesta una tienda online con NANIVA?', a: 'Depende de la cantidad de productos y de lo que necesites integrar. Escríbenos por WhatsApp y te enviamos una propuesta para tu negocio.' },
+    { q: '¿Cuánto cuesta una tienda online con NANIVA?', a: 'Los planes empiezan desde S/ 79 al mes con 100 productos publicados. El Plan Pro (S/ 129) llega a 300 productos y suma cupones, combos y reportes de ventas, y el Plan Premium (S/ 159) llega a 500 productos con preventas.' },
     { q: '¿La tienda emite boleta o factura electrónica automáticamente?', a: 'Sí. Cada venta pagada en tu tienda online genera su comprobante electrónico SUNAT de forma automática.' },
     { q: '¿El stock se actualiza con mi inventario?', a: 'Sí. La tienda está sincronizada con el ERP de NANIVA: lo que vendes online se descuenta de tu inventario.' },
     { q: '¿Cómo hago los envíos a provincia?', a: 'La tienda online tiene integración con Shalom para gestionar tus envíos.' },
@@ -531,7 +581,7 @@ const tiendas: Producto = {
   faqs: [
     { q: '¿Qué diferencia hay entre el Catálogo Smart y la Tienda Online?', a: 'Con el Catálogo Smart el cliente te pide por WhatsApp y el pago se coordina fuera de la web. Con la Tienda Online el cliente compra y paga directamente en tu web con pasarela de pago.' },
     { q: '¿Cuál me conviene?', a: 'Si vendes al por mayor, cotizas o atiendes por WhatsApp, el Catálogo Smart. Si vendes al consumidor final y quieres cobrar en línea, la Tienda Online.' },
-    { q: '¿Cuánto cuestan?', a: 'El Catálogo Smart tiene planes desde S/ 39 al mes. La Tienda Online se cotiza según tus productos y tu forma de vender.' },
+    { q: '¿Cuánto cuestan?', a: 'El Catálogo Smart tiene planes desde S/ 39 al mes. La Tienda Online tiene planes desde S/ 79 al mes.' },
     { q: '¿Se conectan con mi inventario?', a: 'Sí. Las dos opciones se conectan con el ERP de NANIVA, así tus productos, precios y stock se mantienen al día.' },
   ],
 };
