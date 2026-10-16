@@ -1,0 +1,235 @@
+---
+// Banner "Todo lo que necesitas para vender": etiqueta, título, funciones en dos columnas,
+// botón de demo y, a la derecha, laptop y celular con un aviso de pagos seguros. Usa `producto.showcase`.
+import { Image } from 'astro:assets';
+import { themeStyle, whatsappHref, type Producto } from '@data/productos';
+import './producto.css';
+import { arrowIcon, icons } from './icons';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+const s = p.showcase!;
+
+const boltIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg>`;
+---
+<section class="producto-section showcase" style={themeStyle(p)}>
+  <div class="container">
+    <div class="showcase-panel">
+      <!-- Manchas verdes detrás de los equipos -->
+      <div class="showcase-deco" aria-hidden="true">
+        <span class="blob blob-1"></span>
+        <span class="blob blob-2"></span>
+      </div>
+
+      <div class="showcase-text">
+        <span class="showcase-pill reveal"><span set:html={boltIcon} />{s.eyebrow}</span>
+        <h2 class="reveal" style="--d: 60ms">
+          {s.title}
+          <span class="showcase-highlight">{s.highlight}</span>
+        </h2>
+        <p class="showcase-intro reveal" style="--d: 120ms">{s.intro}</p>
+        <ul class="showcase-items">
+          {s.items.map((item, i) => (
+            <li class="reveal" style={`--d: ${160 + i * 70}ms`}>
+              <span class="showcase-icon" set:html={icons[item.icon]} />
+              <span>
+                <strong>{item.title}</strong>
+                <span class="showcase-desc">{item.desc}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+        <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="showcase-btn reveal" style="--d: 480ms">
+          {s.cta} <span set:html={arrowIcon} />
+        </a>
+      </div>
+
+      <div class="showcase-art">
+        <Image
+          src={s.laptop}
+          alt={s.imgAlt}
+          widths={[420, 640, 900, 1300]}
+          sizes="(max-width: 1000px) 85vw, 560px"
+          class="showcase-laptop reveal"
+          style="--d: 150ms"
+        />
+        <Image
+          src={s.phone}
+          alt=""
+          widths={[160, 240, 360]}
+          sizes="(max-width: 1000px) 24vw, 170px"
+          class="showcase-phone reveal"
+          style="--d: 300ms"
+        />
+        <p class="showcase-badge reveal" style="--d: 420ms">
+          <span class="showcase-badge-icon" set:html={icons.shield} />
+          {s.badge}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Verde claro con los colores del producto; el título en azul marino como el banner principal */
+  .showcase { --navy: #0b2559; }
+  .showcase .container { max-width: 1400px; }
+  .showcase-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: 2rem;
+    padding: 3.25rem 3rem;
+    background: linear-gradient(120deg, #f5fcf8 0%, #f0faf4 55%, #e6f7ed 100%);
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+  }
+  .showcase-deco { position: absolute; inset: 0; pointer-events: none; }
+  .blob { position: absolute; border-radius: 50%; }
+  .blob-1 {
+    right: -8%;
+    top: -35%;
+    width: 62%;
+    height: 170%;
+    background: linear-gradient(160deg, #dcf7e7, #c6efd8);
+    transform: rotate(-18deg);
+    border-radius: 48% 52% 40% 60% / 55% 45% 55% 45%;
+  }
+  .blob-2 {
+    right: 30%;
+    bottom: -45%;
+    width: 30%;
+    height: 90%;
+    background: #e3f8ec;
+  }
+
+  .showcase-text { position: relative; display: flex; flex-direction: column; align-items: flex-start; }
+  .showcase-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 1.2rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+  .showcase-pill :global(svg) { flex-shrink: 0; }
+  .showcase h2 {
+    margin-top: 1.1rem;
+    font-size: clamp(2.1rem, 1.2rem + 2.4vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+  }
+  .showcase-highlight { display: block; color: var(--accent); }
+  .showcase-intro { margin-top: 0.8rem; color: #475569; font-size: clamp(1.05rem, 0.9rem + 0.5vw, 1.3rem); }
+
+  .showcase-items {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.4rem 2rem;
+    margin-top: 2rem;
+  }
+  .showcase-items li { display: flex; align-items: center; gap: 0.9rem; }
+  .showcase-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .showcase-icon :global(svg) { width: 24px; height: 24px; }
+  .showcase-items strong { display: block; color: var(--navy); font-size: 1rem; font-weight: 700; }
+  .showcase-desc { display: block; margin-top: 0.15rem; color: #64748b; font-size: 0.92rem; }
+
+  .showcase-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 14px 28px color-mix(in srgb, var(--accent) 30%, transparent);
+    transition: background-color 0.25s ease, transform 0.25s ease;
+  }
+  .showcase-btn:hover { background: var(--accent-strong); transform: translateY(-2px); }
+
+  /* Laptop con el celular delante, abajo a la derecha, y el aviso arriba */
+  .showcase-art { position: relative; padding: 4.5rem 3.5rem 1rem 0; }
+  .showcase-laptop { display: block; width: 100%; height: auto; filter: drop-shadow(0 26px 30px rgba(15, 23, 42, 0.18)); }
+  .showcase-phone {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 27%;
+    height: auto;
+    filter: drop-shadow(0 22px 28px rgba(15, 23, 42, 0.25));
+  }
+  .showcase-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    max-width: 15rem;
+    padding: 1rem 1.3rem;
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow-hover);
+    color: var(--navy);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .showcase-badge-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--accent);
+    color: #fff;
+  }
+  .showcase-badge-icon :global(svg) { width: 26px; height: 26px; }
+
+  @media (max-width: 1000px) {
+    .showcase-panel { grid-template-columns: 1fr; padding: 2.5rem 1.5rem; gap: 2.5rem; }
+    .blob-1 { top: auto; bottom: -20%; right: -30%; width: 120%; height: 70%; }
+    .showcase-art { max-width: 640px; width: 100%; margin: 0 auto; }
+  }
+  @media (max-width: 600px) {
+    .showcase-panel { padding: 2rem 1.1rem; }
+    .showcase-items { grid-template-columns: 1fr; gap: 1rem; }
+    .showcase-btn { width: 100%; justify-content: center; }
+    .showcase-art { padding: 3.75rem 2rem 0.5rem 0; }
+    .showcase-badge { max-width: 12rem; padding: 0.7rem 0.85rem; font-size: 0.85rem; gap: 0.6rem; }
+    .showcase-badge-icon { width: 38px; height: 38px; border-radius: 11px; }
+    .showcase-badge-icon :global(svg) { width: 20px; height: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .showcase-btn:hover { transform: none; }
+  }
+</style>

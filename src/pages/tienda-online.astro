@@ -2,13 +2,11 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Nav from '@components/layout/Nav.astro';
 import Hero from '@components/producto/Hero.astro';
-import Features from '@components/producto/Features.astro';
+import Why from '@components/producto/Why.astro';
 import Steps from '@components/producto/Steps.astro';
 import Audience from '@components/producto/Audience.astro';
-import Compare from '@components/producto/Compare.astro';
-import Pricing from '@components/producto/Pricing.astro';
+import Showcase from '@components/producto/Showcase.astro';
 import Faq from '@components/producto/Faq.astro';
-import Cta from '@components/producto/Cta.astro';
 import { productos, productoSchema } from '@data/productos';
 
 const p = productos.tienda;
@@ -17,11 +15,16 @@ const p = productos.tienda;
 <BaseLayout title={p.title} description={p.description} schema={productoSchema(p, Astro.site)}>
   <Nav />
   <Hero producto={p} />
-  <Features producto={p} />
+  <Why producto={p} />
   <Steps producto={p} />
   <Audience producto={p} />
-  <Compare producto={p} />
-  <Pricing producto={p} />
+  <Showcase producto={p} />
   <Faq producto={p} />
-  <Cta producto={p} />
 </BaseLayout>
+
+<style is:global>
+  /* Fondos alternados después del banner (verde menta): blanco, verde, blanco, verde... */
+  /* :not(:first-of-type) sube la especificidad para ganarle al fondo propio de cada componente */
+  main > section:nth-of-type(even):not(:first-of-type) { background: #fff; }
+  main > section:nth-of-type(odd):not(:first-of-type) { background: #f1faf5; }
+</style>

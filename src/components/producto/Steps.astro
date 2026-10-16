@@ -20,9 +20,71 @@ const titleParts =
   hi < 0 || !highlight
     ? { before: title, mark: '', after: '' }
     : { before: title.slice(0, hi), mark: highlight, after: title.slice(hi + highlight.length) };
+
+// Variante 'orbit': puntas de flecha sobre el círculo (viewBox 600×600, radio 290), en sentido horario
+// 1 (arriba) → 2 (derecha) → 3 (izquierda) → 1. Ángulos en grados, 0° = derecha y crecen hacia abajo.
+const isOrbit = steps.layout === 'orbit' && steps.img;
+const orbitPos = ['top', 'right', 'left'];
+const orbitArrows = [-25, 95, -150].map((deg) => {
+  const a = (deg * Math.PI) / 180;
+  const [cx, cy] = [300 + 290 * Math.cos(a), 300 + 290 * Math.sin(a)];
+  const [dx, dy] = [-Math.sin(a), Math.cos(a)]; // dirección del recorrido
+  const [nx, ny] = [Math.cos(a), Math.sin(a)]; // dirección hacia afuera del círculo
+  const wing = (s: number) => `${(cx - 14 * dx + s * 9 * nx).toFixed(1)} ${(cy - 14 * dy + s * 9 * ny).toFixed(1)}`;
+  return `M${wing(1)} L${cx.toFixed(1)} ${cy.toFixed(1)} L${wing(-1)}`;
+});
 ---
-<section class:list={['producto-section steps', { 'steps-has-img': steps.img }]} style={themeStyle(p)}>
+<section class:list={['producto-section steps', { 'steps-has-img': steps.img, 'steps-orbit': isOrbit }]} style={themeStyle(p)}>
   <div class="container">
+    {isOrbit ? (
+      <>
+        <div class="steps-head">
+          <p class="orbit-pill reveal">
+            {steps.eyebrowIcon && <span class="orbit-pill-icon" set:html={icons[steps.eyebrowIcon]} />}
+            {steps.eyebrow}
+          </p>
+          <h2 class="orbit-title reveal" style="--d: 60ms">
+            <svg class="orbit-spark orbit-spark-left" viewBox="0 0 50 70" aria-hidden="true"><path d="M30 8l14 10M6 34h26M30 60l14-10" /></svg>
+            {titleParts.before}<span class="highlight">{titleParts.mark}</span>{titleParts.after}
+            <svg class="orbit-spark orbit-spark-right" viewBox="0 0 50 70" aria-hidden="true"><path d="M20 8 6 18M44 34H18M20 60 6 50" /></svg>
+          </h2>
+          <p class="steps-intro reveal" style="--d: 120ms">{steps.intro}</p>
+        </div>
+        <div class="orbit">
+          <div class="orbit-ring reveal" style="--d: 150ms" aria-hidden="true">
+            <svg viewBox="0 0 600 600">
+              <circle cx="300" cy="300" r="290" />
+              {orbitArrows.map((d) => <path d={d} />)}
+            </svg>
+          </div>
+          <div class="orbit-media reveal" style="--d: 200ms">
+            <Image
+              src={steps.img!}
+              alt={steps.imgAlt ?? ''}
+              widths={[360, 560, 800, 1100]}
+              sizes="(max-width: 1000px) 92vw, 570px"
+              class="orbit-img"
+            />
+          </div>
+          <ol class="orbit-list">
+            {steps.items.map((st, i) => (
+              <li class={`orbit-step orbit-${orbitPos[i]} reveal`} style={`--d: ${250 + i * 180}ms`}>
+                <span class="orbit-num" aria-hidden="true">{i + 1}</span>
+                <div>
+                  <h3>{st.title}</h3>
+                  <p>{st.desc}</p>
+                </div>
+                <span class="orbit-icon" aria-hidden="true">
+                  <span set:html={icons[st.icon]} />
+                  <svg class="orbit-icon-spark" viewBox="0 0 30 30"><path d="M8 2l3 8M22 8l-7 6M28 22l-9-2" /></svg>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </>
+    ) : (
+    <>
     <div class="steps-head">
       <p class="steps-eyebrow reveal"><span>{steps.eyebrow}</span></p>
       <h2 class="reveal" style="--d: 60ms">{titleParts.before}<span class="highlight">{titleParts.mark}</span>{titleParts.after}</h2>
@@ -89,6 +151,8 @@ const titleParts =
           </>
         ))}
       </ol>
+    )}
+    </>
     )}
   </div>
 </section>
@@ -330,12 +394,206 @@ const titleParts =
     .flow-sparks { right: -26px; width: 36px; }
   }
 
+  /* --- Órbita (Tienda Online): laptop dentro de un círculo y 3 tarjetas sobre su borde --- */
+  .steps-orbit {
+    overflow: hidden;
+    background:
+      radial-gradient(30rem 30rem at 100% 45%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 70%),
+      linear-gradient(180deg, #f8fbfa, #f2f8f5);
+  }
+  .steps-orbit .steps-head { margin-bottom: 2rem; }
+  .orbit-pill {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.2rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .orbit-pill-icon { display: inline-flex; }
+  .orbit-pill-icon :global(svg) { width: 20px; height: 20px; }
+  .orbit-title { position: relative; display: inline-block; padding: 0 3.5rem; }
+  .orbit-spark {
+    position: absolute;
+    top: 50%;
+    width: 38px;
+    transform: translateY(-50%);
+    fill: none;
+    stroke: var(--accent-strong);
+    stroke-width: 5;
+    stroke-linecap: round;
+  }
+  .orbit-spark-left { left: 0; }
+  .orbit-spark-right { right: 0; }
+
+  .orbit {
+    --ring: 560px;
+    --card-w: 350px;
+    --ring-top: 70px;
+    --overlap: 10px;
+    /* Ancho de la laptop respecto del círculo */
+    --media: 0.92;
+    position: relative;
+    max-width: 1140px;
+    height: calc(var(--ring-top) + var(--ring) + 40px);
+    margin: 0 auto;
+  }
+  .orbit-ring {
+    position: absolute;
+    top: var(--ring-top);
+    left: 50%;
+    width: var(--ring);
+    height: var(--ring);
+    margin-left: calc(var(--ring) / -2);
+    border-radius: 50%;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 14%, #fff) 0%, color-mix(in srgb, var(--accent) 5%, #fff) 55%, transparent 100%);
+  }
+  .orbit-ring svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: none;
+    stroke: var(--accent-strong);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .orbit-media {
+    position: absolute;
+    top: var(--ring-top);
+    left: 50%;
+    width: calc(var(--ring) * var(--media));
+    height: var(--ring);
+    margin-left: calc(var(--ring) * var(--media) / -2);
+    display: flex;
+    align-items: center;
+  }
+  .orbit-img { display: block; width: 100%; height: auto; filter: drop-shadow(0 24px 30px rgba(15, 23, 42, 0.18)); }
+
+  .orbit-list { list-style: none; }
+  .orbit-step {
+    position: absolute;
+    width: var(--card-w);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.5rem 1.6rem;
+    background: rgba(255, 255, 255, 0.92);
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .orbit-step:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+  /* 1 arriba al centro, 2 a la derecha y 3 a la izquierda, montadas sobre el borde del círculo */
+  .orbit-top { top: 0; left: calc(50% - var(--card-w) / 2 - 30px); }
+  /* --overlap: cuánto entran las tarjetas laterales en el círculo; deja aire entre ellas y la laptop */
+  .orbit-left { top: calc(var(--ring-top) + var(--ring) * 0.6); left: calc(50% - var(--ring) / 2 + var(--overlap) - var(--card-w)); }
+  .orbit-right { top: calc(var(--ring-top) + var(--ring) * 0.68); left: calc(50% + var(--ring) / 2 - var(--overlap)); }
+  .orbit-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-size: 1.35rem;
+    font-weight: 800;
+  }
+  .orbit-step h3 { margin-top: 0.55rem; font-size: 1.2rem; color: var(--ink); }
+  .orbit-step p { margin-top: 0.45rem; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+  /* Icono en recuadro menta que sobresale de la tarjeta */
+  .orbit-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #e3f9ec, #c8f1d9);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    color: var(--accent-strong);
+    box-shadow: 0 14px 28px color-mix(in srgb, var(--accent) 22%, transparent);
+    transition: transform 0.3s ease;
+  }
+  .orbit-icon :global(svg) { width: 36px; height: 36px; }
+  .orbit-step:hover .orbit-icon { transform: rotate(-6deg); }
+  .orbit-icon-spark {
+    position: absolute;
+    width: 26px !important;
+    height: 26px !important;
+    fill: none;
+    stroke: var(--accent-strong);
+    stroke-width: 2.6;
+    stroke-linecap: round;
+  }
+  .orbit-top .orbit-icon { top: -6px; right: -48px; }
+  .orbit-top .orbit-icon-spark { top: -20px; right: -26px; }
+  .orbit-left .orbit-icon { top: -52px; right: -10px; }
+  .orbit-left .orbit-icon-spark { top: -18px; left: -26px; transform: scaleX(-1); }
+  .orbit-right .orbit-icon { top: -60px; left: -18px; }
+  .orbit-right .orbit-icon-spark { top: -16px; right: -26px; }
+
+  /* Pantallas anchas: círculo más grande para que la laptop luzca más */
+  @media (min-width: 1301px) {
+    .orbit { --ring: 610px; }
+  }
+  /* Laptops pequeñas: círculo y tarjetas más chicos */
+  @media (max-width: 1200px) and (min-width: 1001px) {
+    .orbit { --ring: 440px; --card-w: 290px; --overlap: 20px; --media: 0.86; }
+    .orbit-step { padding: 1.3rem 1.3rem; }
+  }
+
+  /* Tablet y celular: laptop arriba dentro del círculo y los pasos en lista debajo */
+  @media (max-width: 1000px) {
+    .orbit { height: auto; max-width: 640px; display: flex; flex-direction: column; align-items: center; }
+    .orbit-ring { display: none; }
+    .orbit-media {
+      position: relative;
+      top: auto;
+      left: auto;
+      height: auto;
+      margin-left: 0;
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+    }
+    .orbit-media::before {
+      content: '';
+      position: absolute;
+      inset: -12% 6%;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 14%, #fff), transparent);
+    }
+    .orbit-img { position: relative; }
+    .orbit-list { display: grid; gap: 2.75rem; width: 100%; }
+    .orbit-step { position: relative; top: auto; left: auto; width: auto; padding-right: 5.5rem; }
+    .orbit-step .orbit-icon { top: -26px; right: 14px; left: auto; width: 64px; height: 64px; border-radius: 18px; }
+    .orbit-step .orbit-icon :global(svg) { width: 30px; height: 30px; }
+    .orbit-icon-spark { display: none; }
+  }
+  @media (max-width: 600px) {
+    .orbit-title { padding: 0 2.25rem; }
+    .orbit-spark { width: 26px; }
+    .orbit-step { gap: 0.8rem; padding: 1.4rem 1.2rem; padding-right: 4.75rem; }
+    .orbit-num { width: 40px; height: 40px; font-size: 1.15rem; }
+    .orbit-step .orbit-icon { width: 56px; height: 56px; }
+  }
+
   @media (max-width: 900px) {
     .step-list { grid-template-columns: 1fr; gap: 1.6rem; }
     .step-arrow { justify-self: center; transform: rotate(90deg); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .step:hover, .step:hover .step-icon { transform: none; }
+    .step:hover, .step:hover .step-icon, .orbit-step:hover, .orbit-step:hover .orbit-icon { transform: none; }
     .step:global(.in-view) .step-num, .step-arrow:global(.in-view) :global(svg) { animation: none; }
   }
 </style>

@@ -14,7 +14,7 @@ const { producto: p } = Astro.props;
 const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.870 9.870 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.860 9.860 0 0 1-1.510-5.260c.001-5.450 4.436-9.884 9.888-9.884 2.640 0 5.122 1.030 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.450-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.050 0C5.495 0 .160 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.480-8.413Z"/></svg>`;
 ---
 <section
-  class:list={['producto-section hero', { 'hero-mint': p.heroBg === 'mint' }]}
+  class:list={['producto-section hero', { 'hero-mint': p.heroBg === 'mint', 'hero-with-card': p.heroCard }]}
   style={p.heroBg === 'mint' ? themeStyle(p) : `${themeStyle(p)}background-image: url('${heroBg.src}');`}
 >
   <div class="hero-inner">
@@ -50,15 +50,37 @@ const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="curr
         )}
       </div>
     </div>
-    <Image
-      src={p.heroImg}
-      alt={p.heroAlt}
-      widths={[360, 560, 760, 1000]}
-      sizes="(max-width: 900px) 90vw, 46vw"
-      loading="eager"
-      fetchpriority="high"
-      class="hero-img"
-    />
+    {p.heroCard ? (
+      <div class="hero-media">
+        <Image
+          src={p.heroImg}
+          alt={p.heroAlt}
+          widths={[360, 560, 760, 1000, 1300]}
+          sizes="(max-width: 900px) 90vw, 52vw"
+          loading="eager"
+          fetchpriority="high"
+          class="hero-img"
+        />
+        <p class="hero-badge reveal" style="--d: 300ms">
+          <span class="hero-badge-icon" set:html={whatsappIcon} />
+          {p.heroCard.badge}
+        </p>
+        <div class="hero-card reveal" style="--d: 360ms">
+          <p class="hero-card-title">{p.heroCard.title}</p>
+          <Image src={p.heroCard.img} alt={p.heroCard.alt} widths={[200, 380]} sizes="200px" loading="eager" class="hero-card-img" />
+        </div>
+      </div>
+    ) : (
+      <Image
+        src={p.heroImg}
+        alt={p.heroAlt}
+        widths={[360, 560, 760, 1000]}
+        sizes="(max-width: 900px) 90vw, 46vw"
+        loading="eager"
+        fetchpriority="high"
+        class="hero-img"
+      />
+    )}
   </div>
 </section>
 
@@ -152,6 +174,48 @@ const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="curr
   .hero-mint .actions .btn-primary:hover { background: #0a5fd8; }
   .hero-mint .actions .btn-whatsapp { border-color: #bbf7d0; }
 
+  /* Laptop con tarjeta del carrito y aviso flotantes (Tienda Online) */
+  .hero-media { position: relative; justify-self: end; width: 100%; max-width: 760px; padding: 4.5rem 0 1.5rem; }
+  .hero-media .hero-img { width: 86%; max-height: none; margin: 0; object-position: left center; }
+  .hero-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 15rem;
+    padding: 0.9rem 1.1rem;
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow-hover);
+    color: var(--accent-strong);
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .hero-badge-icon { display: inline-flex; flex-shrink: 0; padding: 0.55rem; border-radius: 50%; background: var(--accent-soft); color: #22c55e; }
+  .hero-card {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 30%;
+    min-width: 170px;
+    padding: 0.9rem 0.6rem 0.6rem;
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    box-shadow: var(--frame-shadow);
+  }
+  .hero-card-title { margin: 0 0 0.2rem 0.4rem; font-size: 0.95rem; font-weight: 800; color: var(--ink); }
+  .hero-card-img { display: block; width: 100%; height: auto; }
+  @media (min-width: 901px) {
+    .hero-mint .hero-media .hero-img { max-height: none; margin-right: 0; }
+    /* Título en dos líneas, como el diseño de referencia */
+    .hero-with-card h1 { max-width: 14em; font-size: clamp(2rem, 0.9rem + 2.1vw, 3rem); }
+  }
+
   /* Laptops pequeñas: si no caben en una fila sin tocar la imagen, van 2 y 2 */
   @media (max-width: 1300px) and (min-width: 901px) {
     .chips { display: grid; grid-template-columns: repeat(2, max-content); }
@@ -162,6 +226,14 @@ const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="curr
     .chips { flex-wrap: wrap; }
     .chips li { font-size: 0.85rem; }
     .hero-img { justify-self: center; object-position: center; max-height: 380px; }
+    .hero-media { justify-self: center; padding-top: 3.5rem; }
+    .hero-media .hero-img { max-height: none; }
+  }
+  @media (max-width: 600px) {
+    .hero-badge { max-width: 12rem; padding: 0.6rem 0.75rem; font-size: 0.75rem; gap: 0.5rem; }
+    .hero-badge-icon { padding: 0.4rem; }
+    .hero-card { min-width: 0; width: 36%; padding: 0.6rem 0.4rem 0.4rem; }
+    .hero-card-title { font-size: 0.8rem; }
   }
   @media (max-width: 600px) {
     .actions, .actions .btn { width: 100%; }
