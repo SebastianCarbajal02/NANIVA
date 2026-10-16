@@ -9,33 +9,28 @@ import Showcase from '@components/producto/Showcase.astro';
 import Plans from '@components/producto/Plans.astro';
 import PayBanner from '@components/producto/PayBanner.astro';
 import Faq from '@components/producto/Faq.astro';
-import Proximamente from '@components/producto/Proximamente.astro';
 import { productos, productoSchema } from '@data/productos';
 
 const p = productos.tienda;
-// false: la página aún no se publica; se muestra el aviso "Próximamente" y Google no la indexa.
-// Al publicarla, cambiar a true y habilitarla también en Nav.astro, Options.astro y en el sitemap (astro.config.mjs).
-const disponible = false;
+// false: se ocultan rubros, planes, banner de medios de pago y preguntas frecuentes (aún en revisión)
+const mostrarResto = false;
 ---
 
-{!disponible ? (
-  <BaseLayout title={`${p.nombre} | Próximamente | NANIVA`} description={p.description} noindex>
-    <Nav />
-    <Proximamente producto={p} alternativa={{ label: 'Conoce el Catálogo Smart', href: '/catalogo-digital' }} />
-  </BaseLayout>
-) : (
 <BaseLayout title={p.title} description={p.description} schema={productoSchema(p, Astro.site)}>
   <Nav />
   <Hero producto={p} />
   <Why producto={p} />
   <Showcase producto={p} />
   <Steps producto={p} />
-  <Audience producto={p} />
-  <Plans producto={p} />
-  <PayBanner producto={p} />
-  <Faq producto={p} />
+  {mostrarResto && (
+    <>
+      <Audience producto={p} />
+      <Plans producto={p} />
+      <PayBanner producto={p} />
+      <Faq producto={p} />
+    </>
+  )}
 </BaseLayout>
-)}
 
 <style is:global>
   /* Fondos alternados después del banner (verde menta): blanco, verde, blanco, verde... */
