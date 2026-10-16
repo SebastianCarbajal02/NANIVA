@@ -1,5 +1,7 @@
 ---
-// Motivos para elegir el producto: columnas con icono, título y texto, sin tarjetas
+// Motivos para elegir el producto: columnas con icono, título y texto, sin tarjetas.
+// Usa `producto.why` si existe (con etiqueta, columnas a la izquierda y divisores);
+// si no, `producto.features` centrado (Tiendas Digitales).
 import { themeStyle, type Producto } from '@data/productos';
 import './producto.css';
 import { icons } from './icons';
@@ -8,15 +10,18 @@ interface Props {
   producto: Producto;
 }
 const { producto: p } = Astro.props;
+const w = p.why ?? { eyebrow: '', ...p.features };
+const divided = Boolean(p.why);
 ---
-<section class="producto-section why" style={themeStyle(p)}>
+<section class:list={['producto-section why', { 'why-divided': divided }]} style={themeStyle(p)}>
   <div class="container">
     <div class="section-head">
-      <h2 class="reveal">{p.features.title}</h2>
-      <p class="reveal" style="--d: 80ms">{p.features.intro}</p>
+      {w.eyebrow && <span class="eyebrow reveal">{w.eyebrow}</span>}
+      <h2 class="reveal" style="--d: 60ms">{w.title}</h2>
+      <p class="reveal" style="--d: 120ms">{w.intro}</p>
     </div>
-    <ul class="why-grid">
-      {p.features.items.map((f, i) => (
+    <ul class="why-grid" style={`--cols: ${w.items.length}`}>
+      {w.items.map((f, i) => (
         <li class="why-item reveal" style={`--d: ${i * 90}ms`}>
           <span class="why-icon" set:html={icons[f.icon]} />
           <h3>{f.title}</h3>
@@ -32,10 +37,18 @@ const { producto: p } = Astro.props;
   .why .container { max-width: 1400px; }
   .why .section-head { max-width: 900px; }
   .why .section-head h2 { color: #0b2559; }
+  .eyebrow {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    color: var(--accent);
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
   .why-grid {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--cols, 5), minmax(0, 1fr));
     gap: 1.5rem;
   }
   .why-item { text-align: center; padding: 0 0.5rem; }
@@ -48,12 +61,37 @@ const { producto: p } = Astro.props;
   .why-item h3 { font-size: 1rem; font-weight: 700; color: #0b2559; margin-bottom: 0.5rem; }
   .why-item p { color: #475569; font-size: 0.92rem; line-height: 1.55; max-width: 230px; margin: 0 auto; }
 
+  /* Variante con etiqueta (Catálogo Smart): columnas a la izquierda, icono verde en círculo y divisores */
+  .why-divided { background: #fff; }
+  .why-divided .container { max-width: 1240px; }
+  .why-divided .why-grid { gap: 0; }
+  .why-divided .why-item { text-align: left; padding: 0.25rem 2rem; }
+  .why-divided .why-item + .why-item { border-left: 1px solid #dbe7ef; }
+  .why-divided .why-icon {
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    margin-bottom: 1.25rem;
+  }
+  .why-divided .why-icon :global(svg) { width: 30px; height: 30px; }
+  .why-divided .why-item h3 { font-size: 1.05rem; }
+  .why-divided .why-item p { margin: 0; max-width: 250px; }
+
   @media (max-width: 1000px) {
     .why-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 2.25rem; }
+    .why-divided .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .why-divided .why-item:nth-child(odd) { border-left: none; }
   }
   @media (max-width: 600px) {
     .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1rem; }
     .why-item h3 { font-size: 0.95rem; }
     .why-item p { font-size: 0.86rem; }
+    .why-divided .why-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+    .why-divided .why-item, .why-divided .why-item + .why-item { border-left: none; padding: 0; }
+    .why-divided .why-item p { max-width: none; }
   }
 </style>

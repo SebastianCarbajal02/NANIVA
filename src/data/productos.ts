@@ -4,7 +4,13 @@
 import type { ImageMetadata } from 'astro';
 import imgErp from '@assets/image/planes/compartido/cel y laptop-01.webp';
 import imgRestaurante from '@assets/image/planes/restaurante/chef2232-03.webp';
-import imgCatalogo from '@assets/image/planes/catalogo/catgbb-15.webp';
+import imgCatalogo from '@assets/image/tiendas-digitales/catalogo-smart/hero-catalogo-smart.webp';
+import iconPasoTelefono from '@assets/image/tiendas-digitales/catalogo-smart/telefono-inteligente.png';
+import iconPasoImagen from '@assets/image/tiendas-digitales/catalogo-smart/imagen.png';
+import iconPasoWhatsapp from '@assets/image/tiendas-digitales/catalogo-smart/whatsapp.png';
+import iconPasoGestion from '@assets/image/tiendas-digitales/catalogo-smart/gestion-de-proyectos.png';
+import imgCatalogoChat from '@assets/image/tiendas-digitales/catalogo-smart/telefono-catalogo-smart.webp';
+import imgCatalogoPasos from '@assets/image/tiendas-digitales/catalogo-smart/pasos-a-seguir.webp';
 import imgTienda from '@assets/image/home/servicios-home/ECOMERC-04.webp';
 import imgTiendasHero from '@assets/image/tiendas-digitales/hero-tiendas.webp';
 
@@ -12,7 +18,7 @@ export type IconName =
   | 'receipt' | 'box' | 'cart' | 'users' | 'wallet' | 'chart' | 'cloud' | 'sparkles' | 'whatsapp'
   | 'file' | 'image' | 'upload' | 'tag' | 'truck' | 'card' | 'store' | 'printer' | 'split'
   | 'phone' | 'search' | 'refresh' | 'warehouse' | 'school' | 'link' | 'monitor' | 'settings'
-  | 'clock' | 'shield' | 'globe' | 'user' | 'rocket' | 'trend' | 'hammer' | 'utensils' | 'coffee' | 'pizza' | 'fish' | 'shirt' | 'laptop' | 'home' | 'book' | 'watch' | 'headset';
+  | 'clock' | 'shield' | 'globe' | 'user' | 'rocket' | 'trend' | 'hammer' | 'utensils' | 'coffee' | 'pizza' | 'fish' | 'shirt' | 'laptop' | 'home' | 'book' | 'watch' | 'headset' | 'bag' | 'circleCheck' | 'seal' | 'pdf' | 'clipboard';
 
 export interface Producto {
   slug: string;
@@ -38,6 +44,8 @@ export interface Producto {
   heroBg?: 'mint';
   whatsappText: string;
   features: { title: string; intro: string; items: { icon: IconName; title: string; desc: string }[] };
+  /** Motivos para elegirlo (opcional, sección "¿Por qué elegir…?" con Why.astro) */
+  why?: { eyebrow: string; title: string; intro: string; items: { icon: IconName; title: string; desc: string }[] };
   /** Pasos: `highlight` es la palabra del título que va en color */
   /** Ventajas de usarlo hoy y oportunidades que abre (opcional, sección "Ventajas y oportunidades") */
   benefits?: {
@@ -53,8 +61,40 @@ export interface Producto {
     opportunities: { icon: IconName; title: string; desc: string; href?: string }[];
     tagline?: string;
   };
-  steps?: { eyebrow: string; title: string; highlight?: string; intro: string; items: { icon: IconName; title: string; desc: string }[] };
-  audience: { title: string; items: { label: string; icon: IconName }[] };
+  steps?: {
+    eyebrow: string;
+    title: string;
+    highlight?: string;
+    intro: string;
+    /** `img`: icono en imagen (PNG de un color) que reemplaza a `icon`; se pinta con el color del producto */
+    items: { icon: IconName; img?: ImageMetadata; title: string; desc: string }[];
+    /** Imagen a la derecha de las tarjetas de pasos */
+    img?: ImageMetadata;
+    imgAlt?: string;
+  };
+  /** `intro`: texto opcional debajo del título */
+  audience: { title: string; intro?: string; items: { label: string; icon: IconName }[] };
+  /** Planes con precio (opcional, Plans.astro, mismo diseño que los planes del ERP).
+      `features`: texto igual para todos o uno por plan, e `included` por plan (✓ o ✕) */
+  plans?: {
+    badge: string;
+    /** `highlight`: parte del título que va en color */
+    title: string;
+    highlight: string;
+    intro: string;
+    note: string;
+    items: { name: string; tagline: string; price: number; featured?: boolean }[];
+    features: { text: string | string[]; included: boolean[] }[];
+  };
+  /** Banner con imagen, título (`highlight` subrayado en color) y recuadros con icono (ShareBanner.astro) */
+  shareBanner?: {
+    title: string;
+    highlight: string;
+    intro: string;
+    img: ImageMetadata;
+    imgAlt: string;
+    items: { label: string; icon: IconName }[];
+  };
   /** Precio "desde" en soles al mes; null = se cotiza */
   price: { from: number | null; note: string; href: string; cta: string };
   faqs: { q: string; a: string }[];
@@ -215,14 +255,27 @@ const catalogo: Producto = {
   accent: '#16a34a',
   accentSoft: '#eafaf0',
   accentStrong: '#15803d',
-  eyebrow: 'CATÁLOGO DIGITAL PARA WHATSAPP',
-  h1: { before: 'Catálogo digital para ', highlight: 'WhatsApp' },
+  eyebrow: 'CATÁLOGO SMART',
+  h1: { before: 'Tu catálogo digital, conectado directamente con ', highlight: 'tus clientes' },
   intro:
-    'Muestra todos tus productos en un catálogo online y en PDF. Tu cliente elige lo que necesita y te envía su cotización por WhatsApp, lista para atender.',
+    'Muestra tus productos en un catálogo online y recibe pedidos por WhatsApp, de forma rápida, fácil y segura. Ideal para negocios que quieren vender sin complicaciones.',
   heroImg: imgCatalogo,
-  heroAlt: 'Catálogo digital NANIVA en el celular con pedidos por WhatsApp',
-  heroChips: ['Catálogo online y PDF', 'Cotizaciones por WhatsApp', 'Precios mayoristas', 'Sin comisiones por venta'],
+  heroAlt: 'Catálogo Smart NANIVA en laptop y pedido del cliente por WhatsApp en el celular',
+  heroChips: [],
+  heroSimple: true,
+  heroBg: 'mint',
   whatsappText: 'Hola, quiero una demo del Catálogo Digital NANIVA',
+  why: {
+    eyebrow: '¿POR QUÉ ELEGIR CATÁLOGO SMART?',
+    title: 'Una forma simple y efectiva de vender online',
+    intro: 'Lleva tus productos a más personas y convierte tus seguidores en clientes.',
+    items: [
+      { icon: 'bag', title: 'Catálogo digital', desc: 'Muestra tus productos con imágenes, precios y descripciones de forma atractiva.' },
+      { icon: 'whatsapp', title: 'Pedidos por WhatsApp', desc: 'Tus clientes realizan sus pedidos directamente desde el catálogo, sin complicaciones.' },
+      { icon: 'circleCheck', title: 'Sin costos de pasarela', desc: 'No pagas comisiones por transacciones. Solo vendes.' },
+      { icon: 'seal', title: 'Fácil de usar', desc: 'Gestiona tu catálogo y pedidos desde un solo lugar sin conocimientos técnicos.' },
+    ],
+  },
   features: {
     title: 'Tu catálogo, siempre al día',
     intro: 'Olvídate de reenviar fotos y listas de precios una por una.',
@@ -239,15 +292,19 @@ const catalogo: Producto = {
     eyebrow: 'ASÍ DE SIMPLE',
     title: '¿Cómo funciona el catálogo?',
     highlight: 'catálogo',
-    intro: 'En tres pasos tus clientes ven tus productos y te piden por WhatsApp.',
+    intro: 'En cuatro pasos tus clientes ven tus productos y te piden por WhatsApp.',
     items: [
-      { icon: 'upload', title: 'Sube tus productos', desc: 'Carga tus productos e imágenes de forma masiva.' },
-      { icon: 'link', title: 'Comparte tu catálogo', desc: 'Envía el enlace o el PDF por WhatsApp, redes sociales o correo.' },
-      { icon: 'whatsapp', title: 'Recibe cotizaciones', desc: 'Tu cliente elige sus productos y te escribe por WhatsApp con su pedido.' },
+      { icon: 'phone', img: iconPasoTelefono, title: 'Solicita el catálogo', desc: 'Tu cliente te escribe por WhatsApp pidiendo el catálogo de tus productos.' },
+      { icon: 'image', img: iconPasoImagen, title: 'Comparte tu catálogo', desc: 'Envía el enlace o el PDF por WhatsApp, redes sociales o correo.' },
+      { icon: 'whatsapp', img: iconPasoWhatsapp, title: 'Recibe cotizaciones', desc: 'Tu cliente elige sus productos y te escribe por WhatsApp con su pedido.' },
+      { icon: 'chart', img: iconPasoGestion, title: 'Gestiona y vende', desc: 'Organiza tus pedidos y haz crecer tu negocio.' },
     ],
+    img: imgCatalogoPasos,
+    imgAlt: 'Chat de WhatsApp donde NANIVA envía su catálogo de productos a un cliente',
   },
   audience: {
-    title: 'Ideal si vendes por WhatsApp',
+    title: 'Ideal para distintos tipos de negocio',
+    intro: 'No importa la categoría de productos que vendas, nuestro sistema te ayudará a vender más.',
     items: [
       { label: 'Ferreterías', icon: 'hammer' },
       { label: 'Distribuidoras', icon: 'box' },
@@ -257,10 +314,46 @@ const catalogo: Producto = {
       { label: 'Tiendas', icon: 'store' },
     ],
   },
-  price: { from: 79, note: 'Planes de 300 y 600 productos.', href: '/planes#catalogo-digital', cta: 'Ver planes del catálogo' },
+  shareBanner: {
+    title: 'Comparte tu catálogo',
+    highlight: 'en segundos',
+    intro: 'Envía tus productos por WhatsApp, recibe pedidos y cierra ventas sin complicaciones.',
+    img: imgCatalogoChat,
+    imgAlt: 'Cliente pidiendo un producto del catálogo NANIVA por WhatsApp',
+    items: [
+      { label: 'Catálogo digital', icon: 'book' },
+      { label: 'PDF', icon: 'pdf' },
+      { label: 'WhatsApp', icon: 'whatsapp' },
+      { label: 'Plantillas', icon: 'clipboard' },
+    ],
+  },
+  plans: {
+    badge: 'PLANES DEL CATÁLOGO SMART',
+    title: 'Comparte tus productos y cierra ventas por WhatsApp',
+    highlight: 'cierra ventas por WhatsApp',
+    intro: 'Todos los planes incluyen catálogos PDF ilimitados, pedidos y cotizaciones por WhatsApp, sin pasarela de pagos ni comisiones por venta.',
+    note: 'Precios mensuales en soles.',
+    items: [
+      { name: 'Básico', tagline: 'Ideal para empezar', price: 49 },
+      { name: 'Pro', tagline: 'Potencia tus ventas', price: 79, featured: true },
+      { name: 'Premium', tagline: 'Todo en un solo lugar', price: 129 },
+    ],
+    features: [
+      { text: ['Hasta 100 productos', 'Hasta 300 productos', 'Hasta 500 productos'], included: [true, true, true] },
+      { text: 'Catálogos PDF ilimitados', included: [true, true, true] },
+      { text: 'Portada y fondo personalizados', included: [true, true, true] },
+      { text: 'Banners promocionales', included: [true, true, true] },
+      { text: 'Enlace WhatsApp y cotizaciones', included: [true, true, true] },
+      { text: 'Pedidos por WhatsApp', included: [true, true, true] },
+      { text: 'Edición masiva de productos', included: [false, true, true] },
+      { text: 'Múltiples estilos y colores', included: [false, true, true] },
+      { text: 'Plantillas premium', included: [false, false, true] },
+    ],
+  },
+  price: { from: 49, note: 'Planes de 100, 300 y 500 productos.', href: '/catalogo-digital#planes', cta: 'Ver planes del catálogo' },
   showEcommerceCompare: true,
   faqs: [
-    { q: '¿Cuánto cuesta el Catálogo Digital?', a: 'Los planes empiezan desde S/ 79 al mes, con hasta 300 productos. El Plan Empresa llega hasta 600 productos y suma envíos masivos por WhatsApp.' },
+    { q: '¿Cuánto cuesta el Catálogo Digital?', a: 'Los planes empiezan desde S/ 49 al mes con hasta 100 productos. El Plan Pro (S/ 79) llega a 300 productos y el Plan Premium (S/ 129) a 500 productos.' },
     { q: '¿Cómo me llegan los pedidos?', a: 'El cliente elige sus productos en el catálogo y te envía su pedido por WhatsApp como una cotización, con el detalle de lo que necesita.' },
     { q: '¿Puedo mostrar precios mayoristas o por volumen?', a: 'Sí. Puedes manejar precios por volumen o mayoristas, ideal para distribuidoras e importadores.' },
     { q: '¿Puedo actualizar los precios de muchos productos a la vez?', a: 'Sí. Puedes actualizar precios y productos de forma masiva desde Excel.' },
@@ -368,7 +461,7 @@ const tiendas: Producto = {
   faqs: [
     { q: '¿Qué diferencia hay entre el Catálogo Smart y la Tienda Online?', a: 'Con el Catálogo Smart el cliente te pide por WhatsApp y el pago se coordina fuera de la web. Con la Tienda Online el cliente compra y paga directamente en tu web con pasarela de pago.' },
     { q: '¿Cuál me conviene?', a: 'Si vendes al por mayor, cotizas o atiendes por WhatsApp, el Catálogo Smart. Si vendes al consumidor final y quieres cobrar en línea, la Tienda Online.' },
-    { q: '¿Cuánto cuestan?', a: 'El Catálogo Smart tiene planes desde S/ 79 al mes. La Tienda Online se cotiza según tus productos y tu forma de vender.' },
+    { q: '¿Cuánto cuestan?', a: 'El Catálogo Smart tiene planes desde S/ 49 al mes. La Tienda Online se cotiza según tus productos y tu forma de vender.' },
     { q: '¿Se conectan con mi inventario?', a: 'Sí. Las dos opciones se conectan con el ERP de NANIVA, así tus productos, precios y stock se mantienen al día.' },
   ],
 };

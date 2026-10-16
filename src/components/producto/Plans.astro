@@ -1,0 +1,184 @@
+---
+// Planes del producto: mismo diseño que las tarjetas de planes del ERP (planes/ErpPlans.astro),
+// con el color del producto. Cada función muestra ✓ si el plan la incluye y ✕ si no.
+import { themeStyle, type Producto } from '@data/productos';
+import './producto.css';
+
+interface Props {
+  producto: Producto;
+}
+const { producto: p } = Astro.props;
+const plans = p.plans!;
+
+const hi = plans.title.indexOf(plans.highlight);
+const titleParts =
+  hi < 0
+    ? { before: plans.title, mark: '', after: '' }
+    : { before: plans.title.slice(0, hi), mark: plans.highlight, after: plans.title.slice(hi + plans.highlight.length) };
+
+const planHref = (name: string) =>
+  `https://wa.me/51908644190?text=${encodeURIComponent(`Hola, me interesa el plan ${name} del ${p.nombre} NANIVA`)}`;
+
+const crossIcon = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
+const checkIcon = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>`;
+---
+<section id="planes" class="producto-section plans" style={themeStyle(p)}>
+  <div class="container">
+    <div class="plans-head">
+      <span class="plans-badge reveal">{plans.badge}</span>
+      <h2 class="reveal" style="--d: 60ms">{titleParts.before}<span class="highlight">{titleParts.mark}</span>{titleParts.after}</h2>
+      <p class="reveal" style="--d: 120ms">{plans.intro}</p>
+    </div>
+
+    <div class="plan-cards">
+      {plans.items.map((plan, pi) => (
+        <article class:list={['plan-card reveal', { featured: plan.featured }]} style={`--d: ${180 + pi * 120}ms`}>
+          {plan.featured && <span class="plan-flag">Recomendado</span>}
+          <h3 class="plan-name">{plan.name}</h3>
+          <p class="plan-tagline">{plan.tagline}</p>
+          <p class="plan-price">
+            <span class="plan-amount">S/{plan.price}</span>
+            <span class="plan-period">/ mes</span>
+          </p>
+          <ul class="plan-list">
+            {plans.features.map((feat) => {
+              const text = typeof feat.text === 'string' ? feat.text : feat.text[pi];
+              const ok = feat.included[pi];
+              return (
+                <li class:list={{ off: !ok }}>
+                  <span class="plan-icon" set:html={ok ? checkIcon : crossIcon} />
+                  <span>{text}</span>
+                  {!ok && <span class="visually-hidden">(no incluido)</span>}
+                </li>
+              );
+            })}
+          </ul>
+          <a href={planHref(plan.name)} target="_blank" rel="noopener noreferrer" class="plan-cta">Elegir plan</a>
+        </article>
+      ))}
+    </div>
+    <p class="plans-note">{plans.note}</p>
+  </div>
+</section>
+
+<style>
+  .plans-head { text-align: center; max-width: 760px; margin: 0 auto 3rem; }
+  .plans-badge {
+    display: inline-block;
+    margin-bottom: 1rem;
+    padding: 0.35rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+  .plans-head h2 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+  .plans-head p { color: var(--muted); font-size: 1rem; line-height: 1.6; }
+
+  /* ---------- Tarjetas (como las del ERP) ---------- */
+  .plan-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    max-width: 1120px;
+    margin: 0 auto 1.5rem;
+    align-items: stretch;
+  }
+  .plan-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    padding: 2.25rem 1.75rem 1.75rem;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .plan-card:hover,
+  .plan-card:focus-within {
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-hover);
+  }
+  /* Plan recomendado: solo cambia el color del borde (excepción de "destacado") */
+  .plan-card.featured {
+    border: 2px solid var(--accent);
+    box-shadow: 0 18px 40px color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+  .plan-flag {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .plan-name { font-size: 1.75rem; font-weight: 800; color: #0b2559; margin-bottom: 0.4rem; }
+  .plan-tagline { color: var(--muted); font-size: 0.95rem; min-height: 1.5em; }
+  .plan-price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.75rem 0 1.5rem;
+  }
+  .plan-amount { font-size: 2.6rem; font-weight: 800; color: #0b2559; line-height: 1; }
+  .plan-period { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+  .plan-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    width: fit-content;
+    margin: 0 0 1.75rem;
+    text-align: left;
+    flex: 1;
+  }
+  .plan-list li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.92rem; color: #334155; }
+  .plan-list li.off { color: #64748b; }
+  .plan-icon { display: inline-flex; flex-shrink: 0; color: var(--accent); }
+  .plan-list li.off .plan-icon { color: #94a3b8; }
+  .plan-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 170px;
+    min-height: 48px;
+    padding: 0.7rem 1.75rem;
+    border: 1.5px solid var(--accent);
+    border-radius: 999px;
+    color: var(--accent-strong);
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .plan-cta:hover { background: var(--accent-soft); }
+  .plan-cta:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .plan-card.featured .plan-cta { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; }
+  .plan-card.featured .plan-cta:hover { background: color-mix(in srgb, var(--accent-strong) 88%, #000); }
+  .plans-note { text-align: center; color: var(--muted); font-size: 0.88rem; }
+
+  @media (max-width: 1000px) {
+    .plan-cards { grid-template-columns: 1fr; max-width: 460px; row-gap: 2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .plan-card { transition: none; }
+    .plan-card:hover, .plan-card:focus-within { transform: none; }
+  }
+</style>

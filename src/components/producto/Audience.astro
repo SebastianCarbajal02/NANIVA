@@ -13,7 +13,8 @@ const audience = p.audience;
 <section class="producto-section audience" style={themeStyle(p)}>
   <div class="container">
     <span class="title-mark reveal" aria-hidden="true"></span>
-    <h2 class="section-title reveal" style="--d: 60ms">{audience.title}</h2>
+    <h2 class:list={['section-title reveal', { 'has-intro': audience.intro }]} style="--d: 60ms">{audience.title}</h2>
+    {audience.intro && <p class="audience-intro reveal" style="--d: 90ms">{audience.intro}</p>}
     <ul class="audience-list">
       {audience.items.map((a, i) => (
         <li class="reveal" style={`--d: ${120 + i * 70}ms`}>
@@ -27,6 +28,8 @@ const audience = p.audience;
 
 <style>
   .audience { background: #fff; text-align: center; }
+  .audience .section-title.has-intro { margin-bottom: 0.75rem; }
+  .audience-intro { max-width: 640px; margin: 0 auto 2.25rem; color: var(--muted); font-size: 1.05rem; line-height: 1.6; }
   .title-mark { display: inline-flex; gap: 6px; align-items: center; margin-bottom: 1rem; }
   .title-mark::before { content: ''; width: 36px; height: 3px; border-radius: 3px; background: var(--accent); }
   .title-mark::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
@@ -56,8 +59,13 @@ const audience = p.audience;
   .audience-icon :global(svg) { width: 22px; height: 22px; }
   .audience-list li:hover .audience-icon { transform: scale(1.12) rotate(-6deg); }
 
+  /* Título y texto con líneas parejas (sin una palabra sola al final) */
+  .audience .section-title, .audience-intro { text-wrap: balance; }
+
+  /* Celular: dos columnas del mismo ancho, cada rubro centrado en la suya */
   @media (max-width: 600px) {
-    .audience-list li { padding: 0.7rem 1.1rem 0.7rem 0.95rem; }
+    .audience-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; max-width: 420px; }
+    .audience-list li { justify-content: center; padding: 0.75rem 0.9rem; font-size: 0.95rem; }
   }
   @media (prefers-reduced-motion: reduce) {
     .audience-list li:hover, .audience-list li:hover .audience-icon { transform: none; }

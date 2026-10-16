@@ -38,7 +38,7 @@ const opciones: {
     items: ['Catálogo de productos con imágenes y precios', 'Pedidos por WhatsApp', 'Atención directa a tus clientes', 'Sin costos de pasarela de pagos'],
     href: '/catalogo-digital',
     cta: 'Conoce más sobre Catálogo Smart',
-    disponible: false,
+    disponible: true,
     img: imgCatalogo,
     imgAlt: 'Conversación de WhatsApp donde un cliente recibe el enlace del catálogo NANIVA',
   },
@@ -120,17 +120,18 @@ const opciones: {
     align-items: center;
     gap: 1.5rem;
     min-height: 560px;
-    border-radius: 18px;
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--card-shadow);
     padding: 2.5rem 2rem;
     overflow: hidden;
   }
-  .option-catalogo { background: linear-gradient(135deg, #ecfdf3 0%, #f3fdf7 60%, #e6faef 100%); border: 1px solid #d1fae5; }
+  .option-catalogo { background: linear-gradient(135deg, #ecfdf3 0%, #f3fdf7 60%, #e6faef 100%); }
   .option-tienda {
     --c: #0b6cf5;
     --c-strong: #0a5fd8;
     --c-soft: #dbeafe;
     background: linear-gradient(135deg, #f1f7ff 0%, #f6faff 60%, #e9f2ff 100%);
-    border: 1px solid #dbeafe;
   }
   .option-media { display: flex; align-items: center; }
   .option-img { display: block; height: auto; }
@@ -176,8 +177,8 @@ const opciones: {
   .option-catalogo .option-btn:hover { background: var(--c-soft); }
   .option-tienda .option-btn { background: var(--c); color: #fff; }
   .option-tienda .option-btn:hover { background: var(--c-strong); }
-  .option-card .option-btn-disabled,
-  .option-card .option-btn-disabled:hover {
+  .option-card .option-btn.option-btn-disabled,
+  .option-card .option-btn.option-btn-disabled:hover {
     background: #fef3c7;
     color: #92400e;
     border: none;

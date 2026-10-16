@@ -18,7 +18,7 @@ const serviceGroups = [
     title: "Tiendas Digitales",
     href: "/tiendas-digitales",
     items: [
-      { label: "Catálogo Smart", desc: "Vende por WhatsApp", href: null, badge: "Próximamente" },
+      { label: "Catálogo Smart", desc: "Vende por WhatsApp", href: "/catalogo-digital", badge: null },
       { label: "Tienda Online", desc: "Vende y cobra en línea", href: null, badge: "Próximamente" },
     ],
   },
@@ -376,6 +376,15 @@ const servicePaths = ["/servicios", ...serviceGroups.flatMap((g) => ["href" in g
     pointer-events: auto;
   }
 
+  /* Laptops pequeñas y tablets horizontales: menú más compacto para que el botón no se salga */
+  @media (max-width: 1200px) and (min-width: 769px) {
+    .nav-inner { padding-left: 1.5rem; gap: 1rem; }
+    .links { gap: 1.25rem; }
+    .links a { white-space: nowrap; }
+  }
+  @media (max-width: 1100px) and (min-width: 901px) {
+    .links a > svg { display: none; }
+  }
   @media (max-width: 900px) {
     .links { gap: 1.1rem; }
     .links a span { display: none; }
