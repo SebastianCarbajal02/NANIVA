@@ -102,10 +102,10 @@ const trustMini = [
   }
   .faq-card {
     background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: var(--radius);
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
     padding: 2.5rem;
-    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06);
+    box-shadow: var(--card-shadow);
   }
   .faq-grid {
     display: flex;
@@ -205,8 +205,8 @@ const trustMini = [
     flex: 1;
     min-width: 280px;
     background: linear-gradient(160deg, #eef4ff, #f8fbff);
-    border: 1px solid #dbeafe;
-    border-radius: var(--radius);
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
     padding: 2rem 1.75rem;
     text-align: center;
     position: relative;
@@ -283,47 +283,18 @@ const trustMini = [
     object-fit: contain;
   }
 
+  /* Celular: sin anchos mínimos que desborden la tarjeta y sin el espacio superior de la tarjeta lateral */
   @media (max-width: 900px) {
     .faq-cols { grid-template-columns: 1fr; }
+    .faq-side { margin-top: 0; }
   }
-    @media (max-width: 400px) 
-    { 
-    .faq-card[data-astro-cid-hemr5th4] {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    box-shadow: 0 14px 40px #0f172a0f;
-}
-.faq-side {
-    flex: 1;
-    min-width: 280px;
-    background: linear-gradient(160deg, #eef4ff, #f8fbff);
-    border: 1px solid #dbeafe;
-    border-radius: var(--radius);
-    padding: 2rem 1.75rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transform: translateY(-1rem);
+  @media (max-width: 600px) {
+    .faq-card { padding: 1.5rem 1.1rem; }
+    .faq-grid { gap: 2rem; }
+    .faq-main, .faq-side { min-width: 0; flex-basis: 100%; }
+    .faq-item { padding: 0.9rem 1rem; }
+    .faq-a { margin-left: 0; }
+    .faq-side { padding: 2rem 1.25rem; }
+    .whatsapp-btn { gap: 0.6rem; padding: 1rem 1.1rem; font-size: 0.95rem; }
   }
-  .whatsapp-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    width: 100%;
-    background: #16a34a;
-    color: white;
-    padding: 1.1rem 2em;
-    border-radius: 999px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    white-space: nowrap;
-  }
-
-
-    }
 </style>

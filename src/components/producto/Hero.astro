@@ -141,10 +141,11 @@ const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="curr
   }
   .hero-mint .intro { color: #475569; }
   /* Mockup de laptop y celular más grande: le damos más ancho a la columna de la imagen */
-  .hero-mint .hero-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
-  .hero-mint .hero-img { max-height: 640px; }
-  /* En escritorio el mockup se corre a la derecha, ocupando parte del margen lateral */
+  /* Solo en escritorio: en celular el banner pasa a una columna (regla de 900px más abajo) */
   @media (min-width: 901px) {
+    .hero-mint .hero-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+    .hero-mint .hero-img { max-height: 640px; }
+    /* El mockup se corre a la derecha, ocupando parte del margen lateral */
     .hero-mint .hero-img { margin-right: calc(-1 * clamp(1rem, 3vw, 3rem)); }
   }
   .hero-mint .actions .btn-primary { background: #0b6cf5; }

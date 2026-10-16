@@ -35,12 +35,14 @@ const { producto: p } = Astro.props;
     gap: 1.25rem;
   }
   .feature-card {
-    background: #f8fafc;
-    border-radius: 18px;
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
     padding: 1.6rem 1.4rem;
-    transition: background-color 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition: background-color 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.45s ease;
   }
-  .feature-card:hover { background: var(--accent-soft); transform: translateY(-3px); }
+  .feature-card:hover { background: var(--accent-soft); transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
   .feature-icon {
     display: inline-flex;
     align-items: center;
