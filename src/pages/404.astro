@@ -1,0 +1,128 @@
+---
+// Página de error 404 con el diseño del sitio: número grande, mensaje y accesos a las secciones principales
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import { arrowIcon } from '@components/producto/icons';
+
+const links = [
+  { label: 'Sistema ERP', href: '/erp' },
+  { label: 'Catálogo Smart', href: '/catalogo-digital' },
+  { label: 'Planes', href: '/planes' },
+  { label: 'Contacto', href: '/contacto' },
+];
+const whatsapp = `https://wa.me/51908644190?text=${encodeURIComponent('Hola, no encontré una página en naniva.pe')}`;
+const searchIcon = `<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8.5 9.5l5 3M13.5 9.5l-5 3"/></svg>`;
+---
+
+<BaseLayout title="Página no encontrada | NANIVA" description="La página que buscas no existe o fue movida." noindex>
+  <Nav />
+  <section class="not-found">
+    <div class="nf-card">
+      <span class="nf-icon" set:html={searchIcon} />
+      <p class="nf-code" aria-hidden="true">404</p>
+      <h1>No encontramos esta página</h1>
+      <p class="nf-text">
+        Puede que el enlace esté mal escrito o que la página se haya movido.
+        Te ayudamos a encontrar lo que buscas.
+      </p>
+      <div class="nf-actions">
+        <a href="/" class="nf-btn nf-btn-primary">Volver al inicio <span set:html={arrowIcon} /></a>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" class="nf-btn nf-btn-outline">Escríbenos por WhatsApp</a>
+      </div>
+      <nav class="nf-links" aria-label="Secciones principales">
+        <span>También puedes visitar:</span>
+        <ul>
+          {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 8rem 1.25rem 4rem;
+    background:
+      radial-gradient(38rem 26rem at 72% 35%, rgba(134, 239, 172, 0.28), transparent 70%),
+      radial-gradient(26rem 20rem at 10% 90%, rgba(94, 234, 212, 0.2), transparent 70%),
+      linear-gradient(180deg, #f3fcf7 0%, #eefaf4 100%);
+  }
+  .nf-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 640px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--card-shadow);
+  }
+  .nf-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    border-radius: 24px;
+    background: #eafaf0;
+    color: #15803d;
+  }
+  .nf-code {
+    margin-top: 1rem;
+    font-size: clamp(4.5rem, 3rem + 6vw, 7rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, #16a34a, #0d9488);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .not-found h1 {
+    margin-top: 0.6rem;
+    font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.4rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #0b2559;
+  }
+  .nf-text { margin-top: 0.9rem; color: #475569; font-size: 1.05rem; line-height: 1.65; }
+  .nf-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 1.8rem; }
+  .nf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  .nf-btn-primary { background: #15803d; color: #fff; }
+  .nf-btn-primary:hover { background: #166534; }
+  .nf-btn-outline { border: 2px solid #15803d; color: #15803d; }
+  .nf-btn-outline:hover { background: #eafaf0; }
+  .nf-links { margin-top: 2rem; padding-top: 1.5rem; width: 100%; border-top: var(--border-soft); color: #64748b; font-size: 0.92rem; }
+  .nf-links ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 0.75rem; }
+  .nf-links a {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: #f1faf5;
+    color: #15803d;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .nf-links a:hover { background: #dcfce7; }
+
+  @media (max-width: 600px) {
+    .nf-card { padding: 2.25rem 1.25rem; }
+    .nf-actions, .nf-btn { width: 100%; }
+  }
+</style>
