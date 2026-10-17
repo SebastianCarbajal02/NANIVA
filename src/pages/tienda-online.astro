@@ -12,8 +12,6 @@ import Faq from '@components/producto/Faq.astro';
 import { productos, productoSchema } from '@data/productos';
 
 const p = productos.tienda;
-// false: se ocultan rubros, planes, banner de medios de pago y preguntas frecuentes (aún en revisión)
-const mostrarResto = false;
 ---
 
 <BaseLayout title={p.title} description={p.description} schema={productoSchema(p, Astro.site)}>
@@ -22,14 +20,10 @@ const mostrarResto = false;
   <Why producto={p} />
   <Showcase producto={p} />
   <Steps producto={p} />
-  {mostrarResto && (
-    <>
-      <Audience producto={p} />
-      <Plans producto={p} />
-      <PayBanner producto={p} />
-      <Faq producto={p} />
-    </>
-  )}
+  <Audience producto={p} />
+  <Plans producto={p} />
+  <PayBanner producto={p} />
+  <Faq producto={p} />
 </BaseLayout>
 
 <style is:global>
