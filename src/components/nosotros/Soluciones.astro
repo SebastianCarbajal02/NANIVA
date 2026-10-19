@@ -1,0 +1,121 @@
+---
+// "Qué hacemos": panel con texto y una tarjeta por solución (destino del botón del banner). Por ahora sin imagen.
+import { icons, arrowIcon } from '@components/producto/icons';
+import './nosotros.css';
+
+const soluciones = [
+  { icon: icons.chart, title: 'Sistema ERP', desc: 'Ventas, inventario, compras, caja y facturación electrónica SUNAT en un solo sistema.', href: '/erp' },
+  { icon: icons.utensils, title: 'Sistema para restaurantes', desc: 'Comandas, pre-cuentas, caja y comprobantes electrónicos para tu negocio gastronómico.', href: '/sistema-para-restaurantes' },
+  { icon: icons.store, title: 'Catálogo digital', desc: 'Comparte tus productos con un enlace o en PDF y recibe pedidos por WhatsApp.', href: '/catalogo-digital' },
+  { icon: icons.cart, title: 'Tienda online', desc: 'Tu propia tienda con carrito, pagos en línea y stock conectado a tu ERP.', href: '/tienda-online' },
+  { icon: icons.sparkles, title: 'Naniva IA', desc: 'Convierte tus datos de ventas, compras e inventario en recomendaciones concretas.', href: '/ia' },
+  { icon: icons.cloud, title: 'Soluciones en la nube', desc: 'Accede a tu información desde cualquier lugar, con total seguridad.', href: '/planes' },
+];
+---
+
+<section class="ns-section soluciones" id="soluciones">
+  <div class="container sol-panel reveal">
+    <div class="sol-copy">
+      <span class="eyebrow">NUESTRAS SOLUCIONES</span>
+      <h2>Qué <span class="hl">hacemos</span></h2>
+      <p>
+        Desarrollamos soluciones tecnológicas en la nube que impulsan la gestión y el crecimiento de las pymes peruanas.
+        Ofrecemos un ecosistema completo de herramientas para administrar tu negocio de forma simple, segura y eficiente.
+      </p>
+      <a href="/servicios" class="btn btn-primary">Conoce más sobre nuestros servicios <span set:html={arrowIcon} /></a>
+    </div>
+
+    <ul class="sol-cards">
+      {soluciones.map((s, i) => (
+        <li class="reveal" style={`transition-delay: ${i * 60}ms`}>
+          <a href={s.href} class="sol-card">
+            <span class="sol-icon" set:html={s.icon} />
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+            <span class="sol-arrow" set:html={arrowIcon} />
+            <span class="visually-hidden">Ver {s.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* Panel blanco con tres columnas: texto, foto y tarjetas en 3 x 2 */
+  .sol-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.65fr);
+    align-items: center;
+    gap: 2.25rem;
+    max-width: 1600px;
+    padding: 3rem;
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--card-shadow);
+  }
+
+  .sol-copy h2 {
+    margin-top: 0.9rem;
+    font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #0b1f4d;
+  }
+  .hl { color: #2563eb; }
+  .sol-copy p { margin: 1.1rem 0 1.75rem; color: #475569; line-height: 1.75; }
+  .sol-copy .btn { box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25); }
+
+  .sol-cards { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .sol-cards li { display: flex; }
+  .sol-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 1.25rem 1.2rem;
+    background: linear-gradient(180deg, #fbfcff 0%, #f5f8ff 100%);
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .sol-card:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+  .sol-card:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+  .sol-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 0.4rem;
+    border-radius: 12px;
+    background: #e8f0ff;
+    color: #2563eb;
+  }
+  .sol-icon :global(svg) { width: 22px; height: 22px; }
+  .sol-card h3 { font-size: 1rem; font-weight: 700; color: #0b1f4d; line-height: 1.3; }
+  .sol-card p { flex: 1; color: #64748b; font-size: 0.86rem; line-height: 1.55; }
+  .sol-arrow { display: inline-flex; margin-top: 0.4rem; color: #2563eb; transition: transform 0.2s ease; }
+  .sol-card:hover .sol-arrow { transform: translateX(3px); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* Tablet: texto y foto arriba, tarjetas debajo a todo el ancho */
+  @media (max-width: 1200px) {
+    .sol-panel { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .sol-panel { grid-template-columns: 1fr; padding: 1.75rem 1.25rem; }
+    .sol-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 480px) {
+    .sol-cards { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sol-card, .sol-arrow { transition: none; }
+    .sol-card:hover, .sol-card:hover .sol-arrow { transform: none; }
+  }
+</style>

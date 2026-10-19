@@ -1,0 +1,112 @@
+---
+// Misión y visión de /nosotros: icono en círculo junto al texto; la visión lleva foto y fondo celeste
+import { Image } from 'astro:assets';
+import visionImg from '@assets/image/sobre-nosotros/images.jpg';
+import './nosotros.css';
+
+const targetIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><path d="m12 12 7-7"/><path d="M16 5h3v3"/></svg>`;
+const telescopeIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.1 15.9 9.4-5.4-2.5-4.3-9.4 5.4z"/><path d="m7.6 11.6-3 1.7 1.5 2.6 3-1.7"/><path d="m19.5 10.5 1.6-.9-2.5-4.3-1.6.9"/><path d="m12 16-3 6"/><path d="m12 16 3 6"/><circle cx="12" cy="15.5" r="1"/></svg>`;
+---
+
+<!-- Una sola sección: misión sobre franja celeste y visión sobre fondo casi blanco, a todo el ancho -->
+<section class="ns-section essence" aria-label="Nuestra misión y visión">
+  <div class="essence-block essence-alt">
+    <div class="container essence-row">
+      <span class="essence-icon reveal" set:html={targetIcon} />
+      <div class="essence-copy reveal">
+        <span class="eyebrow">NUESTRA ESENCIA</span>
+        <h2>Nuestra misión</h2>
+        <p>
+          Brindar soluciones de software en la nube que simplifiquen la gestión empresarial de las <strong>pymes peruanas</strong>,
+          a través de un servicio confiable, seguro y cercano, que genere valor real y contribuya a su <strong>crecimiento sostenible</strong>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="essence-block">
+    <div class="container essence-row essence-vision">
+      <!-- La foto mide 678 px de ancho: no se generan tamaños mayores para no estirarla -->
+      <Image src={visionImg} alt="Vista de Lima de día con edificios corporativos" widths={[440, 678]} sizes="(max-width: 900px) 92vw, 440px" class="essence-img reveal" />
+      <span class="essence-icon reveal" set:html={telescopeIcon} />
+      <div class="essence-copy reveal">
+        <span class="eyebrow">NUESTRA VISIÓN</span>
+        <h2>Nuestra visión</h2>
+        <p>
+          Ser la empresa líder en <strong>soluciones tecnológicas para pymes</strong> en el Perú, reconocida por nuestra
+          innovación, calidad y compromiso con el <strong>desarrollo digital</strong> de nuestros clientes.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Misión en franja celeste y visión en fondo casi blanco; cada bloque con su propio aire */
+  .essence { padding: 0; }
+  /* Misión en azul y visión en blanco, siguiendo la alternancia de la página */
+  .essence-block { padding: 4rem 1rem; background: #fff; }
+  .essence-alt { background: var(--ns-azul); }
+  .essence-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 2rem;
+    /* Mismo ancho que el resto de secciones del sitio */
+    max-width: var(--max-width);
+  }
+  .essence-vision {
+    grid-template-columns: minmax(0, 0.8fr) auto minmax(0, 1.2fr);
+  }
+
+  .essence-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff 0%, #e6efff 100%);
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.14);
+    color: #2563eb;
+  }
+  .essence-icon :global(svg) { width: 54px; height: 54px; }
+  /* En la visión, el icono se monta sobre el borde derecho de la foto */
+  .essence-vision .essence-icon { position: relative; z-index: 1; width: 92px; height: 92px; margin-left: -4.5rem; }
+  .essence-vision .essence-icon :global(svg) { width: 44px; height: 44px; }
+
+  .essence-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 8;
+    object-fit: cover;
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .essence-copy h2 {
+    margin-top: 0.6rem;
+    font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #0b1f4d;
+  }
+  .essence-copy p { margin-top: 0.75rem; max-width: 50rem; color: #475569; font-size: clamp(1rem, 0.95rem + 0.3vw, 1.12rem); line-height: 1.8; }
+  .essence-copy strong { color: #1e3a8a; font-weight: 700; }
+
+  @media (max-width: 900px) {
+    .essence-vision { grid-template-columns: auto minmax(0, 1fr); }
+    .essence-vision .essence-img { grid-column: 1 / -1; }
+    .essence-vision .essence-icon { margin-left: 0; }
+  }
+  @media (max-width: 600px) {
+    .essence-block { padding: 2.75rem 1rem; }
+    .essence-row,
+    .essence-vision { grid-template-columns: 1fr; gap: 1.25rem; justify-items: start; }
+    .essence-icon,
+    .essence-vision .essence-icon { width: 76px; height: 76px; }
+    .essence-icon :global(svg),
+    .essence-vision .essence-icon :global(svg) { width: 36px; height: 36px; }
+  }
+</style>

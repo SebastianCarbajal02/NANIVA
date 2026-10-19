@@ -1,0 +1,107 @@
+---
+// "Nuestros valores": cinco columnas separadas por líneas, cada una con su icono en un círculo celeste
+import './nosotros.css';
+
+const svg = (paths: string) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const valores = [
+  {
+    title: 'Compromiso',
+    desc: 'Nos involucramos con el éxito de nuestros clientes.',
+    icon: svg('<path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/>'),
+  },
+  {
+    title: 'Innovación',
+    desc: 'Buscamos siempre nuevas formas de crear valor.',
+    icon: svg('<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>'),
+  },
+  {
+    title: 'Responsabilidad',
+    desc: 'Actuamos con ética, transparencia y profesionalismo.',
+    icon: svg('<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>'),
+  },
+  {
+    title: 'Calidad',
+    desc: 'Ofrecemos soluciones confiables y seguras.',
+    icon: svg('<path d="M11.52 2.3a.53.53 0 0 1 .95 0l2.31 4.68a2.12 2.12 0 0 0 1.6 1.16l5.16.76a.53.53 0 0 1 .3.9l-3.74 3.64a2.12 2.12 0 0 0-.61 1.88l.88 5.14a.53.53 0 0 1-.77.56l-4.62-2.43a2.12 2.12 0 0 0-1.97 0L6.4 21.01a.53.53 0 0 1-.77-.56l.88-5.14a2.12 2.12 0 0 0-.61-1.88L2.16 9.8a.53.53 0 0 1 .29-.9l5.17-.76a2.12 2.12 0 0 0 1.6-1.16z"/>'),
+  },
+  {
+    title: 'Trabajo en equipo',
+    desc: 'Creemos en la fuerza de las personas.',
+    icon: svg('<path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/>'),
+  },
+];
+---
+
+<section class="ns-section ns-azul valores">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">LO QUE NOS DEFINE</span>
+      <h2>Nuestros valores</h2>
+    </div>
+    <ul class="valores-list">
+      {valores.map((v, i) => (
+        <li class="valor reveal" style={`transition-delay: ${i * 70}ms`}>
+          <span class="valor-icon" set:html={v.icon} />
+          <h3>{v.title}</h3>
+          <p>{v.desc}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .section-head h2 { margin-top: 0.75rem; color: #0b1f4d; }
+
+  /* Columnas separadas por una línea vertical suave, sin recuadros */
+  .valores-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .valor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 1.5rem;
+    text-align: center;
+  }
+  .valor + .valor { border-left: 1px solid #e2e8f0; }
+
+  .valor-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    margin-bottom: 1.25rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff 0%, #e6efff 100%);
+    box-shadow: 0 10px 26px rgba(37, 99, 235, 0.12);
+    color: #2563eb;
+    transition: transform 0.3s ease;
+  }
+  .valor-icon :global(svg) { width: 38px; height: 38px; }
+  .valor:hover .valor-icon { transform: translateY(-2px); }
+
+  .valor h3 { font-size: 1.15rem; font-weight: 700; color: #0b1f4d; }
+  .valor p { margin-top: 0.6rem; max-width: 15rem; color: #475569; font-size: 0.95rem; line-height: 1.65; }
+
+  /* Tablet: 3 + 2 columnas; la línea pasa a separar solo dentro de cada fila */
+  @media (max-width: 1000px) {
+    .valores-list { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 2.5rem; }
+    .valor:nth-child(3n + 1) { border-left: none; }
+  }
+  /* Celular: una columna, separadas por una línea horizontal */
+  @media (max-width: 600px) {
+    .valores-list { grid-template-columns: 1fr; row-gap: 0; }
+    .valor { padding: 1.75rem 0.5rem; }
+    .valor + .valor { border-left: none; border-top: 1px solid #e2e8f0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .valor-icon { transition: none; }
+    .valor:hover .valor-icon { transform: none; }
+  }
+</style>

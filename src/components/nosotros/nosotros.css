@@ -1,0 +1,98 @@
+/* Estilos compartidos por las secciones de /nosotros.
+   Cada sección lleva la clase .ns-section para que estas reglas no alcancen al menú ni al footer. */
+/* Regla de color de la página: las secciones alternan azul y blanco (azul, blanco, azul, blanco...).
+   Blanco es el fondo por defecto; las secciones azules llevan la clase .ns-azul. */
+:root { --ns-azul: #eef4ff; }
+.ns-section { padding: 4.5rem 1rem; background: #fff; scroll-margin-top: 80px; }
+.ns-section.ns-azul { background: var(--ns-azul); }
+
+/* Etiqueta pequeña sobre los títulos */
+.ns-section .eyebrow {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.ns-section .eyebrow-dot::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background: #2563eb;
+  vertical-align: middle;
+}
+
+/* Botones */
+.ns-section .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+.ns-section .btn:hover { transform: translateY(-2px); }
+.ns-section .btn:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+.ns-section .btn-primary { background: #2563eb; color: #fff; }
+.ns-section .btn-primary:hover { background: #1d4ed8; }
+.ns-section .btn-outline { border: 2px solid #2563eb; color: #1d4ed8; background: #fff; }
+.ns-section .btn-outline:hover { background: #eff6ff; }
+.ns-section .btn-light { background: #fff; color: #1d4ed8; }
+
+/* Encabezado centrado de sección */
+.ns-section .section-head { max-width: 46rem; margin: 0 auto 2.5rem; text-align: center; }
+.ns-section .section-head h2 {
+  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem);
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+}
+.ns-section .section-head p { margin-top: 0.75rem; color: #475569; font-size: 1.05rem; line-height: 1.7; }
+
+/* Tarjetas: regla de bordes del sitio (.claude/skills/naniva-bordes) */
+.ns-section .cards { list-style: none; display: grid; gap: 1.25rem; }
+.ns-section .card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.6rem 1.4rem;
+  background: #fff;
+  border: var(--border-soft);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.ns-section .card:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+.ns-section .card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #eff6ff;
+  color: #2563eb;
+}
+.ns-section .card-icon svg { width: 24px; height: 24px; }
+.ns-section .card h3 { font-size: 1.1rem; font-weight: 700; color: #0f172a; }
+.ns-section .card p { color: #475569; font-size: 0.95rem; line-height: 1.6; flex: 1; }
+
+@media (max-width: 600px) {
+  .ns-section { padding: 3.5rem 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ns-section .btn,
+  .ns-section .card { transition: none; }
+  .ns-section .btn:hover,
+  .ns-section .card:hover { transform: none; }
+}

@@ -1,0 +1,103 @@
+---
+// Banner de /nosotros: texto a la izquierda y foto de la oficina con el borde izquierdo inclinado a la derecha
+import { Image } from 'astro:assets';
+import { arrowIcon } from '@components/producto/icons';
+import bannerImg from '@assets/image/sobre-nosotros/banner-sobre-nosotros.jpg';
+import './nosotros.css';
+---
+
+<section class="ns-section about-hero">
+  <div class="container about-hero-grid">
+    <div class="about-hero-copy">
+      <span class="eyebrow">SOBRE NOSOTROS</span>
+      <h1>Innovación y tecnología al servicio de las pymes</h1>
+      <p class="lead">
+        Somos una empresa peruana de tecnología que desarrolla soluciones de software en la nube para simplificar la
+        gestión empresarial. Ayudamos a las pequeñas y medianas empresas a ser más eficientes, competitivas y rentables
+        con herramientas digitales intuitivas y seguras.
+      </p>
+      <a href="#soluciones" class="btn btn-primary">Conoce nuestras soluciones <span set:html={arrowIcon} /></a>
+    </div>
+    <div class="about-hero-media">
+      <Image
+        src={bannerImg}
+        alt="Sala de reuniones con el logo de NANIVA en la pared"
+        widths={[480, 720, 960, 1280]}
+        sizes="(max-width: 900px) 92vw, 600px"
+        loading="eager"
+        fetchpriority="high"
+        class="about-hero-img"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-hero {
+    padding: 7.5rem 1rem 4rem;
+    background: linear-gradient(135deg, #f7f9ff 0%, #eef3ff 60%, #e8f0ff 100%);
+    overflow: hidden;
+  }
+  .about-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: 3rem;
+  }
+  .about-hero h1 {
+    max-width: 17ch;
+    margin: 1.1rem 0 0;
+    color: #0b1f4d;
+    font-weight: var(--h1-weight);
+    letter-spacing: -0.02em;
+  }
+  .lead {
+    max-width: 36rem;
+    margin: 1.25rem 0 2rem;
+    color: #475569;
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+    line-height: 1.75;
+  }
+  .about-hero-copy .btn { box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25); }
+  .about-hero-copy .btn :global(svg) { transition: transform 0.2s ease; }
+  .about-hero-copy .btn:hover :global(svg) { transform: translateX(3px); }
+
+  /* La foto se sale un poco del contenedor y se desplaza a la derecha sin cambiar de tamaño */
+  .about-hero-media {
+    position: relative;
+    margin-right: calc(-1 * max(0px, (100vw - var(--max-width)) / 8));
+    transform: translateX(clamp(1.5rem, 5vw, 5rem));
+  }
+  /* Mancha celeste detrás de la foto, inclinada como su borde */
+  .about-hero-media::before {
+    content: "";
+    position: absolute;
+    inset: 8% 40% 4% -6%;
+    background: #dbe7ff;
+    border-radius: 48px;
+    transform: skewX(-12deg);
+    z-index: 0;
+  }
+  .about-hero-img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--panel-radius);
+    clip-path: polygon(16% 0, 100% 0, 100% 100%, 0 100%);
+    filter: drop-shadow(0 24px 40px rgba(15, 23, 42, 0.18));
+  }
+
+  @media (max-width: 900px) {
+    .about-hero-grid { grid-template-columns: 1fr; gap: 2.25rem; }
+    .about-hero-img { clip-path: none; }
+    .about-hero-media { margin-right: 0; transform: none; }
+    .about-hero-media::before { display: none; }
+  }
+  @media (max-width: 600px) {
+    .about-hero { padding: 6.5rem 1rem 3rem; }
+  }
+</style>

@@ -1,0 +1,76 @@
+---
+// "Datos de la empresa": razón social, RUC y contacto en un panel (señal de confianza)
+import './nosotros.css';
+
+const datos = [
+  { label: 'Razón social', value: 'NANIVA TECHNOLOGIES S.A.C.' },
+  { label: 'RUC', value: '20615608221' },
+  { label: 'Dirección', value: 'Calle Manrique de Luna 168, San Miguel, Lima' },
+  { label: 'Teléfono', value: '+51 937 292 341', href: 'tel:+51937292341' },
+  { label: 'Correo', value: 'ventas@naniva.com', href: 'mailto:ventas@naniva.com' },
+  { label: 'Horario', value: 'Lunes a viernes, de 9:00 a 18:00' },
+  { label: 'Facturación electrónica', value: 'SEE – Del Contribuyente de SUNAT' },
+  { label: 'Atención al consumidor', value: 'Libro de Reclamaciones', href: '/libro-reclamaciones' },
+];
+---
+
+<section class="ns-section">
+  <div class="container">
+    <div class="company reveal">
+      <div class="company-copy">
+        <h2>Datos de la empresa</h2>
+        <p>Somos una empresa formal, con oficina en Lima. Puedes verificar nuestros datos o visitarnos en horario de atención.</p>
+        <a href="/contacto" class="btn btn-outline">Ir a contacto</a>
+      </div>
+      <dl class="company-data">
+        {datos.map((d) => (
+          <div class="company-row">
+            <dt>{d.label}</dt>
+            <dd>{d.href ? <a href={d.href}>{d.value}</a> : d.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Panel: regla de bordes del sitio */
+  .company {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 2.5rem;
+    align-items: center;
+    padding: 2.5rem;
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--card-shadow);
+  }
+  .company-copy h2 {
+    font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.3rem);
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.2;
+  }
+  .company-copy p { margin: 0.75rem 0 1.5rem; color: #475569; line-height: 1.7; }
+  .company-row {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .company-row:last-child { border-bottom: none; }
+  .company-row dt { color: #64748b; font-weight: 600; }
+  .company-row dd { color: #0f172a; font-weight: 700; overflow-wrap: anywhere; }
+  .company-row a { color: #1d4ed8; text-decoration: none; }
+  .company-row a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  @media (max-width: 860px) {
+    .company { grid-template-columns: 1fr; padding: 1.75rem 1.25rem; gap: 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .company-row { grid-template-columns: 1fr; gap: 0.2rem; }
+  }
+</style>

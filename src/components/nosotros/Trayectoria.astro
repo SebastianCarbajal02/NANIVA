@@ -1,0 +1,110 @@
+---
+// "Nuestra trayectoria en números": foto circular a la izquierda y cifras en 2 x 2 a la derecha.
+// Solo cifras que el sitio ya publica (home, FAQ y planes).
+import { Image } from 'astro:assets';
+import { icons } from '@components/producto/icons';
+import trayectoriaImg from '@assets/image/sobre-nosotros/trayectoria.jpg';
+import './nosotros.css';
+
+const cifras = [
+  { icon: icons.users, value: '+200', label: 'Empresas confían', strong: 'en nosotros' },
+  { icon: icons.cloud, value: '100%', label: 'En la nube,', strong: 'sin instalar nada' },
+  { icon: icons.clock, value: '24 h', label: 'Para tener tu', strong: 'sistema listo' },
+  { icon: icons.headset, value: 'Soporte activo', label: 'Brindamos el', strong: 'mejor soporte' },
+];
+---
+
+<section class="ns-section stats-section">
+  <div class="container stats-grid">
+    <div class="stats-media reveal">
+      <span class="stats-dot stats-dot-1" aria-hidden="true"></span>
+      <span class="stats-dot stats-dot-2" aria-hidden="true"></span>
+      <Image src={trayectoriaImg} alt="Oficina de NANIVA con el logo en la pared y el dashboard del sistema proyectado" widths={[360, 560, 760]} sizes="(max-width: 900px) 80vw, 480px" class="stats-img" />
+    </div>
+    <div class="stats-copy">
+      <span class="eyebrow eyebrow-dot reveal">NUESTRA TRAYECTORIA</span>
+      <h2 class="reveal">Nuestra trayectoria en números</h2>
+      <p class="stats-intro reveal">
+        La confianza de nuestros clientes y el compromiso de nuestro equipo nos impulsan a seguir creciendo y llevando
+        la transformación digital a más empresas en todo el Perú.
+      </p>
+      <ul class="stats-cards">
+        {cifras.map((c, i) => (
+          <li class="stat-card reveal" style={`transition-delay: ${i * 70}ms`}>
+            <span class="stat-icon" set:html={c.icon} />
+            <strong class:list={['stat-value', { 'stat-value-text': c.value.length > 6 }]}>{c.value}</strong>
+            <span class="stat-label">{c.label} <b>{c.strong}</b></span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: 3.5rem;
+  }
+  .stats-media { position: relative; max-width: 480px; width: 100%; justify-self: center; }
+  .stats-img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    /* Recorte circular centrado en el logo y la mesa */
+    object-position: 42% 45%;
+    border-radius: 50%;
+    box-shadow: var(--card-shadow-hover);
+  }
+  .stats-dot { position: absolute; border-radius: 50%; background: #dbe7ff; z-index: 0; }
+  .stats-dot-1 { width: 18%; aspect-ratio: 1; left: -4%; bottom: 6%; }
+  .stats-dot-2 { width: 9%; aspect-ratio: 1; right: 2%; top: 4%; background: #bfd5ff; }
+
+  .stats-copy h2 {
+    max-width: 14ch;
+    margin-top: 0.9rem;
+    font-size: clamp(1.7rem, 1.2rem + 1.6vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #0b1f4d;
+  }
+  .stats-intro { max-width: 34rem; margin: 0.9rem 0 1.75rem; color: #475569; line-height: 1.7; }
+
+  .stats-cards { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.25rem 1.35rem;
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .stat-card:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+  .stat-icon { display: inline-flex; color: #2563eb; margin-bottom: 0.35rem; }
+  .stat-icon :global(svg) { width: 26px; height: 26px; }
+  .stat-value { font-size: clamp(1.6rem, 1.2rem + 1vw, 2rem); font-weight: 700; color: #1d4ed8; line-height: 1.1; }
+  .stat-value-text { font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem); }
+  .stat-label { color: #475569; font-size: 0.92rem; line-height: 1.4; }
+  .stat-label b { color: #1d4ed8; font-weight: 700; }
+
+  @media (max-width: 900px) {
+    .stats-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .stats-media { max-width: 340px; }
+  }
+  @media (max-width: 420px) {
+    .stats-cards { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stat-card { transition: none; }
+    .stat-card:hover { transform: none; }
+  }
+</style>

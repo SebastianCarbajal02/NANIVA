@@ -1,0 +1,174 @@
+---
+// "Cómo trabajamos": los 5 pasos del proceso y la tarjeta "Tu éxito también es el nuestro". Por ahora sin imagen.
+import { icons, checkIcon } from '@components/producto/icons';
+import './nosotros.css';
+
+const chatIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>`;
+const cubeIcon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 3 7l9 5 9-5z" fill="#60a5fa"/><path d="M3 7v10l9 5V12z" fill="#2563eb"/><path d="M21 7v10l-9 5V12z" fill="#1d4ed8"/></svg>`;
+const arrowRight = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>`;
+
+const pasos = [
+  { icon: chatIcon, title: 'Asesoría inicial', desc: 'Analizamos tus necesidades y te recomendamos la mejor solución.' },
+  { icon: icons.settings, title: 'Configuración', desc: 'Personalizamos el sistema según tu negocio.' },
+  { icon: icons.user, title: 'Capacitación', desc: 'Te enseñamos a usar la plataforma de forma simple y práctica.' },
+  { icon: icons.rocket, title: 'Puesta en marcha', desc: 'Activamos tu sistema y te acompañamos en el proceso.' },
+  { icon: icons.headset, title: 'Soporte continuo', desc: 'Estamos siempre contigo para resolver tus dudas y ayudarte a crecer.' },
+];
+
+const beneficios = ['Implementación rápida', 'Soporte especializado', 'Actualizaciones constantes', 'Seguridad en la nube'];
+---
+
+<section class="ns-section ns-azul trabajamos">
+  <div class="container trab-panel reveal">
+    <div class="trab-main">
+      <span class="eyebrow">NUESTRO PROCESO</span>
+      <h2>Cómo <span class="hl">trabajamos</span></h2>
+      <p class="trab-intro">
+        Te acompañamos desde el primer día, no solo te entregamos un sistema. Nos enfocamos en entender tu negocio y
+        brindarte una implementación rápida, segura y con soporte continuo.
+      </p>
+      <ol class="pasos">
+        {pasos.map((p, i) => (
+          <li class="paso reveal" style={`transition-delay: ${i * 70}ms`}>
+            <span class="paso-icon" set:html={p.icon} />
+            <span class="paso-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{p.title}</h3>
+            <p>{p.desc}</p>
+            {i < pasos.length - 1 && <span class="paso-arrow" set:html={arrowRight} />}
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <aside class="exito reveal">
+      <div class="exito-copy">
+        <span class="exito-cube" set:html={cubeIcon} />
+        <h3>Tu éxito también es <span class="hl">el nuestro</span></h3>
+        <span class="exito-line" aria-hidden="true"></span>
+        <ul class="exito-list">
+          {beneficios.map((b) => (
+            <li><span class="exito-check" set:html={checkIcon} />{b}</li>
+          ))}
+        </ul>
+        <p class="exito-firma">Siempre contigo</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+  /* Panel blanco: proceso a la izquierda y tarjeta de beneficios a la derecha */
+  .trab-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 2rem;
+    max-width: 1600px;
+    padding: 3rem;
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--card-shadow);
+  }
+
+  .trab-main h2 {
+    margin-top: 0.9rem;
+    font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #0b1f4d;
+  }
+  .hl { color: #2563eb; }
+  .trab-intro { max-width: 36rem; margin: 1rem 0 2rem; color: #475569; line-height: 1.75; }
+
+  /* Pasos: tarjetas en fila con una flecha entre cada una */
+  .pasos { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.5rem; }
+  .paso {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.25rem 1.1rem;
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+  }
+  .paso-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 0.6rem;
+    border-radius: 50%;
+    background: #e8f0ff;
+    color: #2563eb;
+  }
+  .paso-icon :global(svg) { width: 22px; height: 22px; }
+  .paso-num { color: #2563eb; font-size: 0.85rem; font-weight: 700; }
+  .paso h3 { font-size: 0.98rem; font-weight: 700; color: #0b1f4d; line-height: 1.3; }
+  .paso p { color: #64748b; font-size: 0.84rem; line-height: 1.55; }
+  .paso-arrow {
+    position: absolute;
+    top: 2.1rem;
+    right: -1.3rem;
+    display: inline-flex;
+    color: #2563eb;
+  }
+
+  /* Tarjeta "Tu éxito también es el nuestro": texto a la izquierda y foto de soporte a la derecha */
+  .exito {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(160deg, #f1f6ff 0%, #e4edff 100%);
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+  }
+  .exito-copy { padding: 2.25rem 2rem; }
+  .exito-cube { display: inline-flex; }
+  .exito-cube :global(svg) { width: 26px; height: 26px; }
+  .exito h3 { margin-top: 0.75rem; font-size: clamp(1.3rem, 1rem + 0.8vw, 1.6rem); font-weight: 700; line-height: 1.2; color: #0b1f4d; }
+  .exito-line { display: block; width: 44px; height: 3px; margin: 1rem 0 1.1rem; border-radius: 999px; background: #2563eb; }
+  .exito-list { list-style: none; display: grid; gap: 0.6rem; }
+  .exito-list li { display: flex; align-items: center; gap: 0.55rem; color: #334155; font-size: 0.9rem; font-weight: 600; }
+  .exito-check {
+    display: inline-flex;
+    flex-shrink: 0;
+    padding: 0.2rem;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #fff;
+  }
+  .exito-check :global(svg) { width: 12px; height: 12px; }
+  .exito-firma {
+    margin-top: 1.4rem;
+    font-family: "Segoe Script", "Brush Script MT", "Lucida Handwriting", cursive;
+    font-size: 1.35rem;
+    color: #1d4ed8;
+    transform: rotate(-4deg);
+    transform-origin: left center;
+  }
+
+  /* Tablet: la tarjeta de beneficios pasa debajo del proceso; los pasos en 3 columnas sin flechas */
+  @media (max-width: 1200px) {
+    .trab-panel { grid-template-columns: 1fr; }
+    .exito { max-width: 640px; }
+  }
+  @media (max-width: 900px) {
+    .pasos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+    .paso-arrow { display: none; }
+  }
+  @media (max-width: 640px) {
+    .trab-panel { padding: 1.75rem 1.25rem; }
+    .pasos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .exito-copy { padding: 1.75rem 1.5rem; }
+  }
+  @media (max-width: 420px) {
+    .pasos { grid-template-columns: 1fr; }
+  }
+</style>
