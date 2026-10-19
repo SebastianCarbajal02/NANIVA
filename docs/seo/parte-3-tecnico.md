@@ -39,8 +39,8 @@ Añadir un `@id` estable para que los demás schemas lo referencien, y los datos
   "taxID": "20615608221",
   "url": "https://www.naniva.pe/",
   "logo": "https://www.naniva.pe/… (se mantiene el actual)",
-  "email": "nanivatechnologies@gmail.com",
-  "telephone": "+51908644190",
+  "email": "ventas@naniva.com",
+  "telephone": "+51937292341",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Calle Manrique de Luna 168",
@@ -51,7 +51,7 @@ Añadir un `@id` estable para que los demás schemas lo referencien, y los datos
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "sales",
-    "telephone": "+51908644190",
+    "telephone": "+51937292341",
     "areaServed": "PE",
     "availableLanguage": "es",
     "hoursAvailable": {
@@ -273,8 +273,8 @@ Añadir un `@id` estable para que los demás schemas lo referencien, y los datos
     "areaServed": { "@type": "Country", "name": "PE" },
     "availableChannel": {
       "@type": "ServiceChannel",
-      "servicePhone": { "@type": "ContactPoint", "telephone": "+51908644190", "contactType": "sales" },
-      "serviceUrl": "https://wa.me/51908644190"
+      "servicePhone": { "@type": "ContactPoint", "telephone": "+51937292341", "contactType": "sales" },
+      "serviceUrl": "https://wa.me/51937292341"
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",

@@ -4,7 +4,7 @@ Basado en la Parte 1 (`parte-1-arquitectura.md`). Todo el copy usa solo datos pu
 
 Convenciones:
 - Los párrafos en `>` son **respuestas directas de 40–60 palabras**, pensadas para fragmentos destacados y AI Overviews. Van justo debajo de su H2/H3, antes de cualquier lista o imagen.
-- CTA principal en todas las landings: **"Pide tu demo por WhatsApp"** → `https://wa.me/51908644190` con mensaje prellenado por producto.
+- CTA principal en todas las landings: **"Pide tu demo por WhatsApp"** → `https://wa.me/51937292341` con mensaje prellenado por producto.
 - Orden de secciones: problema → solución → funcionalidades → prueba social → precios → FAQ → CTA.
 - Cada landing lleva una tabla de contenidos con anclas después del hero (pautas técnicas en la Parte 3).
 

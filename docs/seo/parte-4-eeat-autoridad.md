@@ -37,7 +37,7 @@ E-E-A-T = experiencia, conocimiento, autoridad y confiabilidad. Para un software
 | **Reseñas de clientes** | Google Business Profile, directorios de software | Sin datos | Ver 4.3 y la táctica 1 de link building |
 
 **Coherencia de marca (NAP):** nombre, dirección y teléfono deben escribirse **exactamente igual** en la web, Google Business Profile, redes y directorios. Un solo formato:
-`NANIVA Technologies · Calle Manrique de Luna 168, San Miguel, Lima · +51 908 644 190`
+`NANIVA Technologies · Calle Manrique de Luna 168, San Miguel, Lima · +51 937 292 341`
 
 ---
 
