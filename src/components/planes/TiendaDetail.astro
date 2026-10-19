@@ -1,0 +1,145 @@
+---
+// Pestaña "Tienda Online" de /planes: presentación corta y los mismos planes que /tienda-online
+import { Image } from 'astro:assets';
+import Plans from '@components/producto/Plans.astro';
+import { productos, whatsappHref } from '@data/productos';
+import imgTienda from '@assets/image/tiendas-digitales/tienda-online/lap-tienda-online.webp';
+
+const p = productos.tienda;
+
+const checkIcon = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>`;
+const cartIcon = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>`;
+
+const highlights = [
+  'Carrito de compras',
+  'Pagos con tarjeta, Yape y Plin',
+  'Comprobante SUNAT automático',
+  'Stock conectado a tu ERP',
+  'Envíos con Shalom',
+];
+---
+
+<section id="tienda-online" class="tienda-detail product-detail">
+  <div class="container tienda-hero">
+    <div class="tienda-hero-copy reveal">
+      <span class="tienda-badge"><span set:html={cartIcon} />TIENDA ONLINE</span>
+      <h2>Tienda <span class="tienda-highlight">Online</span></h2>
+      <p class="tienda-hero-sub">Vende y cobra en línea con tu propia tienda. Cada venta descuenta tu stock y emite su comprobante electrónico.</p>
+
+      <ul class="tienda-points">
+        {highlights.map((h) => (
+          <li><span class="tienda-check" set:html={checkIcon} />{h}</li>
+        ))}
+      </ul>
+
+      <div class="tienda-cta">
+        <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="tienda-btn tienda-btn-primary hover-pop">Cotiza tu tienda</a>
+        <a href="#tienda-online-planes" class="tienda-btn tienda-btn-outline hover-pop">Ver planes</a>
+      </div>
+      <a href="/tienda-online" class="detail-more-link">Ver todas las funciones de la tienda online →</a>
+    </div>
+
+    <div class="tienda-hero-media reveal">
+      <Image src={imgTienda} alt={p.heroAlt} class="tienda-mockup-img" widths={[640, 1000, 1400]} sizes="(max-width: 900px) 100vw, 55vw" />
+    </div>
+  </div>
+
+  <!-- Mismos planes que /tienda-online: salen de @data/productos -->
+  <Plans producto={p} id="tienda-online-planes" />
+</section>
+
+<style>
+  .tienda-detail {
+    background: #f8fafc;
+    padding: 4rem 0 2rem;
+    border-top: 1px solid #e2e8f0;
+    scroll-margin-top: 6rem;
+  }
+  .tienda-detail .container {
+    max-width: 1400px;
+    margin: 4rem auto 0;
+    padding: 0 2rem;
+  }
+
+  .tienda-hero {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding-bottom: 1rem;
+  }
+  .tienda-hero-copy { flex: 1; min-width: 320px; }
+  .tienda-hero-media { flex: 1.2; min-width: 320px; }
+  .tienda-mockup-img { width: 100%; height: auto; }
+
+  .tienda-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #e3f9e5;
+    color: #16a34a;
+    font-size: 1.1rem;
+    font-weight: 750;
+    letter-spacing: 0.03em;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    margin-top: 0.5rem;
+  }
+  .tienda-hero-copy h2 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0.75rem 0;
+    line-height: 1.1;
+  }
+  .tienda-highlight { color: #16a34a; }
+  .tienda-hero-sub {
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    color: #475569;
+    font-weight: 600;
+    margin: 0 0 1.5rem;
+  }
+
+  .tienda-points {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+  .tienda-points li { display: flex; align-items: center; gap: 0.55rem; color: #334155; font-weight: 600; font-size: 0.95rem; }
+  .tienda-check {
+    display: inline-flex;
+    flex-shrink: 0;
+    padding: 0.3rem;
+    border-radius: 999px;
+    background: #e3f9e5;
+    color: #16a34a;
+  }
+
+  .tienda-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .tienda-btn {
+    display: inline-block;
+    padding: 0.85rem 1.6rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+  .tienda-btn-primary { background: #16a34a; color: #fff; }
+  .tienda-btn-outline { background: #fff; color: #16a34a; border: 1.5px solid #16a34a; }
+
+  .detail-more-link { color: #15803d; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+  .detail-more-link:hover { color: #166534; }
+
+  .product-detail { display: none; }
+  .product-detail.is-active { display: block; }
+
+  @media (max-width: 900px) {
+    .tienda-hero { flex-direction: column; }
+    .tienda-hero-copy, .tienda-hero-media { min-width: 0; width: 100%; }
+  }
+  @media (max-width: 600px) {
+    .tienda-detail .container { padding: 0 1rem; }
+    .tienda-points { grid-template-columns: 1fr; }
+  }
+</style>

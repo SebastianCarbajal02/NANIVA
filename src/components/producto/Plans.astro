@@ -6,8 +6,10 @@ import './producto.css';
 
 interface Props {
   producto: Producto;
+  /** Ancla de la sección; en /planes cada producto necesita la suya */
+  id?: string;
 }
-const { producto: p } = Astro.props;
+const { producto: p, id = 'planes' } = Astro.props;
 const plans = p.plans!;
 
 const hi = plans.title.indexOf(plans.highlight);
@@ -17,12 +19,12 @@ const titleParts =
     : { before: plans.title.slice(0, hi), mark: plans.highlight, after: plans.title.slice(hi + plans.highlight.length) };
 
 const planHref = (name: string) =>
-  `https://wa.me/51908644190?text=${encodeURIComponent(`Hola, me interesa el plan ${name} del ${p.nombre} NANIVA`)}`;
+  `https://wa.me/51937292341?text=${encodeURIComponent(`Hola, me interesa el plan ${name} del ${p.nombre} NANIVA`)}`;
 
 const crossIcon = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
 const checkIcon = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>`;
 ---
-<section id="planes" class="producto-section plans" style={themeStyle(p)}>
+<section id={id} class="producto-section plans" style={themeStyle(p)}>
   <div class="container">
     <div class="plans-head">
       <span class="plans-badge reveal">{plans.badge}</span>
@@ -58,6 +60,45 @@ const checkIcon = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" s
       ))}
     </div>
     <p class="plans-note">{plans.note}</p>
+
+    <!-- Comparación completa: desplegable como la del ERP (el contenido sigue en el HTML para Google) -->
+    {plans.compare && (
+      <details class="cmp-details">
+        <summary>Ver comparación completa de funcionalidades</summary>
+        <div class="cmp-wrap">
+          <table class="cmp-table">
+            <caption class="visually-hidden">Comparación de funcionalidades de los planes {plans.items.map((pl) => pl.name).join(', ')} de {p.nombre} NANIVA</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="cmp-label">Funcionalidades</th>
+                {plans.items.map((plan) => (
+                  <th scope="col" class:list={['cmp-plan', { featured: plan.featured }]}>
+                    {plan.featured && <span class="cmp-flag">Recomendado</span>}
+                    <span class="cmp-name">{plan.name}</span>
+                    <span class="cmp-price"><span class="cmp-currency">S/</span>{plan.price}<span class="cmp-period">/mes</span></span>
+                    <a href={planHref(plan.name)} target="_blank" rel="noopener noreferrer" class="cmp-cta">Elegir plan</a>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {plans.compare.map(([label, ...values]) => (
+                <tr>
+                  <th scope="row" class="cmp-label">{label}</th>
+                  {values.map((v, i) => (
+                    <td class:list={['cmp-plan', { featured: plans.items[i]?.featured }]}>
+                      {v === true && <span class="cmp-yes"><Fragment set:html={checkIcon} /><span class="visually-hidden">Incluido</span></span>}
+                      {v === false && <><span class="cmp-no" aria-hidden="true">—</span><span class="visually-hidden">No incluido</span></>}
+                      {typeof v === 'string' && <span class="cmp-text">{v}</span>}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
+    )}
   </div>
 </section>
 
@@ -174,10 +215,162 @@ const checkIcon = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" s
   .plan-card.featured .plan-cta:hover { background: color-mix(in srgb, var(--accent-strong) 88%, #000); }
   .plans-note { text-align: center; color: var(--muted); font-size: 0.88rem; }
 
+  /* ---------- Comparación completa (mismo diseño que la del ERP, con el color del producto) ---------- */
+  .cmp-details { max-width: 1120px; margin: 2rem auto 0; scroll-margin-top: 100px; }
+  .cmp-details > summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: fit-content;
+    min-height: 48px;
+    margin: 0 auto 1.5rem;
+    padding: 0.7rem 1.5rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 999px;
+    background: #fff;
+    color: #0f172a;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .cmp-details > summary::-webkit-details-marker { display: none; }
+  .cmp-details > summary::after {
+    content: "⌄";
+    font-size: 1.1rem;
+    line-height: 1;
+    transform: translateY(-0.15em);
+    transition: transform 0.2s ease;
+  }
+  .cmp-details[open] > summary::after { transform: rotate(180deg) translateY(-0.1em); }
+  .cmp-details > summary:hover { border-color: var(--accent); color: var(--accent-strong); }
+  .cmp-details > summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+  .cmp-wrap {
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--card-shadow);
+    overflow: clip;
+  }
+  .cmp-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    font-size: 0.95rem;
+  }
+  .cmp-table .cmp-label {
+    width: 40%;
+    text-align: left;
+    font-weight: 600;
+    color: #334155;
+    padding: 0.8rem 1.5rem;
+  }
+  .cmp-table td,
+  .cmp-table tbody th { border-bottom: 1px solid #f1f5f9; }
+  .cmp-table tbody tr:last-child td,
+  .cmp-table tbody tr:last-child th { border-bottom: none; }
+  .cmp-table td { text-align: center; padding: 0.8rem 0.75rem; color: #0f172a; }
+  .cmp-table tbody tr:hover td,
+  .cmp-table tbody tr:hover th { background: #f8fafc; }
+
+  /* Encabezado fijo al hacer scroll; top = alto del menú fijo */
+  .cmp-table thead th {
+    position: sticky;
+    top: 80px;
+    z-index: 2;
+    background: #fff;
+    border-bottom: 2px solid #e2e8f0;
+    vertical-align: bottom;
+    padding: 1.5rem 0.75rem 1.25rem;
+  }
+  .cmp-table thead .cmp-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64748b;
+    padding-left: 1.5rem;
+  }
+  .cmp-plan { text-align: center; }
+  .cmp-flag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--accent-strong);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+  .cmp-name { display: block; font-size: 1.1rem; font-weight: 800; color: #0f172a; }
+  .cmp-price {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+    margin: 0.25rem 0 0.9rem;
+  }
+  .cmp-currency { font-size: 1rem; margin-right: 0.15rem; vertical-align: 0.6em; }
+  .cmp-period { font-size: 0.85rem; font-weight: 600; color: #64748b; }
+  .cmp-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0.55rem 1.25rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--accent);
+    color: var(--accent-strong);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .cmp-cta:hover { background: var(--accent-soft); }
+
+  /* Columna recomendada */
+  .cmp-table .featured { background: color-mix(in srgb, var(--accent-soft) 55%, #fff); }
+  .cmp-table thead th.featured { background: var(--accent-soft); border-top: 3px solid var(--accent); }
+  .cmp-table thead th.featured .cmp-cta { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; }
+
+  .cmp-yes {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+  }
+  .cmp-no { color: #94a3b8; font-weight: 700; }
+  .cmp-text { font-weight: 700; color: #0f172a; }
+
   @media (max-width: 1000px) {
     .plan-cards { grid-template-columns: 1fr; max-width: 460px; row-gap: 2rem; }
   }
+  /* Móvil: las tres columnas caben si se compactan; el botón queda en las tarjetas de arriba */
+  @media (max-width: 640px) {
+    .cmp-table { font-size: 0.85rem; }
+    .cmp-table .cmp-label { width: 46%; padding: 0.7rem 0.75rem; }
+    .cmp-table td { padding: 0.7rem 0.25rem; }
+    .cmp-table thead th { top: 64px; padding: 1rem 0.25rem 0.85rem; }
+    .cmp-table thead .cmp-label { padding-left: 0.75rem; font-size: 0.7rem; }
+    .cmp-flag { font-size: 0.55rem; padding: 0.15rem 0.4rem; letter-spacing: 0.02em; }
+    .cmp-name { font-size: 0.9rem; }
+    .cmp-price { font-size: 1.25rem; margin-bottom: 0; }
+    .cmp-currency { font-size: 0.7rem; }
+    .cmp-period { display: none; }
+    .cmp-cta { display: none; }
+    .cmp-yes { width: 24px; height: 24px; }
+  }
   @media (prefers-reduced-motion: reduce) {
+    .cmp-details > summary::after { transition: none; }
     .plan-card { transition: none; }
     .plan-card:hover, .plan-card:focus-within { transform: none; }
   }

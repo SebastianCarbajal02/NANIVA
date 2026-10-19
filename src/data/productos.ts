@@ -97,6 +97,8 @@ export interface Producto {
     note: string;
     items: { name: string; tagline: string; price: number; featured?: boolean }[];
     features: { text: string | string[]; included: boolean[] }[];
+    /** Tabla "Ver comparación completa": [función, valor por plan]; true = incluido, false = no incluido, texto = límite */
+    compare?: [string, boolean | string, boolean | string, boolean | string][];
   };
   /** Banner con imagen, título (`highlight` subrayado en color) y recuadros con icono (ShareBanner.astro) */
   shareBanner?: {
@@ -389,6 +391,21 @@ const catalogo: Producto = {
       { text: 'Soporte personalizado', included: [false, true, true] },
       { text: 'Envío masivo de catálogos PDF', included: [false, false, true] },
     ],
+    compare: [
+      ['Productos publicados', '100', '300', '500'],
+      ['Imágenes por producto', '1', '3', '3'],
+      ['Creación de catálogos PDF ilimitada', true, true, true],
+      ['Catálogos publicados', '5', '15', '30'],
+      ['Banners digitales', '1', '3', '5'],
+      ['Vitrinas', '3', '10', '20'],
+      ['Asesores', '1', '4', '8'],
+      ['Carga masiva de imágenes', true, true, true],
+      ['Edición masiva de productos', false, true, true],
+      ['Personalización de tema y colores', false, true, true],
+      ['Cotizaciones enviadas a WhatsApp', true, true, true],
+      ['Soporte personalizado', false, true, true],
+      ['Envío masivo de catálogos PDF', false, false, true],
+    ],
   },
   price: { from: 39, note: 'Planes de 100, 300 y 500 productos publicados.', href: '/catalogo-digital#planes', cta: 'Ver planes del catálogo' },
   showEcommerceCompare: true,
@@ -532,6 +549,19 @@ const tienda: Producto = {
       { text: 'Soporte personalizado', included: [false, true, true] },
       { text: 'Preventas', included: [false, false, true] },
     ],
+    compare: [
+      ['Productos publicados', '100', '300', '500'],
+      ['Carrito de compras', true, true, true],
+      ['Pagos online', true, true, true],
+      ['Gestión de pedidos y stock', true, true, true],
+      ['Logística de envíos', true, true, true],
+      ['Personalización de tienda virtual', false, true, true],
+      ['Cupones de descuento', false, true, true],
+      ['Combos o packs', false, true, true],
+      ['Preventas', false, false, true],
+      ['Reportes de ventas', false, true, true],
+      ['Soporte personalizado', false, true, true],
+    ],
   },
   price: { from: 79, note: 'Planes de 100, 300 y 500 productos publicados.', href: '/tienda-online#planes', cta: 'Ver planes de la tienda' },
   showEcommerceCompare: true,
@@ -590,7 +620,7 @@ export const productos = { erp, restaurante, catalogo, tienda, tiendas };
 
 
 /** Enlace de WhatsApp con el mensaje del producto */
-export const whatsappHref = (p: Producto) => `https://wa.me/51908644190?text=${encodeURIComponent(p.whatsappText)}`;
+export const whatsappHref = (p: Producto) => `https://wa.me/51937292341?text=${encodeURIComponent(p.whatsappText)}`;
 
 /** Colores del producto como variables CSS (se aplican en cada sección) */
 export const themeStyle = (p: Producto) =>

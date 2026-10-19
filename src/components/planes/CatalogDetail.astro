@@ -1,11 +1,12 @@
 ---
 import { Image } from 'astro:assets';
+import Plans from '@components/producto/Plans.astro';
+import { productos } from '@data/productos';
 import catalogoMockup from '@assets/image/planes/catalogo/catgbb-15.webp';
 import catFeatureShare from '@assets/image/planes/catalogo/iconcatgl-18.png';
 import catFeatureWhatsapp from '@assets/image/planes/catalogo/iconcatgl-19.png';
 import catFeatureQuote from '@assets/image/planes/catalogo/iconcatgl-16.png';
 import catFeatureGrowth from '@assets/image/planes/catalogo/iconcatgg-16.png';
-import mensajeroIcon from '@assets/image/servicios/full/mensajero (1).png';
 import iconNegocioFerreterias from '@assets/image/planes/tipo-negocio/iconocatgg-03.jpg.jpeg';
 import iconNegocioDistribuidoras from '@assets/image/planes/tipo-negocio/iconocatgg-04.jpg.jpeg';
 import iconNegocioTiendas from '@assets/image/planes/tipo-negocio/iconocatgg-05.jpg.jpeg';
@@ -32,74 +33,11 @@ function icon(name: string, color: string = "#2563eb", size = 22) {
   return icons[name] ?? "";
 }
 
-const CATALOGO_ANNUAL_DISCOUNT = 0.2;
-function annualPricing(monthly: number) {
-  const fullYear = monthly * 12;
-  const discounted = Math.round(fullYear * (1 - CATALOGO_ANNUAL_DISCOUNT));
-  return { fullYear, discounted, savings: fullYear - discounted };
-}
-
 const catalogoFeatures = [
   { img: catFeatureShare, alt: "Comparte tu catálogo en segundos" },
   { img: catFeatureWhatsapp, alt: "Recibe pedidos por WhatsApp" },
   { img: catFeatureQuote, alt: "Envía cotizaciones profesionales" },
   { img: catFeatureGrowth, alt: "Convierte consultas en ventas" },
-];
-
-const catalogoPlans = [
-  {
-    name: "PLAN NEGOCIO",
-    monthly: 79,
-    productsNote: "Hasta 300 productos",
-    featured: false,
-    href: "https://wa.link/m8m2xy",
-    items: [
-      "Catálogo digital integrado al sistema",
-      "Creación de catálogos PDF",
-      "Portada y fondo personalizados",
-      "Banners",
-      "Carga masiva de imágenes",
-      { text: "Enlace para compartir por WhatsApp", sub: "(cotizaciones enlace pdf)" },
-      "Lista de catálogos guardados",
-      "Edición básica de catálogos",
-      "Soporte",
-      "300 Productos (2 x imagen)",
-      "Envío masivos por Whatsapp",
-    ],
-  },
-  {
-    name: "PLAN EMPRESA",
-    monthly: 118,
-    productsNote: "Hasta 600 productos (2x imagen)",
-    featured: true,
-    href: "https://wa.link/wwunpb",
-    items: [
-      "Catálogo digital integrado al sistema",
-      "Creación de catálogos PDF",
-      "Portada y fondo personalizados",
-      "Edición masiva de productos, categorías, precios y marcas",
-      "Cambio de tema / colores / Banners",
-      "Más plantillas o estilos de catálogo",
-      { text: "Envío masivo por WhatsApp", sub: "(cotizaciones enlace pdf)" },
-      "Carga masiva de imágenes",
-      "Soporte premium",
-    ],
-    tag: { label: "NUEVO", text: "Envíos masivos por WhatsApp" },
-  },
-];
-
-const compareFeatures = [
-  { icon: "book", label: "Catálogo digital integrado al sistema", negocio: true, empresa: true },
-  { icon: "filetext", label: "Creación de catálogo PDF", negocio: true, empresa: true },
-  { icon: "image", label: "Portadas y fondos personalizados", negocio: true, empresa: true },
-  { icon: "monitor", label: "Banners", negocio: true, empresa: true },
-  { icon: "upload", label: "Carga masiva de imágenes", negocio: true, empresa: true },
-  { icon: "whatsapp", label: "Enlace para compartir por WhatsApp", sub: "(cotizaciones o enlace pdf)", negocio: true, empresa: true },
-  { icon: "folder", label: "Lista de catálogos guardados", negocio: true, empresa: true },
-  { icon: "edit", label: "Edición básica de catálogos", negocio: true, empresa: true },
-  { icon: "headset", label: "Soporte", negocio: true, empresa: true },
-  { icon: "box", label: "300 Productos (2K Imágenes)", negocio: true, empresa: true },
-  { icon: "send", label: "Envío masivo por WhatsApp", negocio: false, empresa: true, empresaTag: "NUEVO" },
 ];
 
 const trustBadges = [
@@ -124,7 +62,7 @@ const negociosCategories = [
     <div class="erp-hero-copy reveal">
       <span class="erp-badge catalogo-badge">
         <span set:html={icon("store", "#16a34a", 15)} />
-        CATÁLOGO EN WHATSAPP
+        CATÁLOGO SMART
       </span>
       <h2>Catálogo <span class="p-highlight catalogo-highlight">Digital</span></h2>
       <p class="erp-hero-sub">Vender más a través de todos los canales. Comparte tu catálogo, recibe pedidos y convierte consultas en ventas.</p>
@@ -136,9 +74,10 @@ const negociosCategories = [
       </div>
 
       <div class="erp-cta">
-        <a href="https://wa.link/9masnd" class="btn-primary catalogo-btn-primary hover-pop">Comenzar ahora</a>
-        <a href="https://wa.link/4n11hv" class="btn-outline catalogo-btn-outline hover-pop">Solicitar demostración</a>
+        <a href="https://wa.me/51937292341?text=%F0%9F%91%8B%20%C2%A1Hola!%20%F0%9F%9B%8D%EF%B8%8F%20Deseo%20conocer%20c%C3%B3mo%20funciona%20el%20Cat%C3%A1logo%20Digital%20y%20c%C3%B3mo%20puede%20ayudarme%20a%20vender%20m%C3%A1s.%20Agradecer%C3%A9%20su%20asesor%C3%ADa." class="btn-primary catalogo-btn-primary hover-pop">Comenzar ahora</a>
+        <a href="https://wa.me/51937292341?text=%F0%9F%91%8B%20%C2%A1Hola!%20Estoy%20interesado%20en%20el%20Cat%C3%A1logo%20Digital.%20Me%20gustar%C3%ADa%20solicitar%20una%20demostraci%C3%B3n%20para%20conocer%20sus%20funcionalidades%2C%20beneficios%20y%20c%C3%B3mo%20puede%20impulsar%20las%20ventas%20de%20mi%20empresa.%20%F0%9F%93%B1" class="btn-outline catalogo-btn-outline hover-pop">Solicitar demostración</a>
       </div>
+      <a href="/catalogo-digital" class="detail-more-link">Ver todas las funciones del catálogo digital →</a>
     </div>
 
     <div class="erp-hero-media reveal">
@@ -146,216 +85,10 @@ const negociosCategories = [
     </div>
   </div>
 
-  <div class="container catalogo-pricing reveal" data-billing-scope="catalogo">
-    <div class="catalogo-pricing-head">
-      <h2><span set:html={icon("bag", "#16a34a", 26)} />Catálogo Digital</h2>
-      <p>Planes diseñados para negocios que quieren vender más por WhatsApp y otros canales.</p>
-    </div>
+  <!-- Mismos planes que /catalogo-digital: salen de @data/productos -->
+  <Plans producto={productos.catalogo} id="catalogo-planes" />
 
-    <div class="billing-toggle">
-      <button type="button" class="billing-toggle-btn is-active" data-billing-btn="mensual">Mensual</button>
-      <button type="button" class="billing-toggle-btn" data-billing-btn="anual">Anual</button>
-    </div>
-    <p class="billing-savings-note" data-billing-note="anual">Ahorra {Math.round(CATALOGO_ANNUAL_DISCOUNT * 100)}% pagando anual</p>
-
-    <div class="catalogo-plans-grid billing-panel is-active" data-billing-panel="mensual">
-      {catalogoPlans.map((plan) => (
-        <div class={`plan-card${plan.featured ? " plan-card-featured" : ""}`}>
-          {plan.badge && <span class="plan-badge">★ {plan.badge}</span>}
-          <h3 class="plan-name">{plan.name}</h3>
-          <div class="plan-price-block">
-            <div class="plan-price"><span class="plan-price-S">S/</span> {plan.monthly}<span class="plan-price-unit">/mes</span></div>
-          </div>
-          {plan.featured ? (
-            <span class="plan-products-note"><span set:html={icon("box", "#16a34a", 16)} /> {plan.productsNote}</span>
-          ) : (
-            <span class="plan-products-pill">{plan.productsNote}</span>
-          )}
-          <ul class="plan-items">
-            {plan.items.map((it) => (
-              <li>
-                <span set:html={icon("check")} />
-                <span>
-                  {typeof it === "string" ? it : (<>{it.text}<br /><span class="plan-item-sub">{it.sub}</span></>)}
-                </span>
-              </li>
-            ))}
-          </ul>
-          {plan.tag && (
-            <div class="plan-tag-row">
-              <span class="plan-tag-badge">{plan.tag.label}</span>
-              <span class="plan-tag-text">{plan.tag.text}</span>
-            </div>
-          )}
-          <a href={plan.href} class={`plan-cta-btn hover-pop${plan.featured ? " plan-cta-btn-filled" : ""}`}>Elegir plan</a>
-        </div>
-      ))}
-    </div>
-
-    <div class="catalogo-plans-grid billing-panel" data-billing-panel="anual">
-      {catalogoPlans.map((plan) => {
-        const { fullYear, discounted, savings } = annualPricing(plan.monthly);
-        return (
-          <div class={`plan-card${plan.featured ? " plan-card-featured" : ""}`}>
-            {plan.badge && <span class="plan-badge">★ {plan.badge}</span>}
-            <h3 class="plan-name">{plan.name}</h3>
-            <div class="plan-price-block">
-              <span class="plan-price-strike">S/ {fullYear.toLocaleString("es-PE")}</span>
-              <div class="plan-price"><span class="plan-price-S">S/</span> {discounted.toLocaleString("es-PE")}<span class="plan-price-unit">/año</span></div>
-              <span class="plan-savings-note">Ahorra S/ {savings.toLocaleString("es-PE")} al año</span>
-            </div>
-            {plan.featured ? (
-              <span class="plan-products-note"><span set:html={icon("box", "#16a34a", 16)} /> {plan.productsNote}</span>
-            ) : (
-              <span class="plan-products-pill">{plan.productsNote}</span>
-            )}
-            <ul class="plan-items">
-              {plan.items.map((it) => (
-                <li>
-                  <span set:html={icon("check")} />
-                  <span>
-                    {typeof it === "string" ? it : (<>{it.text}<br /><span class="plan-item-sub">{it.sub}</span></>)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            {plan.tag && (
-              <div class="plan-tag-row">
-                <span class="plan-tag-badge">{plan.tag.label}</span>
-                <span class="plan-tag-text">{plan.tag.text}</span>
-              </div>
-            )}
-            <a href={plan.href} class={`plan-cta-btn hover-pop${plan.featured ? " plan-cta-btn-filled" : ""}`}>Elegir plan</a>
-          </div>
-        );
-      })}
-    </div>
-  </div>
-
-  <div class="container catalogo-compare reveal">
-    <div class="catalogo-pricing-head">
-      <h2 class="compare-title">COMPARA LOS <span class="p-highlight catalogo-highlight">PLANES</span></h2>
-      <p>Elige el plan ideal para impulsar tu negocio</p>
-    </div>
-
-    <div class="compare-layout">
-      <div class="compare-mobile-cards">
-        <div class="compare-mobile-card">
-          <div class="compare-mobile-card-head">
-            <span class="compare-mobile-plan-name">{catalogoPlans[0].name}</span>
-            <div class="compare-mobile-plan-price"><span class="plan-price-S">S/</span> {catalogoPlans[0].monthly}<span class="plan-price-unit">/mes</span></div>
-            <span class="plan-products-pill">{catalogoPlans[0].productsNote}</span>
-          </div>
-          <ul class="compare-mobile-list">
-            {compareFeatures.map((f) => (
-              <li class={f.negocio ? "" : "is-dash"}>
-                {f.negocio ? (
-                  <span class="compare-check" set:html={icon("check", "#2563eb", 16)} />
-                ) : (
-                  <span class="compare-dash">—</span>
-                )}
-                <span>
-                  {f.label}
-                  {f.sub && <span class="compare-label-sub">{f.sub}</span>}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <a href={catalogoPlans[0].href} class="plan-cta-btn hover-pop compare-mobile-btn">Elegir plan</a>
-        </div>
-
-        <div class="compare-mobile-card compare-mobile-card-featured">
-          <span class="compare-mobile-badge">Recomendado</span>
-          <div class="compare-mobile-card-head">
-            <span class="compare-mobile-plan-name">{catalogoPlans[1].name}</span>
-            <div class="compare-mobile-plan-price"><span class="plan-price-S">S/</span> {catalogoPlans[1].monthly}<span class="plan-price-unit">/mes</span></div>
-            <span class="plan-products-pill">{catalogoPlans[1].productsNote}</span>
-          </div>
-          <ul class="compare-mobile-list">
-            {compareFeatures.map((f) => (
-              <li class={f.empresa ? "" : "is-dash"}>
-                {f.empresa ? (
-                  <span class="compare-check" set:html={icon("check", "#2563eb", 16)} />
-                ) : (
-                  <span class="compare-dash">—</span>
-                )}
-                <span>
-                  {f.label}
-                  {f.sub && <span class="compare-label-sub">{f.sub}</span>}
-                  {f.empresa && f.empresaTag && <span class="plan-tag-badge compare-mobile-tag">{f.empresaTag}</span>}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <a href={catalogoPlans[1].href} class="plan-cta-btn plan-cta-btn-filled hover-pop compare-mobile-btn">Elegir plan</a>
-        </div>
-      </div>
-
-      <div class="compare-table">
-        <div class="compare-row compare-row-head">
-          <div class="compare-cell compare-cell-label">
-            <span class="compare-label-title">CARACTERÍSTICAS</span>
-          </div>
-          <div class="compare-cell compare-cell-plan">
-            <span class="compare-plan-name">{catalogoPlans[0].name}</span>
-            <div class="compare-plan-price"><span class="plan-price-S">S/</span> {catalogoPlans[0].monthly}<span class="plan-price-unit">/mes</span></div>
-            <span class="plan-products-pill">{catalogoPlans[0].productsNote}</span>
-          </div>
-          <div class="compare-cell compare-cell-plan compare-cell-featured">
-            <span class="compare-plan-name">{catalogoPlans[1].name}</span>
-            <div class="compare-plan-price"><span class="plan-price-S">S/</span> {catalogoPlans[1].monthly}<span class="plan-price-unit">/mes</span></div>
-            <span class="plan-products-pill">{catalogoPlans[1].productsNote}</span>
-          </div>
-        </div>
-
-        {compareFeatures.map((f) => (
-          <div class="compare-row">
-            <div class="compare-cell compare-cell-label">
-              <span class="compare-label-icon" set:html={icon(f.icon, "#64748b", 15)} />
-              <span class="compare-label-text">
-                {f.label}
-                {f.sub && <span class="compare-label-sub">{f.sub}</span>}
-              </span>
-            </div>
-            <div class="compare-cell compare-cell-value">
-              {f.negocio ? <span class="compare-check" set:html={icon("check", "#16a34a", 16)} /> : <span class="compare-dash">—</span>}
-            </div>
-            <div class="compare-cell compare-cell-value compare-cell-featured">
-              {f.empresa ? (
-                f.empresaTag ? (
-                  <span class="compare-new-tag">
-                    <span class="plan-tag-badge">{f.empresaTag}</span>
-                    {f.label}
-                  </span>
-                ) : (
-                  <span class="compare-check" set:html={icon("check", "#16a34a", 16)} />
-                )
-              ) : (
-                <span class="compare-dash">—</span>
-              )}
-            </div>
-          </div>
-        ))}
-
-        <div class="compare-row compare-row-cta">
-          <div class="compare-cell compare-cell-label"></div>
-          <div class="compare-cell compare-cell-plan">
-            <a href={catalogoPlans[0].href} class="plan-cta-btn hover-pop">Elegir plan</a>
-          </div>
-          <div class="compare-cell compare-cell-plan compare-cell-featured">
-            <a href={catalogoPlans[1].href} class="plan-cta-btn plan-cta-btn-filled hover-pop">Elegir plan</a>
-          </div>
-        </div>
-      </div>
-
-      <aside class="compare-side">
-        <Image src={mensajeroIcon} alt="Mensajero" class="compare-side-icon" widths={[120, 240, 360]} sizes="120px" />
-        <h3>¿Necesitas más productos?</h3>
-        <p>Puedes ampliar la cantidad de productos cuando tu negocio lo necesite.</p>
-        <a href="/contacto" class="btn-primary hover-pop compare-side-btn">Más información</a>
-      </aside>
-    </div>
-
+  <div class="container catalogo-trust">
     <div class="trust-badges-row reveal">
       {trustBadges.map((t) => (
         <div class="trust-badge">
@@ -405,7 +138,7 @@ const negociosCategories = [
       
       <Image src={catalogoCtaBanner} alt="Empieza a vender por WhatsApp hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-desktop" widths={[800, 1280, 1920, 2800]} sizes="95vw" />
       <Image src={catalogoCtaBannerMobile} alt="Empieza a vender por WhatsApp hoy mismo" class="catalogo-cta-banner-img catalogo-cta-banner-mobile" widths={[480, 800, 1200]} sizes="100vw" />
-      <a href="https://wa.link/4n11hv" class="catalogo-cta-banner-btn hover-pop pulse-ring whatsapp">Solicitar demostración aquí→</a>
+      <a href="https://wa.me/51937292341?text=%F0%9F%91%8B%20%C2%A1Hola!%20Estoy%20interesado%20en%20el%20Cat%C3%A1logo%20Digital.%20Me%20gustar%C3%ADa%20solicitar%20una%20demostraci%C3%B3n%20para%20conocer%20sus%20funcionalidades%2C%20beneficios%20y%20c%C3%B3mo%20puede%20impulsar%20las%20ventas%20de%20mi%20empresa.%20%F0%9F%93%B1" class="catalogo-cta-banner-btn hover-pop pulse-ring whatsapp">Solicitar demostración aquí→</a>
     </div>
   </div>
 </section>
@@ -549,10 +282,10 @@ const negociosCategories = [
 
   .catalogo-detail { border-top: 1px solid #e2e8f0; }
 
-  .catalogo-pricing {
-    padding-top: 3rem;
-    border-top: 1px solid #e2e8f0;
-  }
+  .catalogo-trust.container { margin-top: 0; }
+
+  .detail-more-link { color: #15803d; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+  .detail-more-link:hover { color: #166534; }
 
   .catalogo-pricing-head {
     text-align: center;
@@ -577,206 +310,6 @@ const negociosCategories = [
     margin: 0;
   }
 
-  .billing-toggle {
-    display: flex;
-    justify-content: center;
-    gap: 0.25rem;
-    background: #f1f5f9;
-    border-radius: 999px;
-    padding: 0.3rem;
-    max-width: fit-content;
-    margin: 0 auto;
-  }
-
-  .billing-toggle-btn {
-    border: none;
-    background: transparent;
-    color: #475569;
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 0.6rem 1.6rem;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .billing-toggle-btn.is-active {
-    background: #16a34a;
-    color: white;
-  }
-
-  .billing-savings-note {
-    text-align: center;
-    color: #64748b;
-    font-size: 0.85rem;
-    margin: 0.75rem 0 0;
-    display: none;
-  }
-
-  .billing-savings-note.is-active { display: block; }
-
-  .catalogo-plans-grid {
-    display: none;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.5rem;
-    max-width: 900px;
-    margin: 2rem auto 0;
-  }
-
-  .catalogo-plans-grid.is-active { display: grid; }
-
-  .plan-card {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 18px;
-    padding: 2rem 1.75rem;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .plan-card-featured {
-    border-color: #16a34a;
-    box-shadow: 0 12px 32px rgba(22, 163, 74, 0.12);
-  }
-
-  .plan-badge {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #16a34a;
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.35rem 0.9rem;
-    border-radius: 999px;
-    white-space: nowrap;
-  }
-
-  .plan-name {
-    text-align: center;
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: #0f172a;
-    margin: 0.5rem 0 1rem;
-  }
-
-  .plan-price-block {
-    text-align: center;
-    margin-bottom: 0.75rem;
-  }
-
-  .plan-price-strike {
-    display: block;
-    color: #94a3b8;
-    text-decoration: line-through;
-    font-size: 0.95rem;
-    margin-bottom: 0.15rem;
-  }
-
-  .plan-price {
-    color: #16a34a;
-    font-size: 2.4rem;
-    font-weight: 800;
-  }
-
-  .plan-price-S { font-size: 1.3rem; font-weight: 700; }
-  .plan-price-unit { font-size: 1rem; font-weight: 600; color: #64748b; }
-
-  .plan-savings-note {
-    display: block;
-    color: #16a34a;
-    font-size: 0.85rem;
-    font-weight: 700;
-    margin-top: 0.2rem;
-  }
-
-  .plan-products-pill {
-    align-self: center;
-    background: #e3f9e5;
-    color: #16a34a;
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 0.35rem 0.9rem;
-    border-radius: 999px;
-    margin-bottom: 1.25rem;
-  }
-
-  .plan-products-note {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #334155;
-    margin-bottom: 1.25rem;
-  }
-
-  .plan-items {
-    list-style: none;
-    margin: 0 0 1.25rem;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    flex: 1;
-  }
-
-  .plan-items li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    font-size: 0.88rem;
-    color: #334155;
-  }
-
-  .plan-item-sub {
-    color: #16a34a;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-
-  .plan-tag-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .plan-tag-badge {
-    background: #eef4ff;
-    color: #2563eb;
-    font-size: 0.7rem;
-    font-weight: 800;
-    padding: 0.2rem 0.5rem;
-    border-radius: 6px;
-  }
-
-  .plan-tag-text {
-    color: #16a34a;
-    font-size: 0.82rem;
-    font-weight: 700;
-  }
-
-  .plan-cta-btn {
-    text-align: center;
-    background: white;
-    color: #16a34a;
-    border: 1.5px solid #16a34a;
-    padding: 0.85rem 1.6rem;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    text-decoration: none;
-  }
-
-  .plan-cta-btn-filled {
-    background: #16a34a;
-    color: white;
-    border-color: #16a34a;
-  }
 
     @media (max-width: 1368px) and (min-width: 606px) {
 
@@ -824,236 +357,6 @@ const negociosCategories = [
   }
 
     }
-  @media (max-width: 720px) {
-    .catalogo-plans-grid { grid-template-columns: 1fr; }
-  }
-
-  .catalogo-compare.container {
-    padding-top: 4rem;
-    border-top: 1px solid #e2e8f0;
-    max-width: 1600px;
-  }
-
-  .compare-title { color: #0f172a; }
-
-  .compare-layout {
-    display: grid;
-    grid-template-columns: 2.7fr 1fr;
-    gap: 1.5rem;
-    align-items: stretch;
-    margin-top: 3rem;
-    height: auto;
-  }
-
-  .compare-table {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 18px;
-    overflow: hidden;
-    height: 100%;
-  }
-
-  .compare-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    align-items: center;
-    border-bottom: 1px solid #f1f5f9;
-  }
-
-  .compare-row:last-child { border-bottom: none; }
-
-  .compare-cell {
-    padding: 0.55rem 1.1rem;
-  }
-
-  .compare-cell-label {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-  }
-
-  .compare-label-icon { flex-shrink: 0; display: flex; }
-
-  .compare-label-text {
-    font-size: 0.9rem;
-    color: #334155;
-    font-weight: 600;
-  }
-
-  .compare-label-sub {
-    display: block;
-    color: #94a3b8;
-    font-size: 0.68rem;
-    font-weight: 500;
-  }
-
-  .compare-label-title {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #0f172a;
-    letter-spacing: 0.03em;
-    border-bottom: 2px solid #16a34a;
-    padding-bottom: 0.2rem;
-  }
-
-  .compare-cell-plan {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.2rem;
-  }
-
-  .compare-plan-name { font-size: 0.85rem; font-weight: 800; color: #0f172a; }
-  .compare-plan-price { color: #0f172a; font-size: 3.5rem; font-weight: 800; }
-  .compare-cell-value { text-align: center; }
-  .compare-check { display: inline-flex; }
-  .compare-dash { color: #cbd5e1; font-weight: 700; }
-  .compare-cell-featured { background: #f0faf1; }
-
-  .compare-new-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: #16a34a;
-  }
-
-  .compare-row-head .compare-cell-plan { padding-top: 1rem; padding-bottom: 0.85rem; position: relative; }
-  .compare-row-head .compare-cell-featured .plan-badge { position: static; transform: none; margin-bottom: 0.2rem; }
-  .compare-row-cta .compare-cell-plan { padding: 0.85rem; }
-  .compare-row-cta .plan-cta-btn { width: 100%; padding: 0.6rem 1.2rem; font-size: 0.85rem; }
-
-  .compare-side {
-    background: linear-gradient(160deg, #eaf1ff, #f5f9ff);
-    border-radius: 18px;
-    padding: 2.5rem 1.75rem;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    min-height: 700px;
-  }
-
-  .compare-side-icon {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 0.5rem;
-    object-fit: contain;
-    filter: brightness(0) saturate(100%) invert(25%) sepia(86%) saturate(2057%) hue-rotate(208deg) brightness(104%) contrast(106%);
-  }
-
-  .compare-side h3 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin: 0;
-  }
-
-  .compare-side p {
-    color: #475569;
-    font-size: 1rem;
-    margin: 0 0 0.5rem;
-  }
-
-  .compare-side-btn { width: 100%; text-align: center; }
-
-  .compare-mobile-cards {
-    display: none;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .compare-mobile-card {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 18px;
-    padding: 1.75rem;
-    position: relative;
-  }
-
-  .compare-mobile-card-featured {
-    background: #f0fdf4;
-    border-color: #16a34a;
-  }
-
-  .compare-mobile-badge {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #16a34a;
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.35rem 0.9rem;
-    border-radius: 999px;
-    white-space: nowrap;
-  }
-
-  .compare-mobile-card-head {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.4rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .compare-mobile-plan-name {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: #0f172a;
-  }
-
-  .compare-mobile-plan-price {
-    color: #0f172a;
-    font-size: 2.4rem;
-    font-weight: 800;
-  }
-
-  .compare-mobile-list {
-    list-style: none;
-    margin: 0 0 1.5rem;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-
-  .compare-mobile-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.55rem;
-    font-size: 0.88rem;
-    color: #334155;
-  }
-
-  .compare-mobile-list li.is-dash {
-    color: #94a3b8;
-  }
-
-  .compare-mobile-list .compare-dash {
-    flex-shrink: 0;
-  }
-
-  .compare-mobile-list .compare-check {
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-  }
-
-  .compare-mobile-tag {
-    margin-left: 0.4rem;
-  }
-
-  .compare-mobile-btn {
-    display: block;
-    width: 100%;
-    text-align: center;
-  }
 
   .trust-badges-row {
     display: grid;
@@ -1215,20 +518,11 @@ const negociosCategories = [
     }
   }
 
-  @media (max-width: 1024px) {
-    .compare-layout { grid-template-columns: 1fr; }
-    .compare-table { display: none; }
-    .compare-mobile-cards { display: flex; }
-  }
-
   @media (max-width: 900px) {
     .trust-badges-row { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 640px) {
-    .compare-row { grid-template-columns: 1.4fr 1fr 1fr; }
-    .compare-cell { padding: 0.65rem 0.5rem; }
-    .compare-label-text { font-size: 0.9rem; }
     .trust-badges-row { grid-template-columns: 1fr; }
   }
 
@@ -1278,43 +572,6 @@ const negociosCategories = [
       font-size: 1.1rem;
     }
 
-    .catalogo-plans-grid {
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-      max-width: 100%;
-      margin: 1.5rem auto 0;
-    }
-
-    .plan-card {
-      padding: 1.5rem;
-    }
-
-    .plan-name {
-      font-size: 1rem;
-    }
-
-    .plan-price {
-      font-size: 2rem;
-    }
-
-    .plan-items {
-      gap: 0.5rem;
-      margin: 0 0 1rem;
-    }
-
-    .plan-items li {
-      font-size: 0.82rem;
-    }
-
-    .billing-toggle {
-      gap: 0;
-    }
-
-    .billing-toggle-btn {
-      padding: 0.5rem 1.2rem;
-      font-size: 0.9rem;
-    }
-
     .trust-badges-row {
       grid-template-columns: 1fr;
       gap: 1rem;
@@ -1327,37 +584,6 @@ const negociosCategories = [
 
     .trust-badge-text strong {
       font-size: 0.8rem;
-    }
-
-    .compare-layout {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .compare-mobile-card {
-      padding: 1.25rem;
-    }
-
-    .compare-mobile-plan-price {
-      font-size: 2rem;
-    }
-
-    .compare-mobile-list li {
-      font-size: 0.82rem;
-    }
-
-    .compare-side {
-      min-height: auto;
-      padding: 1.5rem;
-    }
-
-    .compare-side-icon {
-      width: 80px;
-      height: 80px;
-    }
-
-    .compare-side h3 {
-      font-size: 1.3rem;
     }
 
     .audience-card {
@@ -1377,10 +603,6 @@ const negociosCategories = [
     .audience-title {
       flex-direction: column;
       gap: 0;
-    }
-
-    .catalogo-compare {
-      display: none;
     }
 
     .catalogo-cta-banner-desktop {
