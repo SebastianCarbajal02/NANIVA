@@ -2,6 +2,7 @@
 // Pestaña "Tienda Online" de /planes: presentación corta y los mismos planes que /tienda-online
 import { Image } from 'astro:assets';
 import Plans from '@components/producto/Plans.astro';
+import Audience from '@components/producto/Audience.astro';
 import { productos, whatsappHref } from '@data/productos';
 import imgTienda from '@assets/image/tiendas-digitales/tienda-online/lap-tienda-online.webp';
 
@@ -44,8 +45,9 @@ const highlights = [
     </div>
   </div>
 
-  <!-- Mismos planes que /tienda-online: salen de @data/productos -->
+  <!-- Mismos planes y tipos de negocio que /tienda-online: salen de @data/productos -->
   <Plans producto={p} id="tienda-online-planes" />
+  <Audience producto={p} />
 </section>
 
 <style>
