@@ -6,6 +6,8 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.naniva.pe',
+  // Una sola URL por página, sin barra final: /erp/ redirige a /erp (los enlaces internos ya van sin barra)
+  trailingSlash: 'never',
   adapter: vercel(),
   integrations: [sitemap()],
   build: {

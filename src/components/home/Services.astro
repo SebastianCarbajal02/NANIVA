@@ -45,9 +45,9 @@ const mainServices = [
     title: "Naniva IA",
     desc: "Tu analista inteligente que entiende tus datos y te ayuda a crecer.",
     items: ["Detecta problemas antes que pasen", "Encuentra oportunidades de venta", "Prioriza lo más importante", "Recomienda acciones claras"],
-    cta: "Descubrir IA →",
+    cta: "Conoce Naniva IA →",
     mockup: "ia",
-    href: "https://wa.me/51937292341",
+    href: "/ia",
   },
   {
     icon: "package",
@@ -59,7 +59,7 @@ const mainServices = [
     title: "ERP Naniva",
     desc: "Controla toda tu empresa desde un solo lugar.",
     items: ["Ventas e Inventario", "Compras", "Clientes", "Reportes en tiempo real"],
-    cta: "Ver ERP →",
+    cta: "Ver el sistema ERP →",
     mockup: "erp",
     href: "/erp",
   },
@@ -69,11 +69,11 @@ const mainServices = [
     iconBgColor: "#22c55e",
     accent: "#16a34a",
     badge: { icon: "🚀", text: "PARA CRECER", bg: "#dcfce7", color: "#16a34a" },
-    eyebrow: "ECOMMERCE",
-    title: "Naniva Ecommerce",
+    eyebrow: "TIENDA ONLINE",
+    title: "Naniva Tienda Online",
     desc: "Vende online conectado a tu ERP.",
     items: ["Tienda online personalizada", "Pasarelas de pago", "Sincronizado con tu inventario"],
-    cta: "Ver Ecommerce →",
+    cta: "Ver la tienda online →",
     mockup: "ecommerce",
     href: "/tienda-online",
   },
@@ -101,7 +101,7 @@ const modules = [
     title: "Naniva Catálogo",
     desc: "Vende por WhatsApp automáticamente.",
     items: ["Catálogo interactivo", "Pedidos por WhatsApp", "Códigos QR"],
-    cta: "Ver Catálogo →",
+    cta: "Ver el catálogo digital →",
     mockupImg: bgCatalogo,
     mockupClass: "module-mockup-catalogo",
     href: "/catalogo-digital",
@@ -114,7 +114,7 @@ const modules = [
     title: "Naniva Restaurante",
     desc: "Todo lo que necesitas para operar tu restaurante.",
     items: ["POS Restaurante", "Mesas", "Cocina", "Delivery"],
-    cta: "Ver Restaurante →",
+    cta: "Ver el sistema para restaurantes →",
     mockupImg: bgRestaurante,
     mockupClass: "module-mockup-restaurante",
     href: "/sistema-para-restaurantes",
@@ -189,7 +189,7 @@ const stats = [
                   </li>
                 ))}
               </ul>
-              <a href={s.href} target="_blank" class="ver-planes hover-pop" style={`color:${s.accent}; border-color:${s.accent}`}>
+              <a href={s.href} target={s.href.startsWith("http") ? "_blank" : undefined} rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined} class="ver-planes hover-pop" style={`color:${s.accent}; border-color:${s.accent}`}>
                 {s.cta}
               </a>
             </div>
@@ -206,7 +206,7 @@ const stats = [
               )}
               {s.mockup === "ecommerce" && (
                 <div class="mockup mockup-ecommerce-img">
-                  <Image src={imgEcomerce4} alt="Naniva Ecommerce" class="mockup-ecommerce-image"  widths={[400, 800, 1200]} sizes="(max-width: 768px) 90vw, 420px" />
+                  <Image src={imgEcomerce4} alt="Tienda online de NANIVA conectada al ERP" class="mockup-ecommerce-image"  widths={[400, 800, 1200]} sizes="(max-width: 768px) 90vw, 420px" />
                 </div>
               )}
             </div>
@@ -241,7 +241,7 @@ const stats = [
             ))}
           </ul>
           {m.mockupImg && <Image src={m.mockupImg} alt="" class={`module-mockup ${m.mockupClass ?? ""}`}  widths={[440, 880, 1300]} sizes="(max-width: 768px) 90vw, 440px" />}
-          <a href={m.href} target="_blank" class="ver-planes hover-pop" style={`color:${m.accent}; border-color:${m.accent}`}>
+          <a href={m.href} target={m.href.startsWith("http") ? "_blank" : undefined} rel={m.href.startsWith("http") ? "noopener noreferrer" : undefined} class="ver-planes hover-pop" style={`color:${m.accent}; border-color:${m.accent}`}>
             {m.cta}
           </a>
         </article>

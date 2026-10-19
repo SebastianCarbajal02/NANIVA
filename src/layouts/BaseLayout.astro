@@ -72,7 +72,7 @@ const loadAnalytics = import.meta.env.PROD;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
+    {!noindex && <link rel="canonical" href={canonicalURL} />}
     {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#1e3a8a" />
     <link rel="icon" type="image/webp" href={logoIcon.src} />

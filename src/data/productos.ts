@@ -145,7 +145,7 @@ const erp: Producto = {
   nombre: 'ERP',
   title: 'Sistema ERP y de Ventas con Facturación SUNAT | NANIVA',
   description:
-    'Controla ventas, inventario y compras, y emite facturas y boletas electrónicas SUNAT desde un solo sistema con inteligencia artificial. Ideal para pymes. Pide tu demo.',
+    'Controla ventas, inventario y compras, y emite boletas y facturas electrónicas SUNAT desde un solo sistema con IA. Ideal para pymes. Pide tu demo.',
   accent: '#2563eb',
   accentSoft: '#eaf1ff',
   eyebrow: 'ERP NANIVA',
@@ -580,7 +580,7 @@ const tiendas: Producto = {
   nombre: 'Tiendas Digitales',
   title: 'Tiendas Digitales: Catálogo Smart y Tienda Online | NANIVA',
   description:
-    'Vende por internet a tu manera: con un catálogo smart que recibe pedidos por WhatsApp o con una tienda online que cobra en línea. Todo conectado a tu inventario.',
+    'Vende por internet con un catálogo smart que recibe pedidos por WhatsApp o una tienda online que cobra en línea. Todo conectado a tu inventario.',
   accent: '#16a34a',
   accentSoft: '#eafaf0',
   accentStrong: '#15803d',
@@ -626,8 +626,23 @@ export const whatsappHref = (p: Producto) => `https://wa.me/51937292341?text=${e
 export const themeStyle = (p: Producto) =>
   `--accent:${p.accent};--accent-soft:${p.accentSoft};--accent-strong:${p.accentStrong ?? p.accent};`;
 
-/** Datos estructurados para Google: preguntas frecuentes y producto */
+/** Página padre en la ruta de navegación (breadcrumb), como en el menú: Catálogo y Tienda van dentro de Tiendas Digitales */
+const breadcrumbParent: Partial<Record<string, { name: string; slug: string }>> = {
+  'catalogo-digital': { name: 'Tiendas Digitales', slug: 'tiendas-digitales' },
+  'tienda-online': { name: 'Tiendas Digitales', slug: 'tiendas-digitales' },
+};
+
+/** Datos estructurados para Google: preguntas frecuentes, producto y ruta de navegación */
 export const productoSchema = (p: Producto, site: URL | undefined) => [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { name: 'Inicio', path: '/' },
+      ...(breadcrumbParent[p.slug] ? [{ name: breadcrumbParent[p.slug]!.name, path: `/${breadcrumbParent[p.slug]!.slug}` }] : []),
+      { name: p.nombre, path: `/${p.slug}` },
+    ].map((item, i) => ({ '@type': 'ListItem', position: i + 1, name: item.name, item: new URL(item.path, site).href })),
+  },
   {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -638,7 +653,7 @@ export const productoSchema = (p: Producto, site: URL | undefined) => [
     '@type': 'SoftwareApplication',
     name: `NANIVA ${p.nombre}`,
     description: p.description,
-    url: new URL(`/${p.slug}/`, site).href,
+    url: new URL(`/${p.slug}`, site).href,
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web',
     provider: { '@id': new URL('/#organization', site).href },
