@@ -1,0 +1,28 @@
+---
+// Página de facturación electrónica: emisión de comprobantes validados por SUNAT desde NANIVA
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Hero from '@components/facturacion/Hero.astro';
+
+const site = Astro.site;
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: new URL('/', site).href },
+      { '@type': 'ListItem', position: 2, name: 'Facturación electrónica', item: new URL('/facturacion-electronica', site).href },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Facturación electrónica SUNAT para tu negocio | NANIVA"
+  description="Emite boletas y facturas electrónicas desde NANIVA de forma rápida, segura y sencilla, cumpliendo con los requisitos de SUNAT y con todo tu proceso en un solo sistema."
+  schema={schema}
+>
+  <Nav />
+  <Hero />
+</BaseLayout>

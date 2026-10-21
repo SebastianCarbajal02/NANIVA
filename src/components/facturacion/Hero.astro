@@ -1,0 +1,256 @@
+---
+// Banner de /facturacion-electronica: texto, botones y checks a la izquierda; laptop de NANIVA a la derecha
+// con el comprobante entrando al sistema y la tarjeta de validación SUNAT. Es propio de esta página.
+import { Image } from 'astro:assets';
+import { arrowIcon, checkIcon } from '@components/producto/icons';
+import laptopImg from '@assets/image/facturacion-electronica/laptop-pos-facturacion.png';
+
+const whatsapp = `https://wa.me/51937292341?text=${encodeURIComponent('Hola, quiero información sobre la facturación electrónica de NANIVA')}`;
+
+const checks = [
+  'Cumplimiento con SUNAT',
+  'Emisión rápida y sin complicaciones',
+  'Todo en un solo sistema',
+];
+
+const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.360.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.870 9.870 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.860 9.860 0 0 1-1.510-5.260c.001-5.450 4.436-9.884 9.888-9.884 2.640 0 5.122 1.030 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.450-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.050 0C5.495 0 .160 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.480-8.413Z"/></svg>`;
+---
+
+<section class="fe-hero">
+  <div class="fe-hero-inner">
+    <div class="fe-hero-content">
+      <span class="fe-tag">Facturación Electrónica</span>
+      <h1>
+        Emite tus comprobantes electrónicos de forma
+        <span class="fe-accent">rápida, segura y sencilla.</span>
+      </h1>
+      <p class="fe-intro">
+        Con NANIVA emites y gestionas tus comprobantes electrónicos directamente desde el sistema, cumpliendo con los
+        requisitos de SUNAT y manteniendo todo tu proceso en un solo lugar.
+      </p>
+
+      <div class="fe-actions">
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" class="fe-btn fe-btn-primary">
+          Solicitar una demo gratuita <span set:html={arrowIcon} />
+        </a>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" class="fe-btn fe-btn-whatsapp">
+          <span class="fe-wa" set:html={whatsappIcon} />
+          Contactar por WhatsApp
+        </a>
+      </div>
+
+      <ul class="fe-checks">
+        {checks.map((c) => (
+          <li><span class="fe-check" set:html={checkIcon} /><span>{c}</span></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="fe-media">
+      <div class="fe-doc" aria-hidden="true">
+        <svg viewBox="0 0 56 68" width="56" height="68" fill="none">
+          <path d="M6 2h30l16 16v44a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4Z" fill="#fff" stroke="#2f8ef5" stroke-width="2.5"/>
+          <path d="M36 2v16h16" stroke="#2f8ef5" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M11 26h26M11 34h30M11 42h20" stroke="#93c5fd" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <span class="fe-doc-check" set:html={checkIcon} />
+      </div>
+      <svg class="fe-arrow" viewBox="0 0 90 56" fill="none" aria-hidden="true">
+        <path d="M4 12c28-12 58-6 76 26" stroke="#2f8ef5" stroke-width="5" stroke-linecap="round"/>
+        <path d="m64 40 17 0-3-17" stroke="#2f8ef5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <Image
+        src={laptopImg}
+        alt="Laptop con el punto de venta de NANIVA listo para emitir comprobantes electrónicos"
+        widths={[360, 560, 760, 1000, 1300]}
+        sizes="(max-width: 900px) 100vw, 62vw"
+        loading="eager"
+        fetchpriority="high"
+        class="fe-laptop"
+      />
+      <div class="fe-sunat">
+        <strong>SUNAT</strong>
+        <span class="fe-sunat-check" set:html={checkIcon} />
+        <p>Comprobante<br />validado</p>
+        <span class="fe-lines" aria-hidden="true"><i></i><i></i></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fe-hero {
+    --ink: #0b1f4d;
+    overflow-x: clip;
+    padding: 7.5rem clamp(1.5rem, 4vw, 4rem) 4rem;
+    background:
+      radial-gradient(34rem 24rem at 78% 40%, rgba(147, 197, 253, 0.38), transparent 70%),
+      radial-gradient(22rem 18rem at 96% 90%, rgba(186, 215, 255, 0.45), transparent 70%),
+      linear-gradient(135deg, #f4f9ff 0%, #e9f3ff 55%, #dfeeff 100%);
+  }
+  .fe-hero-inner {
+    max-width: 1540px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.35fr);
+    align-items: center;
+    gap: 3rem;
+  }
+  .fe-hero-content { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+
+  .fe-tag {
+    display: inline-flex;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    background: #d6ecff;
+    color: #0b5fb8;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .fe-hero h1 {
+    max-width: 14em;
+    margin: 0;
+    color: var(--ink);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .fe-accent { display: block; color: #1d8cf8; }
+  .fe-intro { max-width: 560px; margin: 0; color: #334155; font-size: 1.08rem; font-weight: 450; line-height: 1.7; }
+
+  .fe-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 0.5rem; }
+  .fe-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+  }
+  .fe-btn:hover { transform: translateY(-2px); }
+  .fe-btn:active { transform: scale(0.98); }
+  .fe-btn:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+  .fe-btn :global(svg) { flex-shrink: 0; transition: transform 0.2s ease; }
+  .fe-btn:hover :global(svg) { transform: translateX(3px); }
+  .fe-btn-primary { background: #0b2a6b; color: #fff; }
+  .fe-btn-primary:hover { background: #0a225a; }
+  .fe-btn-whatsapp { padding: 0.8rem 1.4rem; border: 2px solid #8cc4f5; background: #fff; color: #0b6fd6; }
+  .fe-btn-whatsapp:hover { background: #f0f7ff; border-color: #5aa9ee; }
+  .fe-wa { display: inline-flex; color: #22c55e; }
+
+  /* Checks bajo los botones */
+  .fe-checks {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 1.5rem;
+    margin: 1.2rem 0 0;
+    padding: 0;
+  }
+  .fe-checks li { display: flex; align-items: center; gap: 0.7rem; max-width: 11rem; font-size: 0.9rem; line-height: 1.35; color: #334155; }
+  .fe-check {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #cdeee6;
+    color: #0f6b5c;
+  }
+
+  /* Laptop con el comprobante entrando por la izquierda y la validación SUNAT a la derecha */
+  .fe-media { position: relative; justify-self: end; width: 100%; max-width: 920px; padding: 1.5rem 0 2rem 5rem; }
+  .fe-laptop { display: block; width: 112%; max-width: none; height: auto; margin: -4% -6% -4% -6%; }
+  .fe-doc {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    z-index: 2;
+    padding: 1.2rem 1.3rem;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    background: #fff;
+    box-shadow: var(--card-shadow);
+  }
+  .fe-doc svg { display: block; }
+  .fe-doc-check {
+    position: absolute;
+    right: 0.7rem;
+    bottom: 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: #1d8cf8;
+    color: #fff;
+  }
+  .fe-doc-check :global(svg), .fe-sunat-check :global(svg) { width: 16px; height: 16px; }
+  .fe-arrow { position: absolute; top: 18%; left: 6.4rem; z-index: 2; width: 70px; }
+  .fe-sunat {
+    position: absolute;
+    right: 0;
+    bottom: 14%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    width: 9.5rem;
+    padding: 1rem 1rem 1.1rem;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    background: #fff;
+    box-shadow: var(--card-shadow-hover);
+    text-align: center;
+  }
+  .fe-sunat strong { color: #0b2a6b; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.04em; }
+  .fe-sunat-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #1d8cf8;
+    color: #fff;
+  }
+  .fe-sunat p { margin: 0; color: #0b1f4d; font-size: 0.85rem; font-weight: 700; line-height: 1.3; }
+  .fe-lines { display: grid; gap: 5px; width: 100%; }
+  .fe-lines i { display: block; height: 5px; border-radius: 3px; background: #dbeafe; }
+  .fe-lines i:nth-child(2) { width: 70%; margin: 0 auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fe-btn, .fe-btn:hover { transform: none; }
+  }
+  @media (max-width: 1100px) {
+    .fe-checks { grid-template-columns: 1fr; gap: 0.8rem; }
+  }
+  @media (max-width: 900px) {
+    .fe-hero { padding: 6.5rem 1rem 3rem; }
+    .fe-hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .fe-media { justify-self: center; padding-left: 3.5rem; }
+    .fe-doc { transform: scale(0.75); transform-origin: top left; }
+    .fe-arrow { left: 4.4rem; width: 52px; }
+  }
+  @media (max-width: 600px) {
+    .fe-actions, .fe-btn { width: 100%; }
+    .fe-media { padding-left: 0; }
+    .fe-doc, .fe-arrow { display: none; }
+    .fe-sunat { bottom: 4%; width: 7rem; padding: 0.6rem; gap: 0.35rem; }
+    .fe-sunat strong { font-size: 0.9rem; }
+    .fe-sunat-check { width: 30px; height: 30px; }
+    .fe-sunat p { font-size: 0.72rem; }
+    .fe-lines { display: none; }
+  }
+</style>
