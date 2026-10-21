@@ -1,0 +1,235 @@
+---
+// "¿Cómo funciona?" de /migracion-datos: texto a la izquierda y los 4 pasos alrededor de la laptop,
+// con flechas en sentido horario: 1 (arriba izq.) → 2 (arriba der.) → 3 (abajo der.) → 4 (abajo izq.) → 1.
+// Fondo azul: va después de la sección blanca del problema (las secciones alternan azul y blanco).
+import { Image } from 'astro:assets';
+import { icons } from '@components/producto/icons';
+import etapaImg from '@assets/image/migracion-datos/etapa-migracion.png';
+
+const svg = (paths: string) =>
+  `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const pasos = [
+  {
+    title: 'Evaluación inicial',
+    desc: 'Analizamos tu información actual, revisamos el tipo de sistema y definimos el plan de migración.',
+    icon: svg('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h5"/><path d="M14 2v6h6v3"/><path d="M8 9h3M8 13h4M8 17h2"/><circle cx="17" cy="17" r="3"/><path d="m21.5 21.5-2.4-2.4"/>'),
+  },
+  {
+    title: 'Preparación de datos',
+    desc: 'Organizamos y adaptamos tus archivos o bases de datos según las necesidades de NANIVA.',
+    icon: svg('<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/><path d="M4 11.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>'),
+  },
+  {
+    title: 'Configuración y migración',
+    desc: 'Cargamos tu información en el sistema y configuramos los módulos según tu operación.',
+    icon: icons.settings,
+  },
+  {
+    title: 'Capacitación y acompañamiento',
+    desc: 'Te capacitamos y brindamos soporte para que aproveches al máximo todas las funcionalidades.',
+    icon: icons.user,
+  },
+];
+---
+
+<section class="mg-proceso">
+  <div class="mg-wrap">
+    <div class="mg-proceso-grid">
+      <div class="mg-proceso-copy">
+        <span class="mg-pill reveal">NUESTRO PROCESO</span>
+        <h2 class="reveal" style="--d: 60ms">¿Cómo <span class="mg-hl">funciona?</span></h2>
+        <p class="reveal" style="--d: 120ms">
+          Un proceso claro y acompañado, para que tu cambio de sistema sea simple y seguro.
+        </p>
+      </div>
+
+      <div class="mg-flow">
+        <div class="mg-flow-center reveal" style="--d: 120ms">
+          <span class="mg-flow-glow" aria-hidden="true"></span>
+          <Image
+            src={etapaImg}
+            alt="Asistente de migración de NANIVA mostrando el proceso por etapas: conexión, mapeo, migración en curso y finalizar"
+            widths={[320, 480, 680, 900, 1360, 1678]}
+            sizes="(max-width: 760px) 90vw, 900px"
+            loading="lazy"
+            class="mg-flow-img"
+          />
+        </div>
+
+        <ol class="mg-steps">
+          {pasos.map((p, i) => (
+            <li class={`mg-step mg-step-${i + 1} reveal`} style={`--d: ${200 + i * 160}ms`}>
+              <span class="mg-step-num" aria-hidden="true">{i + 1}</span>
+              <span class="mg-step-icon" set:html={p.icon} />
+              <h3>{p.title}</h3>
+              <p>{p.desc}</p>
+            </li>
+          ))}
+        </ol>
+
+        {/* Flechas del recorrido en sentido horario */}
+        <svg class="mg-arrow mg-arrow-top" viewBox="0 0 380 60" aria-hidden="true"><path d="M6 54C110-6 270-6 374 54M356 40l18 14-20 4" /></svg>
+        <svg class="mg-arrow mg-arrow-right" viewBox="0 0 30 80" aria-hidden="true"><path d="M12 2c9 26 9 48 4 74M6 64l10 13 10-12" /></svg>
+        <svg class="mg-arrow mg-arrow-bottom" viewBox="0 0 380 60" aria-hidden="true"><path d="M374 6C270 66 110 66 6 6M24 20 6 6l20-4" /></svg>
+        <svg class="mg-arrow mg-arrow-left" viewBox="0 0 30 80" aria-hidden="true"><path d="M18 78C9 52 9 30 14 4M4 16 14 3l10 12" /></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mg-proceso {
+    padding: clamp(3.5rem, 6vw, 6rem) 0;
+    background:
+      radial-gradient(30rem 22rem at 0% 0%, rgba(219, 234, 254, 0.7), transparent 70%),
+      radial-gradient(26rem 20rem at 100% 100%, rgba(219, 234, 254, 0.8), transparent 70%),
+      #f3f8ff;
+    overflow: hidden;
+  }
+  /* Mismo ancho que el panel de la sección anterior */
+  .mg-wrap { width: min(1900px, calc(100% - 1.5rem)); margin: 0 auto; }
+  /* Título arriba y centrado; los pasos debajo */
+  .mg-proceso-grid {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    padding: 0 clamp(1.75rem, 2.5vw, 2.75rem);
+  }
+  .mg-proceso-copy { text-align: center; }
+
+  .mg-pill {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: #dbe8ff;
+    color: #1d4ed8;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .mg-proceso-copy h2 {
+    margin: 1.1rem 0 1rem;
+    font-size: clamp(1.9rem, 1.2rem + 2vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #0b1f4d;
+  }
+  .mg-hl { color: #1d8cf8; }
+  .mg-proceso-copy p { max-width: 42rem; margin: 0 auto; color: #475569; font-size: 1rem; line-height: 1.7; }
+
+  /* Pasos alrededor de la laptop: tarjeta | laptop | tarjeta */
+  .mg-flow {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.9fr) minmax(0, 0.8fr);
+    grid-template-rows: auto auto;
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    row-gap: clamp(3.5rem, 6vw, 5rem);
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    /* Espacio arriba y abajo para las flechas curvas, que no deben pisar la imagen */
+    padding: clamp(4rem, 6vw, 5.5rem) 0;
+  }
+  .mg-steps { display: contents; list-style: none; }
+
+  .mg-flow-center {
+    position: relative;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+  }
+  .mg-flow-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 115%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(191, 219, 254, 0.75) 0%, rgba(219, 234, 254, 0.45) 55%, transparent 72%);
+  }
+  .mg-flow-img { position: relative; display: block; width: 100%; max-width: 900px; height: auto; }
+
+  /* Tarjetas: regla de bordes del sitio */
+  .mg-step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+    padding: 1.25rem 1.15rem 1.15rem 3.6rem;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    background: #fff;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .mg-step:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+  .mg-step-1 { grid-column: 1; grid-row: 1; }
+  .mg-step-2 { grid-column: 3; grid-row: 1; }
+  .mg-step-3 { grid-column: 3; grid-row: 2; }
+  .mg-step-4 { grid-column: 1; grid-row: 2; }
+
+  .mg-step-num {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.85rem;
+    height: 1.85rem;
+    border-radius: 50%;
+    background: #0b3fa8;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .mg-step-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 0.25rem;
+    border-radius: 12px;
+    background: #e8f0ff;
+    color: #1d6ff2;
+  }
+  .mg-step-icon :global(svg) { width: 24px; height: 24px; }
+  .mg-step h3 { margin: 0; font-size: 1rem; font-weight: 700; line-height: 1.3; color: #0b1f4d; }
+  .mg-step p { margin: 0; color: #475569; font-size: 0.88rem; line-height: 1.55; }
+
+  /* Flechas a mano entre los pasos */
+  .mg-arrow {
+    position: absolute;
+    fill: none;
+    stroke: #2f80ed;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+  }
+  .mg-arrow-top { top: 0; left: 50%; width: 24%; height: auto; transform: translateX(-50%); }
+  .mg-arrow-bottom { bottom: 0; left: 50%; width: 24%; height: auto; transform: translateX(-50%); }
+  .mg-arrow-right { top: 50%; right: 16%; width: 22px; height: 64px; transform: translateY(-50%); }
+  .mg-arrow-left { top: 50%; left: 16%; width: 22px; height: 64px; transform: translateY(-50%); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mg-step:hover { transform: none; }
+  }
+
+  /* Celular: laptop arriba y los pasos en una columna, sin flechas */
+  @media (max-width: 760px) {
+    .mg-proceso-grid { padding: 0 1rem; }
+    .mg-flow { grid-template-columns: 1fr; row-gap: 1rem; padding: 0; }
+    .mg-flow-center { grid-column: 1; grid-row: auto; margin-bottom: 1rem; }
+    .mg-flow-img { max-width: 300px; }
+    .mg-step-1, .mg-step-2, .mg-step-3, .mg-step-4 { grid-column: 1; grid-row: auto; }
+    .mg-arrow { display: none; }
+  }
+</style>

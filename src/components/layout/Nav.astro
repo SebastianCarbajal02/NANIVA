@@ -12,7 +12,14 @@ const links = [
 
 // Submenú de "Servicios": las 3 líneas de producto (Tiendas Digitales agrupa Catálogo Smart y Tienda Online)
 const serviceGroups = [
-  { title: "ERP", items: [{ label: "Sistema ERP", desc: "Ventas, inventario y facturación", href: "/erp", badge: null }] },
+  {
+    title: "ERP",
+    href: "/erp",
+    items: [
+      { label: "Sistema ERP", desc: "Ventas, inventario y facturación", href: "/erp", badge: null },
+      { label: "Migración de datos", desc: "Pasa tu información desde Excel", href: "/migracion-datos", badge: null },
+    ],
+  },
   { title: "Restaurantes", items: [{ label: "Sistema POS para Restaurantes", desc: "Mesas, comandas y caja", href: null, badge: "Próximamente" }] },
   {
     title: "Tiendas Digitales",

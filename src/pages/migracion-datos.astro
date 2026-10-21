@@ -1,0 +1,36 @@
+---
+// Página de migración de datos: llevamos la información del cliente (Excel u otros sistemas) a NANIVA
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Hero from '@components/migracion/Hero.astro';
+import Problema from '@components/migracion/Problema.astro';
+import Proceso from '@components/migracion/Proceso.astro';
+import Implementacion from '@components/migracion/Implementacion.astro';
+import Cta from '@components/migracion/Cta.astro';
+
+const site = Astro.site;
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: new URL('/', site).href },
+      { '@type': 'ListItem', position: 2, name: 'Migración de datos', item: new URL('/migracion-datos', site).href },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Migración de datos desde Excel y otros sistemas | NANIVA"
+  description="Cambia de sistema sin empezar de cero. NANIVA migra tus datos y plantillas de Excel o de otros sistemas al ERP, con acompañamiento en todo el proceso."
+  schema={schema}
+>
+  <Nav />
+  <Hero />
+  <Problema />
+  <Proceso />
+  <Implementacion />
+  <Cta />
+</BaseLayout>

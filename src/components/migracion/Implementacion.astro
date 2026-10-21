@@ -1,0 +1,185 @@
+---
+// "Implementación rápida y segura" de /migracion-datos: imagen con la migración completada a la izquierda,
+// texto y 3 garantías a la derecha. Fondo blanco: va después de la sección azul del proceso.
+import { Image } from 'astro:assets';
+import { checkIcon, icons } from '@components/producto/icons';
+import laptopImg from '@assets/image/migracion-datos/img-migracion-sin-fondo.png';
+
+const svg = (paths: string) =>
+  `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const garantias = [
+  {
+    title: 'Plazo definido',
+    desc: 'Tu implementación en el tiempo acordado.',
+    icon: svg('<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>'),
+  },
+  { title: 'Datos seguros', desc: 'Tu información protegida en todo el proceso.', icon: icons.shield },
+  { title: 'Soporte continuo', desc: 'Estamos contigo antes, durante y después.', icon: icons.headset },
+];
+---
+
+<section class="mg-impl">
+  <div class="mg-wrap">
+    <div class="mg-impl-grid">
+      <div class="mg-impl-media reveal">
+        <Image
+          src={laptopImg}
+          alt="Laptop con NANIVA después de migrar los datos desde Excel"
+          widths={[360, 560, 760, 1000]}
+          sizes="(max-width: 900px) 85vw, 560px"
+          loading="lazy"
+          class="mg-impl-img"
+        />
+        <div class="mg-impl-excel" aria-hidden="true">
+          <svg viewBox="0 0 64 56" width="52" height="46">
+            <rect x="26" y="4" width="36" height="48" rx="3" fill="#fff" stroke="#1d6f42" stroke-width="2.5"/>
+            <path d="M34 14h20M34 22h20M34 30h20M34 38h20M44 10v36" stroke="#1d6f42" stroke-width="2.5"/>
+            <path d="M2 8 36 2v52L2 48Z" fill="#1d6f42"/>
+            <path d="m11 18 14 20M25 18 11 38" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <svg class="mg-impl-arrow" viewBox="0 0 90 56" fill="none" aria-hidden="true">
+          <path d="M4 12c28-12 58-6 76 26" stroke="#2f8ef5" stroke-width="5" stroke-linecap="round"/>
+          <path d="m64 40 17 0-3-17" stroke="#2f8ef5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="mg-impl-done">
+          <span class="mg-impl-done-icon" set:html={checkIcon} />
+          <div>
+            <strong>Migración completada</strong>
+            <span>Tus datos ya están en NANIVA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mg-impl-copy">
+        <span class="mg-impl-eyebrow reveal">TU NEGOCIO, EN BUENAS MANOS</span>
+        <h2 class="reveal" style="--d: 60ms">Implementación rápida y segura</h2>
+        <p class="mg-impl-lead reveal" style="--d: 120ms">
+          Sabemos que tu tiempo es valioso. Por eso, contamos con un proceso eficiente y un equipo experto que te
+          acompaña en cada etapa.
+        </p>
+        <ul class="mg-impl-list">
+          {garantias.map((g, i) => (
+            <li class="reveal" style={`--d: ${180 + i * 120}ms`}>
+              <span class="mg-impl-icon" set:html={g.icon} />
+              <h3>{g.title}</h3>
+              <p>{g.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mg-impl { padding: clamp(3.5rem, 6vw, 6rem) 0; background: #fff; }
+  /* Mismo ancho que las secciones de arriba */
+  .mg-wrap { width: min(1900px, calc(100% - 1.5rem)); margin: 0 auto; }
+  .mg-impl-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: center;
+    gap: clamp(2rem, 4vw, 4.5rem);
+    padding: 0 clamp(1.75rem, 2.5vw, 2.75rem);
+  }
+
+  /* Imagen: panel con la laptop, el Excel que entra y el aviso de migración completada */
+  .mg-impl-media {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    min-height: 100%;
+    padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem) clamp(2.5rem, 4vw, 3.5rem);
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    background:
+      radial-gradient(22rem 16rem at 80% 20%, rgba(191, 219, 254, 0.7), transparent 70%),
+      linear-gradient(160deg, #eef5ff 0%, #f6f9ff 55%, #e9f1fc 100%);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+  }
+  .mg-impl-img { display: block; width: 82%; height: auto; }
+  .mg-impl-excel {
+    position: absolute;
+    top: 22%;
+    right: 12%;
+    display: inline-flex;
+    padding: 1.1rem;
+    border-radius: var(--card-radius);
+    background: #cdeee6;
+    box-shadow: var(--card-shadow-hover);
+  }
+  .mg-impl-arrow { position: absolute; top: 7%; right: 22%; width: 64px; }
+  .mg-impl-done {
+    position: absolute;
+    right: clamp(1rem, 4%, 2.5rem);
+    bottom: clamp(1.5rem, 12%, 4rem);
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.95rem 1.25rem;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    background: #fff;
+    box-shadow: var(--card-shadow-hover);
+  }
+  .mg-impl-done strong { display: block; color: #0b4fb3; font-size: 1.05rem; font-weight: 700; }
+  .mg-impl-done span:not(.mg-impl-done-icon) { display: block; color: #0b4fb3; font-size: 0.85rem; }
+  .mg-impl-done-icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #16a34a;
+    color: #fff;
+  }
+
+  /* Texto */
+  .mg-impl-eyebrow { color: #0f9d76; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; }
+  .mg-impl-copy h2 {
+    margin: 0.6rem 0 0.9rem;
+    font-size: clamp(1.8rem, 1.2rem + 1.8vw, 2.7rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #0b1f4d;
+  }
+  .mg-impl-lead { max-width: 40rem; margin: 0 0 2.25rem; color: #475569; font-size: 1.05rem; line-height: 1.7; }
+
+  /* Las 3 garantías, separadas por líneas verticales */
+  .mg-impl-list { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 0; }
+  .mg-impl-list li { padding: 0 clamp(1rem, 2vw, 2rem); border-left: 1px solid #e2e8f0; }
+  .mg-impl-list li:first-child { padding-left: 0; border-left: 0; }
+  .mg-impl-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    background: #e3eeff;
+    color: #0b3fa8;
+  }
+  .mg-impl-list h3 { margin: 0 0 0.4rem; font-size: 1.05rem; font-weight: 700; color: #0b1f4d; }
+  .mg-impl-list p { margin: 0; color: #475569; font-size: 0.92rem; line-height: 1.6; }
+
+  @media (max-width: 1000px) {
+    .mg-impl-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .mg-impl-grid { padding: 0 1rem; }
+    .mg-impl-list { grid-template-columns: 1fr; gap: 1.5rem; }
+    .mg-impl-list li { padding: 0; border-left: 0; }
+    .mg-impl-img { width: 100%; }
+    .mg-impl-excel, .mg-impl-arrow { display: none; }
+    .mg-impl-done { position: static; margin-top: 1rem; }
+    .mg-impl-media { flex-direction: column; align-items: stretch; }
+  }
+</style>

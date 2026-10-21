@@ -1,0 +1,228 @@
+---
+// Sección bajo el banner de /migracion-datos: el problema de cambiar de sistema y la solución de NANIVA.
+// Fondo blanco: el banner de arriba es azul y las secciones alternan azul y blanco.
+import { Image } from 'astro:assets';
+import { checkIcon } from '@components/producto/icons';
+import laptopImg from '@assets/image/migracion-datos/img-migracion-sin-fondo.png';
+
+const svg = (paths: string) =>
+  `<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const riesgos = [
+  { title: 'Riesgo de perder datos importantes', icon: svg('<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/><path d="M4 11.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>') },
+  { title: 'Procesos manuales y lentos', icon: svg('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6M12 2v3"/>') },
+  { title: 'Información dispersa', icon: svg('<circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="m10.8 7.2-4.6 9.6M13.2 7.2l4.6 9.6M7.5 19h9"/>') },
+  { title: 'Costos y tiempos inesperados', icon: svg('<ellipse cx="9" cy="6" rx="6" ry="2.6"/><path d="M3 6v4.5c0 1.4 2.7 2.6 6 2.6s6-1.2 6-2.6V6"/><path d="M3 10.5V15c0 1.4 2.7 2.6 6 2.6M21 11.5c0-1.4-2.7-2.6-6-2.6M15 9v10.5c0 1.4 2.7 2.5 6 2.5V11.5"/>') },
+];
+
+const soluciones = [
+  'Adaptación de plantillas de Excel existentes',
+  'Migración desde otros sistemas (según el caso)',
+  'Acompañamiento técnico en todo el proceso',
+];
+---
+
+<section class="mg-problema">
+  <div class="mg-wrap">
+    <div class="mg-split">
+    <div class="mg-panel reveal">
+      <div class="mg-copy">
+        <span class="mg-pill">NUESTRAS SOLUCIONES</span>
+        <h2>El problema cambiar<br />de sistema puede <span class="mg-hl">parecer complicado.</span></h2>
+        <p>
+          Tu información está en Excel o en otro sistema y perderla no es una opción. Además, migrar puede tomar tiempo,
+          ser un proceso técnico y generar interrupciones en tu negocio.
+        </p>
+      </div>
+
+      <ul class="mg-cards">
+        {riesgos.map((r) => (
+          <li class="mg-card">
+            <span class="mg-card-icon" set:html={r.icon} />
+            <strong>{r.title}</strong>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+      <div class="mg-solucion reveal" style="--d: 120ms">
+        <div class="mg-solucion-copy">
+          <span class="mg-pill mg-pill-sm">LA SOLUCIÓN NANIVA</span>
+          <h3>Migración flexible y adaptada a <span class="mg-hl">tu negocio.</span></h3>
+          <p>
+            Trabajamos contigo para identificar la mejor forma de migrar tus datos, ya sea desde Excel o desde otro
+            sistema, adaptando tus plantillas y procesos a la plataforma NANIVA.
+          </p>
+          <ul class="mg-checks">
+            {soluciones.map((s) => (
+              <li><span class="mg-check" set:html={checkIcon} />{s}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="mg-visual" aria-hidden="true">
+          <span class="mg-cloud">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H8a6 6 0 1 1 5.7-7.9A4.5 4.5 0 1 1 17.5 19Z"/><path d="M12 16v-5M9.8 12.8 12 10.6l2.2 2.2"/></svg>
+          </span>
+          <span class="mg-xl">
+            <svg viewBox="0 0 64 56" width="34" height="30">
+              <rect x="26" y="4" width="36" height="48" rx="3" fill="#fff" stroke="#1d6f42" stroke-width="2.5"/>
+              <path d="M34 14h20M34 22h20M34 30h20M34 38h20M44 10v36" stroke="#1d6f42" stroke-width="2.5"/>
+              <path d="M2 8 36 2v52L2 48Z" fill="#1d6f42"/>
+              <path d="m11 18 14 20M25 18 11 38" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <Image
+            src={laptopImg}
+            alt=""
+            widths={[240, 360, 480, 640]}
+            sizes="(max-width: 1100px) 60vw, 300px"
+            loading="lazy"
+            class="mg-laptop"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Aire arriba y abajo: el panel blanco queda separado del banner y del final de la página */
+  .mg-problema { padding: clamp(3.5rem, 6vw, 6rem) 0; background: #fff; }
+  /* Ancho casi total de la pantalla, como el panel de migración del ERP (no usa el .container) */
+  .mg-wrap { width: min(1900px, calc(100% - 1.5rem)); margin: 0 auto; }
+
+  /* Dos paneles separados, mitad y mitad: el problema (blanco) y la solución (celeste) */
+  .mg-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: clamp(1.25rem, 2vw, 2rem);
+  }
+
+  /* Panel del problema: regla de bordes del sitio */
+  .mg-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(1.25rem, 2.5vw, 2.5rem);
+    padding: clamp(1.75rem, 2.5vw, 2.75rem);
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    background: #fff;
+    box-shadow: var(--card-shadow);
+  }
+
+  .mg-pill {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: #e8f0ff;
+    color: #1d4ed8;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .mg-copy h2 {
+    margin: 1.1rem 0 1rem;
+    font-size: clamp(1.6rem, 1.1rem + 1.4vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: #0b1f4d;
+  }
+  .mg-hl { display: block; color: #1d8cf8; }
+  .mg-copy p { max-width: 26rem; margin: 0;
+  color: #475569; font-size: 1rem; line-height: 1.7; }
+
+  /* Las 4 tarjetas de riesgos */
+  .mg-cards { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin: 0; padding: 0; }
+  .mg-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 1.1rem 1rem;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    background: #f4f8ff;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .mg-card:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+  .mg-card strong { font-size: 0.9rem; line-height: 1.35; color: #0b1f4d; }
+  .mg-card-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #e3eeff;
+    color: #1d6ff2;
+  }
+
+  /* Panel de la solución */
+  .mg-solucion {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: center;
+    gap: 1.5rem;
+    padding: clamp(1.75rem, 2.5vw, 2.75rem);
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    background: linear-gradient(135deg, #f1f7ff 0%, #e6f0ff 100%);
+    box-shadow: var(--card-shadow);
+  }
+  .mg-pill-sm { background: #fff; font-size: 0.7rem; }
+  .mg-solucion h3 {
+    margin: 0.9rem 0 0.75rem;
+    font-size: clamp(1.25rem, 1rem + 0.8vw, 1.65rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: #0b1f4d;
+  }
+  .mg-solucion h3 .mg-hl { display: inline; }
+  .mg-solucion-copy > p { margin: 0 0 1.1rem; color: #475569; font-size: 0.85rem; line-height: 1.65; }
+  .mg-checks { list-style: none; display: grid; gap: 0.7rem; margin: 0; padding: 0; }
+  .mg-checks li { display: flex; align-items: center; gap: 0.65rem; color: #1e293b; font-size: 0.85rem; font-weight: 600; }
+  .mg-check {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #22b573;
+    color: #fff;
+  }
+  .mg-check :global(svg) { width: 13px; height: 13px; }
+
+  /* Ilustración: nube y Excel conectados a la laptop */
+  .mg-visual { position: relative; padding: 3.2rem 0 0 1.8rem; }
+  .mg-laptop { display: block; width: 100%; height: auto; }
+  .mg-cloud, .mg-xl {
+    position: absolute;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(29, 111, 242, 0.15);
+  }
+  .mg-cloud { top: 0; right: 0.4rem; width: 60px; height: 60px; border-radius: 50%; color: #1d6ff2; }
+  .mg-xl { top: 14%; left: 0; width: 52px; height: 52px; border-radius: 14px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mg-card:hover { transform: none; }
+  }
+
+  @media (max-width: 1200px) {
+    .mg-split { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 800px) {
+    .mg-panel { grid-template-columns: 1fr; padding: 1.5rem 1.1rem; }
+    .mg-solucion { grid-template-columns: 1fr; padding: 1.5rem 1.1rem; }
+    .mg-visual { max-width: 22rem; margin: 0 auto; }
+  }
+</style>
