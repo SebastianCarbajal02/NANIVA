@@ -1,19 +1,16 @@
 ﻿---
-import { Image } from 'astro:assets';
-import heroPeople from '@assets/image/home/hero/hompersonas fin1-02.webp';
-// Versión de 1800 px generada a partir de banner33-03.png (14401 px, 3.4 MB)
-import heroDashboard from '@assets/image/home/hero/hero-dashboard.webp';
-import logo from '@assets/image/shared/logos/logo.webp';
+import { Image, getImage } from 'astro:assets';
+import laptop from '@assets/image/home/hero/BANNER-INICIO.png';
+import iconCarrito from '@assets/image/home/hero/carrito-inicio.png';
+import iconInventario from '@assets/image/home/hero/inventario-inicio.png';
+import iconComida from '@assets/image/home/hero/comida-inicio.png';
+import iconFactura from '@assets/image/home/hero/fac-inicio.png';
 import iconPos from '@assets/image/home/hero/icono-iniicio-punto_venta.webp';
 import iconEcommerce from '@assets/image/home/hero/icono-inicio-ecomerce.webp';
 import iconReportes from '@assets/image/home/hero/iconos-inicio-reporte.webp';
 import iconFacturacion from '@assets/image/home/hero/facturacion-eletronica.webp';
 import iconEmpresarial from '@assets/image/home/hero/icono-empresarial.webp';
 import iconErp from '@assets/image/home/hero/icono-erp.webp';
-import iconSunat from '@assets/image/shared/metodos-pago/sunat-Photoroom.webp';
-import iconVisa from '@assets/image/shared/metodos-pago/Visa-Logo.webp';
-import iconMastercard from '@assets/image/shared/metodos-pago/mastecard.webp';
-import iconYape from '@assets/image/shared/metodos-pago/YAPE.webp';
 
 const features = [
   { icon: iconPos, label: "Punto de Venta (POS)" },
@@ -24,15 +21,19 @@ const features = [
   { icon: iconErp, label: "ERP" },
 ];
 
-const partners = [
-  { label: "SUNAT", icon: iconSunat },
-  { label: "Yape", icon: iconYape },
-  { label: "VISA", icon: iconVisa },
-  { label: "Mastercard", icon: iconMastercard },
-  { label: "WhatsApp", isWhatsapp: true },
+// Los íconos son negros con fondo transparente: se usan como máscara
+// para pintarlos con el azul de la marca.
+const toMask = async (src: ImageMetadata) =>
+  (await getImage({ src, width: 160, format: 'webp' })).src;
+
+const modules = [
+  { label: 'Inventario', desc: 'Controla tu stock en tiempo real.', mask: await toMask(iconInventario), pos: 'inventario' },
+  { label: 'Restaurantes', desc: 'Gestiona mesas, pedidos y cocina.', mask: await toMask(iconComida), pos: 'comida' },
+  { label: 'Facturación electrónica', desc: 'Cumple con SUNAT sin complicaciones.', mask: await toMask(iconFactura), pos: 'factura' },
+  { label: 'Ventas y POS', desc: 'Gestiona tus puntos de venta.', mask: await toMask(iconCarrito), pos: 'carrito' },
 ];
 ---
-<section class="hero" style="background-image: url('/fondo-hero.webp');">
+<section class="hero">
   <div class="content">
     <span class="tag">★ PLATAFORMA TODO EN UNO</span>
     <h1>La plataforma <span class="highlight">inteligente</span><br />para hacer crecer<br />tu empresa.</h1>
@@ -58,15 +59,68 @@ const partners = [
   </div>
 
   <div class="hero-visual">
-    <Image
-      src={heroDashboard}
-      alt="Equipo revisando el dashboard de ventas de NANIVA"
-      class="hero-people"
-      widths={[560, 720, 900, 1300, 1800]}
-      sizes="(max-width: 480px) 110vw, 52vw"
-      loading="eager"
-      fetchpriority="high"
-    />
+    <!-- Fondo decorativo: halo, manchas suaves y trazos curvos detrás de la laptop -->
+    <svg class="backdrop" viewBox="0 0 145 100" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <radialGradient id="hero-glow">
+          <stop offset="0" stop-color="#dbeafe" stop-opacity="0.95" />
+          <stop offset="1" stop-color="#dbeafe" stop-opacity="0" />
+        </radialGradient>
+        <filter id="hero-blur" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="1.6" />
+        </filter>
+      </defs>
+      <ellipse cx="80" cy="62" rx="58" ry="40" fill="url(#hero-glow)" />
+      <g class="backdrop-blobs" filter="url(#hero-blur)">
+        <path d="M24 74 C 16 60, 28 46, 42 52 C 54 57, 52 76, 40 82 C 33 85, 27 80, 24 74 Z" />
+        <path d="M112 30 C 124 23, 138 33, 133 48 C 129 59, 115 58, 110 48 C 107 41, 106 34, 112 30 Z" />
+        <path d="M112 80 C 122 73, 137 80, 134 91 C 131 98, 118 98, 113 91 Z" />
+        <path d="M48 14 C 56 8, 66 12, 64 20 C 62 26, 52 26, 48 21 Z" />
+      </g>
+      <g class="backdrop-lines">
+        <path d="M14 18 C 26 34, 10 52, 22 70 C 28 80, 22 90, 30 98" />
+        <path d="M98 22 C 118 10, 142 32, 126 52 C 116 66, 130 82, 144 86" />
+        <path d="M50 97 C 72 88, 96 99, 120 92" />
+        <path d="M36 30 C 44 22, 56 26, 62 18" />
+      </g>
+    </svg>
+
+    <svg class="links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M26 19 C 28 28, 36 31, 42 32" />
+      <path d="M58 11 C 58 17, 58 22, 58 27" />
+      <path d="M88 23 C 88 29, 83 31, 78 32" />
+      <path d="M23 50 C 28 51, 32 52, 36 52" />
+      <path d="M90 52 C 96 58, 96 68, 93 76" />
+    </svg>
+
+    <div class="laptop-stage">
+      <Image
+        src={laptop}
+        alt="Laptop mostrando el dashboard de NANIVA"
+        class="laptop"
+        widths={[480, 720, 1024]}
+        sizes="(max-width: 480px) 100vw, 58vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+
+    {modules.map((m, i) => (
+      <span class={`module module-${m.pos}`} style={`--i: ${i}`}>
+        <span class="module-icon-box">
+          <span class="module-icon" style={`--mask: url(${m.mask})`} aria-hidden="true"></span>
+        </span>
+        <span class="module-text">
+          <strong>{m.label}</strong>
+          <small>{m.desc}</small>
+        </span>
+      </span>
+    ))}
+
+    <span class="note">
+      <svg viewBox="0 0 40 40" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M34 34 C 18 34, 8 24, 8 8" /><path d="m3 13 5-6 5 6" /></svg>
+      <span>Todo integrado<br />en un solo sistema</span>
+    </span>
   </div>
 </section>
 
@@ -76,30 +130,12 @@ const partners = [
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background:
+      radial-gradient(circle at 75% 55%, rgba(37, 99, 235, 0.1), transparent 45%),
+      radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.06), transparent 40%),
+      linear-gradient(180deg, #f5f8fe 0%, #eef3fc 100%);
     padding: 4rem 1.5rem 2rem 5rem;
     overflow: hidden;
-  }
-  .hero-visual {
-    position: absolute;
-    right: clamp(0px, 1.2vw, 2rem);
-    bottom: 0;
-    width: clamp(420px, 47vw, 760px);
-    height: 85%;
-    pointer-events: none;
-  }
-  .hero-people {
-    position: absolute;
-    right: -4%;
-    bottom: 0;
-    width: auto;
-    height: 85vh;
-    object-fit: contain;
-    z-index: 1;
-    pointer-events: none;
-    transform: translateY(2rem);
   }
   .content {
     max-width: clamp(320px, calc(44vw - 120px), 580px);
@@ -226,7 +262,7 @@ const partners = [
     filter: brightness(1.35);
   }
   .feature-icon img {
-    width: 80spx;
+    width: 80px;
     height: 100px;
     object-fit: contain;
     mix-blend-mode: multiply;
@@ -234,36 +270,194 @@ const partners = [
   .feature-label {
     display: none;
   }
-  .partners {
-    margin-top: 1.9rem;
+
+  /* ---------- Composición: laptop + módulos conectados ---------- */
+  .hero-visual {
+    position: absolute;
+    right: 0;
+    top: calc(50% + 40px);
+    width: clamp(480px, 58vw, 1040px);
+    aspect-ratio: 1.45;
+    transform: translateY(-50%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .backdrop {
+    position: absolute;
+    left: -4%;
+    top: -4%;
+    width: 106%;
+    height: 110%;
+    z-index: -1;
+    opacity: 0;
+    animation: fade-in 1s ease 0.3s forwards;
+  }
+  .backdrop-blobs {
+    fill: #e3edff;
+    opacity: 0.85;
+  }
+  .backdrop-lines {
+    fill: none;
+    stroke: #93c5fd;
+    stroke-width: 1.5;
+    opacity: 0.55;
+  }
+  .backdrop-lines path {
+    vector-effect: non-scaling-stroke;
+  }
+  .links {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: rgba(37, 99, 235, 0.35);
+    stroke-width: 1.5;
+    stroke-dasharray: 5 6;
+    opacity: 0;
+    animation: fade-in 0.8s ease 1.4s forwards;
+  }
+  .links path {
+    vector-effect: non-scaling-stroke;
+  }
+  .laptop-stage {
+    position: absolute;
+    left: 14%;
+    top: 20%;
+    width: 72%;
+    perspective: 1400px;
+  }
+  .laptop-stage::after {
+    /* Halo suave bajo el laptop */
+    content: "";
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: 2%;
+    height: 18%;
+    background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.18), transparent 70%);
+    z-index: -1;
+  }
+  .laptop {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform-origin: 50% 60%;
+    animation: laptop-spin 1.6s cubic-bezier(0.22, 0.8, 0.24, 1) both;
+  }
+  @keyframes laptop-spin {
+    0% {
+      opacity: 0;
+      transform: rotateY(-360deg) scale(0.6);
+    }
+    35% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: rotateY(0deg) scale(1);
+    }
+  }
+
+  .module {
+    position: absolute;
+    width: 21%;
     display: flex;
     align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 0.5rem 1rem;
-    border-radius: 15px;
-    font-size: 0.90rem;
-    width: max-content;
-    max-width: 480px;
-    
+    gap: 0.6rem;
+    padding: clamp(0.45rem, 0.6vw, 0.7rem);
+    background: #fff;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow-hover);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation:
+      module-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) calc(1.2s + var(--i) * 0.15s) forwards,
+      float 4s ease-in-out calc(1.9s + var(--i) * 0.4s) infinite;
   }
-  .partners-label {
-    font-weight: 600;
+  .module-icon-box {
+    flex: none;
+    width: clamp(34px, 3.2vw, 48px);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    background: #eff5ff;
+    border-radius: 12px;
+  }
+  .module-icon {
+    width: 60%;
+    height: 60%;
+    background: #2563eb;
+    -webkit-mask: var(--mask) center / contain no-repeat;
+    mask: var(--mask) center / contain no-repeat;
+  }
+  .module-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+  .module-text strong {
+    color: #0f172a;
+    font-size: clamp(0.72rem, 0.8vw, 0.88rem);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .module-text small {
     color: #64748b;
+    font-size: clamp(0.62rem, 0.68vw, 0.75rem);
+    line-height: 1.35;
   }
-  .partner {
-    color: #334155;
-    font-weight: 600;
+  .module-inventario { left: 26%; top: 14%; }
+  .module-comida { left: 58%; top: 6%; }
+  .module-factura { left: 88%; top: 18%; }
+  .module-carrito { left: 13%; top: 50%; }
+
+  @keyframes module-in {
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
   }
-  .partner-icon {
-    height: 34px;
-    width: auto;
-    object-fit: contain;
+  @keyframes float {
+    0%, 100% { transform: translate(-50%, -50%); }
+    50% { transform: translate(-50%, calc(-50% - 8px)); }
   }
-  .partner-icon-lg {
-    height: 64px;
+  @keyframes fade-in {
+    to { opacity: 1; }
   }
+
+  .note {
+    position: absolute;
+    right: 3%;
+    bottom: 6%;
+    white-space: nowrap;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    color: #1d4ed8;
+    font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+    font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+    line-height: 1.3;
+    transform: rotate(-8deg);
+    opacity: 0;
+    animation: fade-in 0.8s ease 2s forwards;
+  }
+  .note svg {
+    flex-shrink: 0;
+    margin-top: -1.2rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .laptop,
+    .module,
+    .links,
+    .backdrop,
+    .note {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
   @media (max-width: 900px) {
     .hero { padding-left: 1.1rem; }
   }
@@ -278,10 +472,6 @@ const partners = [
     .hero {
       min-height: 600px;
       padding: 7rem 3rem 2rem 5rem;
-    }
-    .hero-people {
-      right: -31%;
-      height: 100%;
     }
     .features {
       gap: 1.5rem;
@@ -301,9 +491,6 @@ const partners = [
       height: 70px;
       flex: 0 0 70px;
     }
-    .feature-third {
-       
-    }
   }
   @media (max-width: 1100px) {
     .hero-visual { display: none; }
@@ -315,7 +502,6 @@ const partners = [
   }
   @media (max-width: 768px) {
     .hero {
-      background-position: 70% center;
       padding: 6.5rem 1rem 2rem;
       min-height: auto;
     }
@@ -331,7 +517,6 @@ const partners = [
     .feature { width: 64px; }
     .feature-icon { width: 48px; height: 48px; }
     .feature-icon img { width: 56px; height: 56px; }
-    .partners { width: 100%; max-width: 100%; justify-content: center; }
   }
   @media (max-width: 400px) {
 
@@ -341,7 +526,7 @@ const partners = [
     gap: 0.4rem;
     background: rgba(146, 154, 170, 0.08);
     border: 1px solid rgba(37, 99, 235, 0.25);
-    color: ·#2563eb;
+    color: #2563eb;
     font-weight: 700;
     font-size: 0.9rem;
     letter-spacing: 0.08em;
@@ -372,9 +557,6 @@ const partners = [
     color: #0f172a;
      transform: translateY(-2rem);
   }
-  .highlight {
-    color: #2563eb;
-  }
   p {
     font-size: 1rem;
     font-weight: 600;
@@ -383,59 +565,18 @@ const partners = [
     max-width: clamp(250px, calc(44vw - 140px), 460px);
      transform: translateY(-1rem);
   }
-  .p-highlight {
-    color: #2563eb;
-    font-weight: 800;
-  }
-  .hero {
-   
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    overflow: hidden;
-  }
   .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, #1d4ed8, #2563eb);
-    color: white;
-    font-weight: 600;
-    font-size: 0.95rem;
     padding: 0.80rem 3.9rem;
     border-radius: 10px;
-    text-decoration: none;
-    transform: translateY(-1rem);
     width: 100%;
     text-align: center;
   }
   .btn-outline {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: white;
-    color: #0f172a;
-    font-weight: 600;
-    font-size: 0.95rem;
      padding: 0.65rem 4.5rem;
-    border: 1.5px solid #2563eb;
     border-radius: 10px;
-    text-decoration: none;
     transform: translateY(-2rem);
      width: 100%;
-
   }
-  .transform-banner-img {
-    display: block;
-    width: 100%;
-    height: 1%;
-    transition: transform .3s;
-}
-
-
   }
 
   @media (max-width: 480px) {
@@ -444,8 +585,6 @@ const partners = [
       align-items: stretch;
       padding: 6rem 1rem 2rem;
       min-height: auto;
-      background-size: cover;
-      background-position: center bottom;
       overflow-x: hidden;
       gap: 0;
     }
@@ -497,28 +636,39 @@ const partners = [
       transform: none;
     }
 
-    /* Composición visual: dashboard + personas, visible y estable en mobile */
+    /* Composición visual: laptop + módulos, visible y estable en mobile */
     .hero-visual {
       order: 2;
       display: block;
-      position: static;
+      position: relative;
+      right: auto;
+      top: auto;
       width: 100%;
-      height: auto;
+      transform: none;
       margin: 1.5rem auto 0;
-      pointer-events: none;
     }
 
-    .hero-people {
-      position: relative;
-      width: 110%;
-      max-width: 560px;
-      height: auto;
-      object-fit: contain;
-      transform: translateX(-1.9rem);
-      margin: 0 auto;
-      display: block;
-      -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
-      mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+    .module {
+      width: auto;
+      padding: 0.35rem;
+    }
+
+    .module-icon-box {
+      width: 36px;
+    }
+
+    .module-text {
+      display: none;
+    }
+
+    .note {
+      font-size: 0.75rem;
+      bottom: 6%;
+    }
+
+    .note svg {
+      width: 24px;
+      height: 24px;
     }
 
     /* Grid de módulos: solo ícono + etiqueta, sin fondo */
@@ -558,4 +708,3 @@ const partners = [
 
   }
 </style>
-
