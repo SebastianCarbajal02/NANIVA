@@ -3,6 +3,9 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Nav from '@components/layout/Nav.astro';
 import Hero from '@components/facturacion/Hero.astro';
+import Problema from '@components/facturacion/Problema.astro';
+import Comprobantes from '@components/facturacion/Comprobantes.astro';
+import Sunat from '@components/facturacion/Sunat.astro';
 
 const site = Astro.site;
 
@@ -25,4 +28,7 @@ const schema = [
 >
   <Nav />
   <Hero />
+  <Problema />
+  <Comprobantes />
+  <Sunat />
 </BaseLayout>

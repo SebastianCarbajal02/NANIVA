@@ -1,0 +1,238 @@
+---
+// "Conexión directa con SUNAT" de /facturacion-electronica: laptop con el dashboard y la insignia de integración
+// a la izquierda, y el texto con tres beneficios separados por líneas a la derecha.
+// Fondo blanco: va después de la sección azul de comprobantes (las secciones alternan azul y blanco).
+import { Image } from 'astro:assets';
+import { checkIcon } from '@components/producto/icons';
+import laptopImg from '@assets/image/facturacion-electronica/banner-ultimo.png';
+
+const svg = (paths: string) =>
+  `<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const beneficios = [
+  {
+    title: 'Validación automática',
+    desc: 'de comprobantes',
+    icon: svg('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h5"/><path d="M14 2v6h6v4"/><path d="M8 9h3M8 13h5M8 17h2"/><circle cx="17.5" cy="17.5" r="3.5"/><path d="m16 17.5 1 1 2-2"/>'),
+  },
+  {
+    title: 'Menos errores',
+    desc: 'y retrabajos',
+    icon: svg('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>'),
+  },
+  {
+    title: 'Mayor seguridad',
+    desc: 'en tu información',
+    icon: svg('<rect x="4" y="11" width="16" height="11" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16" r="1.4"/><path d="M12 17.4V19"/>'),
+  },
+];
+
+const sunatIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6Z"/><path d="M9 12h6M12 9v6"/></svg>`;
+---
+
+<section class="fs-section">
+  <div class="fs-wrap">
+    <div class="fs-visual reveal">
+      <!-- Panel celeste con la laptop: la foto viene cortada a la derecha, así que la laptop sale por ese borde
+           del panel como si continuara. Detrás: trama de puntos que se desvanece y dos anillos. -->
+      <div class="fs-stage">
+        <span class="fs-dots" aria-hidden="true"></span>
+        <span class="fs-ring fs-ring-1" aria-hidden="true"></span>
+        <span class="fs-ring fs-ring-2" aria-hidden="true"></span>
+        <span class="fs-shadow" aria-hidden="true"></span>
+        <Image
+          src={laptopImg}
+          alt="Panel de NANIVA con el resumen de ventas y facturación"
+          widths={[320, 480, 680, 1024]}
+          sizes="(max-width: 1000px) 95vw, 800px"
+          loading="lazy"
+          class="fs-laptop"
+        />
+      </div>
+        <div class="fs-badge">
+          <span class="fs-badge-icon" set:html={sunatIcon} />
+          <span class="fs-badge-text">
+            <strong>SUNAT</strong>
+            <span>Integración directa con SUNAT</span>
+          </span>
+          <span class="fs-badge-ok" set:html={checkIcon} />
+        </div>
+    </div>
+
+    <div class="fs-copy">
+      <span class="fs-pill reveal">INTEGRACIÓN Y VALIDACIÓN</span>
+      <h2 class="reveal" style="--d: 60ms">Conexión directa con <span class="fs-hl">SUNAT</span></h2>
+      <p class="reveal" style="--d: 120ms">
+        NANIVA se integra directamente con SUNAT para emitir y validar tus comprobantes electrónicos, ayudándote a
+        cumplir con los requisitos normativos y a mantener la información organizada.
+      </p>
+
+      <ul class="fs-beneficios">
+        {beneficios.map((b, i) => (
+          <li class="reveal" style={`--d: ${200 + i * 100}ms`}>
+            <span class="fs-icon" set:html={b.icon} />
+            <strong>{b.title}</strong>
+            <span>{b.desc}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fs-section { padding: clamp(3.5rem, 6vw, 6rem) 0; background: #fff; overflow: hidden; }
+  .fs-wrap {
+    width: min(1600px, calc(100% - 1.5rem));
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2rem, 4vw, 4.5rem);
+  }
+
+  /* Laptop dentro de un panel celeste; la insignia de SUNAT flota sobre la esquina inferior izquierda */
+  .fs-visual { position: relative; padding-bottom: 2.5rem; }
+  .fs-stage {
+    position: relative;
+    max-width: 800px;
+    margin-left: auto;
+    padding: 1.5rem 0 0 0;
+    overflow: hidden;
+    border: var(--border-soft);
+    border-radius: 28px;
+    background: linear-gradient(150deg, #e6f0ff 0%, #f1f6ff 55%, #f8fbff 100%);
+    box-shadow: var(--card-shadow);
+  }
+  /* Trama de puntos que se desvanece hacia el centro */
+  .fs-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(29, 111, 224, 0.22) 1.2px, transparent 1.2px);
+    background-size: 18px 18px;
+    -webkit-mask-image: radial-gradient(ellipse at 85% 10%, #000 0%, transparent 55%);
+    mask-image: radial-gradient(ellipse at 85% 10%, #000 0%, transparent 55%);
+  }
+  .fs-ring {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(147, 197, 253, 0.55);
+    border-radius: 50%;
+  }
+  .fs-ring-1 { width: 62%; background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 70%); }
+  .fs-ring-2 { width: 96%; border-style: dashed; border-color: rgba(147, 197, 253, 0.45); }
+  /* Sombra suave bajo la laptop */
+  .fs-shadow {
+    position: absolute;
+    left: 18%;
+    right: 0;
+    bottom: 6%;
+    height: 14%;
+    background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.22), transparent 70%);
+  }
+  /* El borde derecho de la foto coincide con el del panel; el margen negativo recorta el aire transparente de arriba */
+  .fs-laptop { position: relative; display: block; width: 104%; max-width: none; height: auto; margin: -6% 0 -4% 0; }
+
+  .fs-badge {
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.1rem;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    background: #fff;
+    box-shadow: var(--card-shadow-hover);
+  }
+  .fs-badge-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #e8f0ff;
+    color: #12408f;
+  }
+  .fs-badge-text { display: grid; gap: 0.15rem; }
+  .fs-badge-text strong { color: #12408f; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.04em; }
+  .fs-badge-text span { max-width: 9.5rem; color: #0b1f4d; font-size: 0.8rem; line-height: 1.35; }
+  .fs-badge-ok {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #14b8a6;
+    color: #fff;
+  }
+
+  /* Texto */
+  .fs-pill {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: #dcf7ef;
+    color: #0f8a6c;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .fs-copy h2 {
+    margin: 1.1rem 0 1rem;
+    font-size: clamp(1.9rem, 1.2rem + 2vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #0b1f4d;
+  }
+  .fs-hl { color: #1d8cf8; }
+  .fs-copy > p { max-width: 38rem; margin: 0; color: #475569; font-size: 1.05rem; line-height: 1.7; }
+
+  /* Tres beneficios separados por líneas verticales */
+  .fs-beneficios {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 2.25rem 0 0;
+    padding: 0;
+  }
+  .fs-beneficios li { display: grid; justify-items: start; gap: 0.2rem; padding: 0 1.5rem; }
+  .fs-beneficios li:first-child { padding-left: 0; }
+  .fs-beneficios li + li { border-left: 1px solid rgba(148, 163, 184, 0.35); }
+  .fs-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 0.75rem;
+    border-radius: 50%;
+    background: #e8f0ff;
+    color: #1d6fe0;
+  }
+  .fs-beneficios strong { color: #0b1f4d; font-size: 1rem; font-weight: 700; }
+  .fs-beneficios span:not(.fs-icon) { color: #64748b; font-size: 0.92rem; }
+
+  @media (max-width: 1000px) {
+    .fs-wrap { grid-template-columns: 1fr; }
+    .fs-copy { order: -1; }
+  }
+  @media (max-width: 640px) {
+    .fs-badge { left: 4%; bottom: 0; padding: 0.7rem 0.8rem; gap: 0.55rem; }
+    .fs-badge-icon { width: 34px; height: 34px; }
+    .fs-badge-text strong { font-size: 0.95rem; }
+    .fs-badge-text span { font-size: 0.72rem; max-width: 7.5rem; }
+    .fs-badge-ok { width: 28px; height: 28px; }
+    .fs-beneficios { grid-template-columns: 1fr; gap: 1.25rem; }
+    .fs-beneficios li { grid-template-columns: auto 1fr; column-gap: 0.9rem; padding: 0; border: 0 !important; }
+    .fs-icon { grid-row: span 2; margin: 0; width: 48px; height: 48px; }
+  }
+</style>

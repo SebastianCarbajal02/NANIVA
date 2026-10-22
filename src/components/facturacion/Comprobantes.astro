@@ -1,0 +1,785 @@
+---
+// "Todos tus comprobantes en un solo lugar" de /facturacion-electronica: los 6 tipos de comprobante alrededor
+// de la laptop (3 a la izquierda y 2 a la derecha, unidos con líneas) y una franja de garantías debajo.
+// Las tarjetas son pestañas: la que tiene video o captura lo muestra en la pantalla de la laptop, y el botón "+"
+// lo abre ampliado con zoom. Las que aún no tienen ninguno dejan el dashboard de fondo.
+// Fondo azul: va después de la sección blanca del problema (las secciones alternan azul y blanco).
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { checkIcon } from '@components/producto/icons';
+import laptopImg from '@assets/image/migracion-datos/img-migracion-sin-fondo.png';
+
+// Video de cada comprobante (en public/video): se reproduce en bucle, sin sonido, solo mientras se ve.
+// Dos versiones: `src` liviana para la laptop (1280 px) y `hd` (1920 px) que solo se descarga al abrir el visor.
+// Antes de subirlo: recortar las pausas, 30 fps, sin audio (el de facturas: 14 s, 350 KB y 730 KB en HD).
+// `pasos`: recorrido guiado (estilo Intro.js) sincronizado con el video. desde/hasta en segundos;
+// caja = recuadro resaltado [x, y, ancho, alto] y tip = esquina superior izquierda de la burbuja, en % del cuadro
+// del video. `luego` mueve el recuadro dentro del mismo paso (p. ej. cuando una ventana crece).
+type Caja = [number, number, number, number];
+type Paso = { desde: number; hasta: number; caja: Caja; luego?: { desde: number; caja: Caja }; tip: [number, number]; titulo: string; texto: string };
+const videos: Record<string, { src: string; hd: string; poster: string; pasos?: Paso[] }> = {
+  facturas: {
+    src: '/video/facturacion.mp4',
+    hd: '/video/facturacion-hd.mp4',
+    poster: '/video/facturacion-poster.webp',
+    pasos: [
+      { desde: 0.3, hasta: 1.4, caja: [89.4, 16.8, 8.4, 8], tip: [63, 28], titulo: 'Elige Factura', texto: 'El número de serie se asigna solo.' },
+      { desde: 1.5, hasta: 4.6, caja: [31.3, 17, 39.2, 8.8], tip: [20, 64], titulo: 'Busca el producto', texto: 'Por nombre o código, con su stock y precio.' },
+      { desde: 4.7, hasta: 6.1, caja: [64.3, 61.8, 9.6, 7.8], tip: [45, 73], titulo: 'Elige la cantidad', texto: 'Por unidad, docena o caja, y agrégalo.' },
+      { desde: 6.3, hasta: 9.0, caja: [34, 37.2, 31.8, 25], luego: { desde: 8.2, caja: [34.2, 23.5, 31.4, 54] }, tip: [67.5, 40], titulo: 'Selecciona el cliente', texto: 'Solo aparecen clientes con RUC válido para factura.' },
+      { desde: 9.1, hasta: 11.0, caja: [53.7, 87.8, 12.6, 7.4], tip: [44, 64], titulo: 'Registra la venta', texto: 'La factura se envía a SUNAT al instante.' },
+      { desde: 12.2, hasta: 13.8, caja: [24, 0.6, 31.8, 89], tip: [58, 30], titulo: 'Comprobante listo', texto: 'Imprímelo, descárgalo en PDF o envíalo al cliente.' },
+    ],
+  },
+};
+
+// Captura fija para los comprobantes que no tengan video.
+// `encuadre` es la franja que se ve en la laptop (en px de la imagen original): x = inicio, w = ancho.
+// El alto sale solo de la proporción de la pantalla. El visor con zoom siempre muestra la captura entera.
+// Ej.: boletas: { img: boletaImg, encuadre: { x: 270, w: 980 } }
+const capturas: Record<string, { img: ImageMetadata; encuadre?: { x: number; w: number } }> = {};
+const encuadreStyle = ({ img, encuadre }: (typeof capturas)[string]) =>
+  encuadre
+    ? `width: ${((img.width / encuadre.w) * 100).toFixed(2)}%; margin-left: ${((-encuadre.x / encuadre.w) * 100).toFixed(2)}%;`
+    : undefined;
+
+// Lo que abre el visor con zoom para cada comprobante
+const medios: Record<string, { tipo: 'video' | 'img'; src: string; poster?: string }> = {
+  ...Object.fromEntries(
+    await Promise.all(
+      Object.entries(capturas).map(async ([id, { img }]) => [
+        id,
+        { tipo: 'img' as const, src: (await getImage({ src: img, width: img.width, format: 'webp' })).src },
+      ]),
+    ),
+  ),
+  ...Object.fromEntries(
+    Object.entries(videos).map(([id, v]) => [id, { tipo: 'video' as const, src: v.hd, poster: v.poster }]),
+  ),
+};
+
+const svg = (paths: string) =>
+  `<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const izquierda = [
+  {
+    id: 'facturas',
+    title: 'Facturas electrónicas',
+    serie: 'F001-000123',
+    icon: svg('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h5"/><path d="M14 2v6h6v4"/><path d="M8 9h3M8 13h5M8 17h2"/><circle cx="17.5" cy="17.5" r="3.5"/><path d="m16 17.5 1 1 2-2"/>'),
+  },
+  {
+    id: 'boletas',
+    title: 'Boletas de venta',
+    desc: 'Gestiona tus boletas de venta rápido y sin complicaciones.',
+    icon: svg('<path d="M5 2v20l2.3-1.5L9.7 22 12 20.5l2.3 1.5 2.4-1.5L19 22V2l-2.3 1.5L14.3 2 12 3.5 9.7 2 7.3 3.5Z"/><path d="M9 8h6M9 12h6M9 16h4"/>'),
+  },
+  {
+    id: 'notas',
+    title: 'Notas de crédito y débito',
+    desc: 'Corrige o ajusta tus comprobantes de forma sencilla.',
+    icon: svg('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h5"/><path d="M14 2v6h6v4"/><path d="M8 9h3M8 13h5M8 17h2"/><circle cx="17.5" cy="17.5" r="3.5"/><path d="M17.5 16v1.5l1 1"/>'),
+  },
+];
+
+const derecha = [
+  {
+    id: 'guias',
+    title: 'Guías de remisión',
+    desc: 'Controla tus envíos y traslados de mercadería.',
+    icon: svg('<path d="M1 4h14v12H1zM15 8h4l4 4v4h-8"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="18.5" cy="18.5" r="2"/>'),
+  },
+  {
+    id: 'sunat',
+    title: 'Integración con SUNAT',
+    desc: 'Todo en un solo sistema, seguro y confiable.',
+    icon: svg('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/>'),
+  },
+];
+
+const garantias = [
+  { title: 'Seguro y confiable', desc: 'Tu información protegida.', icon: svg('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>') },
+  { title: 'Siempre disponible', desc: 'Cuando lo necesites.', icon: svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>') },
+  { title: 'Acceso desde cualquier lugar', desc: 'En todos tus dispositivos.', icon: svg('<path d="M17.5 19H8a6 6 0 1 1 5.7-7.9A4.5 4.5 0 1 1 17.5 19Z"/>') },
+  { title: 'Soporte especializado', desc: 'Estamos para ayudarte.', icon: svg('<path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 15a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2ZM3 15a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2Z"/><path d="M18 17v1a3 3 0 0 1-3 3h-2"/>') },
+];
+
+const inicial = 'facturas';
+const plusIcon = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>`;
+const minusIcon = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg>`;
+const closeIcon = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
+
+const diamante = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 21 12 12 21 3 12Z"/></svg>`;
+---
+
+<section class="fc-section">
+  <div class="fc-wrap">
+    <div class="fc-head">
+      <span class="fc-pill reveal"><span set:html={diamante} />COMPONENTES DISPONIBLES</span>
+      <h2 class="reveal" style="--d: 60ms">Todos tus comprobantes en <span class="fc-hl">un solo lugar.</span></h2>
+      <p class="reveal" style="--d: 120ms">
+        Emite y gestiona los documentos que tu negocio necesita, de acuerdo a tu tipo de operación.
+      </p>
+    </div>
+
+    <div class="fc-grid">
+      <ul class="fc-col fc-col-izq">
+        {izquierda.map((c, i) => (
+          <li class="fc-item reveal" style={`--d: ${200 + i * 120}ms`}>
+            <button type="button" class="fc-card" data-comprobante={c.id} aria-pressed={c.id === inicial ? 'true' : 'false'}>
+              <span class="fc-icon" set:html={c.icon} />
+              <span class="fc-text">
+                <span class="fc-title">{c.title}</span>
+                {c.serie ? (
+                  <span class="fc-desc fc-serie">{c.serie}<span class="fc-ok" set:html={checkIcon} /></span>
+                ) : (
+                  <span class="fc-desc">{c.desc}</span>
+                )}
+              </span>
+            </button>
+            <span class="fc-link" aria-hidden="true"></span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="fc-center reveal" style="--d: 120ms">
+        <span class="fc-glow" aria-hidden="true"></span>
+        <div class="fc-device">
+          <Image
+            src={laptopImg}
+            alt="Panel de NANIVA con el resumen de ventas"
+            widths={[320, 480, 680, 900, 1200]}
+            sizes="(max-width: 1100px) 90vw, 760px"
+            loading="lazy"
+            class="fc-laptop"
+          />
+          {/* Pantalla de la laptop: encima del dashboard se muestra la captura del comprobante elegido */}
+          <div class="fc-screen">
+            {Object.entries(capturas).map(([id, c]) => (
+              <Image
+                src={c.img}
+                alt={`Captura de ${[...izquierda, ...derecha].find((x) => x.id === id)?.title.toLowerCase()} en NANIVA`}
+                widths={[760, 1100, 1500, 1913]}
+                sizes="(max-width: 1100px) 140vw, 1100px"
+                loading="lazy"
+                class:list={['fc-shot', { 'fc-shot-encuadre': c.encuadre }]}
+                style={encuadreStyle(c)}
+                data-shot={id}
+                hidden={id !== inicial}
+              />
+            ))}
+            {Object.entries(videos).map(([id, v]) => (
+              <video
+                class="fc-shot fc-shot-video"
+                data-shot={id}
+                src={v.src}
+                poster={v.poster}
+                muted
+                loop
+                playsinline
+                preload="none"
+                aria-label={`Video: emisión de ${[...izquierda, ...derecha].find((x) => x.id === id)?.title.toLowerCase()} en NANIVA`}
+                hidden={id !== inicial}
+              />
+            ))}
+            {/* Recorrido guiado encima del video: el script mueve el recuadro y la burbuja según el segundo */}
+            {Object.entries(videos).map(([id, v]) =>
+              v.pasos && (
+                <div class="fc-tour" data-tour={id} data-pasos={JSON.stringify(v.pasos)} aria-hidden="true" hidden={id !== inicial}>
+                  <span class="fc-tour-box"></span>
+                  <div class="fc-tour-tip">
+                    <span class="fc-tour-num"></span>
+                    <strong class="fc-tour-title"></strong>
+                    <span class="fc-tour-text"></span>
+                    <span class="fc-tour-dots">{v.pasos.map(() => <i></i>)}</span>
+                  </div>
+                </div>
+              ),
+            )}
+            <button type="button" class="fc-zoom-btn" aria-label="Ampliar" hidden={!medios[inicial]}>
+              <span set:html={plusIcon} />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <ul class="fc-col fc-col-der">
+        {derecha.map((c, i) => (
+          <li class="fc-item reveal" style={`--d: ${260 + i * 120}ms`}>
+            <button type="button" class="fc-card" data-comprobante={c.id} aria-pressed="false">
+              <span class="fc-icon" set:html={c.icon} />
+              <span class="fc-text">
+                <span class="fc-title">{c.title}</span>
+                <span class="fc-desc">{c.desc}</span>
+              </span>
+            </button>
+            <span class="fc-link" aria-hidden="true"></span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <ul class="fc-garantias reveal" style="--d: 200ms">
+      {garantias.map((g) => (
+        <li>
+          <span class="fc-g-icon" set:html={g.icon} />
+          <div>
+            <strong>{g.title}</strong>
+            <span>{g.desc}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  {/* Visor de la captura ampliada: + y − cambian el zoom; con zoom se puede desplazar la imagen */}
+  <dialog class="fc-viewer" aria-label="Vista ampliada" data-medios={JSON.stringify(medios)}>
+    <div class="fc-viewer-bar">
+      <button type="button" class="fc-v-btn" data-zoom="-1" aria-label="Alejar"><span set:html={minusIcon} /></button>
+      <span class="fc-v-level" aria-live="polite">100%</span>
+      <button type="button" class="fc-v-btn" data-zoom="1" aria-label="Acercar"><span set:html={plusIcon} /></button>
+      <button type="button" class="fc-v-btn fc-v-close" aria-label="Cerrar"><span set:html={closeIcon} /></button>
+    </div>
+    <div class="fc-viewer-stage">
+      <img class="fc-viewer-media" alt="" hidden />
+      <div class="fc-viewer-frame fc-viewer-media" hidden>
+        <video muted loop playsinline controls></video>
+      </div>
+    </div>
+  </dialog>
+</section>
+
+<script>
+  type Paso = {
+    desde: number;
+    hasta: number;
+    caja: number[];
+    luego?: { desde: number; caja: number[] };
+    tip: number[];
+    titulo: string;
+    texto: string;
+  };
+
+  // Recorrido guiado: según el segundo del video, mueve el recuadro y la burbuja al paso que corresponde.
+  // Devuelve una función para desconectarlo.
+  const crearTour = (tour: HTMLElement, video: HTMLVideoElement) => {
+    const pasos: Paso[] = JSON.parse(tour.dataset.pasos || '[]');
+    const box = tour.querySelector<HTMLElement>('.fc-tour-box')!;
+    const tip = tour.querySelector<HTMLElement>('.fc-tour-tip')!;
+    const num = tour.querySelector<HTMLElement>('.fc-tour-num')!;
+    const titulo = tour.querySelector<HTMLElement>('.fc-tour-title')!;
+    const texto = tour.querySelector<HTMLElement>('.fc-tour-text')!;
+    const dots = tour.querySelectorAll<HTMLElement>('.fc-tour-dots i');
+    let mostrado = -2;
+    let cajaMostrada = '';
+    let frame = 0;
+
+    const actualizar = () => {
+      const t = video.currentTime;
+      const i = pasos.findIndex((p) => t >= p.desde && t < p.hasta);
+      const p = pasos[i];
+      // El recuadro puede moverse dentro de un mismo paso
+      const caja = p ? (p.luego && t >= p.luego.desde ? p.luego.caja : p.caja) : [];
+      if (caja.join() !== cajaMostrada) {
+        cajaMostrada = caja.join();
+        const [x, y, w, h] = caja;
+        if (p) Object.assign(box.style, { left: `${x}%`, top: `${y}%`, width: `${w}%`, height: `${h}%` });
+      }
+      if (i === mostrado) return;
+      mostrado = i;
+      tour.classList.toggle('activo', i >= 0);
+      if (!p) return;
+      Object.assign(tip.style, { left: `${p.tip[0]}%`, top: `${p.tip[1]}%` });
+      num.textContent = String(i + 1);
+      titulo.textContent = p.titulo;
+      texto.textContent = p.texto;
+      dots.forEach((d, j) => d.classList.toggle('on', j === i));
+      // Reinicia la animación de entrada de la burbuja
+      tip.classList.remove('entra');
+      void tip.offsetWidth;
+      tip.classList.add('entra');
+    };
+    const bucle = () => {
+      actualizar();
+      frame = video.paused ? 0 : requestAnimationFrame(bucle);
+    };
+    const alReproducir = () => {
+      cancelAnimationFrame(frame);
+      bucle();
+    };
+    video.addEventListener('play', alReproducir);
+    video.addEventListener('seeked', actualizar);
+    video.addEventListener('timeupdate', actualizar);
+    actualizar();
+    if (!video.paused) alReproducir();
+    return () => {
+      cancelAnimationFrame(frame);
+      video.removeEventListener('play', alReproducir);
+      video.removeEventListener('seeked', actualizar);
+      video.removeEventListener('timeupdate', actualizar);
+    };
+  };
+
+  document.querySelectorAll<HTMLElement>('.fc-section').forEach((section) => {
+    const cards = section.querySelectorAll<HTMLButtonElement>('.fc-card');
+    const shots = section.querySelectorAll<HTMLImageElement | HTMLVideoElement>('.fc-shot');
+    const zoomBtn = section.querySelector<HTMLButtonElement>('.fc-zoom-btn')!;
+    const screen = section.querySelector<HTMLElement>('.fc-screen')!;
+    const viewer = section.querySelector<HTMLDialogElement>('.fc-viewer')!;
+    const viewerImg = viewer.querySelector<HTMLImageElement>('img.fc-viewer-media')!;
+    const viewerFrame = viewer.querySelector<HTMLElement>('.fc-viewer-frame')!;
+    const viewerVideo = viewerFrame.querySelector<HTMLVideoElement>('video')!;
+    const tours = section.querySelectorAll<HTMLElement>('.fc-screen .fc-tour');
+    let desconectarTourVisor: (() => void) | null = null;
+
+    // Cada video de la laptop con su recorrido
+    tours.forEach((tour) => {
+      const video = section.querySelector<HTMLVideoElement>(`video.fc-shot[data-shot="${tour.dataset.tour}"]`);
+      if (video) crearTour(tour, video);
+    });
+    const level = viewer.querySelector<HTMLElement>('.fc-v-level')!;
+    const medios: Record<string, { tipo: 'video' | 'img'; src: string; poster?: string }> = JSON.parse(
+      viewer.dataset.medios || '{}',
+    );
+    const pasos = [1, 1.5, 2, 3];
+    const reducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let actual = section.querySelector<HTMLButtonElement>('.fc-card[aria-pressed="true"]')?.dataset.comprobante ?? '';
+    let paso = 0;
+    let enPantalla = false;
+
+    // El video de la laptop solo corre si su pestaña está elegida, la sección se ve y el visor está cerrado
+    const actualizarVideos = () => {
+      section.querySelectorAll<HTMLVideoElement>('video.fc-shot').forEach((v) => {
+        const activo = v.dataset.shot === actual && enPantalla && !viewer.open && !reducirMovimiento;
+        if (activo) v.play().catch(() => {});
+        else v.pause();
+      });
+    };
+    new IntersectionObserver(([e]) => {
+      enPantalla = e.isIntersecting;
+      actualizarVideos();
+    }, { threshold: 0.35 }).observe(screen);
+
+    // Elegir un comprobante: marca la tarjeta y cambia la pantalla (sin video ni captura queda el dashboard)
+    cards.forEach((card) =>
+      card.addEventListener('click', () => {
+        actual = card.dataset.comprobante ?? '';
+        cards.forEach((c) => c.setAttribute('aria-pressed', String(c === card)));
+        shots.forEach((s) => (s.hidden = s.dataset.shot !== actual));
+        tours.forEach((t) => (t.hidden = t.dataset.tour !== actual));
+        zoomBtn.hidden = !medios[actual];
+        actualizarVideos();
+      }),
+    );
+
+    const aplicarZoom = () => {
+      viewerImg.style.width = viewerFrame.style.width = `${pasos[paso] * 100}%`;
+      level.textContent = `${pasos[paso] * 100}%`;
+      viewer.querySelector<HTMLButtonElement>('[data-zoom="-1"]')!.disabled = paso === 0;
+      viewer.querySelector<HTMLButtonElement>('[data-zoom="1"]')!.disabled = paso === pasos.length - 1;
+    };
+
+    const abrir = () => {
+      const medio = medios[actual];
+      const shot = section.querySelector<HTMLElement>(`.fc-shot[data-shot="${actual}"]`);
+      if (!medio || !shot) return;
+      const esVideo = medio.tipo === 'video';
+      viewerImg.hidden = esVideo;
+      viewerFrame.hidden = !esVideo;
+      // El visor lleva una copia del recorrido de la laptop, conectada a su propio video
+      desconectarTourVisor?.();
+      desconectarTourVisor = null;
+      viewerFrame.querySelector('.fc-tour')?.remove();
+      const tourLaptop = section.querySelector<HTMLElement>(`.fc-screen .fc-tour[data-tour="${actual}"]`);
+      if (esVideo && tourLaptop) {
+        const copia = tourLaptop.cloneNode(true) as HTMLElement;
+        copia.hidden = false;
+        copia.classList.remove('activo');
+        viewerFrame.append(copia);
+        desconectarTourVisor = crearTour(copia, viewerVideo);
+      }
+      if (esVideo) {
+        // Sigue desde el mismo segundo que se veía en la laptop
+        const desde = (shot as HTMLVideoElement).currentTime || 0;
+        if (viewerVideo.getAttribute('src') !== medio.src) {
+          viewerVideo.src = medio.src;
+          viewerVideo.poster = medio.poster ?? '';
+        }
+        viewerVideo.setAttribute('aria-label', shot.getAttribute('aria-label') ?? '');
+        viewerVideo.currentTime = desde;
+        viewerVideo.play().catch(() => {});
+      } else {
+        viewerImg.src = medio.src;
+        viewerImg.alt = (shot as HTMLImageElement).alt;
+      }
+      paso = 0;
+      aplicarZoom();
+      viewer.showModal();
+      actualizarVideos();
+    };
+    viewer.addEventListener('close', () => {
+      viewerVideo.pause();
+      actualizarVideos();
+    });
+
+    zoomBtn.addEventListener('click', abrir);
+    shots.forEach((s) => s.addEventListener('click', abrir));
+    viewer.querySelectorAll<HTMLButtonElement>('[data-zoom]').forEach((b) =>
+      b.addEventListener('click', () => {
+        paso = Math.min(pasos.length - 1, Math.max(0, paso + Number(b.dataset.zoom)));
+        aplicarZoom();
+      }),
+    );
+    viewer.querySelector('.fc-v-close')!.addEventListener('click', () => viewer.close());
+    // Clic fuera de la imagen cierra el visor
+    viewer.addEventListener('click', (e) => {
+      if (e.target === viewer) viewer.close();
+    });
+  });
+</script>
+
+<style>
+  .fc-section {
+    padding: clamp(3.5rem, 6vw, 6rem) 0;
+    background:
+      radial-gradient(30rem 22rem at 0% 0%, rgba(219, 234, 254, 0.7), transparent 70%),
+      radial-gradient(26rem 20rem at 100% 100%, rgba(219, 234, 254, 0.8), transparent 70%),
+      #f3f8ff;
+    overflow: hidden;
+  }
+  .fc-wrap { width: min(1600px, calc(100% - 1.5rem)); margin: 0 auto; }
+
+  /* Encabezado centrado, igual que "¿Cómo funciona?" de /migracion-datos */
+  .fc-head { text-align: center; }
+  .fc-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: #dbe8ff;
+    color: #1d4ed8;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .fc-pill :global(svg) { display: block; }
+  .fc-head h2 {
+    max-width: 16em;
+    margin: 1.1rem auto 1rem;
+    font-size: clamp(1.9rem, 1.2rem + 2vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #0b1f4d;
+  }
+  .fc-hl { display: block; color: #1d8cf8; }
+  .fc-head p { max-width: 36rem; margin: 0 auto; color: #475569; font-size: 1rem; line-height: 1.7; }
+
+  /* Tarjetas | laptop | tarjetas */
+  .fc-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.5fr) minmax(0, 0.85fr);
+    align-items: center;
+    gap: clamp(2rem, 4vw, 4.5rem);
+    margin-top: clamp(2.5rem, 4vw, 3.5rem);
+  }
+  .fc-col { list-style: none; display: grid; gap: 1.25rem; margin: 0; padding: 0; }
+  /* La tarjeta del medio de la izquierda se separa un poco hacia afuera, como un arco alrededor de la laptop */
+  .fc-col-izq .fc-item:nth-child(2) { margin-right: 1.5rem; }
+  .fc-item { position: relative; }
+
+  /* Tarjetas (pestañas): regla de bordes del sitio; la elegida cambia solo el color del borde */
+  .fc-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.15rem 1.25rem;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    background: #fff;
+    box-shadow: var(--card-shadow);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .fc-card:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+  .fc-card:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+  .fc-card[aria-pressed='true'] { border-color: #1d8cf8; box-shadow: var(--card-shadow-hover); }
+  .fc-card[aria-pressed='true'] .fc-icon { background: #1d8cf8; color: #fff; }
+  .fc-icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #e8f0ff;
+    color: #1d6ff2;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .fc-text { min-width: 0; flex: 1; }
+  .fc-title { display: block; margin: 0 0 0.3rem; font-size: 1rem; font-weight: 700; line-height: 1.3; color: #0b1f4d; }
+  .fc-desc { display: block; color: #475569; font-size: 0.88rem; line-height: 1.55; }
+  .fc-serie { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; font-variant-numeric: tabular-nums; }
+  .fc-ok {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #14b8a6;
+    color: #fff;
+  }
+  .fc-ok :global(svg) { width: 13px; height: 13px; }
+
+  /* Línea con punto que une cada tarjeta con la laptop */
+  .fc-link {
+    position: absolute;
+    top: 50%;
+    width: clamp(1.5rem, 3vw, 3.5rem);
+    border-top: 1.5px solid #93c5fd;
+    pointer-events: none;
+  }
+  .fc-link::after {
+    content: '';
+    position: absolute;
+    top: -4.5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2f80ed;
+  }
+  .fc-col-izq .fc-link { left: 100%; }
+  .fc-col-izq .fc-link::after { right: -4px; }
+  .fc-col-der .fc-link { right: 100%; }
+  .fc-col-der .fc-link::after { left: -4px; }
+
+  .fc-center { position: relative; display: flex; justify-content: center; }
+  .fc-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 105%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(191, 219, 254, 0.75) 0%, rgba(219, 234, 254, 0.45) 55%, transparent 72%);
+  }
+  .fc-device { position: relative; width: 100%; max-width: 760px; }
+  .fc-laptop { position: relative; display: block; width: 100%; height: auto; }
+  /* Recorte exacto de la pantalla dentro de la foto de la laptop */
+  .fc-screen { position: absolute; top: 5.15%; left: 12.25%; width: 75.5%; height: 72.15%; overflow: hidden; }
+  .fc-screen { background: #fff; }
+  .fc-shot { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; cursor: zoom-in; }
+  /* Con encuadre: la imagen se agranda y se corre a la izquierda (ancho y margen van en línea) */
+  .fc-shot-encuadre { max-width: none; height: auto; }
+  /* El video es más ancho que la pantalla: se ve completo, centrado, sobre el fondo blanco del sistema */
+  .fc-shot-video { object-fit: contain; object-position: center; }
+  .fc-shot[hidden], .fc-zoom-btn[hidden] { display: none; }
+  .fc-zoom-btn {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: #0b2a6b;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(11, 42, 107, 0.3);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  .fc-zoom-btn:hover { transform: scale(1.06); background: #1d8cf8; }
+  .fc-zoom-btn:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+  .fc-zoom-btn :global(svg) { display: block; }
+
+  /* Visor de la captura ampliada */
+  .fc-viewer {
+    /* El reset global (* { margin: 0 }) le quita al dialog su centrado nativo: se lo devolvemos */
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: min(1400px, calc(100% - 2rem));
+    max-width: none;
+    height: fit-content;
+    max-height: min(90vh, 900px);
+    padding: 0;
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    background: #fff;
+    box-shadow: var(--frame-shadow);
+    overflow: hidden;
+  }
+  .fc-viewer[open] { display: flex; flex-direction: column; }
+  .fc-viewer::backdrop { background: rgba(11, 31, 77, 0.6); }
+  .fc-viewer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    border-bottom: var(--border-soft);
+  }
+  .fc-v-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: var(--border-soft);
+    border-radius: 50%;
+    background: #f4f8ff;
+    color: #0b2a6b;
+    cursor: pointer;
+  }
+  .fc-v-btn:hover:not(:disabled) { background: #e3eeff; }
+  .fc-v-btn:disabled { opacity: 0.4; cursor: default; }
+  .fc-v-btn :global(svg) { display: block; }
+  .fc-v-close { margin-left: 0.75rem; }
+  .fc-v-level { min-width: 3.5rem; color: #0b1f4d; font-size: 0.9rem; font-weight: 700; text-align: center; font-variant-numeric: tabular-nums; }
+  .fc-viewer-stage { flex: 1 1 auto; min-height: 0; overflow: auto; background: #f1f5f9; }
+  .fc-viewer-media { display: block; max-width: none; height: auto; }
+  .fc-viewer-media[hidden] { display: none; }
+  .fc-viewer-frame { position: relative; overflow: hidden; }
+  .fc-viewer-frame video { display: block; width: 100%; height: auto; }
+
+  /* Recorrido guiado (estilo Intro.js) sobre el video. Ocupa exactamente el cuadro del video:
+     en la laptop el video va centrado con franjas blancas, por eso se centra en vertical con su proporción. */
+  .fc-tour {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    aspect-ratio: 1280 / 610;
+    transform: translateY(-50%);
+    container-type: inline-size;
+    pointer-events: none;
+  }
+  .fc-tour[hidden] { display: none; }
+  .fc-tour-box, .fc-tour-tip { opacity: 0; transition: opacity 0.3s ease; }
+  .fc-tour.activo .fc-tour-box, .fc-tour.activo .fc-tour-tip { opacity: 1; }
+  /* Recuadro: oscurece todo lo demás con una sombra enorme y se mueve de un paso al otro */
+  .fc-tour-box {
+    position: absolute;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 0 2px #1d8cf8, 0 0 0 9999px rgba(11, 31, 77, 0.38);
+    transition: opacity 0.3s ease, left 0.5s ease, top 0.5s ease, width 0.5s ease, height 0.5s ease;
+  }
+  .fc-tour-box::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border: 2px solid #1d8cf8;
+    border-radius: 11px;
+    animation: fc-pulso 1.4s ease-out infinite;
+  }
+  @keyframes fc-pulso {
+    from { opacity: 0.9; transform: scale(1); }
+    to { opacity: 0; transform: scale(1.08); }
+  }
+  /* Burbuja: el tamaño del texto sigue al ancho del video (laptop pequeña o visor grande) */
+  .fc-tour-tip {
+    position: absolute;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 0.6em;
+    row-gap: 0.25em;
+    width: clamp(120px, 27cqi, 330px);
+    padding: 0.85em 0.95em;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(11, 31, 77, 0.28);
+    font-size: clamp(9px, 1.55cqi, 15px);
+    line-height: 1.4;
+    transition: opacity 0.3s ease, left 0.5s ease, top 0.5s ease;
+  }
+  .fc-tour-tip.entra { animation: fc-entra 0.4s ease; }
+  @keyframes fc-entra {
+    from { transform: translateY(6px); }
+    to { transform: none; }
+  }
+  .fc-tour-num {
+    grid-row: span 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background: #1d8cf8;
+    color: #fff;
+    font-weight: 700;
+  }
+  .fc-tour-title { color: #0b1f4d; font-size: 1.12em; font-weight: 700; line-height: 1.25; }
+  .fc-tour-text { color: #475569; }
+  .fc-tour-dots { grid-column: 2; display: flex; gap: 0.35em; margin-top: 0.3em; }
+  .fc-tour-dots i { width: 0.5em; height: 0.5em; border-radius: 50%; background: #cbd5e1; transition: background-color 0.3s ease, width 0.3s ease; }
+  .fc-tour-dots i.on { width: 1.3em; border-radius: 999px; background: #1d8cf8; }
+  /* Pantalla muy chica (celular): solo número y título */
+  @container (max-width: 420px) {
+    .fc-tour-tip { width: auto; max-width: 45cqi; padding: 0.5em 0.65em; }
+    .fc-tour-text, .fc-tour-dots { display: none; }
+    .fc-tour-num { grid-row: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fc-tour-box::after, .fc-tour-tip.entra { animation: none; }
+  }
+
+  /* Franja de garantías con separadores */
+  .fc-garantias {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: 1300px;
+    margin: clamp(2.5rem, 4vw, 3.5rem) auto 0;
+    padding: 0;
+  }
+  .fc-garantias li { display: flex; align-items: center; justify-content: center; gap: 0.9rem; padding: 0.4rem 1.25rem; }
+  .fc-garantias li + li { border-left: 1px solid #cbd5e1; }
+  .fc-g-icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #e3eeff;
+    color: #1d6ff2;
+  }
+  .fc-garantias strong { display: block; color: #0b1f4d; font-size: 0.95rem; font-weight: 700; }
+  .fc-garantias span:not(.fc-g-icon) { color: #64748b; font-size: 0.85rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fc-card:hover { transform: none; }
+  }
+
+  /* Tablet: laptop arriba y las tarjetas en dos columnas, sin líneas */
+  @media (max-width: 1100px) {
+    .fc-grid { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .fc-center { grid-column: 1 / -1; grid-row: 1; max-width: 640px; margin: 0 auto 1rem; }
+    .fc-col-izq .fc-item:nth-child(2), .fc-col-der .fc-item:nth-child(2) { margin: 0; }
+    .fc-link { display: none; }
+    .fc-garantias { grid-template-columns: 1fr 1fr; row-gap: 1.5rem; }
+    .fc-garantias li { justify-content: flex-start; }
+    .fc-garantias li:nth-child(3) { border-left: 0; }
+  }
+  @media (max-width: 640px) {
+    .fc-wrap { width: calc(100% - 2rem); }
+    .fc-grid { grid-template-columns: 1fr; }
+    .fc-garantias { grid-template-columns: 1fr; }
+    .fc-garantias li { padding: 0; }
+    .fc-garantias li + li { border-left: 0; }
+  }
+</style>
