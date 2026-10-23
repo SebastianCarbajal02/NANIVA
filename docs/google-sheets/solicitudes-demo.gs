@@ -18,13 +18,15 @@
 
 const TOKEN = 'CAMBIA-ESTO-POR-UNA-CLAVE-LARGA-Y-SECRETA';
 const PESTANA = 'Solicitudes demo';
+// Marca de esta versión del código: vuelve en cada respuesta para comprobar qué versión está publicada
+const VERSION = 'nombre-producto-v3';
 // Fecha y hora siempre en hora de Perú, sin importar la zona horaria configurada en el script
 const ZONA_HORARIA = 'America/Lima';
 
 function doPost(e) {
   try {
     const datos = JSON.parse(e.postData.contents);
-    if (datos.token !== TOKEN) return responder({ ok: false, error: 'No autorizado' });
+    if (datos.token !== TOKEN) return responder({ ok: false, error: 'No autorizado', version: VERSION });
 
     // El servidor ya validó los datos; aquí solo se evita que Sheets los lea como fórmulas
     // y se guardan teléfono y RUC como texto para que no pierdan dígitos.
@@ -48,7 +50,7 @@ function doPost(e) {
     } finally {
       lock.releaseLock();
     }
-    return responder({ ok: true });
+    return responder({ ok: true, version: VERSION, columnas: fila.length });
   } catch (error) {
     return responder({ ok: false, error: String(error) });
   }
