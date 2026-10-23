@@ -17,6 +17,7 @@ export const PRODUCTOS = ['ERP', 'Catálogo digital y tienda online'] as const;
 export type Producto = (typeof PRODUCTOS)[number];
 
 // Formatos permitidos para cada dato (listas blancas)
+export const NOMBRE = /^(?=(?:.*[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]){2})[A-Za-zÁÉÍÓÚÜÑáéíóúüñ .-]{3,80}$/;
 export const TELEFONO = /^9\d{8}$/;
 export const RUC = /^(10|15|17|20)\d{9}$/;
 export const CORREO = /^[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
@@ -26,6 +27,7 @@ export const OTRO_RUBRO = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9 .,&()/-]{3,60
 export const SQL_INJECTION = /('|"|;|--|\/\*|\*\/|\bxp_\w+\b|\bunion\b|\bselect\b|\binsert\b|\bupdate\b|\bdelete\b|\bdrop\b|\balter\b|\bexec\b|\btruncate\b|\bor\b\s+\d+\s*=\s*\d+)/i;
 
 export const MENSAJES = {
+  nombre: 'Ingresa tu nombre (3 a 80 caracteres; solo letras, espacios, punto y guion).',
   telefono: 'Ingresa un celular válido de 9 dígitos que empiece con 9.',
   correo: 'Ingresa un correo electrónico válido (ej: contacto@tuempresa.com).',
   ruc: 'Ingresa un RUC válido de 11 dígitos (empieza con 10, 15, 17 o 20).',
@@ -34,7 +36,7 @@ export const MENSAJES = {
   sql: 'El campo contiene caracteres o palabras no permitidas.',
 } as const;
 
-export type CampoDemo = 'telefono' | 'correo' | 'ruc' | 'rubro' | 'otroRubro';
+export type CampoDemo = 'nombre' | 'telefono' | 'correo' | 'ruc' | 'rubro' | 'otroRubro';
 
 export interface SolicitudDemo {
   telefono: string;
@@ -52,6 +54,7 @@ export function errorDeCampo(campo: CampoDemo, valorCrudo: unknown): string | nu
   if (v !== '' && SQL_INJECTION.test(v)) return MENSAJES.sql;
   const ok = (() => {
     switch (campo) {
+      case 'nombre': return NOMBRE.test(v);
       case 'telefono': return TELEFONO.test(v);
       case 'correo': return v.length <= 100 && CORREO.test(v);
       case 'ruc': return RUC.test(v);
@@ -68,9 +71,9 @@ export const productoValido = (valor: unknown): Producto =>
 
 /** Valida la solicitud completa. "otroRubro" solo es obligatorio cuando el rubro es "Otro" */
 export function validarSolicitud(datos: Partial<Record<CampoDemo | 'producto', unknown>>):
-  | { ok: true; datos: { producto: Producto; telefono: string; correo: string; ruc: string; rubro: string } }
+  | { ok: true; datos: { producto: Producto; nombre: string; telefono: string; correo: string; ruc: string; rubro: string } }
   | { ok: false; campo: CampoDemo; error: string } {
-  const campos: CampoDemo[] = ['telefono', 'correo', 'ruc', 'rubro'];
+  const campos: CampoDemo[] = ['nombre', 'telefono', 'correo', 'ruc', 'rubro'];
   if (limpiar(datos.rubro) === 'Otro') campos.push('otroRubro');
 
   for (const campo of campos) {
@@ -83,6 +86,7 @@ export function validarSolicitud(datos: Partial<Record<CampoDemo | 'producto', u
     ok: true,
     datos: {
       producto: productoValido(datos.producto),
+      nombre: limpiar(datos.nombre),
       telefono: limpiar(datos.telefono),
       correo: limpiar(datos.correo).toLowerCase(),
       ruc: limpiar(datos.ruc),

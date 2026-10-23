@@ -4,7 +4,7 @@
  *
  * Cómo instalarlo:
  * 1. En Google Sheets crea la hoja y nombra la pestaña "Solicitudes demo".
- *    Fila 1: Fecha | Hora | Teléfono | Correo | RUC | Rubro | Producto
+ *    Fila 1: Fecha | Hora | Nombre | Teléfono | Correo | RUC | Rubro | Producto
  * 2. Extensiones → Apps Script → pega este archivo completo.
  * 3. Cambia TOKEN por una clave larga y aleatoria (la misma va en GOOGLE_SHEETS_TOKEN).
  * 4. Implementar → Nueva implementación → Tipo: Aplicación web
@@ -33,6 +33,7 @@ function doPost(e) {
       // Con ' delante Sheets no reinterpreta la fecha según el idioma de la hoja (05/10 ≠ 10 de mayo)
       "'" + Utilities.formatDate(ahora, ZONA_HORARIA, 'dd/MM/yyyy'),
       "'" + Utilities.formatDate(ahora, ZONA_HORARIA, 'HH:mm:ss'),
+      seguro(datos.nombre),
       "'" + texto(datos.telefono),
       seguro(datos.correo),
       "'" + texto(datos.ruc),

@@ -6,6 +6,7 @@ import { initFormModal } from '@scripts/form-modal';
 import { errorDeCampo, limpiar, validarSolicitud, type CampoDemo } from '@data/solicitar-demo';
 
 const form = document.getElementById('demoForm') as HTMLFormElement | null;
+const nombreInput = document.getElementById('demoNombre') as HTMLInputElement | null;
 const telefono = document.getElementById('demoTelefono') as HTMLInputElement | null;
 const correo = document.getElementById('demoCorreo') as HTMLInputElement | null;
 const ruc = document.getElementById('demoRuc') as HTMLInputElement | null;
@@ -22,6 +23,7 @@ type Campo = HTMLInputElement | HTMLSelectElement;
 
 // Cada campo del formulario y su nombre en las reglas
 const CAMPOS: [Campo | null, CampoDemo][] = [
+  [nombreInput, 'nombre'],
   [telefono, 'telefono'],
   [correo, 'correo'],
   [ruc, 'ruc'],
@@ -33,6 +35,7 @@ const campoDe = (nombre: CampoDemo) => CAMPOS.find(([, n]) => n === nombre)?.[0]
 
 // Caracteres que se borran mientras se escribe (todo lo que no está en la lista blanca de cada dato)
 const FILTROS: [HTMLInputElement | null, RegExp][] = [
+  [nombreInput, /[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ .-]/g],
   [telefono, /\D/g],
   [ruc, /\D/g],
   [correo, /[^A-Za-z0-9._%+@-]/g],
@@ -100,7 +103,7 @@ async function guardarEnHoja(cuerpo: Record<string, unknown>) {
   }
 }
 
-async function avisarPorCorreo(d: { producto: string; telefono: string; correo: string; ruc: string; rubro: string }) {
+async function avisarPorCorreo(d: { producto: string; nombre: string; telefono: string; correo: string; ruc: string; rubro: string }) {
   try {
     const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
@@ -109,13 +112,14 @@ async function avisarPorCorreo(d: { producto: string; telefono: string; correo: 
         access_key: import.meta.env.PUBLIC_WEB3FORMS_KEY,
         subject: `Nueva solicitud de demo (${d.producto}) - RUC ${d.ruc}`,
         from_name: 'Solicitud de demo NANIVA',
-        name: `RUC ${d.ruc}`,
+        name: d.nombre,
         email: d.correo,
         phone: d.telefono,
         message: [
           'NUEVA SOLICITUD DE DEMOSTRACIÓN - NANIVA',
           '',
           `Producto: ${d.producto}`,
+          `Nombre: ${d.nombre}`,
           `Teléfono: ${d.telefono}`,
           `Correo: ${d.correo}`,
           `RUC: ${d.ruc}`,
@@ -138,7 +142,7 @@ async function avisarPorCorreo(d: { producto: string; telefono: string; correo: 
 
 form?.addEventListener('submit', async (e) => {
   e.preventDefault();
-  if (!telefono || !correo || !ruc || !rubro) return;
+  if (!nombreInput || !telefono || !correo || !ruc || !rubro) return;
 
   // Si un bot marcó la trampa, se finge el envío y no se manda nada
   const trampa = form.querySelector<HTMLInputElement>('input[name="botcheck"]');
@@ -146,6 +150,7 @@ form?.addEventListener('submit', async (e) => {
 
   const crudo = {
     producto: form.dataset.producto,
+    nombre: nombreInput.value,
     telefono: telefono.value,
     correo: correo.value,
     ruc: ruc.value,
