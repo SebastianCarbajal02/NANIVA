@@ -1,25 +1,22 @@
 ---
-// "Conexión directa con SUNAT" de /facturacion-electronica: laptop con el dashboard y la insignia de integración
-// a la izquierda, y el texto con tres beneficios separados por líneas a la derecha.
+// "Conexión directa con SUNAT" de /facturacion-electronica: laptop con el dashboard y tarjetas flotantes del
+// recorrido del comprobante (enviado, aceptado y validado por SUNAT) a la izquierda, y el texto con tres
+// beneficios separados por líneas a la derecha.
 // Fondo blanco: va después de la sección azul de comprobantes (las secciones alternan azul y blanco).
 import { Image } from 'astro:assets';
 import { checkIcon } from '@components/producto/icons';
 import laptopImg from '@assets/image/facturacion-electronica/banner-ultimo.webp';
+import sunatLogo from '@assets/image/facturacion-electronica/sunat.webp';
 
 const svg = (paths: string) =>
   `<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
 
+const facturaIcon = svg('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h5"/><path d="M14 2v6h6v4"/><path d="M8 9h3M8 13h5M8 17h2"/><circle cx="17.5" cy="17.5" r="3.5"/><path d="m16 17.5 1 1 2-2"/>');
+const escudoIcon = svg('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>');
+
 const beneficios = [
-  {
-    title: 'Validación automática',
-    desc: 'de comprobantes',
-    icon: svg('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h5"/><path d="M14 2v6h6v4"/><path d="M8 9h3M8 13h5M8 17h2"/><circle cx="17.5" cy="17.5" r="3.5"/><path d="m16 17.5 1 1 2-2"/>'),
-  },
-  {
-    title: 'Menos errores',
-    desc: 'y retrabajos',
-    icon: svg('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>'),
-  },
+  { title: 'Validación automática', desc: 'de comprobantes', icon: facturaIcon },
+  { title: 'Menos errores', desc: 'y retrabajos', icon: escudoIcon },
   {
     title: 'Mayor seguridad',
     desc: 'en tu información',
@@ -27,40 +24,52 @@ const beneficios = [
   },
 ];
 
-const sunatIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6Z"/><path d="M9 12h6M12 9v6"/></svg>`;
+const linkIcon = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>`;
 ---
 
 <section class="fs-section">
   <div class="fs-wrap">
     <div class="fs-visual reveal">
-      <!-- Panel celeste con la laptop: la foto viene cortada a la derecha, así que la laptop sale por ese borde
-           del panel como si continuara. Detrás: trama de puntos que se desvanece y dos anillos. -->
-      <div class="fs-stage">
-        <span class="fs-dots" aria-hidden="true"></span>
-        <span class="fs-ring fs-ring-1" aria-hidden="true"></span>
-        <span class="fs-ring fs-ring-2" aria-hidden="true"></span>
-        <span class="fs-shadow" aria-hidden="true"></span>
+      <span class="fs-blob" aria-hidden="true"></span>
+      <div class="fs-device">
         <Image
           src={laptopImg}
           alt="Panel de NANIVA con el resumen de ventas y facturación"
           widths={[320, 480, 680, 1024]}
-          sizes="(max-width: 1000px) 95vw, 800px"
+          sizes="(max-width: 1000px) 90vw, 720px"
           loading="lazy"
           class="fs-laptop"
         />
       </div>
-        <div class="fs-badge">
-          <span class="fs-badge-icon" set:html={sunatIcon} />
-          <span class="fs-badge-text">
-            <strong>SUNAT</strong>
-            <span>Integración directa con SUNAT</span>
-          </span>
-          <span class="fs-badge-ok" set:html={checkIcon} />
+
+      <!-- Recorrido del comprobante: enviado a SUNAT (arriba) y aceptado (abajo), unidos por una línea punteada -->
+      <div class="fs-flow">
+        <div class="fs-card fs-card-envio">
+          <Image src={sunatLogo} alt="SUNAT" widths={[130, 265]} sizes="130px" loading="lazy" class="fs-brand" />
+          <span class="fs-card-sub">Comprobante electrónico</span>
+          <span class="fs-estado"><span set:html={checkIcon} />Enviado a SUNAT</span>
         </div>
+        <span class="fs-conector" aria-hidden="true"></span>
+        <div class="fs-card fs-card-factura">
+          <span class="fs-card-icon" set:html={facturaIcon} />
+          <span class="fs-card-text">
+            <strong>Factura electrónica</strong>
+            <span class="fs-card-sub">F001-000123</span>
+            <span class="fs-estado"><span set:html={checkIcon} />Aceptado</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="fs-card fs-card-validacion">
+        <span class="fs-card-ok" set:html={checkIcon} />
+        <span class="fs-card-icon" set:html={escudoIcon} />
+        <strong>Validación SUNAT</strong>
+        <span class="fs-card-sub">Conforme</span>
+      </div>
     </div>
 
     <div class="fs-copy">
-      <span class="fs-pill reveal">INTEGRACIÓN Y VALIDACIÓN</span>
+      <span class="fs-pill reveal"><span set:html={linkIcon} />INTEGRACIÓN Y VALIDACIÓN</span>
       <h2 class="reveal" style="--d: 60ms">Conexión directa con <span class="fs-hl">SUNAT</span></h2>
       <p class="reveal" style="--d: 120ms">
         NANIVA se integra directamente con SUNAT para emitir y validar tus comprobantes electrónicos, ayudándote a
@@ -91,100 +100,146 @@ const sunatIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" s
     gap: clamp(2rem, 4vw, 4.5rem);
   }
 
-  /* Laptop dentro de un panel celeste; la insignia de SUNAT flota sobre la esquina inferior izquierda */
-  .fs-visual { position: relative; padding-bottom: 2.5rem; }
-  .fs-stage {
-    position: relative;
-    max-width: 800px;
-    margin-left: auto;
-    padding: 1.5rem 0 0 0;
-    overflow: hidden;
-    border: var(--border-soft);
-    border-radius: 28px;
-    background: linear-gradient(150deg, #e6f0ff 0%, #f1f6ff 55%, #f8fbff 100%);
-    box-shadow: var(--card-shadow);
-  }
-  /* Trama de puntos que se desvanece hacia el centro */
-  .fs-dots {
+  /* Laptop sobre un círculo celeste, con tarjetas flotantes a la izquierda y a la derecha */
+  .fs-visual { position: relative; padding: 2.5rem 0 2.5rem 5%; }
+  .fs-blob {
     position: absolute;
-    inset: 0;
-    background-image: radial-gradient(rgba(29, 111, 224, 0.22) 1.2px, transparent 1.2px);
-    background-size: 18px 18px;
-    -webkit-mask-image: radial-gradient(ellipse at 85% 10%, #000 0%, transparent 55%);
-    mask-image: radial-gradient(ellipse at 85% 10%, #000 0%, transparent 55%);
-  }
-  .fs-ring {
-    position: absolute;
-    left: 50%;
-    top: 46%;
+    top: -4%;
+    left: 14%;
+    width: 72%;
     aspect-ratio: 1;
-    transform: translate(-50%, -50%);
-    border: 1px solid rgba(147, 197, 253, 0.55);
     border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #e3eeff 0%, #edf4ff 45%, rgba(243, 248, 255, 0) 70%);
   }
-  .fs-ring-1 { width: 62%; background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 70%); }
-  .fs-ring-2 { width: 96%; border-style: dashed; border-color: rgba(147, 197, 253, 0.45); }
+  .fs-device { position: relative; max-width: 760px; margin-right: 7%; }
   /* Sombra suave bajo la laptop */
-  .fs-shadow {
+  .fs-device::before {
+    content: '';
     position: absolute;
-    left: 18%;
-    right: 0;
+    left: 16%;
+    right: 2%;
     bottom: 6%;
     height: 14%;
-    background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.22), transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.2), transparent 70%);
   }
-  /* El borde derecho de la foto coincide con el del panel; el margen negativo recorta el aire transparente de arriba */
-  .fs-laptop { position: relative; display: block; width: 104%; max-width: none; height: auto; margin: -6% 0 -4% 0; }
+  /* La foto viene cortada a la derecha: ese borde se desvanece y la tarjeta de validación lo cubre */
+  .fs-laptop {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    -webkit-mask-image: linear-gradient(to right, #000 90%, transparent);
+    mask-image: linear-gradient(to right, #000 90%, transparent);
+  }
 
-  .fs-badge {
-    position: absolute;
-    left: 5%;
-    bottom: 0;
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.1rem;
+  .fs-card {
     border: var(--border-soft);
     border-radius: var(--card-radius);
     background: #fff;
     box-shadow: var(--card-shadow-hover);
   }
-  .fs-badge-icon {
+  .fs-card strong { color: #0b1f4d; font-size: 1rem; font-weight: 700; }
+  .fs-card-sub { color: #64748b; font-size: 0.85rem; }
+  .fs-card-icon {
+    flex: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
     background: #e8f0ff;
-    color: #12408f;
+    color: #1d6fe0;
   }
-  .fs-badge-text { display: grid; gap: 0.15rem; }
-  .fs-badge-text strong { color: #12408f; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.04em; }
-  .fs-badge-text span { max-width: 9.5rem; color: #0b1f4d; font-size: 0.8rem; line-height: 1.35; }
-  .fs-badge-ok {
+  .fs-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    width: fit-content;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    background: #14b8a6;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+  .fs-estado :global(svg) { display: block; width: 11px; height: 11px; }
+
+  /* Columna izquierda: tarjeta de envío arriba, factura aceptada abajo y la línea punteada entre ambas */
+  .fs-flow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .fs-card-envio { display: grid; justify-items: center; gap: 0.35rem; padding: 1rem 1.4rem; }
+  .fs-brand { display: block; width: 130px; height: auto; }
+  .fs-conector {
+    position: relative;
+    flex: 1;
+    width: 0;
+    margin-left: 4.5rem;
+    border-left: 2px dashed rgba(29, 111, 224, 0.4);
+  }
+  .fs-conector::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #1d6fe0;
+    box-shadow: 0 0 0 4px rgba(29, 111, 224, 0.15);
+  }
+  .fs-card-factura { display: flex; align-items: center; gap: 0.9rem; padding: 1rem 1.25rem; }
+  .fs-card-text { display: grid; gap: 0.25rem; }
+  .fs-card-text .fs-estado { justify-self: end; margin-top: 0.25rem; }
+
+  /* Tarjeta derecha: validación conforme, encima del borde cortado de la laptop */
+  .fs-card-validacion {
+    position: absolute;
+    right: -2%;
+    top: 46%;
+    display: grid;
+    justify-items: center;
+    gap: 0.2rem;
+    padding: 1.1rem 1.4rem;
+  }
+  .fs-card-validacion .fs-card-icon { margin-bottom: 0.4rem; }
+  .fs-card-ok {
+    position: absolute;
+    top: -10px;
+    right: -10px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
+    width: 28px;
+    height: 28px;
+    border: 3px solid #fff;
     border-radius: 50%;
     background: #14b8a6;
     color: #fff;
   }
+  .fs-card-ok :global(svg) { width: 13px; height: 13px; }
 
   /* Texto */
   .fs-pill {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
     padding: 0.4rem 0.9rem;
     border-radius: 999px;
-    background: #dcf7ef;
-    color: #0f8a6c;
+    background: #e8f0ff;
+    color: #1d4ed8;
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.06em;
   }
+  .fs-pill :global(svg) { display: block; }
   .fs-copy h2 {
     margin: 1.1rem 0 1rem;
     font-size: clamp(1.9rem, 1.2rem + 2vw, 3rem);
@@ -211,14 +266,15 @@ const sunatIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" s
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
-    height: 56px;
-    margin-bottom: 0.75rem;
+    width: 68px;
+    height: 68px;
+    margin-bottom: 0.9rem;
     border-radius: 50%;
     background: #e8f0ff;
     color: #1d6fe0;
   }
-  .fs-beneficios strong { color: #0b1f4d; font-size: 1rem; font-weight: 700; }
+  .fs-icon :global(svg) { width: 30px; height: 30px; }
+  .fs-beneficios strong { color: #12408f; font-size: 1rem; font-weight: 700; }
   .fs-beneficios span:not(.fs-icon) { color: #64748b; font-size: 0.92rem; }
 
   @media (max-width: 1000px) {
@@ -226,13 +282,21 @@ const sunatIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" s
     .fs-copy { order: -1; }
   }
   @media (max-width: 640px) {
-    .fs-badge { left: 4%; bottom: 0; padding: 0.7rem 0.8rem; gap: 0.55rem; }
-    .fs-badge-icon { width: 34px; height: 34px; }
-    .fs-badge-text strong { font-size: 0.95rem; }
-    .fs-badge-text span { font-size: 0.72rem; max-width: 7.5rem; }
-    .fs-badge-ok { width: 28px; height: 28px; }
+    .fs-visual { padding: 4.5rem 0 5rem; }
+    .fs-device { margin-right: 0; }
+    .fs-card-envio { padding: 0.6rem 0.8rem; gap: 0.2rem; }
+    .fs-brand { width: 92px; }
+    .fs-card-sub { font-size: 0.72rem; }
+    .fs-estado { font-size: 0.65rem; padding: 0.15rem 0.5rem; }
+    .fs-conector { margin-left: 2.5rem; }
+    .fs-card-factura { padding: 0.6rem 0.8rem; gap: 0.6rem; }
+    .fs-card strong { font-size: 0.85rem; }
+    .fs-card-icon { width: 38px; height: 38px; }
+    .fs-card-icon :global(svg) { width: 20px; height: 20px; }
+    .fs-card-validacion { top: 28%; padding: 0.7rem 0.9rem; }
     .fs-beneficios { grid-template-columns: 1fr; gap: 1.25rem; }
     .fs-beneficios li { grid-template-columns: auto 1fr; column-gap: 0.9rem; padding: 0; border: 0 !important; }
-    .fs-icon { grid-row: span 2; margin: 0; width: 48px; height: 48px; }
+    .fs-icon { grid-row: span 2; margin: 0; width: 52px; height: 52px; }
+    .fs-icon :global(svg) { width: 26px; height: 26px; }
   }
 </style>
