@@ -622,10 +622,6 @@ export const productos = { erp, restaurante, catalogo, tienda, tiendas };
 /** Enlace de WhatsApp con el mensaje del producto */
 export const whatsappHref = (p: Producto) => `https://wa.me/51937292341?text=${encodeURIComponent(p.whatsappText)}`;
 
-/** Formulario de demo de cada producto: catálogo, tienda online y Tiendas Digitales tienen el suyo (verde) */
-const demoCatalogo = ['catalogo-digital', 'tienda-online', 'tiendas-digitales'];
-export const demoHref = (p: Producto) => (demoCatalogo.includes(p.slug) ? '/solicitar-demo/catalogo' : '/solicitar-demo');
-
 /** Colores del producto como variables CSS (se aplican en cada sección) */
 export const themeStyle = (p: Producto) =>
   `--accent:${p.accent};--accent-soft:${p.accentSoft};--accent-strong:${p.accentStrong ?? p.accent};`;
