@@ -31,3 +31,6 @@ public/video/
 .claude/skills/
 skills-lock.json
 .taste-skill/
+
+# Originales PNG/JPG reemplazados por WebP (no se suben)
+_originales/
