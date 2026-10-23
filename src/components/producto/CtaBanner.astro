@@ -1,7 +1,7 @@
 ---
 // Cierre en banner (Tiendas Digitales): texto y botones a la izquierda, decoración verde a la derecha
 import { Image } from 'astro:assets';
-import { themeStyle, whatsappHref, type Producto } from '@data/productos';
+import { themeStyle, whatsappHref, demoHref, type Producto } from '@data/productos';
 import imgPersona from '@assets/image/tiendas-digitales/persona-tienda-digital.webp';
 import './producto.css';
 import { icons } from './icons';
@@ -21,7 +21,7 @@ const whatsappIcon = `<svg viewBox="0 0 24 24" width="22" height="22" fill="curr
         <h2 class="reveal" style="--d: 60ms">¿Por qué elegir <span class="banner-mark">NANIVA</span>?</h2>
         <p class="reveal" style="--d: 120ms">La plataforma todo en uno que transforma tu manera de vender y hacer crecer tu negocio.</p>
         <div class="banner-actions reveal" style="--d: 180ms">
-          <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="banner-btn banner-btn-primary">Solicitar demo gratuita</a>
+          <a href={demoHref(p)} class="banner-btn banner-btn-primary">Solicitar demo gratuita</a>
           <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="banner-btn banner-btn-outline">
             <span class="banner-wa" set:html={whatsappIcon} />
             Hablar por WhatsApp

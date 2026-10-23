@@ -3,7 +3,7 @@
 // El texto no lleva .reveal: es lo primero que se ve y ocultarlo hasta que corra el JS retrasa el LCP
 import { Image } from 'astro:assets';
 import heroBg from '@assets/image/home/hero/fondo final1-01.webp';
-import { themeStyle, whatsappHref, type Producto } from '@data/productos';
+import { themeStyle, whatsappHref, demoHref, type Producto } from '@data/productos';
 import './producto.css';
 import { arrowIcon, checkIcon } from './icons';
 
@@ -31,7 +31,7 @@ const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="curr
       <div class="actions">
         {p.heroSimple ? (
           <>
-            <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <a href={demoHref(p)} class="btn btn-primary">
               Solicitar demo gratuita
             </a>
             <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
@@ -41,7 +41,7 @@ const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="curr
           </>
         ) : (
           <>
-            <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <a href={demoHref(p)} class="btn btn-primary">
               Solicitar demo gratis <span set:html={arrowIcon} />
             </a>
             {p.price.from !== null && (

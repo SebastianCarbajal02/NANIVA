@@ -2,7 +2,7 @@
 // Banner "Todo lo que necesitas para vender": etiqueta, título, funciones en dos columnas,
 // botón de demo y, a la derecha, laptop y celular con un aviso de pagos seguros. Usa `producto.showcase`.
 import { Image } from 'astro:assets';
-import { themeStyle, whatsappHref, type Producto } from '@data/productos';
+import { themeStyle, whatsappHref, demoHref, type Producto } from '@data/productos';
 import './producto.css';
 import { arrowIcon, icons } from './icons';
 
@@ -41,9 +41,15 @@ const boltIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentC
             </li>
           ))}
         </ul>
+        {/demo/i.test(s.cta) ? (
+          <a href={demoHref(p)} class="showcase-btn reveal" style="--d: 480ms">
+            {s.cta} <span set:html={arrowIcon} />
+          </a>
+        ) : (
         <a href={whatsappHref(p)} target="_blank" rel="noopener noreferrer" class="showcase-btn reveal" style="--d: 480ms">
           {s.cta} <span set:html={arrowIcon} />
         </a>
+        )}
       </div>
 
       <div class="showcase-art">

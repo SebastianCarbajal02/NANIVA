@@ -1,0 +1,32 @@
+---
+// Página de solicitud de demostración del catálogo digital y la tienda online (tema verde):
+// a ella llevan los botones "Solicitar demo" de esos productos y de Tiendas Digitales
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Formulario from '@components/demo/Formulario.astro';
+import { icons } from '@components/producto/icons';
+import imagen from '@assets/image/formulario/CATALO-TIENDA VIRTUAL_3840x2162_4K (2).webp';
+---
+
+<BaseLayout
+  title="Solicita una demo de catálogo digital y tienda online | NANIVA"
+  description="Déjanos tu teléfono, correo, RUC y rubro y un asesor de NANIVA te mostrará cómo vender en línea con tu catálogo digital y tienda online desde cualquier dispositivo."
+>
+  <Nav />
+  <Formulario
+    producto="Catálogo digital y tienda online"
+    tema="verde"
+    imagen={imagen}
+    imagenAlt="Emprendedora gestionando su tienda online de NANIVA desde la laptop y el celular"
+    foco={38}
+    etiqueta="Catálogo digital y tienda online"
+    titulo="Lleva tus productos a internet y vende más con tu"
+    tituloAcento="tienda virtual"
+    intro="Muestra tu catálogo de forma moderna, recibe pedidos y vende las 24 horas, con tus clientes siempre conectados."
+    beneficios={[
+      { icon: icons.cart, title: 'Tienda virtual', desc: 'Vende en línea, sin límites.' },
+      { icon: icons.book, title: 'Catálogo digital', desc: 'Muestra tus productos de forma moderna.' },
+      { icon: icons.phone, title: 'Desde cualquier dispositivo', desc: 'Tus clientes siempre conectados.' },
+    ]}
+  />
+</BaseLayout>

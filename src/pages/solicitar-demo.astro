@@ -1,0 +1,33 @@
+---
+// Página de solicitud de demostración del ERP: a ella llevan los botones "Solicitar demo" del sitio
+// (los de catálogo y tienda online llevan a /solicitar-demo/catalogo)
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Formulario from '@components/demo/Formulario.astro';
+import { icons } from '@components/producto/icons';
+import imagen from '@assets/image/formulario/Representante de atención al cliente NANIVA.webp';
+---
+
+<BaseLayout
+  title="Solicita una demostración gratuita | NANIVA"
+  description="Déjanos tu teléfono, correo, RUC y rubro y un asesor de NANIVA te contactará para mostrarte cómo nuestro ERP optimiza tus ventas, inventario y decisiones."
+>
+  <Nav />
+  <Formulario
+    producto="ERP"
+    tema="azul"
+    imagen={imagen}
+    imagenAlt="Representante de atención al cliente de NANIVA lista para atenderte"
+    foco={58}
+    correrFoto
+    etiqueta="Sistema ERP para tu empresa"
+    titulo="Descubre todo lo que tu empresa puede lograr con nuestro"
+    tituloAcento="ERP"
+    intro="Optimiza tus procesos, controla tu negocio y toma mejores decisiones con una solución hecha para crecer contigo."
+    beneficios={[
+      { icon: icons.box, title: 'Controla tu inventario y ventas', desc: 'Todo en un solo lugar.' },
+      { icon: icons.cloud, title: 'Centraliza la información de tu negocio', desc: 'Sin complicaciones.' },
+      { icon: icons.chart, title: 'Toma decisiones con datos en tiempo real', desc: 'Más control, más crecimiento.' },
+    ]}
+  />
+</BaseLayout>
