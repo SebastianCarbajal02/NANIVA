@@ -1,710 +1,242 @@
 ﻿---
-import { Image, getImage } from 'astro:assets';
-import laptop from '@assets/image/home/hero/BANNER-INICIO.webp';
-import iconCarrito from '@assets/image/home/hero/carrito-inicio.webp';
-import iconInventario from '@assets/image/home/hero/inventario-inicio.webp';
-import iconComida from '@assets/image/home/hero/comida-inicio.webp';
-import iconFactura from '@assets/image/home/hero/fac-inicio.webp';
-import iconPos from '@assets/image/home/hero/icono-iniicio-punto_venta.webp';
-import iconEcommerce from '@assets/image/home/hero/icono-inicio-ecomerce.webp';
-import iconReportes from '@assets/image/home/hero/iconos-inicio-reporte.webp';
-import iconFacturacion from '@assets/image/home/hero/facturacion-eletronica.webp';
-import iconEmpresarial from '@assets/image/home/hero/icono-empresarial.webp';
-import iconErp from '@assets/image/home/hero/icono-erp.webp';
+// Banner de inicio: texto, botones y módulos a la izquierda sobre fondo claro; a la derecha la foto de los
+// equipos con NANIVA (laptop, celular y tablet), un arco azul detrás y la nota "Todo integrado en un solo sistema".
+import { Image } from 'astro:assets';
+import foto from '@assets/image/home/hero/diseño-mejorado.webp';
+
+const svg = (paths: string, size = 24) =>
+  `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const ico = {
+  store: '<path d="M3 9 4.5 4h15L21 9"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v9h14v-9"/><path d="M9 21v-5h3v5M14.5 14h2.5v3h-2.5z"/>',
+  cart: '<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 7H6"/>',
+  bars: '<path d="M4 20h16"/><path d="M6 20v-5M10 20V10M14 20v-7M18 20V5"/>',
+  invoice: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M12 11v7M14 12.5h-2.5a1.25 1.25 0 0 0 0 2.5h1a1.25 1.25 0 0 1 0 2.5H10"/>',
+  brain: '<path d="M9.5 3a3 3 0 0 0-3 3 3 3 0 0 0-2 5.2A3 3 0 0 0 6 16.5 3 3 0 0 0 9.5 21H12V3Z"/><path d="M14.5 3a3 3 0 0 1 3 3 3 3 0 0 1 2 5.2 3 3 0 0 1-1.5 5.3 3 3 0 0 1-3.5 4.5H12V3Z"/><path d="M9 8h1.5M8 12.5h2M9.5 17H11M15 8h-1.5M16 12.5h-2M14.5 17H13"/>',
+  box: '<path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="m3 8 9 5 9-5M12 13v8"/>',
+};
 
 const features = [
-  { icon: iconPos, label: "Punto de Venta (POS)" },
-  { icon: iconEcommerce, label: "Tienda Online" },
-  { icon: iconReportes, label: "Reportes Inteligentes" },
-  { icon: iconFacturacion, label: "Facturación Electrónica" },
-  { icon: iconEmpresarial, label: "IA Empresarial" },
-  { icon: iconErp, label: "ERP" },
+  { icon: ico.store, label: 'Punto de Venta (POS)' },
+  { icon: ico.cart, label: 'Ecommerce' },
+  { icon: ico.bars, label: 'Reportes Inteligentes' },
+  { icon: ico.invoice, label: 'Facturación Electrónica' },
+  { icon: ico.brain, label: 'IA Empresarial' },
+  { icon: ico.box, label: 'ERP' },
 ];
 
-// Los íconos son negros con fondo transparente: se usan como máscara
-// para pintarlos con el azul de la marca.
-const toMask = async (src: ImageMetadata) =>
-  (await getImage({ src, width: 160, format: 'webp' })).src;
-
-const modules = [
-  { label: 'Inventario', desc: 'Controla tu stock en tiempo real.', mask: await toMask(iconInventario), pos: 'inventario' },
-  { label: 'Restaurantes', desc: 'Gestiona mesas, pedidos y cocina.', mask: await toMask(iconComida), pos: 'comida' },
-  { label: 'Facturación electrónica', desc: 'Cumple con SUNAT sin complicaciones.', mask: await toMask(iconFactura), pos: 'factura' },
-  { label: 'Ventas y POS', desc: 'Gestiona tus puntos de venta.', mask: await toMask(iconCarrito), pos: 'carrito' },
-];
+const cloudIcon = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.5 19H8a6 6 0 1 1 5.7-7.9A4.5 4.5 0 1 1 17.5 19Z"/></svg>`;
+const calendarIcon = svg('<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>', 20);
+const playIcon = `<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m10 8 6 4-6 4Z" fill="#fff"/></svg>`;
 ---
+
 <section class="hero">
-  <div class="content">
-    <span class="tag">★ PLATAFORMA TODO EN UNO</span>
-    <h1>La plataforma <span class="highlight">inteligente</span><br />para hacer crecer<br />tu empresa.</h1>
-    <p>Administra ventas, inventario, facturación electrónica,<br />ecommerce e inteligencia artificial <span class="p-highlight">desde una sola plataforma</span>.</p>
+
+  <div class="hero-content">
+    <span class="hero-tag"><span set:html={cloudIcon} />Plataforma todo en uno</span>
+    <h1>La plataforma <span class="hero-accent">inteligente</span> para hacer crecer<br /> tu empresa.</h1>
+    <p class="hero-intro">
+      Administra ventas, inventario, facturación electrónica, ecommerce e inteligencia artificial{' '}
+      <span class="hero-intro-accent">desde una sola plataforma</span>.
+    </p>
+
     <div class="hero-actions">
-      <a href="https://wa.me/51937292341?text=%F0%9F%91%8B%20%C2%A1Hola!%20Me%20gustar%C3%ADa%20solicitar%20una%20demostraci%C3%B3n%20de%20la%20plataforma%20Naniva.%20%F0%9F%9A%80%20Quisiera%20conocer%20sus%20funcionalidades%20y%20c%C3%B3mo%20puede%20ayudar%20a%20optimizar%20la%20gesti%C3%B3n%20de%20mi%20empresa" target="_blank" class="btn-primary hover-pop">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
+      <a href="/solicitar-demo" class="hero-btn hero-btn-primary">
+        <span set:html={calendarIcon} />
         Solicitar demostración
       </a>
-      <a href="#demo" class="btn-outline hover-pop">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m10 8 6 4-6 4V8Z" fill="currentColor" stroke="none" /></svg>
+      <a href="#demo" class="hero-btn hero-btn-outline">
+        <span class="hero-play" set:html={playIcon} />
         Ver cómo funciona
       </a>
     </div>
-    <div class="features">
-      {features.map((f, i) => (
-        <div class={`feature ${i === 2 ? 'feature-third' : ''} ${i === 4 ? 'feature-fifth' : ''}`}>
-          <span class="feature-icon"><Image src={f.icon} alt={f.label}  widths={[140, 280, 420]} sizes="140px" loading="eager" /></span>
-          <span class="feature-label">{f.label}</span>
-        </div>
+
+    <ul class="hero-features">
+      {features.map((f) => (
+        <li>
+          <span class="hero-feature-icon" set:html={svg(f.icon, 40)} />
+          <span class="hero-feature-label">{f.label}</span>
+        </li>
       ))}
-    </div>
+    </ul>
   </div>
 
   <div class="hero-visual">
-    <!-- Fondo decorativo: halo, manchas suaves y trazos curvos detrás de la laptop -->
-    <svg class="backdrop" viewBox="0 0 145 100" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <radialGradient id="hero-glow">
-          <stop offset="0" stop-color="#dbeafe" stop-opacity="0.95" />
-          <stop offset="1" stop-color="#dbeafe" stop-opacity="0" />
-        </radialGradient>
-        <filter id="hero-blur" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="1.6" />
-        </filter>
-      </defs>
-      <ellipse cx="80" cy="62" rx="58" ry="40" fill="url(#hero-glow)" />
-      <g class="backdrop-blobs" filter="url(#hero-blur)">
-        <path d="M24 74 C 16 60, 28 46, 42 52 C 54 57, 52 76, 40 82 C 33 85, 27 80, 24 74 Z" />
-        <path d="M112 30 C 124 23, 138 33, 133 48 C 129 59, 115 58, 110 48 C 107 41, 106 34, 112 30 Z" />
-        <path d="M112 80 C 122 73, 137 80, 134 91 C 131 98, 118 98, 113 91 Z" />
-        <path d="M48 14 C 56 8, 66 12, 64 20 C 62 26, 52 26, 48 21 Z" />
-      </g>
-      <g class="backdrop-lines">
-        <path d="M14 18 C 26 34, 10 52, 22 70 C 28 80, 22 90, 30 98" />
-        <path d="M98 22 C 118 10, 142 32, 126 52 C 116 66, 130 82, 144 86" />
-        <path d="M50 97 C 72 88, 96 99, 120 92" />
-        <path d="M36 30 C 44 22, 56 26, 62 18" />
-      </g>
-    </svg>
+    <Image
+      src={foto}
+      alt="Laptop, celular y tablet mostrando el dashboard de NANIVA sobre un escritorio"
+      class="hero-photo"
+      widths={[640, 960, 1280, 1600, 1902]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
 
-    <svg class="links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M26 19 C 28 28, 36 31, 42 32" />
-      <path d="M58 11 C 58 17, 58 22, 58 27" />
-      <path d="M88 23 C 88 29, 83 31, 78 32" />
-      <path d="M23 50 C 28 51, 32 52, 36 52" />
-      <path d="M90 52 C 96 58, 96 68, 93 76" />
-    </svg>
-
-    <div class="laptop-stage">
-      <Image
-        src={laptop}
-        alt="Laptop mostrando el dashboard de NANIVA"
-        class="laptop"
-        widths={[480, 720, 1024]}
-        sizes="(max-width: 480px) 100vw, 58vw"
-        loading="eager"
-        fetchpriority="high"
-      />
-    </div>
-
-    {modules.map((m, i) => (
-      <span class={`module module-${m.pos}`} style={`--i: ${i}`}>
-        <span class="module-icon-box">
-          <span class="module-icon" style={`--mask: url(${m.mask})`} aria-hidden="true"></span>
-        </span>
-        <span class="module-text">
-          <strong>{m.label}</strong>
-          <small>{m.desc}</small>
-        </span>
-      </span>
-    ))}
-
-    <span class="note">
-      <svg viewBox="0 0 40 40" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M34 34 C 18 34, 8 24, 8 8" /><path d="m3 13 5-6 5 6" /></svg>
-      <span>Todo integrado<br />en un solo sistema</span>
-    </span>
+    <p class="hero-note">
+      Todo integrado<br />en un solo sistema
+      <svg viewBox="0 0 120 40" fill="none" aria-hidden="true">
+        <path d="M112 6 C 96 28, 60 34, 14 30" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+        <path d="m24 20-12 10 13 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </p>
   </div>
 </section>
 
 <style>
   .hero {
+    --ink: #0b1f4d;
+    --blue: #1d6ff2;
     position: relative;
-    min-height: 100vh;
+    isolation: isolate;
     display: flex;
     align-items: center;
-    background:
-      radial-gradient(circle at 75% 55%, rgba(37, 99, 235, 0.1), transparent 45%),
-      radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.06), transparent 40%),
-      linear-gradient(180deg, #f5f8fe 0%, #eef3fc 100%);
-    padding: 4rem 1.5rem 2rem 5rem;
+    min-height: max(700px, min(100vh, 52vw));
+    padding: 7rem clamp(1.5rem, 4vw, 5rem) 3rem;
     overflow: hidden;
-  }
-  .content {
-    max-width: clamp(320px, calc(44vw - 120px), 580px);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    gap: 0.5rem;
-    margin-right: auto;
-    position: relative;
-    z-index: 3;
-  }
-  .logo {
-    height: 92px;
-    width: auto;
-    object-fit: contain;
-    transform: translateY(-4rem);
-  }
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: rgba(37, 99, 235, 0.08);
-    border: 1px solid rgba(37, 99, 235, 0.25);
-    color: #2563eb;
-    font-weight: 700;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    padding: 0.20rem 0.8rem;
-    border-radius: 999px;
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
-    transform: translateY(-3rem);
-  }
-  .tag::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: #2563eb;
-  }
-  h1 {
-    line-height: 1.15;
-    color: #0f172a;
-     transform: translateY(-2rem);
-  }
-  .highlight {
-    color: #2563eb;
-  }
-  p {
-    font-size: 1rem;
-    font-weight: 730;
-    color: #475569;
-    line-height: 1.85;
-    max-width: clamp(300px, calc(44vw - 140px), 560px);
-     transform: translateY(-1rem);
-  }
-  .p-highlight {
-    color: #2563eb;
-    font-weight: 800;
-  }
-  .hero-actions {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-  }
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, #1d4ed8, #2563eb);
-    color: white;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 0.85rem 1.5rem;
-    border-radius: 999px;
-    text-decoration: none;
-     transform: translateY(-1rem);
-  }
-  .btn-outline {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: white;
-    color: #0f172a;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 0.85rem 1.5rem;
-    border: 1.5px solid #2563eb;
-    border-radius: 999px;
-    text-decoration: none;
-     transform: translateY(-1rem);
-  }
-  .features {
-    display: flex;
-    gap: 2.5rem;
-    flex-wrap: nowrap;
-    position: relative;
-    top: 3rem;
-  }
-  .feature {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 80px;
-    text-align: center;
-  }
-  .feature-icon {
-    width: 100px;
-    height: 100px;
-    padding: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid transparent;
-    border-radius: 16px;
-    transition: transform 0.25s ease, border-color 0.25s ease, filter 0.25s ease;
-  }
-  .feature:hover .feature-icon {
-    transform: translateY(-4px) scale(1.12);
-    border-color: #2563eb;
-    filter: brightness(1.35);
-  }
-  .feature-icon img {
-    width: 80px;
-    height: 100px;
-    object-fit: contain;
-    mix-blend-mode: multiply;
-  }
-  .feature-label {
-    display: none;
+    background: #eef4fd;
   }
 
-  /* ---------- Composición: laptop + módulos conectados ---------- */
-  .hero-visual {
-    position: absolute;
-    right: 0;
-    top: calc(50% + 40px);
-    width: clamp(480px, 58vw, 1040px);
-    aspect-ratio: 1.45;
-    transform: translateY(-50%);
-    z-index: 1;
-    pointer-events: none;
-  }
-  .backdrop {
-    position: absolute;
-    left: -4%;
-    top: -4%;
-    width: 106%;
-    height: 110%;
-    z-index: -1;
-    opacity: 0;
-    animation: fade-in 1s ease 0.3s forwards;
-  }
-  .backdrop-blobs {
-    fill: #e3edff;
-    opacity: 0.85;
-  }
-  .backdrop-lines {
-    fill: none;
-    stroke: #93c5fd;
-    stroke-width: 1.5;
-    opacity: 0.55;
-  }
-  .backdrop-lines path {
-    vector-effect: non-scaling-stroke;
-  }
-  .links {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    fill: none;
-    stroke: rgba(37, 99, 235, 0.35);
-    stroke-width: 1.5;
-    stroke-dasharray: 5 6;
-    opacity: 0;
-    animation: fade-in 0.8s ease 1.4s forwards;
-  }
-  .links path {
-    vector-effect: non-scaling-stroke;
-  }
-  .laptop-stage {
-    position: absolute;
-    left: 14%;
-    top: 20%;
-    width: 72%;
-    perspective: 1400px;
-  }
-  .laptop-stage::after {
-    /* Halo suave bajo el laptop */
-    content: "";
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    bottom: 2%;
-    height: 18%;
-    background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.18), transparent 70%);
-    z-index: -1;
-  }
-  .laptop {
+  /* Foto de los equipos a la derecha, en su proporción y apoyada abajo; los bordes izquierdo y superior
+     se funden con el fondo claro. Las tarjetas se ubican en % de la foto, así siempre caen sobre los equipos */
+  .hero-photo {
     display: block;
     width: 100%;
     height: auto;
-    transform-origin: 50% 60%;
-    animation: laptop-spin 1.6s cubic-bezier(0.22, 0.8, 0.24, 1) both;
+    mask-image:
+      linear-gradient(90deg, transparent 0%, #000 30%),
+      linear-gradient(180deg, transparent 0%, #000 16%, #000 78%, transparent 100%);
+    mask-composite: intersect;
   }
-  @keyframes laptop-spin {
-    0% {
-      opacity: 0;
-      transform: rotateY(-360deg) scale(0.6);
-    }
-    35% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 1;
-      transform: rotateY(0deg) scale(1);
-    }
-  }
-
-  .module {
+  /* Arco azul detrás de la franja de las tarjetas, como en el diseño */
+  .hero::before {
+    content: '';
     position: absolute;
-    width: 21%;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: clamp(0.45rem, 0.6vw, 0.7rem);
-    background: #fff;
-    border: var(--border-soft);
-    border-radius: var(--card-radius);
-    box-shadow: var(--card-shadow-hover);
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    animation:
-      module-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) calc(1.2s + var(--i) * 0.15s) forwards,
-      float 4s ease-in-out calc(1.9s + var(--i) * 0.4s) infinite;
-  }
-  .module-icon-box {
-    flex: none;
-    width: clamp(34px, 3.2vw, 48px);
-    aspect-ratio: 1;
-    display: grid;
-    place-items: center;
-    background: #eff5ff;
-    border-radius: 12px;
-  }
-  .module-icon {
-    width: 60%;
-    height: 60%;
-    background: #2563eb;
-    -webkit-mask: var(--mask) center / contain no-repeat;
-    mask: var(--mask) center / contain no-repeat;
-  }
-  .module-text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    min-width: 0;
-  }
-  .module-text strong {
-    color: #0f172a;
-    font-size: clamp(0.72rem, 0.8vw, 0.88rem);
-    font-weight: 700;
-    line-height: 1.2;
-  }
-  .module-text small {
-    color: #64748b;
-    font-size: clamp(0.62rem, 0.68vw, 0.75rem);
-    line-height: 1.35;
-  }
-  .module-inventario { left: 26%; top: 14%; }
-  .module-comida { left: 58%; top: 6%; }
-  .module-factura { left: 88%; top: 18%; }
-  .module-carrito { left: 13%; top: 50%; }
-
-  @keyframes module-in {
-    from { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
-    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  }
-  @keyframes float {
-    0%, 100% { transform: translate(-50%, -50%); }
-    50% { transform: translate(-50%, calc(-50% - 8px)); }
-  }
-  @keyframes fade-in {
-    to { opacity: 1; }
+    z-index: -2;
+    width: 70vw;
+    height: 70vw;
+    top: -38vw;
+    right: -16vw;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 70%, rgba(147, 197, 253, 0.55) 0%, rgba(59, 130, 246, 0.45) 55%, rgba(29, 78, 216, 0.55) 100%);
+    pointer-events: none;
   }
 
-  .note {
-    position: absolute;
-    right: 3%;
-    bottom: 6%;
-    white-space: nowrap;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.4rem;
-    color: #1d4ed8;
-    font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
-    font-size: clamp(0.85rem, 1.1vw, 1.05rem);
-    line-height: 1.3;
-    transform: rotate(-8deg);
-    opacity: 0;
-    animation: fade-in 0.8s ease 2s forwards;
-  }
-  .note svg {
-    flex-shrink: 0;
-    margin-top: -1.2rem;
-  }
+  .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; gap: 1.1rem; max-width: min(620px, 44vw); }
 
-  @media (prefers-reduced-motion: reduce) {
-    .laptop,
-    .module,
-    .links,
-    .backdrop,
-    .note {
-      animation: none;
-      opacity: 1;
-    }
-  }
-
-  @media (max-width: 900px) {
-    .hero { padding-left: 1.1rem; }
-  }
-  @media (max-width: 1368px) and (min-width: 606px) {
-    .tag {
-       transform: translateY(-2rem);color: #2563eb; }
-    h1 {
-    line-height: 1.15;
-    color: #0f172a;
-    width: 100%;
-  }
-    .hero {
-      min-height: 600px;
-      padding: 7rem 3rem 2rem 5rem;
-    }
-    .features {
-      gap: 1.5rem;
-      top: 1rem;
-    }
-    .feature {
-      width: 80px;
-      flex: 0 0 60px;
-    }
-    .feature-icon {
-      width: 90px;
-      height: 90px;
-      flex: 0 0 90px;
-    }
-    .feature-icon img {
-      width: 70px;
-      height: 70px;
-      flex: 0 0 70px;
-    }
-  }
-  @media (max-width: 1100px) {
-    .hero-visual { display: none; }
-    .logo { transform: translateY(-1rem); height: 64px; }
-    .tag { transform: translateY(-2rem); }
-    h1 { transform: translateY(-1rem); }
-    .content { max-width: 580px; }
-    p { max-width: 560px; }
-  }
-  @media (max-width: 768px) {
-    .hero {
-      padding: 6.5rem 1rem 2rem;
-      min-height: auto;
-    }
-    .content {
-      max-width: 100%;
-      padding: 1.5rem;
-      border-radius: var(--radius);
-    }
-    .logo { transform: translateY(-1rem); height: 64px; }
-    h1 { transform: none; }
-    p { font-size: 1.05rem; }
-    .features { gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .feature { width: 64px; }
-    .feature-icon { width: 48px; height: 48px; }
-    .feature-icon img { width: 56px; height: 56px; }
-  }
-  @media (max-width: 400px) {
-
-    .tag {
+  .hero-tag {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    background: rgba(146, 154, 170, 0.08);
-    border: 1px solid rgba(37, 99, 235, 0.25);
-    color: #2563eb;
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.08em;
-    padding: 0.20rem 0.8rem;
+    gap: 0.5rem;
+    padding: 0.45rem 1.1rem;
+    border: 1px solid #bfd6fb;
     border-radius: 999px;
-    box-shadow: 0 2px 8px rgba(146, 154, 170, 0.08);
-    transform: translateY(-2rem);
+    background: #e3eeff;
+    color: #1a5fd6;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
-    .features {
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2em 1rem;
-      justify-items: center;
-      transform: translateY(-3rem);
-    }
-    .feature { width: 100%; }
+  .hero-tag :global(svg) { flex: none; }
 
-    .feature-icon img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    mix-blend-mode: multiply;
+  .hero h1 { margin: 0; color: var(--ink); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; }
+  .hero-accent { display: block; color: var(--blue); }
+  .hero-intro { max-width: 34rem; margin: 0; color: #334a73; font-size: 1.08rem; font-weight: 600; line-height: 1.6; }
+  .hero-intro-accent { color: #1a5fd6; font-weight: 700; }
 
-  }
-  h1 {
-    line-height: 1.15;
-    color: #0f172a;
-     transform: translateY(-2rem);
-  }
-  p {
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.4rem; }
+  .hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    min-height: 3.5rem;
+    padding: 0.85rem 1.8rem;
+    border-radius: 16px;
     font-size: 1rem;
-    font-weight: 600;
-    color: #475569;
-    line-height: 1.85;
-    max-width: clamp(250px, calc(44vw - 140px), 460px);
-     transform: translateY(-1rem);
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   }
-  .btn-primary {
-    padding: 0.80rem 3.9rem;
-    border-radius: 10px;
+  .hero-btn:hover { transform: translateY(-2px); }
+  .hero-btn:active { transform: scale(0.98); }
+  .hero-btn:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+  .hero-btn :global(svg) { flex: none; }
+  .hero-btn-primary { background: linear-gradient(90deg, #1764e8, #2f7cf6); color: #fff; box-shadow: 0 10px 24px rgba(29, 111, 242, 0.28); }
+  .hero-btn-primary:hover { box-shadow: 0 14px 30px rgba(29, 111, 242, 0.34); }
+  .hero-btn-outline { border: 2px solid var(--blue); background: rgba(255, 255, 255, 0.9); color: var(--ink); }
+  .hero-btn-outline:hover { background: #fff; }
+  .hero-play { display: inline-flex; color: #1a5fd6; }
+
+  /* Módulos: tarjetas blancas con ícono azul y el nombre debajo */
+  .hero-features {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(0.5rem, 1vw, 1rem);
     width: 100%;
-    text-align: center;
+    margin: 1.4rem 0 0;
+    padding: 0;
   }
-  .btn-outline {
-     padding: 0.65rem 4.5rem;
-    border-radius: 10px;
-    transform: translateY(-2rem);
-     width: 100%;
+  .hero-features li { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; text-align: center; }
+  .hero-feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 88px;
+    aspect-ratio: 1;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--card-shadow);
+    color: #1a5fd6;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
+  .hero-features li:hover .hero-feature-icon { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+  .hero-feature-icon :global(svg) { width: 46%; height: auto; }
+  .hero-feature-label { color: var(--ink); font-size: 0.85rem; font-weight: 600; line-height: 1.3; }
+
+  /* Foto de los equipos en la mitad derecha del banner, con la nota encima */
+  .hero-visual { position: absolute; right: -3%; bottom: 7%; z-index: 1; width: 76%; }
+  .hero-note {
+    position: absolute;
+    right: 5%;
+    bottom: 3%;
+    margin: 0;
+    color: #1a5fd6;
+    font-family: 'Segoe Print', 'Bradley Hand', 'Comic Sans MS', cursive;
+    font-size: clamp(1rem, 1.25vw, 1.3rem);
+    font-weight: 700;
+    line-height: 1.3;
+    transform: rotate(-6deg);
+    text-shadow: 0 1px 8px rgba(255, 255, 255, 0.9);
+  }
+  .hero-note svg { display: block; width: 6rem; margin: 0.3rem 0 0 auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-btn:hover, .hero-features li:hover .hero-feature-icon { transform: none; }
   }
 
-  @media (max-width: 480px) {
-    .hero {
-      flex-direction: column;
-      align-items: stretch;
-      padding: 6rem 1rem 2rem;
-      min-height: auto;
-      overflow-x: hidden;
-      gap: 0;
-    }
+  /* Pantallas medianas: la foto un poco más chica para que la laptop no quede debajo del texto */
+  @media (max-width: 1500px) {
+    .hero-visual { width: 70%; }
+  }
+  @media (max-width: 1280px) {
+    .hero-visual { width: 66%; }
+  }
 
-    /* "Desarma" el contenedor .content para poder reordenar sus hijos
-       junto con .hero-visual usando flex order en .hero */
-    .content {
-      display: contents;
-    }
-
-    .tag,
-    h1,
-    p {
-      max-width: 100%;
-      width: 100%;
-    }
-
-    .tag {
-      transform: none;
-      font-size: 0.7rem;
-    }
-
-    h1 {
-      transform: none;
-      margin-top: 0.5rem;
-    }
-
-    p {
-      transform: none;
-      font-size: 0.95rem;
-      max-width: 100%;
-      margin-top: 0.4rem;
-    }
-
-    .hero-actions {
-      order: 3;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.75rem;
-      margin-top: 0.75rem;
-      width: 100%;
-    }
-
-    .btn-primary,
-    .btn-outline {
-      width: 100%;
-      justify-content: center;
-      padding: 0.85rem 1.5rem;
-      transform: none;
-    }
-
-    /* Composición visual: laptop + módulos, visible y estable en mobile */
-    .hero-visual {
-      order: 2;
-      display: block;
-      position: relative;
-      right: auto;
-      top: auto;
-      width: 100%;
-      transform: none;
-      margin: 1.5rem auto 0;
-    }
-
-    .module {
-      width: auto;
-      padding: 0.35rem;
-    }
-
-    .module-icon-box {
-      width: 36px;
-    }
-
-    .module-text {
-      display: none;
-    }
-
-    .note {
-      font-size: 0.75rem;
-      bottom: 6%;
-    }
-
-    .note svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    /* Grid de módulos: solo ícono + etiqueta, sin fondo */
-    .features {
-      order: 1;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem 0.6rem;
-      width: 100%;
-      position: static;
-      top: auto;
-      transform: none;
-      margin-top: 1.5rem;
-    }
-
-    .feature {
-      width: 100%;
-      background: transparent;
-      border-radius: 0;
-      padding: 0;
-      justify-content: center;
-      gap: 0.45rem;
-    }
-
-    .feature-icon {
-      width: 56px;
-      height: 56px;
-      padding: 0;
-      border: none;
-    }
-
-    .feature-icon img {
-      width: 80px;
-      height: 80px;
-      mix-blend-mode: normal;
-    }
-
+  /* Tablet y celular: texto arriba y la foto completa debajo */
+  @media (max-width: 1024px) {
+    .hero { flex-direction: column; align-items: stretch; gap: 1.5rem; min-height: 0; padding: 6.5rem 1rem 2.5rem; background: linear-gradient(180deg, #f5f9ff 0%, #eaf2ff 100%); }
+    .hero::before { display: none; }
+    .hero-content { max-width: 640px; }
+    .hero-visual { position: static; width: auto; }
+    .hero-photo { height: auto; mask-image: none; border-radius: var(--card-radius); }
+    .hero-note { display: none; }
+  }
+  @media (max-width: 600px) {
+    .hero-features { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 1.1rem; }
+    .hero-actions, .hero-btn { width: 100%; }
   }
 </style>
