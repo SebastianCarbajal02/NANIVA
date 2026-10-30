@@ -1,0 +1,181 @@
+---
+// "Todo lo que necesitas, en un solo lugar" de /sistema-en-la-nube: texto y botón a la izquierda; 4 tarjetas en 2×2 a la derecha.
+// Fondo blanco: va después de la sección azul del problema (las secciones alternan azul y blanco).
+import { arrowIcon, icons } from '@components/producto/icons';
+
+const svg = (paths: string) =>
+  `<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const tarjetas = [
+  { title: 'Acceso remoto al sistema', desc: 'Gestiona tu negocio sin importar dónde estés.', icon: icons.cloud },
+  { title: 'Seguridad y protección de datos', desc: 'Tu información siempre segura y respaldada.', icon: icons.shield },
+  {
+    title: 'Información centralizada y en línea',
+    desc: 'Todo tu negocio, en tiempo real y en un solo lugar.',
+    icon: svg('<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/><path d="M4 11.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>'),
+  },
+  { title: 'Acceso para varios usuarios', desc: 'Comparte y colabora con tu equipo de trabajo.', icon: icons.users },
+];
+---
+
+<section class="nb-tranquilidad">
+  <div class="nb-wrap">
+    <div class="nb-panel reveal">
+      <span class="nb-burbuja nb-burbuja-arriba" aria-hidden="true"></span>
+      <span class="nb-burbuja nb-burbuja-abajo" aria-hidden="true"></span>
+
+      <div class="nb-copy">
+        <span class="nb-eyebrow"><i aria-hidden="true"></i><span>MÁS QUE ACCESO, ES TRANQUILIDAD</span></span>
+        <h2>Todo lo que necesitas, <span class="nb-hl">en un solo lugar.</span></h2>
+        <p>
+          La nube de NANIVA no solo te da acceso, también te brinda seguridad, control y la flexibilidad que tu negocio
+          necesita para crecer sin límites.
+        </p>
+        <a href="/nosotros" class="nb-btn">Conoce más sobre NANIVA <span set:html={arrowIcon} /></a>
+      </div>
+
+      <ul class="nb-tarjetas">
+        {tarjetas.map((t, i) => (
+          <li class="nb-tarjeta reveal" style={`--d: ${120 + i * 80}ms`}>
+            <span class="nb-tarjeta-icon" set:html={t.icon} />
+            <div>
+              <h3>{t.title}</h3>
+              <p>{t.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nb-tranquilidad { padding: clamp(3.5rem, 6vw, 6rem) 0; background: #fff; }
+  /* Mismo ancho que el panel de "La libertad de gestionar tu negocio" */
+  .nb-wrap { width: min(1600px, calc(100% - clamp(1.5rem, 7vw, 6rem))); margin: 0 auto; }
+
+  /* Panel: regla de bordes del sitio */
+  .nb-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: clamp(1.5rem, 3.5vw, 3.5rem);
+    padding: clamp(2rem, 3.5vw, 3.25rem) clamp(1.75rem, 4vw, 4rem);
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    background: linear-gradient(120deg, #fdfeff 0%, #f6faff 55%, #eef5ff 100%);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+  }
+
+  /* Manchas celestes decorativas: arriba al centro y abajo a la izquierda */
+  .nb-burbuja { position: absolute; border-radius: 50%; pointer-events: none; }
+  .nb-burbuja-arriba {
+    top: -9rem;
+    left: 44%;
+    width: 20rem;
+    height: 12rem;
+    background: radial-gradient(closest-side, rgba(191, 219, 254, 0.95), rgba(219, 234, 254, 0.5) 70%, transparent);
+  }
+  .nb-burbuja-abajo {
+    bottom: -7rem;
+    left: -6rem;
+    width: 26rem;
+    height: 12rem;
+    background: radial-gradient(closest-side, rgba(147, 197, 253, 0.8), rgba(191, 219, 254, 0.45) 70%, transparent);
+    transform: rotate(12deg);
+  }
+
+  .nb-copy { position: relative; }
+  .nb-eyebrow { display: inline-flex; align-items: center; gap: 0.9rem; }
+  .nb-eyebrow i { display: block; width: 2.2rem; height: 2px; border-radius: 2px; background: #1d6ff2; }
+  .nb-eyebrow span {
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: #e0efff;
+    color: #1d6ff2;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .nb-copy h2 {
+    margin: 1rem 0 0.75rem;
+    font-size: clamp(1.6rem, 1.1rem + 1.4vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #0b1f4d;
+  }
+  .nb-hl { display: block; color: #1d8cf8; }
+  .nb-copy > p { max-width: 34rem; margin: 0; color: #475569; font-size: 1rem; line-height: 1.7; }
+
+  .nb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    background: #1d6ff2;
+    box-shadow: 0 10px 22px rgba(29, 111, 242, 0.22);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+  }
+  .nb-btn:hover { transform: translateY(-2px); background: #155fd6; }
+  .nb-btn:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+  .nb-btn :global(svg) { flex-shrink: 0; transition: transform 0.2s ease; }
+  .nb-btn:hover :global(svg) { transform: translateX(3px); }
+
+  .nb-tarjetas {
+    position: relative;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin: 0;
+    padding: 0;
+  }
+  /* Tarjetas: regla de bordes del sitio */
+  .nb-tarjeta {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.25rem 1.2rem;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .nb-tarjeta:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+  .nb-tarjeta-icon {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #e8f1ff;
+    color: #1d6ff2;
+  }
+  .nb-tarjeta-icon :global(svg) { width: 32px; height: 32px; }
+  .nb-tarjeta h3 { margin: 0 0 0.35rem; font-size: 1rem; font-weight: 700; line-height: 1.3; color: #0b1f4d; }
+  .nb-tarjeta p { margin: 0; color: #64748b; font-size: 0.88rem; line-height: 1.55; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nb-btn, .nb-btn:hover, .nb-tarjeta:hover { transform: none; }
+  }
+  @media (max-width: 1100px) {
+    .nb-panel { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nb-panel { padding: 1.75rem 1.1rem; }
+    .nb-tarjetas { grid-template-columns: 1fr; }
+    .nb-btn { width: 100%; justify-content: center; }
+  }
+</style>

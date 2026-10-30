@@ -1,0 +1,306 @@
+---
+// "La libertad de gestionar tu negocio" de /sistema-en-la-nube: va bajo el banner. Texto y 3 tarjetas a la izquierda;
+// a la derecha la foto de la persona con la laptop, con la nube, la frase a mano y los 3 dispositivos encima.
+// Fondo blanco: el banner de arriba es azul y las secciones alternan azul y blanco. La foto va dentro de un panel, como en el resto de la página.
+import { Image } from 'astro:assets';
+import { icons } from '@components/producto/icons';
+import fondoImg from '@assets/image/sistema-nube/libertad-fondo.webp';
+
+const svg = (paths: string) =>
+  `<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const tablet = svg('<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M11 18h2"/>');
+
+const tarjetas = [
+  { title: 'Desde cualquier dispositivo', desc: 'Computadora, tablet o celular.', icon: svg('<rect x="3" y="4" width="13" height="16" rx="2"/><rect x="13" y="9" width="8" height="12" rx="1.5"/><path d="M16 18h2"/>') },
+  { title: 'Desde cualquier lugar', desc: 'Tu oficina, tu casa o donde estés.', icon: icons.globe },
+  { title: 'Siempre disponible', desc: 'Accede a tu información cuando la necesites.', icon: svg('<path d="M13 2 4 14h7l-1 8 9-12h-7Z"/>') },
+];
+
+const dispositivos = [
+  { label: 'Computadora', icon: svg('<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>') },
+  { label: 'Tablet', icon: tablet },
+  { label: 'Celular', icon: icons.phone },
+];
+---
+
+<section class="nb-libertad">
+  <div class="nb-wrap">
+    <div class="nb-libertad-panel reveal">
+      <div class="nb-foto">
+        <Image
+          src={fondoImg}
+          alt="Persona trabajando en su laptop con el panel de NANIVA abierto"
+          widths={[760, 1200, 1600, 2172]}
+          sizes="(max-width: 1250px) 100vw, 1560px"
+          loading="lazy"
+          class="nb-foto-img"
+        />
+
+        {/* Nube sobre la laptop, con las líneas punteadas que bajan a la pantalla */}
+        <div class="nb-nube" aria-hidden="true">
+          <svg class="nb-nube-lineas" viewBox="0 0 300 160" fill="none">
+            <path d="M70 40C30 40 20 70 20 160M230 40c40 0 50 30 50 120" />
+          </svg>
+          <svg class="nb-nube-icono" viewBox="0 0 120 80">
+            <defs>
+              <linearGradient id="nb-nube-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#8fd0ff" />
+                <stop offset="1" stop-color="#3b8ff0" />
+              </linearGradient>
+            </defs>
+            <path d="M30 74h62a22 22 0 0 0 3-43.8A30 30 0 0 0 38 22 25 25 0 0 0 30 74Z" fill="url(#nb-nube-grad)" />
+            <path d="M52 58V34m-8 8 8-8 8 8M68 34v24m-8-8 8 8 8-8" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+
+        <p class="nb-frase" aria-hidden="true">Tu negocio<br />contigo, siempre</p>
+
+        <ul class="nb-dispositivos" aria-label="Dispositivos compatibles">
+          {dispositivos.map((d) => (
+            <li><span class="nb-dispositivo-icon" set:html={d.icon} />{d.label}</li>
+          ))}
+        </ul>
+      </div>
+
+      <span class="nb-esquina" aria-hidden="true"></span>
+
+      <div class="nb-libertad-inner">
+        <div class="nb-libertad-copy">
+          <span class="nb-eyebrow reveal">TU NEGOCIO SIN LÍMITES</span>
+          <h2 class="reveal" style="--d: 60ms">La libertad de gestionar <span class="nb-hl">tu negocio.</span></h2>
+          <p class="reveal" style="--d: 120ms">
+            Olvídate de estar atado a una sola computadora. Con NANIVA en la nube, tu información te acompaña donde la
+            necesites, en cualquier momento y desde cualquier dispositivo.
+          </p>
+
+          <ul class="nb-tarjetas">
+            {tarjetas.map((t, i) => (
+              <li class="nb-tarjeta reveal" style={`--d: ${180 + i * 80}ms`}>
+                <span class="nb-tarjeta-icon" set:html={t.icon} />
+                <h3>{t.title}</h3>
+                <p>{t.desc}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nb-libertad { padding: clamp(3.5rem, 6vw, 6rem) 0; background: #fff; }
+  /* Algo más angosto que el panel de la sección del problema */
+  .nb-wrap { width: min(1600px, calc(100% - clamp(1.5rem, 7vw, 6rem))); margin: 0 auto; }
+
+  /* Panel: regla de bordes del sitio. --h es su alto y el de la foto (proporción 3:1), anclada a la derecha.
+     Con él se calcula dónde empieza la laptop (56% de la foto) para que el texto nunca la tape. */
+  .nb-libertad-panel {
+    --h: clamp(480px, 30vw, 520px);
+    --pl: clamp(2rem, 6vw, 6.5rem);
+    container-type: inline-size;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: var(--h);
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    background: #f5f9ff;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+  }
+
+  .nb-foto { position: absolute; top: 0; right: 0; height: 100%; aspect-ratio: 2172 / 724; }
+  .nb-foto-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  /* Velo claro a la izquierda para que el texto se lea bien */
+  .nb-foto::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #f5f9ff 0%, rgba(245, 249, 255, 0.6) 40%, transparent 55%);
+    pointer-events: none;
+  }
+
+  /* Lo que va encima de la foto se posiciona en % de la foto: no se mueve al cambiar el ancho */
+  .nb-nube { position: absolute; z-index: 1; top: 8%; left: 58%; width: 18%; }
+  .nb-nube-icono {
+    position: relative;
+    display: block;
+    width: 48%;
+    margin: 0 auto;
+    filter: drop-shadow(0 12px 20px rgba(29, 111, 242, 0.3));
+  }
+  .nb-nube-lineas {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 100%;
+    stroke: #60a5fa;
+    stroke-width: 2;
+    stroke-dasharray: 6 6;
+  }
+
+  .nb-frase {
+    position: absolute;
+    z-index: 1;
+    top: 12%;
+    left: 75%;
+    margin: 0;
+    color: #1d6ff2;
+    font-family: 'Segoe Script', 'Bradley Hand', 'Comic Sans MS', cursive;
+    font-size: calc(var(--h) * 0.04);
+    line-height: 1.35;
+    transform: rotate(-6deg);
+  }
+  .nb-frase::after {
+    content: '';
+    display: block;
+    width: 80%;
+    height: 3px;
+    margin-top: 0.6rem;
+    border-radius: 3px;
+    background: #1d6ff2;
+    transform: rotate(-3deg);
+  }
+
+  .nb-dispositivos {
+    position: absolute;
+    z-index: 3;
+    top: 39%;
+    left: 81%;
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .nb-dispositivos { gap: 0.6rem; }
+  .nb-dispositivos li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 10rem;
+    padding: 0.4rem 1.2rem 0.4rem 0.4rem;
+    border: var(--border-soft);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: var(--card-shadow);
+    color: #0b1f4d;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .nb-dispositivo-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #e8f1ff;
+    color: #1d6ff2;
+  }
+
+  /* Curva azul de la esquina inferior derecha */
+  .nb-esquina {
+    position: absolute;
+    right: -6rem;
+    bottom: -6rem;
+    z-index: 1;
+    width: 18rem;
+    height: 11rem;
+    border-radius: 50% 0 0 0;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    transform: rotate(-18deg);
+    pointer-events: none;
+  }
+
+  .nb-libertad-inner { position: relative; z-index: 2; width: 100%; padding: 2rem 0 2rem var(--pl); }
+  /* Ancho hasta donde empieza la laptop (56% de una foto de 3 × --h anclada a la derecha del panel), menos un respiro */
+  .nb-libertad-copy { max-width: min(48rem, calc(100cqw - 1.32 * var(--h) - var(--pl) - 2rem)); }
+
+  .nb-eyebrow {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: #e8f0ff;
+    color: #1d4ed8;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .nb-libertad h2 {
+    margin: 0.7rem 0 0.5rem;
+    font-size: clamp(1.6rem, 1.1rem + 1.4vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #0b1f4d;
+  }
+  .nb-hl { display: block; color: #1d8cf8; }
+  .nb-libertad-copy > p { max-width: 40rem; margin: 0; color: #475569; font-size: 1rem; line-height: 1.6; }
+
+  .nb-tarjetas {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 15rem));
+    gap: 0.75rem;
+    margin: 1.1rem 0 0;
+    padding: 0;
+  }
+  /* Tarjetas: regla de bordes del sitio */
+  .nb-tarjeta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.9rem 0.95rem;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .nb-tarjeta:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+  .nb-tarjeta-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    margin-bottom: 0.3rem;
+    border-radius: 50%;
+    background: #e8f1ff;
+    color: #1d6ff2;
+  }
+  .nb-tarjeta-icon :global(svg) { width: 24px; height: 24px; }
+  .nb-tarjeta h3 { margin: 0; font-size: 0.95rem; font-weight: 700; line-height: 1.3; color: #0b1f4d; }
+  .nb-tarjeta p { margin: 0; color: #64748b; font-size: 0.85rem; line-height: 1.55; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nb-tarjeta:hover { transform: none; }
+  }
+
+  /* Pantallas medianas y celular: el texto arriba y la foto completa debajo */
+  @media (max-width: 1250px) {
+    .nb-libertad-panel { --h: calc(100cqw / 3); flex-direction: column-reverse; align-items: stretch; height: auto; }
+    .nb-foto { position: relative; width: 100%; height: auto; }
+    .nb-foto::after { background: linear-gradient(180deg, #f5f9ff 0%, transparent 25%); }
+    .nb-libertad-inner { padding: 2rem var(--pl) 1rem; }
+    .nb-libertad-copy { max-width: 60rem; }
+    .nb-tarjetas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .nb-esquina { width: 14rem; height: 9rem; right: -4rem; bottom: -4rem; }
+    .nb-dispositivos li { min-width: 0; gap: 0.5rem; padding: 0.3rem 0.9rem 0.3rem 0.3rem; font-size: 0.85rem; }
+    .nb-dispositivo-icon { width: 36px; height: 36px; }
+    .nb-dispositivo-icon :global(svg) { width: 20px; height: 20px; }
+  }
+  @media (max-width: 900px) {
+    .nb-frase, .nb-dispositivos { display: none; }
+  }
+  @media (max-width: 640px) {
+    .nb-libertad-panel { --pl: 1.1rem; }
+    .nb-tarjetas { grid-template-columns: 1fr; }
+    .nb-foto { aspect-ratio: 4 / 3; }
+    .nb-foto-img { object-position: 78% center; }
+    .nb-nube, .nb-esquina { display: none; }
+  }
+</style>

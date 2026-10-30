@@ -1,0 +1,210 @@
+---
+// Sección bajo el banner de /sistema-en-la-nube: el problema de un sistema instalado en una sola PC y la solución en la nube.
+// Fondo azul: va después de la sección blanca de la libertad (las secciones alternan azul y blanco).
+import { Image } from 'astro:assets';
+import { checkIcon } from '@components/producto/icons';
+import dispositivosImg from '@assets/image/sistema-nube/hero-dispositivos.webp';
+
+const svg = (paths: string) =>
+  `<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const riesgos = [
+  { title: 'Solo puedes trabajar desde una PC', icon: svg('<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>') },
+  { title: 'Si el equipo falla, pierdes tu información', icon: svg('<ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/><path d="M4 11.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>') },
+  { title: 'Instalaciones y actualizaciones manuales', icon: svg('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/>') },
+  { title: 'Datos separados entre sucursales', icon: svg('<circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="m10.8 7.2-4.6 9.6M13.2 7.2l4.6 9.6M7.5 19h9"/>') },
+];
+
+const soluciones = [
+  'Ingresa desde la PC, la tablet o el celular',
+  'Tu información respaldada en la nube',
+  'Siempre en la última versión, sin instalar nada',
+];
+---
+
+<section class="nb-problema">
+  <div class="nb-wrap">
+    <div class="nb-split">
+      <div class="nb-panel reveal">
+        <div class="nb-copy">
+          <span class="nb-pill">EL PROBLEMA</span>
+          <h2>Un sistema instalado en una sola PC <span class="nb-hl">te limita.</span></h2>
+          <p>
+            Si tu información vive en un solo equipo, no puedes revisarla cuando estás fuera del negocio, y una falla
+            del disco o un virus pueden hacerte perder todo.
+          </p>
+        </div>
+
+        <ul class="nb-cards">
+          {riesgos.map((r) => (
+            <li class="nb-card">
+              <span class="nb-card-icon" set:html={r.icon} />
+              <strong>{r.title}</strong>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="nb-solucion reveal" style="--d: 120ms">
+        <div class="nb-solucion-copy">
+          <span class="nb-pill nb-pill-sm">LA SOLUCIÓN NANIVA</span>
+          <h3>Tu negocio en la nube, <span class="nb-hl">contigo a donde vayas.</span></h3>
+          <p>
+            NANIVA funciona desde el navegador: tus ventas, inventario y reportes se guardan en la nube y se actualizan al
+            instante en todos tus dispositivos.
+          </p>
+          <ul class="nb-checks">
+            {soluciones.map((s) => (
+              <li><span class="nb-check" set:html={checkIcon} />{s}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="nb-visual">
+          <Image
+            src={dispositivosImg}
+            alt=""
+            widths={[240, 360, 480, 640]}
+            sizes="(max-width: 1100px) 60vw, 320px"
+            loading="lazy"
+            class="nb-img"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nb-problema { padding: clamp(3.5rem, 6vw, 6rem) 0; background: #f3f8ff; }
+  /* Mismo ancho que el panel de /migracion-datos */
+  .nb-wrap { width: min(1900px, calc(100% - 1.5rem)); margin: 0 auto; }
+
+  /* Dos paneles separados, mitad y mitad: el problema (blanco) y la solución (celeste) */
+  .nb-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: clamp(1.25rem, 2vw, 2rem);
+  }
+
+  /* Panel del problema: regla de bordes del sitio */
+  .nb-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(1.25rem, 2.5vw, 2.5rem);
+    padding: clamp(1.75rem, 2.5vw, 2.75rem);
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    background: #fff;
+    box-shadow: var(--card-shadow);
+  }
+
+  .nb-pill {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: #e8f0ff;
+    color: #1d4ed8;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .nb-copy h2 {
+    margin: 1.1rem 0 1rem;
+    font-size: clamp(1.6rem, 1.1rem + 1.4vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: #0b1f4d;
+  }
+  .nb-hl { display: block; color: #1d8cf8; }
+  .nb-copy p { max-width: 26rem; margin: 0; color: #475569; font-size: 1rem; line-height: 1.7; }
+
+  /* Las 4 tarjetas de riesgos */
+  .nb-cards { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin: 0; padding: 0; }
+  .nb-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 1.1rem 1rem;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    background: #f4f8ff;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .nb-card:hover { transform: translateY(-2px); box-shadow: var(--card-shadow-hover); }
+  .nb-card strong { font-size: 0.9rem; line-height: 1.35; color: #0b1f4d; }
+  .nb-card-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #e3eeff;
+    color: #1d6ff2;
+  }
+
+  /* Panel de la solución */
+  .nb-solucion {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: center;
+    gap: 1.5rem;
+    padding: clamp(1.75rem, 2.5vw, 2.75rem);
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    background: linear-gradient(135deg, #f1f7ff 0%, #e6f0ff 100%);
+    box-shadow: var(--card-shadow);
+  }
+  .nb-pill-sm { background: #fff; font-size: 0.7rem; }
+  .nb-solucion h3 {
+    margin: 0.9rem 0 0.75rem;
+    font-size: clamp(1.25rem, 1rem + 0.8vw, 1.65rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: #0b1f4d;
+  }
+  .nb-solucion h3 .nb-hl { display: inline; }
+  .nb-solucion-copy > p { margin: 0 0 1.1rem; color: #475569; font-size: 0.85rem; line-height: 1.65; }
+  .nb-checks { list-style: none; display: grid; gap: 0.7rem; margin: 0; padding: 0; }
+  .nb-checks li { display: flex; align-items: center; gap: 0.65rem; color: #1e293b; font-size: 0.85rem; font-weight: 600; }
+  .nb-check {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #22b573;
+    color: #fff;
+  }
+  .nb-check :global(svg) { width: 13px; height: 13px; }
+
+  /* Ilustración de dispositivos: se funde con el fondo celeste del panel */
+  .nb-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    mix-blend-mode: multiply;
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 62%, transparent 100%);
+    mask-image: radial-gradient(ellipse at center, #000 62%, transparent 100%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nb-card:hover { transform: none; }
+  }
+
+  @media (max-width: 1200px) {
+    .nb-split { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 800px) {
+    .nb-panel { grid-template-columns: 1fr; padding: 1.5rem 1.1rem; }
+    .nb-solucion { grid-template-columns: 1fr; padding: 1.5rem 1.1rem; }
+    .nb-visual { max-width: 22rem; margin: 0 auto; }
+  }
+</style>

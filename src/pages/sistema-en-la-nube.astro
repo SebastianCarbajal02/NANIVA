@@ -1,0 +1,43 @@
+---
+// Página del sistema en la nube: NANIVA funciona desde el navegador, en cualquier dispositivo y sin instalaciones
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Hero from '@components/nube/Hero.astro';
+import Libertad from '@components/nube/Libertad.astro';
+import Problema from '@components/nube/Problema.astro';
+import Tranquilidad from '@components/nube/Tranquilidad.astro';
+import Cifras from '@components/nube/Cifras.astro';
+import Faq from '@components/home/Faq.astro';
+import { productos, themeStyle, whatsappHref } from '@data/productos';
+
+const site = Astro.site;
+
+// Las preguntas del ERP, sin la de la aplicación móvil
+const faqs = productos.erp.faqs.filter((f) => f.q !== '¿Tiene aplicación móvil?');
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: new URL('/', site).href },
+      { '@type': 'ListItem', position: 2, name: 'Sistema en la nube', item: new URL('/sistema-en-la-nube', site).href },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Sistema en la nube para tu negocio | NANIVA"
+  description="Gestiona tu negocio desde cualquier lugar y dispositivo con NANIVA en la nube: información centralizada, segura y sin instalaciones."
+  schema={schema}
+>
+  <Nav />
+  <Hero />
+  <Libertad />
+  <Problema />
+  <Tranquilidad />
+  <Cifras />
+  {/* Las preguntas del ERP, con fondo blanco: va después de la franja azul de las cifras */}
+  <Faq faqs={faqs} whatsappHref={whatsappHref(productos.erp)} style={`${themeStyle(productos.erp)}background:#fff;`} />
+</BaseLayout>

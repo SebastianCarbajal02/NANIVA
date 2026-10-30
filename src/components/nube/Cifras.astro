@@ -1,0 +1,116 @@
+---
+// "Tecnología que impulsa tu crecimiento" de /sistema-en-la-nube: franja azul oscuro con texto a la izquierda y 3 cifras.
+// Fondo azul: va después de la sección blanca de "Todo lo que necesitas" (las secciones alternan azul y blanco).
+import { icons } from '@components/producto/icons';
+
+const svg = (paths: string) =>
+  `<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const cifras = [
+  { valor: '+1000', label: 'negocios activos', icon: icons.users },
+  { valor: '99.9%', label: 'disponibilidad', icon: icons.shield },
+  { valor: '+5 años', label: 'acompañando tu crecimiento', icon: svg('<path d="M5 20v-4M10 20v-7M15 20v-10M20 20V5"/>') },
+];
+---
+
+<section class="nb-cifras">
+  <div class="nb-wrap">
+    <div class="nb-panel reveal">
+      <span class="nb-circulo nb-circulo-arriba" aria-hidden="true"></span>
+      <span class="nb-circulo nb-circulo-abajo" aria-hidden="true"></span>
+
+      <div class="nb-copy">
+        <span class="nb-eyebrow">EMPRESAS QUE YA CONFÍAN</span>
+        <h2>Tecnología que impulsa <span class="nb-hl">tu crecimiento.</span></h2>
+        <p>
+          Con NANIVA en la nube, cientos de negocios ya gestionan su información de forma más simple, segura y eficiente.
+        </p>
+      </div>
+
+      <ul class="nb-lista">
+        {cifras.map((c) => (
+          <li>
+            <span class="nb-icon" set:html={c.icon} />
+            <strong>{c.valor}</strong>
+            <span class="nb-label">{c.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nb-cifras { padding: clamp(3.5rem, 6vw, 6rem) 0; background: #f3f8ff; }
+  /* Mismo ancho que los paneles de las secciones de arriba */
+  .nb-wrap { width: min(1600px, calc(100% - clamp(1.5rem, 7vw, 6rem))); margin: 0 auto; }
+
+  /* Franja azul: regla de bordes del sitio (panel) */
+  .nb-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    padding: clamp(1.75rem, 3vw, 2.75rem) clamp(1.75rem, 4vw, 4rem);
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    background:
+      radial-gradient(30rem 16rem at 30% 0%, rgba(59, 130, 246, 0.35), transparent 70%),
+      linear-gradient(100deg, #0a2a6e 0%, #0b3a8f 55%, #0a3485 100%);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+  }
+
+  /* Círculos de luz en las esquinas: arriba a la derecha y abajo a la izquierda */
+  .nb-circulo { position: absolute; border-radius: 50%; pointer-events: none; }
+  .nb-circulo-arriba { top: -6rem; right: -5rem; width: 13rem; height: 13rem; background: linear-gradient(200deg, #3b82f6, #1d4ed8); opacity: 0.55; }
+  .nb-circulo-abajo { bottom: -5rem; left: -4rem; width: 9rem; height: 9rem; background: linear-gradient(20deg, #3b82f6, #1d4ed8); opacity: 0.55; }
+
+  .nb-copy { position: relative; }
+  .nb-eyebrow { color: #bfdbfe; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; }
+  .nb-copy h2 {
+    margin: 0.7rem 0 0.75rem;
+    font-size: clamp(1.6rem, 1.1rem + 1.4vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+  .nb-hl { display: block; color: #7dd3fc; }
+  .nb-copy p { max-width: 32rem; margin: 0; color: #dbeafe; font-size: 0.98rem; line-height: 1.65; }
+
+  /* Las 3 cifras, separadas por líneas finas */
+  .nb-lista {
+    position: relative;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+  }
+  .nb-lista li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+  }
+  .nb-icon { display: inline-flex; margin-bottom: 0.5rem; color: #93c5fd; }
+  .nb-icon :global(svg) { width: 34px; height: 34px; }
+  .nb-lista strong { color: #fff; font-size: clamp(1.6rem, 1.2rem + 1vw, 2.1rem); font-weight: 700; line-height: 1.1; }
+  .nb-label { max-width: 9rem; color: #dbeafe; font-size: 0.9rem; line-height: 1.4; }
+
+  @media (max-width: 1000px) {
+    .nb-panel { grid-template-columns: 1fr; }
+    .nb-lista li:first-child { border-left: 0; }
+  }
+  @media (max-width: 560px) {
+    .nb-panel { padding: 1.75rem 1.1rem; }
+    .nb-lista { grid-template-columns: 1fr; gap: 1.25rem; }
+    .nb-lista li { border-left: 0; padding: 0; }
+    .nb-lista li + li { padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.2); }
+  }
+</style>

@@ -1,0 +1,201 @@
+---
+// Banner de /sistema-en-la-nube: fondo de nube en todo el banner; texto, botones y 4 ventajas a la izquierda;
+// laptop, tablet y celular (PNG transparente) encima del fondo, a la derecha.
+import { Image } from 'astro:assets';
+import { arrowIcon, icons } from '@components/producto/icons';
+import fondoImg from '@assets/image/sistema-nube/Fondo tecnológico de nube con logo N.png';
+import dispositivosImg from '@assets/image/sistema-nube/Dispositivos con dashboard SaaS NANIVA.png';
+
+const whatsapp = `https://wa.me/51937292341?text=${encodeURIComponent('Hola, quiero información sobre el sistema en la nube de NANIVA')}`;
+
+const svg = (paths: string) =>
+  `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const ventajas = [
+  { label: ['Acceso desde', 'cualquier lugar'], icon: icons.cloud },
+  { label: ['Disponible en', 'todos tus dispositivos'], icon: svg('<rect x="3" y="4" width="13" height="16" rx="2"/><rect x="13" y="9" width="8" height="12" rx="1.5"/><path d="M16 18h2"/>') },
+  { label: ['Información', 'centralizada'], icon: icons.shield },
+  { label: ['Sin instalaciones', 'ni complicaciones'], icon: svg('<path d="M13 2 4 14h7l-1 8 9-12h-7Z"/>') },
+];
+
+const whatsappIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>`;
+---
+
+<section class="nb-hero">
+  <div class="nb-hero-inner">
+    <div class="nb-hero-content">
+      <span class="nb-eyebrow">SISTEMA EN LA NUBE</span>
+      <h1>Tu negocio, <span class="nb-accent">siempre disponible.</span></h1>
+      <p class="nb-intro">
+        Accede a toda tu información desde cualquier lugar y en cualquier momento. Gestiona tu negocio de forma simple,
+        segura y sin depender de un solo dispositivo.
+      </p>
+
+      <div class="nb-actions">
+        <a href="/solicitar-demo" class="nb-btn nb-btn-primary">
+          Solicitar una demo gratuita <span set:html={arrowIcon} />
+        </a>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" class="nb-btn nb-btn-whatsapp">
+          <span class="nb-wa" set:html={whatsappIcon} />
+          Contactar por WhatsApp
+        </a>
+      </div>
+
+      <ul class="nb-ventajas">
+        {ventajas.map((v) => (
+          <li><span class="nb-ventaja-icon" set:html={v.icon} /><span>{v.label[0]}<br />{v.label[1]}</span></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <Image
+    src={fondoImg}
+    alt=""
+    widths={[760, 1200, 1600, 1915]}
+    sizes="100vw"
+    quality={85}
+    loading="eager"
+    class="nb-fondo"
+  />
+  <Image
+    src={dispositivosImg}
+    alt="Panel de NANIVA en laptop, tablet y celular"
+    widths={[480, 760, 1000, 1400, 1915]}
+    sizes="(max-width: 1250px) 100vw, 60vw"
+    quality={92}
+    loading="eager"
+    fetchpriority="high"
+    class="nb-dispositivos"
+  />
+</section>
+
+<style>
+  .nb-hero {
+    --ink: #0b1f4d;
+    --pad: clamp(1.5rem, 4vw, 4rem);
+    --copy: 620px;
+    /* Donde empiezan los dispositivos: borde izquierdo del contenido + ancho del texto + aire */
+    --inicio: calc(max(var(--pad), (100vw - 1600px) / 2) + var(--copy) + 4rem);
+    position: relative;
+    padding: 7.5rem var(--pad) 4rem;
+    overflow: hidden;
+    background: #eaf3fe;
+  }
+  .nb-hero-inner { position: relative; z-index: 1; max-width: 1600px; margin: 0 auto; }
+  .nb-hero-content { max-width: var(--copy); display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+
+  .nb-eyebrow { color: #64748b; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.08em; }
+  .nb-hero h1 {
+    max-width: 14em;
+    margin: 0;
+    color: var(--ink);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .nb-accent { display: block; color: #1d8cf8; }
+  .nb-intro { max-width: 560px; margin: 0; color: #334155; font-size: 1.08rem; font-weight: 450; line-height: 1.7; }
+
+  .nb-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 0.5rem; }
+  .nb-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+  }
+  .nb-btn:hover { transform: translateY(-2px); }
+  .nb-btn:active { transform: scale(0.98); }
+  .nb-btn:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+  .nb-btn :global(svg) { flex-shrink: 0; transition: transform 0.2s ease; }
+  .nb-btn:hover :global(svg) { transform: translateX(3px); }
+  .nb-btn-primary { background: #1d6ff2; color: #fff; }
+  .nb-btn-primary:hover { background: #155fd6; }
+  .nb-btn-whatsapp { padding: 0.8rem 1.4rem; border: 2px solid #bfdbfe; background: #fff; color: #0b6fd6; }
+  .nb-btn-whatsapp:hover { background: #f0f7ff; border-color: #8cc4f5; }
+  .nb-wa { display: inline-flex; color: #22c55e; }
+
+  /* Las 4 ventajas bajo los botones: bien separadas, con líneas finas entre ellas */
+  .nb-ventajas {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: start;
+    margin: 2rem 0 0 calc(-1 * clamp(1rem, 1.9vw, 1.6rem));
+    padding: 0;
+  }
+  /* Icono y texto centrados en su columna */
+  .nb-ventajas li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.85rem;
+    padding: 0.25rem clamp(1rem, 1.9vw, 1.6rem);
+    white-space: nowrap;
+    border-left: 1px solid rgba(148, 163, 184, 0.3);
+    color: #334155;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .nb-ventajas li:first-child { border-left: 0; }
+  .nb-ventaja-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #e8f1ff;
+    color: #1d6ff2;
+  }
+  .nb-ventaja-icon :global(svg) { width: 30px; height: 30px; }
+
+  /* Foto de fondo pegada abajo a la derecha; arriba y a la izquierda se desvanece en el color del banner */
+  /* Fondo de nube: cubre todo el banner, con la nube del logo siempre arriba a la derecha */
+  .nb-fondo {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 100% 0%;
+  }
+  /* Dispositivos: a la derecha del texto, apoyados en el piso claro del fondo */
+  .nb-dispositivos {
+    position: absolute;
+    right: max(0px, (100vw - 1600px) / 2 - 7rem);
+    bottom: 3.5rem;
+    z-index: 1;
+    display: block;
+    width: min(1000px, 100vw - var(--inicio));
+    height: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nb-btn, .nb-btn:hover { transform: none; }
+  }
+  /* Pantallas angostas: los dispositivos pasan debajo del texto */
+  @media (max-width: 1250px) {
+    .nb-dispositivos { position: relative; right: auto; bottom: auto; width: 100%; max-width: 900px; margin: 2.5rem auto 0; }
+  }
+  @media (max-width: 900px) {
+    .nb-hero { padding: 6.5rem 1rem 3rem; }
+  }
+  @media (max-width: 700px) {
+    .nb-ventajas { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.5rem; margin-left: 0; }
+    .nb-ventajas li { white-space: normal; }
+    .nb-ventajas li:nth-child(3) { border-left: 0; }
+  }
+  @media (max-width: 600px) {
+    .nb-actions, .nb-btn { width: 100%; }
+  }
+</style>
