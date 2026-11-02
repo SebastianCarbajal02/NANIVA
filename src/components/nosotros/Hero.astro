@@ -9,13 +9,17 @@ import './nosotros.css';
 <section class="ns-section about-hero">
   <div class="container about-hero-grid">
     <div class="about-hero-copy">
-      <span class="eyebrow">SOBRE NOSOTROS</span>
-      <h1>Innovación y tecnología al servicio de las pymes</h1>
-      <p class="lead">
-        Somos una empresa peruana de tecnología que desarrolla soluciones de software en la nube para simplificar la
-        gestión empresarial. Ayudamos a las pequeñas y medianas empresas a ser más eficientes, competitivas y rentables
-        con herramientas digitales intuitivas y seguras.
-      </p>
+      <span class="eyebrow">NOSOTROS</span>
+      <h1>Creamos tecnología para que tengas el control de tu empresa</h1>
+      <div class="lead">
+        <p>En NANIVA creemos que gestionar tu empresa debe ser práctico y fácil.</p>
+        <p>
+          A través del Ecosistema NANIVA, creamos tecnología inteligente para simplificar tu gestión, automatizar procesos y
+          ayudarte a tomar mejores decisiones. Diseñamos sistemas limpios e intuitivos, buscando reducir tareas de varios
+          pasos a acciones simples y rápidas.
+        </p>
+        <p><strong>Hacemos tecnología para convertir lo complejo en simple.</strong></p>
+      </div>
       <a href="#soluciones" class="btn btn-primary">Conoce nuestras soluciones <span set:html={arrowIcon} /></a>
     </div>
     <div class="about-hero-media">
@@ -40,24 +44,26 @@ import './nosotros.css';
   }
   .about-hero-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
     align-items: center;
     gap: 3rem;
   }
   .about-hero h1 {
-    max-width: 17ch;
+    max-width: 22ch;
     margin: 1.1rem 0 0;
     color: #0b1f4d;
     font-weight: var(--h1-weight);
     letter-spacing: -0.02em;
   }
   .lead {
-    max-width: 36rem;
+    max-width: 42rem;
     margin: 1.25rem 0 2rem;
     color: #475569;
     font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
     line-height: 1.75;
   }
+  .lead p + p { margin-top: 0.85rem; }
+  .lead strong { color: #1e3a8a; font-weight: 700; }
   .about-hero-copy .btn { box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25); }
   .about-hero-copy .btn :global(svg) { transition: transform 0.2s ease; }
   .about-hero-copy .btn:hover :global(svg) { transform: translateX(3px); }
