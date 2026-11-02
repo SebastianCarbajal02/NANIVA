@@ -18,6 +18,15 @@ export default defineConfig({
     server: {
       // Evita que el dev server vigile la salida del build (EBUSY en Windows con archivos grandes)
       watch: { ignored: ['**/.vercel/**', '**/dist/**'] },
+      // Solo en local: reenvía la API de demos de naniva para probar el formulario sin que la bloquee el CORS
+      // (en producción el navegador la llama directo; ver API_DEMO en src/data/solicitar-demo.ts)
+      proxy: {
+        '/naniva-api': {
+          target: 'https://admin.erp.naniva.cloud',
+          changeOrigin: true,
+          rewrite: (ruta) => ruta.replace(/^\/naniva-api/, '/admin-api'),
+        },
+      },
     },
   },
   redirects: {
