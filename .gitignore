@@ -25,7 +25,9 @@ pnpm-debug.log*
 
 .vercel
 .env*
-public/video/
+# Videos originales pesados (los optimizados de public/video sí se suben)
+public/video/video.mkv
+public/video/fatcuracion.mp4
 
 # skills locales de Claude (taste-skill)
 .claude/skills/
