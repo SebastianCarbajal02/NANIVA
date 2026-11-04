@@ -1,0 +1,34 @@
+---
+// Página de casos de éxito: historias de negocios que crecen con NANIVA
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Nav from '@components/layout/Nav.astro';
+import Hero from '@components/casos-exito/Hero.astro';
+import Casos from '@components/casos-exito/Casos.astro';
+import Impacto from '@components/casos-exito/Impacto.astro';
+import Cta from '@components/casos-exito/Cta.astro';
+
+const site = Astro.site;
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: new URL('/', site).href },
+      { '@type': 'ListItem', position: 2, name: 'Casos de éxito', item: new URL('/casos-de-exito', site).href },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Casos de éxito: empresas que crecen | NANIVA"
+  description="Historias reales de negocios peruanos que transformaron su gestión y alcanzaron nuevos resultados con la plataforma de NANIVA."
+  schema={schema}
+>
+  <Nav />
+  <Hero />
+  <Casos />
+  <Impacto />
+  <Cta />
+</BaseLayout>

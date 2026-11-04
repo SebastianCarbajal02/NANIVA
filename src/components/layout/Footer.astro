@@ -31,7 +31,7 @@ const productLinkHrefs: Record<string, string> = {
 const resourceLinks = ["Casos de éxito", "Términos y condiciones", "Precios"];
 const companyLinks = [
   { label: "Nosotros", href: "/nosotros" },
-  { label: "Clientes", href: "/#casos-exito" },
+  { label: "Clientes", href: "/casos-de-exito" },
   { label: "Contacto", href: "/contacto" },
 ];
 
@@ -89,7 +89,7 @@ const complianceBadges = [
         </button>
         <div class="links-col-body">
           {resourceLinks.map((link) => {
-            const href = link === "Términos y condiciones" ? "/terminos-y-condiciones.pdf" : link === "Precios" ? "/planes" : link === "Casos de éxito" ? "/#casos-exito" : "#";
+            const href = link === "Términos y condiciones" ? "/terminos-y-condiciones.pdf" : link === "Precios" ? "/planes" : link === "Casos de éxito" ? "/casos-de-exito" : "#";
             const target = link === "Términos y condiciones" ? "_blank" : undefined;
             const rel = link === "Términos y condiciones" ? "noopener noreferrer" : undefined;
             return (

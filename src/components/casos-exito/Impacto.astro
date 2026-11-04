@@ -1,0 +1,299 @@
+---
+// Cierre de /casos-de-exito: panel azul con las cifras de impacto y, al lado, testimonios de clientes que rotan solos
+import { Image } from 'astro:assets';
+import { arrowIcon } from '@components/producto/icons';
+import { casos } from '@data/casos-exito';
+
+const svg = (paths: string) =>
+  `<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+const cifras = [
+  { valor: '+50%', texto: ['en eficiencia', 'operativa'], icon: svg('<path d="M4 20V14M10 20V10M16 20V6"/><path d="M2 20h20"/><path d="m4 9 6-4 4 3 6-5"/><path d="M16 3h4v4"/>') },
+  { valor: '-70%', texto: ['en tiempo', 'de gestión'], icon: svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>') },
+  { valor: '+90%', texto: ['de satisfacción', 'de clientes'], icon: svg('<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3l-5.5 2.9 1-6.2L3 9.6l6.2-.9Z"/>') },
+];
+
+// Solo los testimonios confirmados (el resto de la lista aún tiene datos de relleno)
+const testimonios = casos.slice(0, 3);
+---
+
+<section class="ce-impacto">
+  <div class="ce-impacto-inner">
+    <div class="ce-impacto-panel reveal">
+      <div class="ce-impacto-copy">
+        <span class="ce-impacto-eyebrow">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 21h3v-7H3Zm5 0h3V10H8Zm5 0h3V6h-3Z" /><path d="m3 9 5-4 4 3 7-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          EL IMPACTO EN CIFRAS
+        </span>
+        <h2>
+          Resultados que marcan la <span class="ce-impacto-hl">diferencia<svg viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 10C60 3 140 2 197 8" /></svg></span>
+        </h2>
+        <p>Estos son algunos de los beneficios que alcanzan nuestros clientes con NANIVA.</p>
+        <a href="/solicitar-demo" class="ce-impacto-btn">Conoce más beneficios <span set:html={arrowIcon} /></a>
+      </div>
+
+      <ul class="ce-impacto-cifras">
+        {cifras.map((c) => (
+          <li>
+            <span class="ce-impacto-icon" set:html={c.icon} />
+            <strong>{c.valor}</strong>
+            <span>{c.texto[0]}<br />{c.texto[1]}</span>
+          </li>
+        ))}
+      </ul>
+
+      {/* Barras con flecha de crecimiento, arriba a la derecha */}
+      <svg class="ce-impacto-deco" viewBox="0 0 220 150" aria-hidden="true">
+        <rect x="20" y="95" width="34" height="55" rx="4" />
+        <rect x="66" y="70" width="34" height="80" rx="4" />
+        <rect x="112" y="45" width="34" height="105" rx="4" />
+        <path d="M14 82 66 52l40 18L186 14" fill="none" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M160 10h30v30" fill="none" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      {/* Ondas al pie del panel */}
+      <svg class="ce-impacto-olas" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 90C220 40 420 30 640 70s420 40 560-40v90H0Z" fill="rgba(255,255,255,0.06)" />
+        <path d="M0 110C260 70 520 60 760 90s340 20 440-30v60H0Z" fill="rgba(96,165,250,0.35)" />
+      </svg>
+    </div>
+
+    <figure class="ce-testimonio reveal" style="--d: 120ms" data-testimonios>
+      <svg class="ce-testimonio-comillas" viewBox="0 0 48 40" aria-hidden="true"><path d="M0 40V22C0 9 7 2 19 0l2 6c-6 2-9 6-9 12h8v22Zm27 0V22C27 9 34 2 46 0l2 6c-6 2-9 6-9 12h8v22Z" /></svg>
+      {testimonios.map((t, i) => (
+        <div class="ce-testimonio-slide" data-slide hidden={i !== 0}>
+          <blockquote>“{t.quote}”</blockquote>
+          <figcaption>
+            <span class="ce-testimonio-avatar">
+              <Image src={t.avatar} alt="" widths={[64, 128]} sizes="64px" />
+            </span>
+            <span>
+              <strong>{t.name}</strong>
+              <span>{t.role}, {t.nombre}</span>
+            </span>
+          </figcaption>
+        </div>
+      ))}
+      <div class="ce-testimonio-puntos">
+        {testimonios.map((t, i) => (
+          <button type="button" class:list={['ce-testimonio-punto', { activo: i === 0 }]} data-dot={i} aria-label={`Ver testimonio de ${t.nombre}`}></button>
+        ))}
+      </div>
+    </figure>
+  </div>
+</section>
+
+<script>
+  // Testimonios: cambian solos cada 6 s; se detienen con el mouse encima o con movimiento reducido
+  const caja = document.querySelector<HTMLElement>('[data-testimonios]');
+  if (caja) {
+    const slides = Array.from(caja.querySelectorAll<HTMLElement>('[data-slide]'));
+    const dots = Array.from(caja.querySelectorAll<HTMLButtonElement>('[data-dot]'));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let actual = 0;
+    let timer: number | undefined;
+
+    const mostrar = (i: number) => {
+      actual = (i + slides.length) % slides.length;
+      slides.forEach((s, n) => (s.hidden = n !== actual));
+      dots.forEach((d, n) => d.classList.toggle('activo', n === actual));
+    };
+    const iniciar = () => {
+      clearInterval(timer);
+      if (!reduceMotion) timer = window.setInterval(() => mostrar(actual + 1), 6000);
+    };
+
+    dots.forEach((d, n) => d.addEventListener('click', () => { mostrar(n); iniciar(); }));
+    caja.addEventListener('mouseenter', () => clearInterval(timer));
+    caja.addEventListener('mouseleave', iniciar);
+    iniciar();
+  }
+</script>
+
+<style>
+  .ce-impacto {
+    --ink: #0b1f4d;
+    padding: clamp(3rem, 5vw, 5rem) 1rem clamp(3.5rem, 6vw, 6rem);
+    background: linear-gradient(180deg, #f8fbff 0%, #f3f8ff 100%);
+  }
+  .ce-impacto-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 1.5rem;
+    max-width: 1720px;
+    margin: 0 auto;
+  }
+
+  /* Panel azul con el texto a la izquierda y las tres cifras a la derecha */
+  .ce-impacto-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(340px, 1fr) auto;
+    align-items: center;
+    gap: 2rem;
+    padding: clamp(1.75rem, 2.5vw, 2.25rem) clamp(2rem, 3.5vw, 3rem);
+    overflow: hidden;
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--card-shadow);
+    background: linear-gradient(120deg, #0b3a91 0%, #0d4fc4 55%, #1d6ff2 100%);
+    color: #fff;
+  }
+  .ce-impacto-copy { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  .ce-impacto-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    background: #fff;
+    color: #1d4ed8;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .ce-impacto h2 {
+    margin: 0;
+    font-size: clamp(1.6rem, 1.1rem + 1.4vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+  .ce-impacto-hl { position: relative; display: inline-block; color: #7dd3fc; }
+  .ce-impacto-hl svg {
+    position: absolute;
+    left: 0;
+    bottom: -0.22em;
+    width: 100%;
+    height: 0.3em;
+    fill: none;
+    stroke: #7dd3fc;
+    stroke-width: 3;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .ce-impacto-copy p { max-width: 30rem; margin: 0; color: #dbeafe; font-size: 1rem; line-height: 1.6; }
+
+  .ce-impacto-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.4rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    white-space: nowrap;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 0 0 5px rgba(96, 165, 250, 0.35);
+    transition: transform 0.15s ease, background-color 0.2s ease;
+  }
+  .ce-impacto-btn:hover { transform: translateY(-2px); background: #eff6ff; }
+  .ce-impacto-btn:active { transform: scale(0.98); }
+  .ce-impacto-btn:focus-visible { outline: 3px solid #93c5fd; outline-offset: 4px; }
+  .ce-impacto-btn :global(svg) { color: #1d6ff2; transition: transform 0.2s ease; }
+  .ce-impacto-btn:hover :global(svg) { transform: translateX(3px); }
+
+  /* Cifras separadas por líneas finas */
+  .ce-impacto-cifras { position: relative; z-index: 1; display: flex; margin: 0; padding: 0; list-style: none; }
+  .ce-impacto-cifras li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0 clamp(1rem, 2vw, 1.75rem);
+    border-left: 1px solid rgba(255, 255, 255, 0.22);
+    text-align: center;
+    color: #dbeafe;
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+  .ce-impacto-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 0.4rem;
+    border-radius: 50%;
+    background: #e8f1ff;
+    color: #1d6ff2;
+  }
+  .ce-impacto-cifras strong { color: #fff; font-size: clamp(1.8rem, 1.3rem + 1.4vw, 2.5rem); font-weight: 700; line-height: 1.1; }
+
+  .ce-impacto-deco {
+    position: absolute;
+    top: 0.5rem;
+    right: 4%;
+    width: 140px;
+    fill: rgba(255, 255, 255, 0.12);
+    stroke: rgba(255, 255, 255, 0.22);
+    pointer-events: none;
+  }
+  .ce-impacto-olas { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 90px; pointer-events: none; }
+
+  /* Tarjeta de testimonios */
+  .ce-testimonio {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 1.5rem 1.75rem 1.25rem;
+    overflow: hidden;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    background: linear-gradient(160deg, #ffffff 0%, #f2f8ff 100%);
+  }
+  .ce-testimonio-comillas { width: 44px; height: 38px; margin-bottom: 0.9rem; fill: #1d8cf8; }
+  .ce-testimonio-slide { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 1.25rem; }
+  .ce-testimonio-slide[hidden] { display: none; }
+  .ce-testimonio blockquote { margin: 0; color: var(--ink); font-size: 1.05rem; font-weight: 500; line-height: 1.6; }
+  .ce-testimonio figcaption { display: flex; align-items: center; gap: 0.9rem; }
+  .ce-testimonio-avatar {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    padding: 0.4rem;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 4px #dbeafe;
+  }
+  .ce-testimonio-avatar :global(img) { width: 100%; height: 100%; object-fit: contain; }
+  .ce-testimonio figcaption strong { display: block; color: var(--ink); font-size: 1rem; font-weight: 700; }
+  .ce-testimonio figcaption span span { color: #64748b; font-size: 0.85rem; }
+
+  .ce-testimonio-puntos { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.1rem; }
+  .ce-testimonio-punto {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: #cfe3fb;
+    cursor: pointer;
+    transition: width 0.25s ease, background-color 0.25s ease;
+  }
+  .ce-testimonio-punto.activo { width: 24px; background: #1d6ff2; }
+  .ce-testimonio-punto:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ce-impacto-btn, .ce-impacto-btn:hover { transform: none; }
+  }
+  @media (max-width: 1100px) {
+    .ce-impacto-inner { grid-template-columns: 1fr; }
+    .ce-impacto-panel { grid-template-columns: 1fr; }
+    .ce-impacto-cifras li:first-child { padding-left: 0; border-left: 0; }
+  }
+  @media (max-width: 600px) {
+    .ce-impacto-cifras { flex-direction: column; gap: 1.5rem; }
+    .ce-impacto-cifras li { padding: 0; border-left: 0; }
+    .ce-impacto-btn { width: 100%; justify-content: center; }
+    .ce-impacto-deco { display: none; }
+  }
+</style>

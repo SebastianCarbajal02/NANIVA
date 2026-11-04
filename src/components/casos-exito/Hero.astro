@@ -1,0 +1,157 @@
+---
+// Banner de /casos-de-exito: foto corporativa azul con ondas y la emprendedora a la derecha; texto y botón a la izquierda;
+// tarjeta flotante con el lema a la derecha de la foto.
+import { Image } from 'astro:assets';
+import { arrowIcon } from '@components/producto/icons';
+import fondoImg from '@assets/image/casos-exito/banner-corporativo-azul.webp';
+
+// Barras ascendentes con flecha de crecimiento
+const crecimientoIcon = `<svg viewBox="0 0 48 48" width="48" height="48" fill="none" aria-hidden="true"><rect x="6" y="30" width="8" height="12" rx="1.5" fill="#7cc0fb"/><rect x="18" y="24" width="8" height="18" rx="1.5" fill="#3b9bf5"/><rect x="30" y="17" width="8" height="25" rx="1.5" fill="#1d6ff2"/><path d="M6 22 18 13l7 5L40 6" stroke="#1d6ff2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M33 5h8v8" stroke="#1d6ff2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+---
+
+<section class="ce-hero">
+  <div class="ce-hero-inner">
+    <div class="ce-hero-content">
+      <span class="ce-eyebrow">Casos de Éxito</span>
+      <h1>Empresas que crecen <span class="ce-accent">con NANIVA</span></h1>
+      <p class="ce-intro">
+        Historias reales de negocios que transformaron su gestión y alcanzaron nuevos resultados con nuestra plataforma.
+      </p>
+      <a href="/solicitar-demo" class="ce-btn">Solicitar una demo gratuita <span set:html={arrowIcon} /></a>
+    </div>
+
+    <div class="ce-card">
+      <span class="ce-card-icon" set:html={crecimientoIcon} />
+      <p>Negocios más organizados, empresas más fuertes.</p>
+    </div>
+  </div>
+
+  <Image
+    src={fondoImg}
+    alt="Emprendedora sonriente en su almacén"
+    widths={[760, 1200, 1600, 2172]}
+    sizes="100vw"
+    quality={85}
+    loading="eager"
+    fetchpriority="high"
+    class="ce-fondo"
+  />
+</section>
+
+<style>
+  .ce-hero {
+    --ink: #0b1f4d;
+    --pad: clamp(1.5rem, 4vw, 4rem);
+    --nav-h: 79px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* Alto = menú + la foto completa (proporción 3:1); en pantallas medianas no baja de 560px para que entre el texto */
+    min-height: max(560px, calc(var(--nav-h) + 100vw / 3));
+    padding: calc(var(--nav-h) + 2rem) var(--pad) 3rem;
+    overflow: hidden;
+    background: #eaf3fe;
+  }
+  .ce-hero-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+  .ce-hero-content { max-width: 680px; margin-left: clamp(0rem, 5vw, 6rem); display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+
+  .ce-eyebrow {
+    padding: 0.5rem 1.25rem;
+    border-radius: 999px;
+    background: #cfe6fd;
+    color: #0b6fd6;
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+  .ce-hero h1 {
+    margin: 0;
+    font-size: clamp(2.25rem, 1.4rem + 2.9vw, 4rem);
+    color: var(--ink);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .ce-accent { display: block; color: #1d8cf8; }
+  .ce-intro { max-width: 560px; margin: 0; color: #334155; font-size: 1.2rem; font-weight: 450; line-height: 1.7; }
+
+  .ce-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 0.75rem;
+    padding: 0.95rem 1.8rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 10px 24px rgba(11, 31, 77, 0.22);
+    transition: transform 0.15s ease, background-color 0.2s ease;
+  }
+  .ce-btn:hover { transform: translateY(-2px); background: #132c66; }
+  .ce-btn:active { transform: scale(0.98); }
+  .ce-btn:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+  .ce-btn :global(svg) { flex-shrink: 0; transition: transform 0.2s ease; }
+  .ce-btn:hover :global(svg) { transform: translateX(3px); }
+
+  /* Tarjeta de vidrio a la derecha de la foto */
+  .ce-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+    width: 260px;
+    padding: 2rem 1.5rem;
+    border: var(--border-soft);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: center;
+  }
+  .ce-card-icon { display: inline-flex; }
+  .ce-card-icon :global(svg) { width: 56px; height: 56px; }
+  .ce-card p { margin: 0; color: var(--ink); font-size: 1.05rem; font-weight: 600; line-height: 1.45; }
+
+  /* La foto empieza debajo del menú y se ve completa; el lado izquierdo ya trae el azul claro donde va el texto */
+  .ce-fondo {
+    position: absolute;
+    top: var(--nav-h);
+    left: 0;
+    display: block;
+    width: 100%;
+    height: calc(100% - var(--nav-h));
+    object-fit: cover;
+    object-position: 70% center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ce-btn, .ce-btn:hover { transform: none; }
+  }
+  /* Pantallas medianas: la tarjeta taparía a la emprendedora */
+  @media (max-width: 1250px) {
+    .ce-card { display: none; }
+  }
+  /* Celular: la foto pasa debajo del texto, recortada sobre la emprendedora */
+  @media (max-width: 900px) {
+    .ce-hero { flex-direction: column; align-items: stretch; min-height: 0; padding: 6.5rem 1rem 0; background: linear-gradient(180deg, #eef6ff 0%, #e3f0fe 100%); }
+    .ce-hero-content { margin-left: 0; }
+    .ce-fondo { position: relative; top: auto; height: auto; aspect-ratio: 4 / 3; margin-top: 2.5rem; object-position: 76% 0%; }
+  }
+  @media (max-width: 600px) {
+    .ce-btn { width: 100%; }
+  }
+</style>

@@ -1,0 +1,132 @@
+---
+// Cierre de /casos-de-exito: foto de la laptop con NANIVA sobre el escritorio; texto y botón sobre el lado azul
+import { Image } from 'astro:assets';
+import { arrowIcon } from '@components/producto/icons';
+import fondoImg from '@assets/image/casos-exito/cta-laptop-escritorio.webp';
+---
+
+<section class="ce-cta">
+  <div class="ce-cta-panel reveal">
+    <Image src={fondoImg} alt="" widths={[800, 1400, 2000, 3584]} sizes="(max-width: 900px) 100vw, 1200px" quality={80} class="ce-cta-fondo" />
+
+    {/* Cubo de líneas, a la izquierda del texto */}
+    <svg class="ce-cta-cubo" viewBox="0 0 120 130" aria-hidden="true">
+      <path d="M60 6 112 34v62L60 124 8 96V34Z" />
+      <path d="M8 34 60 62l52-28M60 62v62" />
+    </svg>
+
+    <div class="ce-cta-copy">
+      <span class="ce-cta-eyebrow">¿Listo para ser parte de nuestros casos de éxito?</span>
+      <h2>Descubre cómo NANIVA<br />puede impulsar tu negocio</h2>
+      <p>Solicita una demo gratuita y comienza tu transformación digital.</p>
+      <a href="/solicitar-demo" class="ce-cta-btn">Solicitar una demo gratuita <span set:html={arrowIcon} /></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ce-cta {
+    --ink: #0b1f4d;
+    padding: clamp(3rem, 5vw, 5rem) 1rem;
+    background: #fff;
+  }
+
+  .ce-cta-panel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 1560px;
+    min-height: 360px;
+    margin: 0 auto;
+    padding: clamp(2rem, 3.5vw, 3rem) clamp(1.75rem, 4vw, 4rem) clamp(2rem, 3.5vw, 3rem) clamp(1.75rem, 15vw, 16rem);
+    overflow: hidden;
+    border: var(--border-soft);
+    border-radius: var(--panel-radius);
+    box-shadow: var(--card-shadow);
+    background: #06305f;
+    color: #fff;
+  }
+  /* La foto ocupa el alto del banner y se pega a la derecha; a la izquierda sigue el mismo azul de la foto */
+  .ce-cta-fondo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+    max-width: none;
+    height: 100%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%);
+    mask-image: linear-gradient(90deg, transparent, #000 12%);
+  }
+
+  .ce-cta-cubo {
+    position: absolute;
+    left: clamp(1.5rem, 5vw, 6rem);
+    top: 50%;
+    width: clamp(90px, 8vw, 130px);
+    transform: translateY(-50%);
+    fill: rgba(255, 255, 255, 0.04);
+    stroke: rgba(125, 211, 252, 0.6);
+    stroke-width: 2;
+    stroke-linejoin: round;
+    pointer-events: none;
+  }
+
+  .ce-cta-copy { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 0.8rem; max-width: 34rem; }
+  .ce-cta-eyebrow {
+    padding: 0.45rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .ce-cta h2 {
+    margin: 0;
+    font-size: clamp(1.6rem, 1.1rem + 1.4vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+  .ce-cta-copy p { margin: 0; color: #dbeafe; font-size: 1rem; line-height: 1.6; }
+
+  .ce-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.4rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    white-space: nowrap;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 10px 24px rgba(11, 31, 77, 0.22);
+    transition: transform 0.15s ease, background-color 0.2s ease;
+  }
+  .ce-cta-btn:hover { transform: translateY(-2px); background: #eff6ff; }
+  .ce-cta-btn:active { transform: scale(0.98); }
+  .ce-cta-btn:focus-visible { outline: 3px solid #93c5fd; outline-offset: 4px; }
+  .ce-cta-btn :global(svg) { color: #1d6ff2; transition: transform 0.2s ease; }
+  .ce-cta-btn:hover :global(svg) { transform: translateX(3px); }
+
+
+  @media (prefers-reduced-motion: reduce) {
+    .ce-cta-btn, .ce-cta-btn:hover { transform: none; }
+  }
+  @media (max-width: 1100px) {
+    .ce-cta-cubo { display: none; }
+    .ce-cta-panel { padding-left: clamp(1.75rem, 4vw, 3rem); }
+  }
+  @media (max-width: 900px) {
+    /* Sin espacio para la laptop: se muestra el lado azul y se oscurece para que el texto se lea */
+    .ce-cta-fondo { inset: 0; width: 100%; object-fit: cover; object-position: left center; -webkit-mask-image: none; mask-image: none; }
+    .ce-cta-panel::before { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(11, 58, 145, 0.55); }
+  }
+  @media (max-width: 600px) {
+    .ce-cta h2 br { display: none; }
+    .ce-cta-btn { width: 100%; justify-content: center; }
+  }
+</style>
