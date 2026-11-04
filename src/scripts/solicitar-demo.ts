@@ -34,7 +34,9 @@ const errorEl = form?.querySelector<HTMLElement>('.demo-error');
 const submitBtn = form?.querySelector<HTMLButtonElement>('.demo-submit');
 const submitText = form?.querySelector<HTMLElement>('.demo-submit-text');
 
-const { show: showModal } = initFormModal();
+const { show: showModal, hide: hideModal } = initFormModal();
+// Tiempo mínimo de la pantalla de carga antes de mostrar el resultado
+const CARGA_MINIMA_MS = 1_200;
 
 type Campo = HTMLInputElement | HTMLSelectElement;
 
@@ -371,14 +373,34 @@ form?.addEventListener('submit', async (e) => {
   if (submitBtn) submitBtn.disabled = true;
   if (submitText) submitText.textContent = 'Enviando...';
 
+  // Pantalla de carga mientras dura el envío: cada paso cambia el texto y al final el mismo modal
+  // pasa a "Solicitud enviada" (o al error). Si hay que corregir un dato, se cierra y se marca el campo
+  const inicio = Date.now();
+  let resuelto = false;
+  const paso = (mensaje: string) => showModal('loading', 'Enviando tu solicitud', mensaje);
+  const corregir = (campo: CampoDemo | null, mensaje: string) => {
+    resuelto = true;
+    hideModal();
+    mostrarError(campo, mensaje);
+  };
+  const resultado = async (...args: Parameters<typeof showModal>) => {
+    // La carga se ve al menos un momento, para que el cambio al resultado no sea un parpadeo
+    const falta = CARGA_MINIMA_MS - (Date.now() - inicio);
+    if (falta > 0) await new Promise((r) => setTimeout(r, falta));
+    resuelto = true;
+    showModal(...args);
+  };
+
   try {
     const { datos } = validacion;
+    paso('Verificando tus datos…');
     // Un dominio que no existe se rechaza aquí, antes de enviar a naniva (si no se pudo comprobar, pasa)
     if ((await dominioValido(datos.correo)) === false) {
-      mostrarError('correo', MENSAJES.dominio);
+      corregir('correo', MENSAJES.dominio);
       return;
     }
 
+    paso('Registrando tu solicitud…');
     const naniva = await enviarANaniva({
       nombre: datos.nombre,
       telefono: datos.telefono,
@@ -389,36 +411,43 @@ form?.addEventListener('submit', async (e) => {
       sitio_web: '', // honeypot: en un envío legítimo siempre va vacío
     });
     if (naniva.tipo === 'rechazado') {
-      mostrarError(naniva.campo, naniva.error);
+      corregir(naniva.campo, naniva.error);
       return;
     }
 
+    paso('Guardando tus datos…');
     const hoja = await guardarEnHoja({ ...crudo, sitio_web: trampa?.value ?? '' });
     // Si naniva ya recibió la solicitud, un rechazo de la hoja no se le muestra a la persona
     if (naniva.tipo === 'fallo' && hoja.tipo === 'campo') {
-      mostrarError(hoja.campo, hoja.error);
+      corregir(hoja.campo, hoja.error);
       return;
     }
     if (naniva.tipo === 'fallo' && hoja.tipo === 'bloqueado') {
-      if (errorEl) errorEl.textContent = hoja.error;
+      corregir(null, hoja.error);
       return;
     }
 
     // El correo solo sale si el servidor aceptó la solicitud, o de respaldo si el servidor no respondió
-    const correoEnviado = hoja.tipo === 'fallo' || (hoja.tipo === 'ok' && hoja.aviso) ? await avisarPorCorreo(datos) : false;
+    const avisar = hoja.tipo === 'fallo' || (hoja.tipo === 'ok' && hoja.aviso);
+    if (avisar) paso('Avisando a nuestro equipo…');
+    const correoEnviado = avisar ? await avisarPorCorreo(datos) : false;
 
     if (naniva.tipo === 'fallo' && hoja.tipo === 'fallo' && !correoEnviado) {
-      showModal('error', 'No se pudo enviar', 'Hubo un error al enviar tu solicitud. Por favor intenta nuevamente o escríbenos por WhatsApp.');
+      await resultado('error', 'No se pudo enviar', 'Hubo un error al enviar tu solicitud. Por favor intenta nuevamente o escríbenos por WhatsApp.');
       return;
     }
 
-    showModal('success', 'Solicitud enviada', '¡Gracias! Nuestro equipo se pondrá en contacto contigo para coordinar tu demo.');
+    await resultado('success', 'Solicitud enviada', '¡Gracias! Nuestro equipo se pondrá en contacto contigo para coordinar tu demo.');
     form.reset();
     pedirFicha(); // cada ficha sirve para un solo envío
     rubro.dispatchEvent(new Event('change'));
     CAMPOS.forEach(([f]) => f?.classList.remove('is-valid', 'is-invalid'));
     if (sugerencia) sugerencia.hidden = true;
+  } catch (error) {
+    console.error('Error inesperado al enviar la solicitud:', error);
+    await resultado('error', 'No se pudo enviar', 'Hubo un error al enviar tu solicitud. Por favor intenta nuevamente o escríbenos por WhatsApp.');
   } finally {
+    if (!resuelto) hideModal(); // nunca queda la pantalla de carga abierta
     if (submitBtn) submitBtn.disabled = false;
     if (submitText && textoOriginal) submitText.textContent = textoOriginal;
   }

@@ -424,6 +424,26 @@ const loadAnalytics = import.meta.env.PROD;
     color: #dc2626;
   }
 
+  /* Pantalla de carga (formulario de demo): ícono girando, sin botones y barra que avanza en bucle */
+  .form-modal:focus { outline: none; }
+  .form-modal.is-loading .form-modal-icon {
+    background: #dbeafe;
+    color: #2563eb;
+  }
+  .form-modal-spinner { animation: spin 0.9s linear infinite; }
+  .form-modal.is-loading .form-modal-close,
+  .form-modal.is-loading .form-modal-btn { display: none; }
+  .form-modal.is-loading p { margin-bottom: 0.5rem; }
+  .form-modal.is-loading .form-modal-progress {
+    width: 35%;
+    background: #2563eb;
+    animation: form-modal-indeterminado 1.4s ease-in-out infinite;
+  }
+  @keyframes form-modal-indeterminado {
+    from { left: -35%; }
+    to { left: 100%; }
+  }
+
   .form-modal h3 {
     font-size: 1.3rem;
     color: #0f172a;
@@ -465,6 +485,8 @@ const loadAnalytics = import.meta.env.PROD;
       animation: none !important;
     }
     .form-modal-progress { transition: none !important; }
+    .form-modal-spinner { animation-duration: 2.4s; }
+    .form-modal.is-loading .form-modal-progress { animation: none; left: 0; width: 100%; opacity: 0.35; }
   }
 </style>
 
