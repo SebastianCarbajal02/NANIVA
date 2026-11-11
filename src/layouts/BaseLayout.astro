@@ -75,7 +75,11 @@ const loadAnalytics = import.meta.env.PROD;
     {!noindex && <link rel="canonical" href={canonicalURL} />}
     {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#1e3a8a" />
-    <link rel="icon" type="image/webp" href={logoIcon.src} />
+    <!-- Favicon: cuadrado y en ruta fija (Google exige cuadrado, múltiplo de 48 px) -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
