@@ -11,7 +11,8 @@ import laptopImg from '@assets/image/migracion-datos/img-migracion-sin-fondo.web
 
 // Video de cada comprobante (en public/video): se reproduce en bucle, sin sonido, solo mientras se ve.
 // Dos versiones: `src` liviana para la laptop (1280 px) y `hd` (1920 px) que solo se descarga al abrir el visor.
-// Antes de subirlo: recortar las pausas, 30 fps, sin audio (el de facturas: 14 s, 350 KB y 730 KB en HD).
+// Antes de subirlo: recortar la ventana del navegador y las pausas, 30 fps, sin audio, con proporción 1280×610
+// (facturas: 14 s, 350 KB y 730 KB en HD; boletas: 18 s, 205 KB y 335 KB en HD).
 // `pasos`: recorrido guiado (estilo Intro.js) sincronizado con el video. desde/hasta en segundos;
 // caja = recuadro resaltado [x, y, ancho, alto] y tip = esquina superior izquierda de la burbuja, en % del cuadro
 // del video. `luego` mueve el recuadro dentro del mismo paso (p. ej. cuando una ventana crece).
@@ -31,12 +32,26 @@ const videos: Record<string, { src: string; hd: string; poster: string; pasos?: 
       { desde: 12.2, hasta: 13.8, caja: [24, 0.6, 31.8, 89], tip: [58, 30], titulo: 'Comprobante listo', texto: 'Imprímelo, descárgalo en PDF o envíalo al cliente.' },
     ],
   },
+  boletas: {
+    src: '/video/boleta.mp4',
+    hd: '/video/boleta-hd.mp4',
+    poster: '/video/boleta-poster.webp',
+    pasos: [
+      { desde: 0, hasta: 1.4, caja: [83.3, 10.5, 14.8, 11.1], tip: [54, 12], titulo: 'Elige Boleta', texto: 'El número de serie se asigna solo.' },
+      { desde: 1.5, hasta: 3.9, caja: [24.4, 14, 54.5, 5.6], tip: [38, 42], titulo: 'Busca el producto', texto: 'Por nombre o código, con su stock y precio.' },
+      { desde: 4, hasta: 5.9, caja: [14.7, 29.5, 23, 15.5], luego: { desde: 5.3, caja: [74.2, 48.4, 6.4, 5] }, tip: [42, 62], titulo: 'Elige la cantidad', texto: 'Por unidad, docena o caja, y agrégalo.' },
+      { desde: 6, hasta: 11.9, caja: [82.8, 24.6, 16.8, 11], tip: [52, 20], titulo: 'Elige al cliente', texto: 'Búscalo por nombre o documento. Es opcional.' },
+      { desde: 12, hasta: 14.3, caja: [53.4, 90.8, 9.2, 6.9], tip: [44, 68], titulo: 'Registra la venta', texto: 'La boleta queda guardada con su número de serie.' },
+      { desde: 15.5, hasta: 17, caja: [24, 0.6, 31.8, 89], tip: [58, 30], titulo: 'Comprobante listo', texto: 'Imprímelo o guárdalo en PDF.' },
+      { desde: 17.1, hasta: 18.4, caja: [40.2, 33.4, 20.2, 33.6], tip: [63, 36], titulo: 'Guía de remisión', texto: 'Si trasladas mercadería, genera también tu guía.' },
+    ],
+  },
 };
 
 // Captura fija para los comprobantes que no tengan video.
 // `encuadre` es la franja que se ve en la laptop (en px de la imagen original): x = inicio, w = ancho.
 // El alto sale solo de la proporción de la pantalla. El visor con zoom siempre muestra la captura entera.
-// Ej.: boletas: { img: boletaImg, encuadre: { x: 270, w: 980 } }
+// Ej.: notas: { img: notaImg, encuadre: { x: 270, w: 980 } }
 const capturas: Record<string, { img: ImageMetadata; encuadre?: { x: number; w: number } }> = {};
 const encuadreStyle = ({ img, encuadre }: (typeof capturas)[string]) =>
   encuadre
