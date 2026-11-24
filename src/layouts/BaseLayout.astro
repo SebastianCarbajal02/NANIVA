@@ -64,6 +64,8 @@ const schemas = [
 // Google Analytics 4: solo en producción, para no registrar visitas de desarrollo
 const gaMeasurementId = "G-6JK2T780MX";
 const loadAnalytics = import.meta.env.PROD;
+// Píxel de Meta (Facebook/Instagram Ads): mismo criterio, solo en producción
+const metaPixelId = "443739827309263";
 ---
 <!doctype html>
 <html lang="es">
@@ -144,6 +146,44 @@ const loadAnalytics = import.meta.env.PROD;
             link_location: section ? (section.id || section.tagName.toLowerCase()) : "body",
             page_path: location.pathname,
           });
+        }, { capture: true });
+      </script>
+    )}
+
+    {loadAnalytics && (
+      <script is:inline define:vars={{ metaPixelId }}>
+        // Píxel de Meta: fbq encola los eventos y el script de Facebook se descarga diferido
+        // (igual que Google Analytics) para no afectar LCP/INP.
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];}(window,document);
+        fbq("init", metaPixelId);
+        fbq("track", "PageView");
+
+        let fbLoaded = false;
+        function loadFb() {
+          if (fbLoaded) return;
+          fbLoaded = true;
+          const s = document.createElement("script");
+          s.async = true;
+          s.src = "https://connect.facebook.net/en_US/fbevents.js";
+          document.head.appendChild(s);
+        }
+        ["pointerdown", "keydown", "scroll"].forEach((ev) =>
+          window.addEventListener(ev, loadFb, { once: true, passive: true })
+        );
+        window.addEventListener("load", () => {
+          if ("requestIdleCallback" in window) requestIdleCallback(loadFb, { timeout: 3000 });
+          else setTimeout(loadFb, 2000);
+        });
+
+        // Clic a WhatsApp = Contact
+        document.addEventListener("click", (e) => {
+          const link = e.target.closest && e.target.closest("a[href]");
+          if (!link) return;
+          let host;
+          try { host = new URL(link.href).hostname; } catch { return; }
+          if (/(^|\.)(wa\.me|wa\.link|api\.whatsapp\.com)$/.test(host)) fbq("track", "Contact");
         }, { capture: true });
       </script>
     )}

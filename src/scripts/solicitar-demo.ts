@@ -438,6 +438,7 @@ form?.addEventListener('submit', async (e) => {
     }
 
     await resultado('success', 'Solicitud enviada', '¡Gracias! Nuestro equipo se pondrá en contacto contigo para coordinar tu demo.');
+    (window as any).fbq?.('track', 'Lead'); // conversión para Meta Ads
     form.reset();
     pedirFicha(); // cada ficha sirve para un solo envío
     rubro.dispatchEvent(new Event('change'));
